@@ -16,7 +16,7 @@
       "label": "prod/chromium (desktop)",
       "browser": "chromium",
       "browserVersion": "159.0.8154.6",
-      "firstBootMs": 1667.1,
+      "firstBootMs": 1749.3,
       "idleHeapMB": 30,
       "step1_tracemalloc": {
         "current": 4000000,
@@ -33,64 +33,38 @@
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 11.9,
+          "wallMs": 11.6,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2081
+          "freshWorkerBootMs": 2067.1
         },
         "[0]*10**9": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
-          "wallMs": 8,
+          "wallMs": 6.1,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2484.9
+          "freshWorkerBootMs": 2411.9
         },
         "bytearray(3*2**30)": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 8.4,
+          "wallMs": 5.9,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2370.2
+          "freshWorkerBootMs": 2235.7
         }
       },
       "step3_ceiling": {
         "runs": [
           {
             "outcome": "MemoryError",
-            "wallMs": 1084.3,
-            "killedByWatchdog": false,
-            "message": null,
-            "lastReportedMB": 4050,
-            "heapMBAtLastReport": 4095.9,
-            "heapMBAtEnd": 4095.9,
-            "maxMB": 4050,
-            "pySeconds": 1.08,
-            "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2465.3
-          },
-          {
-            "outcome": "MemoryError",
-            "wallMs": 1055.4,
-            "killedByWatchdog": false,
-            "message": null,
-            "lastReportedMB": 4050,
-            "heapMBAtLastReport": 4095.9,
-            "heapMBAtEnd": 4095.9,
-            "maxMB": 4050,
-            "pySeconds": 1.05,
-            "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2524.1
-          },
-          {
-            "outcome": "MemoryError",
-            "wallMs": 1062.4,
+            "wallMs": 1066.7,
             "killedByWatchdog": false,
             "message": null,
             "lastReportedMB": 4050,
@@ -99,7 +73,33 @@
             "maxMB": 4050,
             "pySeconds": 1.06,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2461.1
+            "freshWorkerBootMs": 2144.4
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 1149.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 1.15,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2500
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 1125.9,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 1.12,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2394.7
           }
         ],
         "summary": {
@@ -117,178 +117,358 @@
             "max": 4096
           },
           "timeToFailureS": {
-            "median": 1.06,
-            "min": 1.06,
-            "max": 1.08
+            "median": 1.13,
+            "min": 1.07,
+            "max": 1.15
           }
         }
       },
       "softLimit": {
         "limitMB": 256,
-        "byN": {
+        "chunks": {
           "1": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 149.1,
+            "wallMs": 121.2,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 250,
-            "mb": 300,
-            "tracedAtStopMB": 300.0030002593994,
+            "stoppedAtMB": 300.0030326843262,
             "events": 20,
-            "pySeconds": 0.05299997329711914,
+            "pySeconds": 0.05800008773803711,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2452.8
+            "freshWorkerBootMs": 2331.3
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 135.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 300.0030326843262,
+            "events": 20,
+            "pySeconds": 0.0559999942779541,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2349.6
           },
           "100": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 418.9,
+            "wallMs": 390.9,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 1600,
-            "mb": 1600,
-            "tracedAtStopMB": 1600.0038108825684,
+            "stoppedAtMB": 1600.0038433074951,
             "events": 100,
-            "pySeconds": 0.3149998188018799,
+            "pySeconds": 0.312000036239624,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2464.7
+            "freshWorkerBootMs": 2443.9
           },
           "1000": {
             "outcome": "native MemoryError (soft hook never fired)",
-            "wallMs": 1159.6,
+            "wallMs": 1181.8,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 4050,
-            "mb": 4050,
-            "tracedAtStopMB": 0,
+            "stoppedAtMB": 4050,
             "events": 249,
-            "pySeconds": 1.067000150680542,
+            "pySeconds": 1.1099998950958252,
             "stoppedBeforeWasmCeiling": false,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2551.7
+            "freshWorkerBootMs": 2200.6
+          }
+        },
+        "small": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 939.6,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.0024585723877,
+            "events": 199721,
+            "pySeconds": 0.7750000953674316,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2836.7
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 967.1,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.01398277282715,
+            "events": 199730,
+            "pySeconds": 0.7829999923706055,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2476.9
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 762,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.1023349761963,
+            "events": 199800,
+            "pySeconds": 0.5920000076293945,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2522.1
+          },
+          "1000": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 785.7,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.35970878601074,
+            "events": 200000,
+            "pySeconds": 0.6519999504089355,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2445.9
           }
         }
       },
       "overheadMs": {
         "baseline": {
-          "median": 105.2,
-          "min": 82.4,
-          "max": 111.2
+          "median": 92.8,
+          "min": 55.6,
+          "max": 121.4
         },
         "tracemalloc_only": {
-          "median": 423.1,
-          "min": 416.4,
-          "max": 459.7
+          "median": 346.2,
+          "min": 299.7,
+          "max": 420.5
         },
         "hook_no_tracemalloc_check": {
-          "median": 889.2,
-          "min": 845.9,
-          "max": 911.5
+          "median": 746.7,
+          "min": 530.5,
+          "max": 930.6
+        },
+        "hook_tracemalloc_no_check": {
+          "median": 1159.4,
+          "min": 1068.9,
+          "max": 1254.1
         },
         "hook_N1000": {
-          "median": 1466,
-          "min": 1454.8,
-          "max": 1550.9
+          "median": 1361.2,
+          "min": 1201.5,
+          "max": 1392
         },
         "hook_N100": {
-          "median": 1465.2,
-          "min": 1443.7,
-          "max": 1534.7
+          "median": 1257.1,
+          "min": 1039.8,
+          "max": 1484.7
+        },
+        "hook_N10": {
+          "median": 1292.5,
+          "min": 1251.3,
+          "max": 1410.6
         },
         "hook_N1": {
-          "median": 2218.2,
-          "min": 1484.9,
-          "max": 2248.4
+          "median": 1862.6,
+          "min": 1776.5,
+          "max": 1937.5
         }
       },
       "overheadRaw": {
         "baseline": [
-          82.35000000000036,
-          106.44999999999882,
-          111.20000000000019,
-          105.2199999999992,
-          98.19999999999851
+          55.55999999999983,
+          82.13000000000115,
+          118.67499999999964,
+          92.80000000000044,
+          121.40000000000128
         ],
         "tracemalloc_only": [
-          459.67499999999984,
-          424.8200000000004,
-          423.06500000000113,
-          416.3800000000002,
-          421.2900000000026
+          299.65500000000003,
+          420.50000000000057,
+          346.23500000000007,
+          402.08999999999764,
+          302.16000000000065
         ],
         "hook_no_tracemalloc_check": [
-          890.0200000000002,
-          845.8500000000005,
-          889.1799999999996,
-          871.7000000000006,
-          911.5099999999998
+          746.7200000000003,
+          800.2399999999988,
+          530.5099999999995,
+          688.085000000001,
+          930.6100000000015
+        ],
+        "hook_tracemalloc_no_check": [
+          1159.4000000000003,
+          1254.1349999999998,
+          1156.5600000000024,
+          1210.085000000003,
+          1068.9350000000034
         ],
         "hook_N1000": [
-          1454.765,
-          1465.985,
-          1481.4400000000028,
-          1550.8799999999994,
-          1458.8999999999999
+          1372.7599999999995,
+          1361.225000000001,
+          1201.525,
+          1391.9599999999973,
+          1287.9250000000013
         ],
         "hook_N100": [
-          1465.23,
-          1451.080000000001,
-          1443.7149999999974,
-          1534.6949999999993,
-          1490.624999999998
+          1418.4400000000003,
+          1484.7300000000007,
+          1039.8200000000024,
+          1257.0999999999976,
+          1178.3750000000027
+        ],
+        "hook_N10": [
+          1292.5250000000003,
+          1251.305000000002,
+          1293.0199999999986,
+          1266.1899999999982,
+          1410.6450000000023
         ],
         "hook_N1": [
-          2218.165000000001,
-          2148.085,
-          2237.7150000000015,
-          2248.4,
-          1484.9350000000002
+          1776.505,
+          1850.9449999999995,
+          1937.540000000002,
+          1907.004999999998,
+          1862.640000000006
         ]
       },
       "overheadFactorVsBaseline": {
         "baseline": 1,
-        "tracemalloc_only": 4.02,
-        "hook_no_tracemalloc_check": 8.45,
-        "hook_N1000": 13.94,
-        "hook_N100": 13.93,
-        "hook_N1": 21.09
+        "tracemalloc_only": 3.73,
+        "hook_no_tracemalloc_check": 8.05,
+        "hook_tracemalloc_no_check": 12.49,
+        "hook_N1000": 14.67,
+        "hook_N100": 13.55,
+        "hook_N10": 13.93,
+        "hook_N1": 20.07
+      },
+      "realTracerOverheadMs": {
+        "untraced": {
+          "median": 7.4,
+          "min": 5.3,
+          "max": 8.2
+        },
+        "tracer_only": {
+          "median": 1367.8,
+          "min": 368,
+          "max": 2031.4
+        },
+        "tracer_tracemalloc_no_check": {
+          "median": 2892.1,
+          "min": 1584.3,
+          "max": 3357.2
+        },
+        "tracer_tracemalloc_N1000": {
+          "median": 2882.4,
+          "min": 1650.1,
+          "max": 3131.2
+        },
+        "tracer_tracemalloc_N100": {
+          "median": 2282.3,
+          "min": 1771.5,
+          "max": 3222.3
+        },
+        "tracer_tracemalloc_N10": {
+          "median": 2823.1,
+          "min": 2198.5,
+          "max": 3510.4
+        },
+        "tracer_tracemalloc_N1": {
+          "median": 3100.6,
+          "min": 2322.7,
+          "max": 3547.1
+        }
+      },
+      "realTracerOverheadRaw": {
+        "untraced": [
+          5.319999999997549,
+          7.3949999999953775,
+          6.879999999995334,
+          8.179999999995857,
+          8.04500000000985
+        ],
+        "tracer_only": [
+          368.02000000000135,
+          1235.7399999999998,
+          1631.0250000000083,
+          2031.409999999994,
+          1367.8150000000073
+        ],
+        "tracer_tracemalloc_no_check": [
+          1584.3300000000013,
+          2181.0299999999997,
+          3100.4449999999933,
+          2892.1300000000087,
+          3357.1950000000043
+        ],
+        "tracer_tracemalloc_N1000": [
+          1650.0950000000003,
+          2882.4100000000003,
+          2163.309999999996,
+          3131.245000000007,
+          3034.3349999999987
+        ],
+        "tracer_tracemalloc_N100": [
+          1771.5150000000008,
+          2432.7849999999953,
+          1965.6250000000027,
+          2282.2550000000065,
+          3222.3049999999917
+        ],
+        "tracer_tracemalloc_N10": [
+          2217.970000000001,
+          3510.4199999999964,
+          2823.1099999999997,
+          2909.604999999999,
+          2198.4700000000003
+        ],
+        "tracer_tracemalloc_N1": [
+          2322.685,
+          3100.6050000000014,
+          3547.0749999999925,
+          3201.8799999999883,
+          2646.8849999999975
+        ]
+      },
+      "realTracerEvents": 200009,
+      "realTracerFactorVsTracerOnly": {
+        "untraced": 0.01,
+        "tracer_only": 1,
+        "tracer_tracemalloc_no_check": 2.11,
+        "tracer_tracemalloc_N1000": 2.11,
+        "tracer_tracemalloc_N100": 1.67,
+        "tracer_tracemalloc_N10": 2.06,
+        "tracer_tracemalloc_N1": 2.27
       },
       "structuralEstimate": {
         "[0]*10**6": {
-          "tracemallocCurrentBytes": 4000076,
-          "tracemallocPeakBytes": 4000080,
+          "tracemallocCurrentBytes": 4000904,
+          "tracemallocPeakBytes": 4000904,
           "estimateBytes": 4000044,
-          "estimateMs": 290.2600000000035
+          "estimateMs": 162.00500000000773
         },
         "list(range(10**6))": {
           "tracemallocCurrentBytes": 19995224,
           "tracemallocPeakBytes": 19995224,
           "estimateBytes": 20000028,
-          "estimateMs": 1791.3600000000044
+          "estimateMs": 1734.5100000000002
         },
         "[str(i) for i in range(10**5)]": {
           "tracemallocCurrentBytes": 2989430,
           "tracemallocPeakBytes": 2989450,
           "estimateBytes": 2989382,
-          "estimateMs": 210.6500000000011
+          "estimateMs": 173.32000000000392
         },
         "{i: i for i in range(10**5)}": {
           "tracemallocCurrentBytes": 4740136,
           "tracemallocPeakBytes": 6111128,
           "estimateBytes": 4745780,
-          "estimateMs": 221.87499999999716
+          "estimateMs": 222.3199999999963
         }
       },
       "pageCrashes": 0,
       "events": [],
-      "assertions": 26
+      "assertions": 38
     },
     {
       "label": "prod/firefox (desktop)",
       "browser": "firefox",
       "browserVersion": "159.0",
-      "firstBootMs": 1764,
+      "firstBootMs": 1757.1,
       "idleHeapMB": 30,
       "step1_tracemalloc": {
         "current": 4000000,
@@ -305,38 +485,64 @@
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 5.5,
+          "wallMs": 5.7,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2362.3
+          "freshWorkerBootMs": 2321.7
         },
         "[0]*10**9": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
-          "wallMs": 4.4,
+          "wallMs": 4.5,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2712.1
+          "freshWorkerBootMs": 2708.8
         },
         "bytearray(3*2**30)": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 4.3,
+          "wallMs": 4.5,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2650.4
+          "freshWorkerBootMs": 2738.6
         }
       },
       "step3_ceiling": {
         "runs": [
           {
             "outcome": "MemoryError",
-            "wallMs": 676.8,
+            "wallMs": 820.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.81,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2778.6
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 769.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.76,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2804.2
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 678.1,
             "killedByWatchdog": false,
             "message": null,
             "lastReportedMB": 4050,
@@ -345,33 +551,7 @@
             "maxMB": 4050,
             "pySeconds": 0.67,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2793.8
-          },
-          {
-            "outcome": "MemoryError",
-            "wallMs": 681.6,
-            "killedByWatchdog": false,
-            "message": null,
-            "lastReportedMB": 4050,
-            "heapMBAtLastReport": 4095.9,
-            "heapMBAtEnd": 4095.9,
-            "maxMB": 4050,
-            "pySeconds": 0.68,
-            "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2773.7
-          },
-          {
-            "outcome": "MemoryError",
-            "wallMs": 694.7,
-            "killedByWatchdog": false,
-            "message": null,
-            "lastReportedMB": 4050,
-            "heapMBAtLastReport": 4095.9,
-            "heapMBAtEnd": 4095.9,
-            "maxMB": 4050,
-            "pySeconds": 0.69,
-            "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2880.7
+            "freshWorkerBootMs": 2866
           }
         ],
         "summary": {
@@ -389,178 +569,358 @@
             "max": 4096
           },
           "timeToFailureS": {
-            "median": 0.68,
+            "median": 0.77,
             "min": 0.68,
-            "max": 0.69
+            "max": 0.82
           }
         }
       },
       "softLimit": {
         "limitMB": 256,
-        "byN": {
+        "chunks": {
           "1": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 185.5,
+            "wallMs": 185.7,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 250,
-            "mb": 300,
-            "tracedAtStopMB": 300.0030002593994,
+            "stoppedAtMB": 300.0030326843262,
             "events": 20,
-            "pySeconds": 0.06799983978271484,
+            "pySeconds": 0.06399989128112793,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2821.4
+            "freshWorkerBootMs": 2483.2
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 151,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 300.0030326843262,
+            "events": 20,
+            "pySeconds": 0.06299996376037598,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2613.2
           },
           "100": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 401.2,
+            "wallMs": 347,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 1600,
-            "mb": 1600,
-            "tracedAtStopMB": 1600.0038108825684,
+            "stoppedAtMB": 1600.0038433074951,
             "events": 100,
-            "pySeconds": 0.2849998474121094,
+            "pySeconds": 0.23200011253356934,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2723
+            "freshWorkerBootMs": 2634.8
           },
           "1000": {
             "outcome": "native MemoryError (soft hook never fired)",
-            "wallMs": 890.7,
+            "wallMs": 678.2,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 4050,
-            "mb": 4050,
-            "tracedAtStopMB": 0,
+            "stoppedAtMB": 4050,
             "events": 249,
-            "pySeconds": 0.7680001258850098,
+            "pySeconds": 0.560999870300293,
             "stoppedBeforeWasmCeiling": false,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2789.5
+            "freshWorkerBootMs": 2507
+          }
+        },
+        "small": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 839.1,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.0024585723877,
+            "events": 199721,
+            "pySeconds": 0.6180000305175781,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2320.9
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 1003,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.01398277282715,
+            "events": 199730,
+            "pySeconds": 0.7789998054504395,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2516.8
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 784.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.1023349761963,
+            "events": 199800,
+            "pySeconds": 0.6149997711181641,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2679.5
+          },
+          "1000": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 869.4,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.35970878601074,
+            "events": 200000,
+            "pySeconds": 0.637000322341919,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2329.6
           }
         }
       },
       "overheadMs": {
         "baseline": {
-          "median": 108.4,
-          "min": 101,
-          "max": 112.5
+          "median": 104.9,
+          "min": 72.3,
+          "max": 108.3
         },
         "tracemalloc_only": {
-          "median": 467.5,
-          "min": 455.8,
-          "max": 595.8
+          "median": 513.6,
+          "min": 395.5,
+          "max": 533.3
         },
         "hook_no_tracemalloc_check": {
-          "median": 934.9,
-          "min": 811.5,
-          "max": 991.5
+          "median": 947.8,
+          "min": 937.1,
+          "max": 977.2
+        },
+        "hook_tracemalloc_no_check": {
+          "median": 1589.4,
+          "min": 1554.6,
+          "max": 1618.1
         },
         "hook_N1000": {
-          "median": 1608,
-          "min": 1573.9,
-          "max": 1806.2
+          "median": 1637.9,
+          "min": 1633,
+          "max": 1650.8
         },
         "hook_N100": {
-          "median": 1636.7,
-          "min": 1537.2,
-          "max": 1669.5
+          "median": 1593.1,
+          "min": 1551,
+          "max": 1630.8
+        },
+        "hook_N10": {
+          "median": 1697.2,
+          "min": 1663,
+          "max": 1736.3
         },
         "hook_N1": {
-          "median": 2987.2,
-          "min": 2465.3,
-          "max": 2996
+          "median": 2999.1,
+          "min": 2949.2,
+          "max": 3029.4
         }
       },
       "overheadRaw": {
         "baseline": [
-          103.24,
-          108.42000000000063,
-          110.57999999999879,
-          100.97999999999985,
-          112.5199999999964
+          72.28000000000011,
+          104.44000000000031,
+          108.32000000000264,
+          104.93999999999915,
+          105.1000000000002
         ],
         "tracemalloc_only": [
-          595.8200000000003,
-          455.7599999999997,
-          467.4999999999976,
-          462.89999999999765,
-          490.1000000000053
+          395.54,
+          518.2800000000008,
+          513.6000000000003,
+          488.2599999999968,
+          533.300000000004
         ],
         "hook_no_tracemalloc_check": [
-          991.4999999999998,
-          811.5199999999998,
-          926.7000000000003,
-          945.3999999999994,
-          934.8799999999997
+          940.48,
+          977.1799999999988,
+          937.1200000000001,
+          957.9199999999944,
+          947.8200000000002
+        ],
+        "hook_tracemalloc_no_check": [
+          1613.9399999999998,
+          1554.6200000000017,
+          1572.8800000000015,
+          1618.06,
+          1589.4399999999962
         ],
         "hook_N1000": [
-          1806.1600000000003,
-          1605.5799999999997,
-          1573.9199999999976,
-          1647.62,
-          1607.9799999999977
+          1650.8000000000002,
+          1637.86,
+          1632.999999999999,
+          1633.0799999999997,
+          1640.3199999999956
         ],
         "hook_N100": [
-          1669.5199999999995,
-          1640.9599999999998,
-          1593.440000000001,
-          1537.1800000000028,
-          1636.6800000000055
+          1593.0999999999997,
+          1630.7999999999972,
+          1617.2799999999975,
+          1563.7400000000027,
+          1550.9599999999964
+        ],
+        "hook_N10": [
+          1697.1800000000012,
+          1686.5599999999965,
+          1662.9599999999982,
+          1736.2600000000016,
+          1697.3799999999956
         ],
         "hook_N1": [
-          2465.32,
-          2987.2,
-          2978.379999999998,
-          2996.0199999999977,
-          2992.739999999998
+          3020.159999999999,
+          3029.359999999997,
+          2958.2399999999966,
+          2999.140000000004,
+          2949.159999999999
         ]
       },
       "overheadFactorVsBaseline": {
         "baseline": 1,
-        "tracemalloc_only": 4.31,
-        "hook_no_tracemalloc_check": 8.62,
-        "hook_N1000": 14.83,
-        "hook_N100": 15.1,
-        "hook_N1": 27.56
+        "tracemalloc_only": 4.9,
+        "hook_no_tracemalloc_check": 9.04,
+        "hook_tracemalloc_no_check": 15.15,
+        "hook_N1000": 15.61,
+        "hook_N100": 15.19,
+        "hook_N10": 16.18,
+        "hook_N1": 28.59
+      },
+      "realTracerOverheadMs": {
+        "untraced": {
+          "median": 9.8,
+          "min": 9.6,
+          "max": 10.6
+        },
+        "tracer_only": {
+          "median": 1631.6,
+          "min": 937.6,
+          "max": 2063.4
+        },
+        "tracer_tracemalloc_no_check": {
+          "median": 3124.8,
+          "min": 1898.8,
+          "max": 3284.7
+        },
+        "tracer_tracemalloc_N1000": {
+          "median": 2887.6,
+          "min": 2483.4,
+          "max": 3467.9
+        },
+        "tracer_tracemalloc_N100": {
+          "median": 2699.9,
+          "min": 2320.5,
+          "max": 3215
+        },
+        "tracer_tracemalloc_N10": {
+          "median": 2915.1,
+          "min": 2526.2,
+          "max": 4017.7
+        },
+        "tracer_tracemalloc_N1": {
+          "median": 3088.7,
+          "min": 2746,
+          "max": 3499.3
+        }
+      },
+      "realTracerOverheadRaw": {
+        "untraced": [
+          10.179999999998302,
+          9.640000000004534,
+          9.840000000011173,
+          9.720000000001505,
+          10.64000000002352
+        ],
+        "tracer_only": [
+          937.5599999999977,
+          1631.5799999999995,
+          1797.9399999999969,
+          2063.420000000008,
+          1495.3800000000115
+        ],
+        "tracer_tracemalloc_no_check": [
+          1898.7599999999957,
+          3284.7399999999993,
+          3124.779999999987,
+          2924.020000000013,
+          3259.1799999999866
+        ],
+        "tracer_tracemalloc_N1000": [
+          2483.399999999996,
+          3467.9,
+          2639.380000000003,
+          3203.620000000001,
+          2887.580000000014
+        ],
+        "tracer_tracemalloc_N100": [
+          2699.920000000006,
+          3019.6600000000017,
+          2320.479999999989,
+          2334.4000000000024,
+          3215.0400000000163
+        ],
+        "tracer_tracemalloc_N10": [
+          3168.239999999997,
+          4017.700000000005,
+          2902.319999999989,
+          2915.0999999999954,
+          2526.219999999995
+        ],
+        "tracer_tracemalloc_N1": [
+          2992.3200000000065,
+          3499.3200000000115,
+          3423.7399999999952,
+          3088.719999999995,
+          2746.0199999999872
+        ]
+      },
+      "realTracerEvents": 200009,
+      "realTracerFactorVsTracerOnly": {
+        "untraced": 0.01,
+        "tracer_only": 1,
+        "tracer_tracemalloc_no_check": 1.92,
+        "tracer_tracemalloc_N1000": 1.77,
+        "tracer_tracemalloc_N100": 1.65,
+        "tracer_tracemalloc_N10": 1.79,
+        "tracer_tracemalloc_N1": 1.89
       },
       "structuralEstimate": {
         "[0]*10**6": {
-          "tracemallocCurrentBytes": 4000076,
-          "tracemallocPeakBytes": 4000080,
+          "tracemallocCurrentBytes": 4000904,
+          "tracemallocPeakBytes": 4000904,
           "estimateBytes": 4000044,
-          "estimateMs": 382.9600000000042
+          "estimateMs": 380.9400000000096
         },
         "list(range(10**6))": {
           "tracemallocCurrentBytes": 19995224,
           "tracemallocPeakBytes": 19995224,
           "estimateBytes": 20000028,
-          "estimateMs": 3834.040000000002
+          "estimateMs": 3756.6799999999885
         },
         "[str(i) for i in range(10**5)]": {
           "tracemallocCurrentBytes": 2989430,
           "tracemallocPeakBytes": 2989450,
           "estimateBytes": 2989382,
-          "estimateMs": 346.0200000000029
+          "estimateMs": 345.07999999999583
         },
         "{i: i for i in range(10**5)}": {
           "tracemallocCurrentBytes": 4740136,
           "tracemallocPeakBytes": 6111128,
           "estimateBytes": 4745780,
-          "estimateMs": 427.9599999999988
+          "estimateMs": 540.4399999999896
         }
       },
       "pageCrashes": 0,
       "events": [],
-      "assertions": 26
+      "assertions": 38
     },
     {
       "label": "prod/webkit (desktop)",
       "browser": "webkit",
       "browserVersion": "27.2",
-      "firstBootMs": 1600.5,
+      "firstBootMs": 1490.3,
       "idleHeapMB": 30,
       "step1_tracemalloc": {
         "current": 4000000,
@@ -577,73 +937,73 @@
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 15,
+          "wallMs": 19.1,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 1837.1
+          "freshWorkerBootMs": 1639.9
         },
         "[0]*10**9": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
-          "wallMs": 0.2,
+          "wallMs": 12.8,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2364.5
+          "freshWorkerBootMs": 2125.1
         },
         "bytearray(3*2**30)": {
           "outcome": "error",
           "errName": "PythonError",
           "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
-          "wallMs": 0.2,
+          "wallMs": 12.8,
           "killedByWatchdog": false,
           "heapMBAtEnd": 30,
           "sameWorkerAnswers": "yes",
-          "freshWorkerBootMs": 2330.7
+          "freshWorkerBootMs": 2239.5
         }
       },
       "step3_ceiling": {
         "runs": [
           {
             "outcome": "MemoryError",
-            "wallMs": 609.7,
+            "wallMs": 582.2,
             "killedByWatchdog": false,
             "message": null,
             "lastReportedMB": 4050,
             "heapMBAtLastReport": 4095.9,
             "heapMBAtEnd": 4095.9,
             "maxMB": 4050,
-            "pySeconds": 0.62,
+            "pySeconds": 0.58,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2540.8
+            "freshWorkerBootMs": 2244.8
           },
           {
             "outcome": "MemoryError",
-            "wallMs": 626.5,
+            "wallMs": 549.6,
             "killedByWatchdog": false,
             "message": null,
             "lastReportedMB": 4050,
             "heapMBAtLastReport": 4095.9,
             "heapMBAtEnd": 4095.9,
             "maxMB": 4050,
-            "pySeconds": 0.64,
+            "pySeconds": 0.54,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2486.9
+            "freshWorkerBootMs": 2202.2
           },
           {
             "outcome": "MemoryError",
-            "wallMs": 631.2,
+            "wallMs": 561.6,
             "killedByWatchdog": false,
             "message": null,
             "lastReportedMB": 4050,
             "heapMBAtLastReport": 4095.9,
             "heapMBAtEnd": 4095.9,
             "maxMB": 4050,
-            "pySeconds": 0.64,
+            "pySeconds": 0.56,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2404.4
+            "freshWorkerBootMs": 2145.1
           }
         ],
         "summary": {
@@ -661,172 +1021,352 @@
             "max": 4096
           },
           "timeToFailureS": {
-            "median": 0.63,
-            "min": 0.61,
-            "max": 0.63
+            "median": 0.56,
+            "min": 0.55,
+            "max": 0.58
           }
         }
       },
       "softLimit": {
         "limitMB": 256,
-        "byN": {
+        "chunks": {
           "1": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 144,
+            "wallMs": 108.9,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 250,
-            "mb": 300,
-            "tracedAtStopMB": 300.0030002593994,
+            "stoppedAtMB": 300.0030326843262,
             "events": 20,
-            "pySeconds": 0.0559999942779541,
+            "pySeconds": 0.04999971389770508,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2323
+            "freshWorkerBootMs": 1955.4
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 120.9,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 300.0030326843262,
+            "events": 20,
+            "pySeconds": 0.04800009727478027,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2157.9
           },
           "100": {
             "outcome": "soft-limit MemoryError",
-            "wallMs": 341.3,
+            "wallMs": 295.7,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 1600,
-            "mb": 1600,
-            "tracedAtStopMB": 1600.0038108825684,
+            "stoppedAtMB": 1600.0038433074951,
             "events": 100,
-            "pySeconds": 0.24400019645690918,
+            "pySeconds": 0.2350001335144043,
             "stoppedBeforeWasmCeiling": true,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2304.4
+            "freshWorkerBootMs": 2191
           },
           "1000": {
             "outcome": "native MemoryError (soft hook never fired)",
-            "wallMs": 740.2,
+            "wallMs": 612.1,
             "killedByWatchdog": false,
             "message": null,
-            "lastReportedMB": 4050,
-            "mb": 4050,
-            "tracedAtStopMB": 0,
+            "stoppedAtMB": 4050,
             "events": 249,
-            "pySeconds": 0.6489999294281006,
+            "pySeconds": 0.5550000667572021,
             "stoppedBeforeWasmCeiling": false,
             "sameWorkerAnswers": "yes",
-            "freshWorkerBootMs": 2451.4
+            "freshWorkerBootMs": 2258.4
+          }
+        },
+        "small": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 944.8,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.0024585723877,
+            "events": 199721,
+            "pySeconds": 0.6840000152587891,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2233
+          },
+          "10": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 916.5,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.01398277282715,
+            "events": 199730,
+            "pySeconds": 0.6549999713897705,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 1939.4
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 648.5,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.1023349761963,
+            "events": 199800,
+            "pySeconds": 0.46399998664855957,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2163.7
+          },
+          "1000": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 841.8,
+            "killedByWatchdog": false,
+            "message": null,
+            "stoppedAtMB": 256.35970878601074,
+            "events": 200000,
+            "pySeconds": 0.6210000514984131,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2207.9
           }
         }
       },
       "overheadMs": {
         "baseline": {
-          "median": 84.2,
-          "min": 54.8,
-          "max": 89.1
+          "median": 77.1,
+          "min": 72.1,
+          "max": 87.6
         },
         "tracemalloc_only": {
-          "median": 359.6,
-          "min": 232.4,
-          "max": 421.8
+          "median": 378.7,
+          "min": 311.5,
+          "max": 434.1
         },
         "hook_no_tracemalloc_check": {
-          "median": 727.1,
-          "min": 562.6,
-          "max": 759.1
+          "median": 722.9,
+          "min": 631.5,
+          "max": 808.9
+        },
+        "hook_tracemalloc_no_check": {
+          "median": 1217.8,
+          "min": 1076.4,
+          "max": 1295.7
         },
         "hook_N1000": {
-          "median": 1208.7,
-          "min": 1131.3,
-          "max": 1360.8
+          "median": 1223.3,
+          "min": 1055.2,
+          "max": 1302.6
         },
         "hook_N100": {
-          "median": 1232.3,
-          "min": 1180.5,
-          "max": 1331.4
+          "median": 1239.8,
+          "min": 1118.5,
+          "max": 1263.2
+        },
+        "hook_N10": {
+          "median": 1296,
+          "min": 1190.5,
+          "max": 1392.8
         },
         "hook_N1": {
-          "median": 1901.6,
-          "min": 1703.1,
-          "max": 1989.7
+          "median": 1845.4,
+          "min": 1774.5,
+          "max": 2033.7
         }
       },
       "overheadRaw": {
         "baseline": [
-          89.11999999999986,
-          70.89999999999996,
-          84.1599999999989,
-          88.56000000000108,
-          54.819999999999425
+          72.10000000000028,
+          75.66000000000095,
+          77.13999999999999,
+          87.55999999999986,
+          84.7000000000051
         ],
         "tracemalloc_only": [
-          421.75999999999993,
-          359.63999999999885,
-          361.7599999999985,
-          334.7800000000021,
-          232.44000000000042
+          434.12000000000006,
+          311.49999999999875,
+          376.0199999999969,
+          389.97999999999774,
+          378.6799999999957
         ],
         "hook_no_tracemalloc_check": [
-          759.0599999999998,
-          729.4599999999996,
-          718.3200000000003,
-          727.059999999998,
-          562.5999999999998
+          808.9400000000002,
+          631.5400000000011,
+          722.8999999999992,
+          738.900000000001,
+          711.3200000000006
+        ],
+        "hook_tracemalloc_no_check": [
+          1128.2600000000004,
+          1076.3800000000003,
+          1217.780000000001,
+          1295.7,
+          1279.2999999999993
         ],
         "hook_N1000": [
-          1131.3399999999997,
-          1208.7399999999989,
-          1197.000000000001,
-          1245.3199999999995,
-          1360.759999999999
+          1205.7599999999998,
+          1055.200000000001,
+          1223.320000000001,
+          1302.5599999999997,
+          1263.3399999999995
         ],
         "hook_N100": [
-          1259.6,
-          1180.4800000000012,
-          1214.6000000000008,
-          1232.3400000000006,
-          1331.4200000000014
+          1118.48,
+          1215.1599999999992,
+          1263.2000000000012,
+          1255.2800000000027,
+          1239.7600000000039
+        ],
+        "hook_N10": [
+          1392.7799999999993,
+          1319.4399999999985,
+          1294.7799999999993,
+          1190.480000000001,
+          1295.9999999999993
         ],
         "hook_N1": [
-          1703.1199999999992,
-          1952.6599999999999,
-          1989.6600000000008,
-          1901.5799999999992,
-          1874.3599999999994
+          1774.4999999999998,
+          1950.7000000000012,
+          2033.6600000000012,
+          1845.4199999999971,
+          1830.5599999999984
         ]
       },
       "overheadFactorVsBaseline": {
         "baseline": 1,
-        "tracemalloc_only": 4.27,
-        "hook_no_tracemalloc_check": 8.64,
-        "hook_N1000": 14.36,
-        "hook_N100": 14.64,
-        "hook_N1": 22.58
+        "tracemalloc_only": 4.91,
+        "hook_no_tracemalloc_check": 9.38,
+        "hook_tracemalloc_no_check": 15.8,
+        "hook_N1000": 15.87,
+        "hook_N100": 16.08,
+        "hook_N10": 16.81,
+        "hook_N1": 23.94
+      },
+      "realTracerOverheadMs": {
+        "untraced": {
+          "median": 7.1,
+          "min": 6.4,
+          "max": 7.5
+        },
+        "tracer_only": {
+          "median": 1362.5,
+          "min": 612.9,
+          "max": 1943.2
+        },
+        "tracer_tracemalloc_no_check": {
+          "median": 2735.9,
+          "min": 1656.8,
+          "max": 3204.4
+        },
+        "tracer_tracemalloc_N1000": {
+          "median": 2852.4,
+          "min": 1757.5,
+          "max": 3044.5
+        },
+        "tracer_tracemalloc_N100": {
+          "median": 2154,
+          "min": 1912.4,
+          "max": 3180.2
+        },
+        "tracer_tracemalloc_N10": {
+          "median": 2656.2,
+          "min": 2012,
+          "max": 3368.6
+        },
+        "tracer_tracemalloc_N1": {
+          "median": 2962.7,
+          "min": 2202.1,
+          "max": 3280.6
+        }
+      },
+      "realTracerOverheadRaw": {
+        "untraced": [
+          7.359999999998479,
+          7.4600000000017985,
+          7.120000000000459,
+          6.419999999991433,
+          6.5400000000011005
+        ],
+        "tracer_only": [
+          612.8799999999969,
+          1260.6800000000007,
+          1520.2000000000025,
+          1943.240000000003,
+          1362.5399999999956
+        ],
+        "tracer_tracemalloc_no_check": [
+          1656.799999999997,
+          2682.079999999999,
+          3079.880000000003,
+          2735.8600000000024,
+          3204.440000000005
+        ],
+        "tracer_tracemalloc_N1000": [
+          1757.5399999999988,
+          2852.400000000003,
+          2058.779999999999,
+          3044.520000000006,
+          2863.7800000000057
+        ],
+        "tracer_tracemalloc_N100": [
+          2025.5200000000002,
+          2349.579999999996,
+          1912.400000000005,
+          2153.980000000004,
+          3180.239999999998
+        ],
+        "tracer_tracemalloc_N10": [
+          2435.0999999999985,
+          3368.620000000007,
+          2731.0000000000086,
+          2656.16,
+          2011.979999999994
+        ],
+        "tracer_tracemalloc_N1": [
+          2202.059999999996,
+          2962.7399999999966,
+          3280.5999999999926,
+          3090.379999999996,
+          2435.9800000000005
+        ]
+      },
+      "realTracerEvents": 200009,
+      "realTracerFactorVsTracerOnly": {
+        "untraced": 0.01,
+        "tracer_only": 1,
+        "tracer_tracemalloc_no_check": 2.01,
+        "tracer_tracemalloc_N1000": 2.09,
+        "tracer_tracemalloc_N100": 1.58,
+        "tracer_tracemalloc_N10": 1.95,
+        "tracer_tracemalloc_N1": 2.17
       },
       "structuralEstimate": {
         "[0]*10**6": {
-          "tracemallocCurrentBytes": 4000076,
-          "tracemallocPeakBytes": 4000080,
+          "tracemallocCurrentBytes": 4000904,
+          "tracemallocPeakBytes": 4000904,
           "estimateBytes": 4000044,
-          "estimateMs": 197.98000000000116
+          "estimateMs": 176.23999999999285
         },
         "list(range(10**6))": {
           "tracemallocCurrentBytes": 19995224,
           "tracemallocPeakBytes": 19995224,
           "estimateBytes": 20000028,
-          "estimateMs": 1343.8000000000015
+          "estimateMs": 1733.699999999999
         },
         "[str(i) for i in range(10**5)]": {
           "tracemallocCurrentBytes": 2989430,
           "tracemallocPeakBytes": 2989450,
           "estimateBytes": 2989382,
-          "estimateMs": 118.51999999999663
+          "estimateMs": 183.4400000000045
         },
         "{i: i for i in range(10**5)}": {
           "tracemallocCurrentBytes": 4740136,
           "tracemallocPeakBytes": 6111128,
           "estimateBytes": 4745780,
-          "estimateMs": 113.15999999999349
+          "estimateMs": 254.86000000000786
         }
       },
       "pageCrashes": 0,
       "events": [],
-      "assertions": 26
+      "assertions": 38
     }
   ]
 }

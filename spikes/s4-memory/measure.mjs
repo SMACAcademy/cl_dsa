@@ -49,10 +49,10 @@ except MemoryError as e:
 del chunks
 json.dumps(out)
 `;
-const PY_SOFT = (n) => `
+const PY_SOFT = (n, workload) => `
 import sys, tracemalloc, js, json, time
 LIMIT = ${LIMIT_MB} * 2**20; N = ${n}
-S = {"cnt": 0, "mb": 0, "cur": 0}
+S = {"cnt": 0, "mb": 0, "cur": 0, "it": 0}
 def tracer(frame, event, arg):
     S["cnt"] += 1
     if S["cnt"] % N == 0:
@@ -62,11 +62,17 @@ def tracer(frame, event, arg):
             sys.settrace(None)
             raise MemoryError("soft limit")
     return tracer
-def loop():
+def loop_chunks():  # few events per MB: one 50 MB allocation per iteration
     chunks = []
     while True:
         chunks.append(bytearray(50 * 2**20)); S["mb"] += 50
         js.s4progress(S["mb"])
+def loop_small():  # many events per MB: one 4 KB list per iteration
+    xs = []
+    while True:
+        xs.append([0] * 1000)
+        S["it"] += 1
+loop = ${workload === "chunks" ? "loop_chunks" : "loop_small"}
 tracemalloc.start()
 t0 = time.time()
 sys.settrace(tracer)
@@ -74,7 +80,10 @@ out = None
 try:
     loop()
 except MemoryError as e:
-    out = {"outcome": "soft-limit MemoryError" if S["cur"] > 0 else "native MemoryError (soft hook never fired)", "mb": S["mb"], "tracedAtStopMB": S["cur"] / 2**20, "events": S["cnt"], "pySeconds": time.time() - t0}
+    fired = S["cur"] > 0
+    out = {"outcome": "soft-limit MemoryError" if fired else "native MemoryError (soft hook never fired)",
+           "stoppedAtMB": S["cur"] / 2**20 if fired else (S["mb"] if ${workload === "chunks" ? "True" : "False"} else S["it"] * 4000 / 2**20),
+           "events": S["cnt"], "pySeconds": time.time() - t0}
 sys.settrace(None)
 tracemalloc.stop()
 json.dumps(out)
@@ -111,8 +120,10 @@ variants = {
   "baseline": noop,
   "tracemalloc_only": (tracemalloc.start, tracemalloc.stop),
   "hook_no_tracemalloc_check": hook(10**12, tm=False),
+  "hook_tracemalloc_no_check": hook(10**12),
   "hook_N1000": hook(1000),
   "hook_N100": hook(100),
+  "hook_N10": hook(10),
   "hook_N1": hook(1),
 }
 R = {k: [] for k in variants}
@@ -121,6 +132,49 @@ for _ in range(${OVERHEAD_RUNS}):
     for k, (s, t) in variants.items():
         R[k].append(timed(s, t))
 json.dumps(R)
+`;
+const PY_REAL = (tracerSrc) => `
+import sys, tracemalloc, time, json, ast
+G = {}
+exec(compile(${JSON.stringify(tracerSrc)}, "tracer_proto", "exec"), G)
+_Tracer, _Rewriter, _av_unpack, _FILE = G["_Tracer"], G["_Rewriter"], G["_av_unpack"], G["_FILE"]
+LIMIT = 256 * 2**20
+USER = "def f():\\n    x = 0\\n    for i in range(10**5):\\n        x += i\\n    return x\\nf()\\n"
+def make(N):
+    class T(_Tracer):
+        def __init__(self, copy):
+            super().__init__(copy); self.k = 0
+        def local(self, frame, event, arg):
+            if N:
+                self.k += 1
+                if self.k % N == 0:
+                    cur, _ = tracemalloc.get_traced_memory()
+                    if cur > LIMIT: raise MemoryError("soft limit")
+            return _Tracer.local(self, frame, event, arg)
+    return T
+def run(N, tm, traced=True):
+    if tm: tracemalloc.start()
+    code = compile(ast.fix_missing_locations(_Rewriter().visit(ast.parse(USER, _FILE))), _FILE, "exec")
+    t = make(N)(False)
+    ns = {"_av_cmp": t.cmp, "_av_get": t.get, "_av_set": t.set, "_av_unpack": _av_unpack}
+    t0 = time.perf_counter()
+    if traced: sys.settrace(t.glob)
+    exec(code, ns)
+    sys.settrace(None)
+    d = (time.perf_counter() - t0) * 1000
+    n = len(t.events)
+    if tm: tracemalloc.stop()
+    return d, n
+variants = {"untraced": (0, False, False), "tracer_only": (0, False), "tracer_tracemalloc_no_check": (0, True),
+            "tracer_tracemalloc_N1000": (1000, True), "tracer_tracemalloc_N100": (100, True), "tracer_tracemalloc_N10": (10, True), "tracer_tracemalloc_N1": (1, True)}
+run(0, False)
+R = {k: [] for k in variants}; EV = 0
+for _ in range(${OVERHEAD_RUNS}):
+    for k, v in variants.items():
+        d, EV2 = run(*v)
+        R[k].append(d)
+        if v[2:] != (False,): EV = EV2
+json.dumps({"ms": R, "eventsTraced": EV})
 `;
 const PY_EST = `
 import sys, tracemalloc, json, time
@@ -175,27 +229,38 @@ async function measure(label, type, origin) {
   try {
     await newPage();
     must(await page.evaluate(() => crossOriginIsolated), `[${label}] page not crossOriginIsolated`);
-    const ev = (fn, a) => page.evaluate(fn, a);
+    let curStep = "start";
+    const ev = (fn, a) => { // every page call has a 300 s ceiling that fails loudly, naming the step
+      let t;
+      return Promise.race([page.evaluate(fn, a), new Promise((_, rej) => { t = setTimeout(() => rej(new Error(`ASSERT EVAL_TIMEOUT 300 s at step: ${curStep}`)), 300000); })])
+        .finally(() => clearTimeout(t));
+    };
     const bootAndCheck = () => ev(async () => {
-      const t = performance.now(); const m = await window.__s4.spawn(); const bootMs = performance.now() - t;
-      const two = await window.__s4.run("1 + 1").done;
+      const t = performance.now(); const m = await window.__s4.spawn(); const bootMs = performance.now() - t; // rejects BOOT_TIMEOUT after 20 s
+      const two = await window.__s4.runTimeout("1 + 1"); // rejects RUN_TIMEOUT after 10 s
       return { bootMs, ready: m, two: two.value, type: two.type };
     });
     // Boot a fresh worker (terminating any previous one) and assert it works: the product relies on this after a kill.
+    // A boot failure on a LIVE page (timeout, error, wrong answer) is a loud assertion failure. Only a page that itself died
+    // (crash event / closed target) is recorded as a result; the fresh worker must still boot on the reopened page (asserted).
     const fresh = async (where) => {
+      curStep = "fresh " + where; console.error(`[${label}] ${curStep}`);
       let r;
       try { r = await bootAndCheck(); }
-      catch (e) { // the page itself died: record it, open a fresh page, retry once
-        events.push(`${where}: page died (${String(e).split("\n")[0]}), reopened`);
+      catch (e) {
+        const msg = String(e).slice(0, 200).replace(/[\r\n]+/g, " ");
+        const pageDied = page.isClosed() || pageCrashes > 0 || /Target (page, context or browser )?has been closed|Target crashed|Execution context was destroyed|Page crashed/i.test(msg);
+        if (!pageDied) throw new Error(`ASSERT ${where}: fresh worker failed to boot on a live page: ${msg}`);
+        events.push(`${where}: page died (${msg}), reopened`);
         out.pageDiedAt = (out.pageDiedAt ?? []).concat(where);
         await newPage();
-        r = await bootAndCheck();
+        r = await bootAndCheck(); // throws (fails the run) if even a new page cannot boot a worker
       }
       must(r.ready.crossOriginIsolated === true, `${where}: new worker not isolated`);
       must(r.type === "result" && r.two === "2", `${where}: fresh worker 1+1 -> ${JSON.stringify(r)}`);
       return r;
     };
-    const watched = (code, ms = WATCHDOG_MS) => ev(([c, m]) => window.__s4.runWatched(c, m), [code, ms]);
+    const watched = (code, ms = WATCHDOG_MS) => (curStep = "run " + code.trim().slice(0, 50).replace(/\s+/g, " "), console.error(`[${label}] ${curStep}`), ev)(([c, m]) => window.__s4.runWatched(c, m), [code, ms]);
     const afterwards = async (where) => { // does the SAME worker still answer, then does a fresh one boot (asserted)
       const alive = await ev(() => window.__s4.runWatched("1 + 1", 4000)).catch((e) => ({ type: "pageGone", message: String(e).slice(0, 100) }));
       const same = alive.type === "result" && alive.value === "2" ? "yes" : `no (${alive.type}${alive.message ? ": " + alive.message.slice(0, 100) : ""})`;
@@ -239,17 +304,19 @@ async function measure(label, type, origin) {
       heapMBAtFailure: stat(rs.map((r) => r.heapMBAtEnd ?? r.heapMBAtLastReport ?? 0), 0),
       timeToFailureS: stat(rs.map((r) => r.wallMs / 1000), 2) };
 
-    // Soft limit via sys.settrace + tracemalloc on the same 50 MB loop, for several check intervals N.
-    out.softLimit = { limitMB: LIMIT_MB, byN: {} };
-    for (const n of [1, 100, 1000]) {
-      const r = await watched(PY_SOFT(n));
-      const e = { outcome: r.type, wallMs: +r.wallMs.toFixed(1), killedByWatchdog: r.killedByWatchdog, message: r.message ?? null, lastReportedMB: r.progress.mb };
-      if (r.type === "result") Object.assign(e, JSON.parse(r.value));
-      e.stoppedBeforeWasmCeiling = e.outcome === "soft-limit MemoryError" && e.mb < out.step3_ceiling.summary.maxMB.min;
-      Object.assign(e, await afterwards(`softlimit N=${n}`));
-      out.softLimit.byN[n] = e;
+    // Soft limit via sys.settrace + tracemalloc, two workload shapes, several check intervals N.
+    out.softLimit = { limitMB: LIMIT_MB, chunks: {}, small: {} };
+    for (const workload of ["chunks", "small"]) {
+      for (const n of [1, 10, 100, 1000]) {
+        const r = await watched(PY_SOFT(n, workload), 60000);
+        const e = { outcome: r.type, wallMs: +r.wallMs.toFixed(1), killedByWatchdog: r.killedByWatchdog, message: r.message ?? null };
+        if (r.type === "result") Object.assign(e, JSON.parse(r.value));
+        e.stoppedBeforeWasmCeiling = e.outcome === "soft-limit MemoryError";
+        Object.assign(e, await afterwards(`softlimit ${workload} N=${n}`));
+        out.softLimit[workload][n] = e;
+      }
+      must(out.softLimit[workload][1].outcome === "soft-limit MemoryError", `[${label}] soft limit N=1 on ${workload} did not raise: ${JSON.stringify(out.softLimit[workload][1])}`);
     }
-    must(out.softLimit.byN[1].outcome === "soft-limit MemoryError", `[${label}] soft limit with N=1 did not raise: ${JSON.stringify(out.softLimit.byN[1])}`);
 
     // Overhead on 10**6 simple operations (median of 5).
     const ov = await watched(PY_OVERHEAD, 240000);
@@ -258,6 +325,16 @@ async function measure(label, type, origin) {
     out.overheadMs = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, stat(v, 1)]));
     out.overheadRaw = raw;
     out.overheadFactorVsBaseline = Object.fromEntries(Object.entries(out.overheadMs).map(([k, v]) => [k, +(v.median / out.overheadMs.baseline.median).toFixed(2)]));
+
+    // Same overhead measurement with the REAL S2 tracer (spikes/s2-tracer/tracer_proto.py, copied) as the installed hook,
+    // on 10**5 iterations (its event list holds a locals snapshot per line, so 10**6 would be gigabytes).
+    const real = await watched(PY_REAL(readFileSync(path.join(here, "tracer_proto.py"), "utf8")), 240000);
+    must(real.type === "result", `[${label}] real-tracer overhead failed: ${JSON.stringify(real)}`);
+    const rr = JSON.parse(real.value);
+    out.realTracerOverheadMs = Object.fromEntries(Object.entries(rr.ms).map(([k, v]) => [k, stat(v, 1)]));
+    out.realTracerOverheadRaw = rr.ms;
+    out.realTracerEvents = rr.eventsTraced;
+    out.realTracerFactorVsTracerOnly = Object.fromEntries(Object.entries(out.realTracerOverheadMs).map(([k, v]) => [k, +(v.median / out.realTracerOverheadMs.tracer_only.median).toFixed(2)]));
 
     // Fallback: structural estimate vs tracemalloc.
     const est = await watched(PY_EST);
