@@ -33,6 +33,15 @@
   --tier-7: #f07a4c;
   --tier-8: #9aa3ad;
 
+  /* Visualization tokens (UI_UX §1): `compare` amber, `found` green. Each also carries a glyph
+     in the UI, so meaning never relies on colour alone. `*-ink` is text-safe on `*-soft`. */
+  --viz-compare: #d97706;
+  --viz-compare-soft: #fef3c7;
+  --viz-compare-ink: #92400e;
+  --viz-found: #16a34a;
+  --viz-found-soft: #dcfce7;
+  --viz-found-ink: #166534;
+
   color-scheme: light;
 }
 
@@ -50,6 +59,12 @@
   --on-accent: #0f1420;
   --accent-soft: #1d2445;
   --focus-ring: #8b97ff;
+  --viz-compare: #f59e0b;
+  --viz-compare-soft: #3b2a0c;
+  --viz-compare-ink: #fcd34d;
+  --viz-found: #22c55e;
+  --viz-found-soft: #0f2e1b;
+  --viz-found-ink: #86efac;
 
   color-scheme: dark;
 }
@@ -69,6 +84,12 @@
     --on-accent: #0f1420;
     --accent-soft: #1d2445;
     --focus-ring: #8b97ff;
+    --viz-compare: #f59e0b;
+    --viz-compare-soft: #3b2a0c;
+    --viz-compare-ink: #fcd34d;
+    --viz-found: #22c55e;
+    --viz-found-soft: #0f2e1b;
+    --viz-found-ink: #86efac;
 
     color-scheme: dark;
   }
@@ -97,6 +118,12 @@
   --color-tier-6: var(--tier-6);
   --color-tier-7: var(--tier-7);
   --color-tier-8: var(--tier-8);
+  --color-compare: var(--viz-compare);
+  --color-compare-soft: var(--viz-compare-soft);
+  --color-compare-ink: var(--viz-compare-ink);
+  --color-found: var(--viz-found);
+  --color-found-soft: var(--viz-found-soft);
+  --color-found-ink: var(--viz-found-ink);
 }
 
 @theme {

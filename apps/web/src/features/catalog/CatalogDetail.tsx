@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { findItem, itemPath, itemsOfKind, KIND_PATH, type CatalogKind } from "./catalog";
-import { LevelChip, StageChip } from "./chips";
+import { VISUALIZERS } from "../viz/registry";
+import { InteractiveChip, LevelChip, StageChip } from "./chips";
 
 const backLink =
   "inline-flex items-center gap-1.5 text-sm text-accent-ink underline-offset-4 hover:underline";
@@ -40,6 +41,7 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
   const prev = siblings[index - 1];
   const next = siblings[index + 1];
   const buildsOn = (item.buildsOn ?? []).map(findItem).filter((x) => x !== undefined);
+  const Visualizer = VISUALIZERS[item.id];
 
   return (
     <article className="space-y-6">
@@ -53,8 +55,15 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
         <p className="flex flex-wrap gap-2">
           <LevelChip level={item.level} />
           <StageChip stage={item.stage} />
+          {Visualizer && <InteractiveChip />}
         </p>
       </header>
+
+      {Visualizer && (
+        <TryIt title={t("catalog.detail.tryIt", { name: item.name })}>
+          <Visualizer />
+        </TryIt>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Panel title={t("catalog.detail.example")}>
@@ -140,6 +149,21 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
         )}
       </nav>
     </article>
+  );
+}
+
+function TryIt({ title, children }: { title: string; children: ReactNode }) {
+  const headingId = useId();
+  return (
+    <section
+      aria-labelledby={headingId}
+      className="space-y-4 rounded-panel border border-accent/40 bg-surface p-4 sm:p-6"
+    >
+      <h2 id={headingId} className="text-lg font-semibold tracking-tight">
+        {title}
+      </h2>
+      {children}
+    </section>
   );
 }
 

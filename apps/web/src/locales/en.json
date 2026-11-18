@@ -203,7 +203,9 @@
     },
     "stage": "Build stage {{stage}}",
     "tile": "Curriculum tile {{tile}}",
+    "interactive": "Interactive",
     "detail": {
+      "tryIt": "Try it: step through {{name}}",
       "example": "Tiny worked example",
       "input": "Input:",
       "result": "Result:",
@@ -217,6 +219,75 @@
     "missing": {
       "title": "Not in the catalog",
       "body": "There is no catalog entry called “{{id}}”."
+    }
+  },
+  "viz": {
+    "array": {
+      "label": "Array",
+      "cell": "Index {{index}}, value {{value}}, {{state}}",
+      "state": {
+        "idle": "not checked yet",
+        "checked": "checked, not a match",
+        "comparing": "being compared now",
+        "found": "found"
+      }
+    },
+    "code": {
+      "caption": "Python"
+    },
+    "stage": {
+      "lookingFor": "Looking for"
+    },
+    "vars": {
+      "title": "Variables",
+      "comparisons": "comparisons",
+      "returned": "returned"
+    },
+    "linear": {
+      "start": "Look for {{target}} among {{count}} values, from left to right.",
+      "move": "Move to index {{i}}.",
+      "compareNo": "Is items[{{i}}] = {{value}} equal to {{target}}? No, keep going.",
+      "compareYes": "Is items[{{i}}] = {{value}} equal to {{target}}? Yes!",
+      "found": "Return {{i}}. Comparisons made: {{comparisons}}.",
+      "notFound": "Reached the end without finding {{target}}. Return -1. Comparisons made: {{comparisons}}."
+    },
+    "controls": {
+      "reset": "Reset",
+      "back": "Back",
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Replay",
+      "next": "Next",
+      "speed": "Speed",
+      "step": "Step {{current}} of {{total}}"
+    },
+    "predict": {
+      "toggle": "Predict before each comparison",
+      "title": "Your prediction",
+      "question": "Will items[{{i}}] = {{value}} equal {{target}}?",
+      "yes": "Match",
+      "no": "No match",
+      "right": "✓ Correct prediction!",
+      "wrong": "✗ Not quite: the answer was “{{answer}}”.",
+      "score": "Predictions: {{correct}} of {{total}} correct"
+    },
+    "input": {
+      "values": "Values (up to {{max}} whole numbers)",
+      "target": "Target",
+      "apply": "Run with these values",
+      "presets": "Try:",
+      "preset": {
+        "middle": "Found in the middle",
+        "first": "Found at the start",
+        "missing": "Not found"
+      },
+      "error": {
+        "empty": "Enter at least one value.",
+        "tooMany": "Use at most {{max}} values. Small examples are easier to follow.",
+        "notInteger": "Use whole numbers only, separated by commas.",
+        "outOfRange": "Keep values between -99 and 99.",
+        "targetMissing": "Enter a target value to search for."
+      }
     }
   },
   "settings": {

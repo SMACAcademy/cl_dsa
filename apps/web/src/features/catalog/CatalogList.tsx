@@ -6,7 +6,8 @@ import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { PhaseBadge } from "../../ui/PhaseBadge";
 import { SECTION_ICON, SECTION_PHASE } from "../placeholder/sections";
 import { groupItems, itemPath, itemsOfKind, type CatalogItem, type CatalogKind } from "./catalog";
-import { LevelChip, StageChip } from "./chips";
+import { hasVisualizer } from "../viz/registry";
+import { InteractiveChip, LevelChip, StageChip } from "./chips";
 
 const SECTION_OF: Record<CatalogKind, "algorithms" | "structures"> = {
   algorithm: "algorithms",
@@ -77,6 +78,7 @@ function CatalogGroup({ title, items }: { title: string; items: CatalogItem[] })
               <span className="mt-auto flex flex-wrap gap-2 pt-1">
                 <LevelChip level={item.level} />
                 <StageChip stage={item.stage} />
+                {hasVisualizer(item.id) && <InteractiveChip />}
               </span>
             </Link>
           </li>

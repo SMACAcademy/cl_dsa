@@ -13,3 +13,14 @@ export function StageChip({ stage }: { stage: number }) {
   const { t } = useTranslation();
   return <span className={chip}>{t("catalog.stage", { stage })}</span>;
 }
+
+/** Marks entries whose interactive visualization is already built. */
+export function InteractiveChip() {
+  const { t } = useTranslation();
+  return (
+    <span className="inline-flex items-center rounded-full border border-found bg-found-soft px-2.5 py-0.5 text-xs font-medium text-found-ink">
+      <span aria-hidden="true">▶&nbsp;</span>
+      {t("catalog.interactive")}
+    </span>
+  );
+}

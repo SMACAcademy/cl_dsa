@@ -72,6 +72,12 @@ describe("design tokens", () => {
       ["accent-ink", "surface-raised"],
       ["accent-ink", "accent-soft"],
       ["on-accent", "accent-solid"],
+      ["viz-compare-ink", "viz-compare-soft"],
+      ["viz-compare-ink", "surface"],
+      ["viz-compare-ink", "surface-raised"],
+      ["viz-found-ink", "viz-found-soft"],
+      ["viz-found-ink", "surface"],
+      ["viz-found-ink", "surface-raised"],
     ];
     it.each(text)("%s on %s is at least 4.5:1", (fg, bg) => {
       expect(contrast(t[fg]!, t[bg]!)).toBeGreaterThanOrEqual(4.5);
@@ -81,6 +87,8 @@ describe("design tokens", () => {
       ["focus-ring", "surface"],
       ["focus-ring", "surface-raised"],
       ["control-border", "surface-raised"],
+      ["viz-compare", "surface-raised"],
+      ["viz-found", "surface-raised"],
     ];
     it.each(ui)("%s on %s is at least 3:1", (fg, bg) => {
       expect(contrast(t[fg]!, t[bg]!)).toBeGreaterThanOrEqual(3);
