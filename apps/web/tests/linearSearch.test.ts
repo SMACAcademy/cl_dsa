@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { linearSearchSteps, parseInput } from "../src/features/viz/linearSearch";
+import { parseInput } from "../src/features/viz/input";
+import { linearSearchSteps } from "../src/features/viz/linearSearch";
 
 describe("linearSearchSteps", () => {
   it("finds 1 in [4, 8, 1, 9] at index 2 after 3 comparisons", () => {

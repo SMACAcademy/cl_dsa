@@ -101,6 +101,9 @@ describe("linear search player", () => {
     renderRoute("/algorithms");
     const card = await screen.findByRole("link", { name: /^Linear search/ });
     expect(within(card).getByText("Interactive")).toBeVisible();
-    expect(within(screen.getByRole("main")).getAllByText("Interactive")).toHaveLength(1);
+    const interactive = within(screen.getByRole("main"))
+      .getAllByText("Interactive")
+      .map((chip) => chip.closest("a")?.getAttribute("href"));
+    expect(interactive).toEqual(["/algorithms/linear-search", "/algorithms/binary-search"]);
   });
 });

@@ -56,6 +56,7 @@ export const ROUTE_PATHS: readonly string[] = [
   "/learn/first-algorithms.binary-search",
   "/algorithms/binary-search",
   "/algorithms/linear-search",
+  "/algorithms/bubble-sort",
   "/structures/hash-table",
   "/algorithms/no-such-item",
 ];

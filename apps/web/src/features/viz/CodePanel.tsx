@@ -8,7 +8,8 @@ export function CodePanel({ lines, active }: { lines: readonly string[]; active:
       <figcaption className="border-b border-line px-4 py-2 text-xs font-semibold text-muted">
         {t("viz.code.caption")}
       </figcaption>
-      <ol className="overflow-x-auto py-2 font-mono text-sm">
+      {/* Ligatures off: learners must see `<=` exactly as they would type it, not `≤`. */}
+      <ol className="overflow-x-auto py-2 font-mono text-sm [font-variant-ligatures:none]">
         {lines.map((line, i) => {
           const isActive = i + 1 === active;
           return (

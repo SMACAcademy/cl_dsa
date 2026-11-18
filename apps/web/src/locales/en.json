@@ -228,6 +228,7 @@
       "state": {
         "idle": "not checked yet",
         "checked": "checked, not a match",
+        "discarded": "ruled out",
         "comparing": "being compared now",
         "found": "found"
       }
@@ -251,6 +252,19 @@
       "found": "Return {{i}}. Comparisons made: {{comparisons}}.",
       "notFound": "Reached the end without finding {{target}}. Return -1. Comparisons made: {{comparisons}}."
     },
+    "binary": {
+      "start": "Look for {{target}} in a sorted list of {{count}} values.",
+      "init": "Start with the whole list: lo = {{lo}}, hi = {{hi}}.",
+      "loop": "lo {{lo}} ≤ hi {{hi}}: the target could still be at index {{lo}}..{{hi}}.",
+      "mid": "Look at the middle: mid = ({{lo}} + {{hi}}) // 2 = {{mid}}.",
+      "compareNo": "Is items[{{mid}}] = {{value}} equal to {{target}}? No.",
+      "compareYes": "Is items[{{mid}}] = {{value}} equal to {{target}}? Yes!",
+      "goRight": "{{value}} < {{target}}, so {{target}} can only be to the right. Discard the left half: lo = {{lo}}.",
+      "goLeft": "{{value}} > {{target}}, so {{target}} can only be to the left. Discard the right half: hi = {{hi}}.",
+      "found": "Return {{mid}}. Comparisons made: {{comparisons}}.",
+      "empty": "lo {{lo}} > hi {{hi}}: nothing is left to search.",
+      "notFound": "{{target}} is not in the list. Return -1. Comparisons made: {{comparisons}}."
+    },
     "controls": {
       "reset": "Reset",
       "back": "Back",
@@ -265,6 +279,12 @@
       "toggle": "Predict before each comparison",
       "title": "Your prediction",
       "question": "Will items[{{i}}] = {{value}} equal {{target}}?",
+      "binaryQuestion": "items[{{mid}}] = {{value}}. Where is {{target}}?",
+      "direction": {
+        "left": "To the left",
+        "here": "Right here",
+        "right": "To the right"
+      },
       "yes": "Match",
       "no": "No match",
       "right": "✓ Correct prediction!",
@@ -273,20 +293,24 @@
     },
     "input": {
       "values": "Values (up to {{max}} whole numbers)",
+      "sortedValues": "Sorted values (up to {{max}} whole numbers)",
       "target": "Target",
       "apply": "Run with these values",
       "presets": "Try:",
       "preset": {
         "middle": "Found in the middle",
         "first": "Found at the start",
-        "missing": "Not found"
+        "missing": "Not found",
+        "left": "Found on the left",
+        "right": "Found on the right"
       },
       "error": {
         "empty": "Enter at least one value.",
         "tooMany": "Use at most {{max}} values. Small examples are easier to follow.",
         "notInteger": "Use whole numbers only, separated by commas.",
         "outOfRange": "Keep values between -99 and 99.",
-        "targetMissing": "Enter a target value to search for."
+        "targetMissing": "Enter a target value to search for.",
+        "notSorted": "Binary search needs the values in ascending order, for example 1, 3, 5, 7."
       }
     }
   },

@@ -1,11 +1,8 @@
 /**
  * Linear search as a list of steps. Each step is a full snapshot of what the
  * learner should see (state-derived, not a diff), so stepping backwards is free.
- * Inputs are deliberately tiny: at most MAX_VALUES values.
+ * Inputs are deliberately tiny (see input.ts).
  */
-
-export const MAX_VALUES = 8;
-export const VALUE_RANGE = { min: -99, max: 99 } as const;
 
 /** The Python shown beside the visualization. Line numbers below are 1-based. */
 export const LINEAR_SEARCH_CODE: readonly string[] = [
@@ -117,32 +114,4 @@ export function linearSearchSteps(items: readonly number[], target: number): Lin
     narration: { key: "notFound", target, comparisons },
   });
   return steps;
-}
-
-export type ParsedInput =
-  | { ok: true; items: number[]; target: number }
-  | {
-      ok: false;
-      error: "empty" | "tooMany" | "notInteger" | "outOfRange" | "targetMissing";
-    };
-
-const INTEGER = /^-?\d+$/;
-
-/** Parses "4, 8, 1, 9" and a target such as "1". Accepts commas and/or spaces. */
-export function parseInput(valuesText: string, targetText: string): ParsedInput {
-  const parts = valuesText
-    .split(/[,\s]+/)
-    .map((p) => p.trim())
-    .filter((p) => p !== "");
-  if (parts.length === 0) return { ok: false, error: "empty" };
-  if (parts.length > MAX_VALUES) return { ok: false, error: "tooMany" };
-  if (!parts.every((p) => INTEGER.test(p))) return { ok: false, error: "notInteger" };
-  const items = parts.map(Number);
-  const t = targetText.trim();
-  if (t === "") return { ok: false, error: "targetMissing" };
-  if (!INTEGER.test(t)) return { ok: false, error: "notInteger" };
-  const target = Number(t);
-  const inRange = (n: number) => n >= VALUE_RANGE.min && n <= VALUE_RANGE.max;
-  if (!items.every(inRange) || !inRange(target)) return { ok: false, error: "outOfRange" };
-  return { ok: true, items, target };
 }
