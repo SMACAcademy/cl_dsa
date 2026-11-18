@@ -4,6 +4,7 @@
   "engines": { "node": ">=22" },
   "packageManager": "pnpm@10.24.0",
   "scripts": {
+    "dev": "pnpm --filter @algoverse/web dev",
     "test:py": "uv run pytest packages apps/api -q",
     "test:web": "pnpm -r --if-present test",
     "test": "pnpm test:py && pnpm test:web",

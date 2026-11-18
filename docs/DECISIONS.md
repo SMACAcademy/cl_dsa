@@ -107,3 +107,6 @@
 - **Decision:** Every browser gets an anonymous **guest learner** on its first request (random 256-bit session token, stored hashed; httpOnly `SameSite=Lax` cookie). There is no sign-up in the MVP. Email/password accounts arrive in Phases 8–10 and adopt the guest's progress. There is no separate "local mode": local development is a localhost-hosted instance.
 - **Alternatives:** Single-user local mode (unsafe when hosted); accounts in the MVP (sign-up friction, more scope; owner chose "guest learners for now"); progress stored only in the browser (lost on clearing storage, no path to accounts).
 - **Consequences:** Clearing cookies loses guest progress until accounts exist. Data export mitigates that. Guest rows need periodic cleanup (inactive > 180 days, Phase 10).
+
+### ADR-020 — Installable PWA
+- **Tooling:** the PWA icons are generated once from `apps/web/public/icons/pyramid.svg` with `@vite-pwa/assets-generator` (a dev dependency only, the `vite-plugin-pwa` companion); the PNGs are committed.

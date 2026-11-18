@@ -1,0 +1,214 @@
+{
+  "app": {
+    "name": "AlgoVerse",
+    "tagline": "A visual lab for learning data structures and algorithms",
+    "documentTitle": "{{section}} · AlgoVerse"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "nav": {
+    "label": "Main",
+    "dashboard": "Dashboard",
+    "universe": "Learning Universe",
+    "curriculum": "Curriculum",
+    "algorithms": "Algorithm Lab",
+    "structures": "Data Structure Lab",
+    "playground": "Python Playground",
+    "problems": "Problem Solving",
+    "projects": "Real-World Projects",
+    "progress": "My Progress",
+    "library": "Knowledge Library",
+    "settings": "Settings",
+    "lesson": "Lesson player"
+  },
+  "topbar": {
+    "previewBadge": "Foundation preview",
+    "previewHint": "Screens are placeholders while each section is built",
+    "statsLabel": "Your stats",
+    "streak": "{{count}}-day streak",
+    "xp": "{{count}} XP",
+    "level": "Level {{level}}",
+    "levelShort": "Lv {{level}}"
+  },
+  "theme": {
+    "label": "Theme",
+    "menuLabel": "Theme: {{theme}}",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "systemHint": "Follows your device setting",
+    "shortcutHint": "Ctrl + Alt + T toggles light and dark"
+  },
+  "account": {
+    "menuLabel": "Account menu",
+    "guest": "Guest learner",
+    "guestHint": "Your progress is saved in this browser",
+    "settings": "Settings"
+  },
+  "placeholder": {
+    "comingInPhase": "Coming in phase {{phase}}",
+    "planned": "What's planned",
+    "stageTitle": "Placeholder screen",
+    "stageBody": "This screen's features arrive in phase {{phase}}. The navigation, themes and layout around it are already in place.",
+    "preview": "Preview"
+  },
+  "sections": {
+    "dashboard": {
+      "description": "Your home base: what to learn next, today's goal and your progress at a glance.",
+      "planned": [
+        "Continue where you left off",
+        "Recommendations that explain why",
+        "Daily goal, streak and milestones"
+      ]
+    },
+    "universe": {
+      "description": "Explore every topic as a tile on a triangular map, and see how each one unlocks the next.",
+      "planned": [
+        "Zoom from the whole pyramid down to single concepts",
+        "See which tiles are open, in progress or mastered",
+        "A list view for keyboard and screen-reader users"
+      ]
+    },
+    "curriculum": {
+      "description": "Browse the full course from tier to tile to concept, with time estimates and your status.",
+      "planned": [
+        "Filter by thread, kind, status and maturity",
+        "Estimated time for every concept",
+        "The linear, scannable twin of the Universe"
+      ]
+    },
+    "algorithms": {
+      "description": "Run any algorithm on your own inputs and watch it work, one step at a time.",
+      "planned": [
+        "Explore: the full player with free inputs",
+        "Time Machine: scrub, jump and compare any two steps",
+        "Battle Arena: race algorithms on the same data"
+      ]
+    },
+    "structures": {
+      "description": "Build data structures by hand and watch their invariants hold, or break.",
+      "planned": [
+        "A canvas for nodes, pointers and buckets",
+        "A live Python view that round-trips your edits",
+        "Animated insert, delete, search and traverse"
+      ]
+    },
+    "playground": {
+      "description": "Write Python in your browser, then run it, visualize it or step through it.",
+      "planned": [
+        "Run, Visualize and Debug with step-back",
+        "Examples to start from, saved in this browser",
+        "Console, inspector and output side by side"
+      ]
+    },
+    "problems": {
+      "description": "Practise on problems matched to what you have learned, with hints when you need them.",
+      "planned": [
+        "About 20 problems for Pyramid I",
+        "Hints revealed one at a time",
+        "Pattern Trainer: spot the right approach first"
+      ]
+    },
+    "projects": {
+      "description": "Build real systems, such as a search engine, from the structures you have mastered.",
+      "planned": [
+        "Architecture diagrams and milestone plans",
+        "Starter code and tests for every milestone",
+        "Visualizations of each system's core structure"
+      ]
+    },
+    "progress": {
+      "description": "See your mastery, streaks, badges and review schedule in one place.",
+      "planned": [
+        "A pyramid heat map of mastery by tile",
+        "XP history and a streak calendar",
+        "Every concept with its next review date"
+      ]
+    },
+    "library": {
+      "description": "Look up any concept, complexity or term without starting a lesson.",
+      "planned": [
+        "Condensed concept pages with code",
+        "Complexity cheat sheets and a glossary",
+        "Search across everything"
+      ]
+    },
+    "settings": {
+      "description": "Tune AlgoVerse to the way you like to learn.",
+      "planned": [
+        "Motion, playback speed and step granularity",
+        "Daily goal and keyboard shortcuts",
+        "Export, import or delete your data"
+      ]
+    },
+    "lesson": {
+      "description": "Every concept is taught in 12 short sections, from intuition to code to checkpoint.",
+      "planned": [
+        "A visualization stage beside live code",
+        "Predict-the-next-step moments",
+        "A checkpoint that proves mastery"
+      ]
+    }
+  },
+  "dashboard": {
+    "greeting": "Welcome, guest learner",
+    "intro": "Your learning lab is being assembled. These cards preview what your dashboard will show.",
+    "continue": {
+      "title": "Continue learning",
+      "body": "Your next lesson will appear here. Everyone starts with “What is an Algorithm?” at the top of Pyramid I.",
+      "progressLabel": "Progress in your current lesson",
+      "action": "Explore the Universe"
+    },
+    "goal": {
+      "title": "Daily goal",
+      "value": "{{current}} / {{target}} XP",
+      "progressLabel": "Daily goal progress",
+      "body": "Earn XP by predicting, practising and passing checkpoints. Watching alone earns none."
+    },
+    "pyramid": {
+      "title": "Your pyramid",
+      "body": "Pyramid I has 4 tiles. You have started 0.",
+      "legendLabel": "Tier colours"
+    },
+    "next": {
+      "title": "Recommended next",
+      "body": "Suggestions tailored to you, each with the reason it was picked."
+    }
+  },
+  "tiers": {
+    "foundations": "Pyramid I · foundations",
+    "core": "Core DSA",
+    "graphs": "Graphs · paradigms · strings",
+    "advanced": "Advanced algorithms",
+    "systems": "Systems & industry",
+    "frontier": "Frontier"
+  },
+  "settings": {
+    "appearance": "Appearance",
+    "themeLegend": "Colour theme"
+  },
+  "lesson": {
+    "concept": "Concept",
+    "sectionsLabel": "Lesson sections",
+    "backToCurriculum": "Browse the curriculum"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "body": "There is nothing at {{path}}. It may have moved, or the link may be mistyped.",
+    "home": "Back to the dashboard"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "body": "This screen hit an unexpected error. Reloading usually fixes it.",
+    "reload": "Reload",
+    "home": "Back to the dashboard"
+  },
+  "pwa": {
+    "updateAvailable": "A new version of AlgoVerse is available.",
+    "offlineReady": "AlgoVerse is ready to work offline.",
+    "reload": "Reload",
+    "dismiss": "Dismiss"
+  }
+}

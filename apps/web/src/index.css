@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* Theme switching: `<html data-theme="light|dark">` is set by ui/theme.ts. Before it runs,
+   the media block below follows the OS so dark-mode users never see a light flash. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Design tokens (UI_UX §1). Light theme is the default token set. Text pairs are WCAG AA
+   (tests/tokens.test.ts): `accent` is the brand colour for marks and rings; `accent-ink`
+   is accent-coloured text; `accent-solid` + `on-accent` are filled buttons. */
+:root {
+  --surface: #f5f6fa;
+  --surface-raised: #ffffff;
+  --surface-sunken: #eceef5;
+  --border: #dde1ea;
+  --control-border: #7a8496;
+  --text: #131926;
+  --muted: #525c6e;
+  --accent: #5b6cff;
+  --accent-ink: #3d4bd9;
+  --accent-solid: #4351e8;
+  --on-accent: #ffffff;
+  --accent-soft: #eceeff;
+  --focus-ring: #5b6cff;
+
+  /* Tier colours (curriculum identity only), from docs/assets/pyramid-universe.svg. */
+  --tier-0: #f5b942;
+  --tier-1: #f5b942;
+  --tier-2: #3cb4a0;
+  --tier-3: #3cb4a0;
+  --tier-4: #4c8bf5;
+  --tier-5: #4c8bf5;
+  --tier-6: #8b6cf0;
+  --tier-7: #f07a4c;
+  --tier-8: #9aa3ad;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --surface: #0f1420;
+  --surface-raised: #161d2b;
+  --surface-sunken: #0b0f18;
+  --border: #253043;
+  --control-border: #6f7a8e;
+  --text: #e8ecf3;
+  --muted: #9aa6b8;
+  --accent: #5b6cff;
+  --accent-ink: #9aa5ff;
+  --accent-solid: #8b97ff;
+  --on-accent: #0f1420;
+  --accent-soft: #1d2445;
+  --focus-ring: #8b97ff;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #0f1420;
+    --surface-raised: #161d2b;
+    --surface-sunken: #0b0f18;
+    --border: #253043;
+    --control-border: #6f7a8e;
+    --text: #e8ecf3;
+    --muted: #9aa6b8;
+    --accent: #5b6cff;
+    --accent-ink: #9aa5ff;
+    --accent-solid: #8b97ff;
+    --on-accent: #0f1420;
+    --accent-soft: #1d2445;
+    --focus-ring: #8b97ff;
+
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-line: var(--border);
+  --color-control: var(--control-border);
+  --color-fg: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-solid: var(--accent-solid);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-focus: var(--focus-ring);
+  --color-tier-0: var(--tier-0);
+  --color-tier-1: var(--tier-1);
+  --color-tier-2: var(--tier-2);
+  --color-tier-3: var(--tier-3);
+  --color-tier-4: var(--tier-4);
+  --color-tier-5: var(--tier-5);
+  --color-tier-6: var(--tier-6);
+  --color-tier-7: var(--tier-7);
+  --color-tier-8: var(--tier-8);
+}
+
+@theme {
+  /* Inter and JetBrains Mono are preferred when installed; self-hosting them is a later task. */
+  --font-sans:
+    "Inter", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", ui-monospace, Consolas, monospace;
+  /* Type scale 12 / 14 / 16 / 20 / 24 / 32 / 40 */
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 1.15;
+  --radius-panel: 8px;
+  --radius-control: 6px;
+  --breakpoint-xl: 80rem; /* 1280 px: the nav rail shows labels at and above this width */
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  code,
+  kbd {
+    font-family: var(--font-mono);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
