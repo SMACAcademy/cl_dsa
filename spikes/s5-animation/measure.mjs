@@ -16,6 +16,8 @@ const arg = (n) => { const i = process.argv.indexOf(n); return i > 0 ? process.a
 const flag = (n) => process.argv.includes(n);
 const fwd = (p) => p.split(path.sep).join("/");
 const inContainer = flag("--container");
+const THROTTLE = Number(arg("--throttle") ?? 0); // CDP Emulation.setCPUThrottlingRate (Chromium only), headed
+const mergeInto = arg("--merge"); // append this run's results to an existing results JSON
 const outFile = arg("--out");
 const RUNS = Number(arg("--runs") ?? 5), SWAPS = Number(arg("--swaps") ?? 200), SEED = 20261118;
 const CELLS = [
@@ -67,6 +69,7 @@ async function runCellOnce(browser, origin, cell) {
   const ctx = await browser.newContext({ viewport: { width: 1700, height: 450 } });
   const page = await ctx.newPage();
   const pageErrors = [];
+  if (THROTTLE > 1) { const cdp = await ctx.newCDPSession(page); await cdp.send("Emulation.setCPUThrottlingRate", { rate: THROTTLE }); }
   page.on("pageerror", (e) => pageErrors.push(String(e)));
   page.on("console", (m) => { if (m.type() === "error") pageErrors.push(m.text()); });
   try {
@@ -151,7 +154,7 @@ await withServer(async (origin) => {
   const only = (arg("--browsers") ?? "chromium,firefox,webkit").split(",");
   for (const [n, t] of [["chromium", chromium], ["firefox", firefox], ["webkit", webkit]].filter(([n]) => only.includes(n))) {
     console.log(`BROWSER ${n} (headed)`);
-    const r = await measureBrowser(`${n} headed (desktop)`, t, origin, CELLS, hostLaunch[n]);
+    const r = await measureBrowser(THROTTLE > 1 ? `${n} headed (desktop), CDP CPU throttling ${THROTTLE}x` : `${n} headed (desktop)`, t, origin, CELLS, hostLaunch[n]);
     results.push(r);
     if (r.untested) console.log("  UNTESTED:", r.untested);
   }
@@ -176,7 +179,12 @@ if (!flag("--no-docker")) {
 
 const untested = results.filter((r) => r.untested).map((r) => r.label);
 console.log(`ASSERTIONS OK: ${assertions} checks (per run: no in-run exceptions or page errors; every tween promise resolved; rendered bar order == model order after ${SWAPS} seeded swaps; element count; frame count); untested: ${untested.join(", ") || "none"}`);
-if (outFile) {
+if (mergeInto) {
+  const d = JSON.parse(readFileSync(mergeInto, "utf8"));
+  d.results.push(...results.map((r) => ({ ...r, cpuThrottlingRate: THROTTLE })));
+  d.assertions += assertions;
+  writeFileSync(mergeInto, JSON.stringify(d, null, 2));
+} else if (outFile) {
   mkdirSync(path.dirname(outFile), { recursive: true });
   writeFileSync(outFile, JSON.stringify({ system, assertions, seed: SEED, swaps: SWAPS, runsPerCell: RUNS, results }, null, 2));
 }

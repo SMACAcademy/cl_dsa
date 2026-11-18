@@ -11,7 +11,7 @@
     "batteryPresent": false,
     "powerState": "no battery: desktop on AC"
   },
-  "assertions": 480,
+  "assertions": 600,
   "seed": 20261118,
   "swaps": 200,
   "runsPerCell": 5,
@@ -2398,6 +2398,601 @@
         "vite": null,
         "cgroupCpuMax": "50000 100000"
       }
+    },
+    {
+      "label": "chromium headed (desktop), CDP CPU throttling 4x",
+      "browserVersion": "159.0.8154.6",
+      "headless": false,
+      "cells": [
+        {
+          "renderer": "svg",
+          "n": 300,
+          "speed": 1,
+          "swaps": 200,
+          "seed": 20261118,
+          "perSwapMs": 450,
+          "runs": 5,
+          "idleRefreshHz": {
+            "median": 60,
+            "min": 60,
+            "max": 60
+          },
+          "avgFps": {
+            "median": 59.98,
+            "min": 59.97,
+            "max": 59.98
+          },
+          "p5Fps": {
+            "median": 59.86,
+            "min": 59.83,
+            "max": 59.88
+          },
+          "dropped": {
+            "median": 0,
+            "min": 0,
+            "max": 2
+          },
+          "droppedVsRefresh": {
+            "median": 0,
+            "min": 0,
+            "max": 2
+          },
+          "worstFrameMs": {
+            "median": 19.19,
+            "min": 16.92,
+            "max": 45.26
+          },
+          "framesPerRun": {
+            "median": 5599,
+            "min": 5598,
+            "max": 5599
+          },
+          "wallS": {
+            "median": 93.4,
+            "min": 93.4,
+            "max": 93.4
+          },
+          "raw": [
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 300,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5599,
+              "wallMs": 93365.125,
+              "avgFps": 59.97894791419165,
+              "p5Fps": 59.8265031408974,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 19.19499999999971,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 300,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 5599,
+              "wallMs": 93365.44000000006,
+              "avgFps": 59.979069993400046,
+              "p5Fps": 59.862316671655456,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 17.110000000000582,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 300,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 5598,
+              "wallMs": 93365.19500000007,
+              "avgFps": 59.96832862386987,
+              "p5Fps": 59.88023952095548,
+              "dropped": 2,
+              "droppedVsRefresh": 2,
+              "worstFrameMs": 34.2100000000064,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 300,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5599,
+              "wallMs": 93365.10499999998,
+              "avgFps": 59.979082843871964,
+              "p5Fps": 59.88023952095548,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.919999999998254,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 300,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5598,
+              "wallMs": 93365.59999999998,
+              "avgFps": 59.968338259992635,
+              "p5Fps": 59.862316671655456,
+              "dropped": 2,
+              "droppedVsRefresh": 2,
+              "worstFrameMs": 45.25500000000011,
+              "resolved": 200,
+              "orderMatchesModel": true
+            }
+          ]
+        },
+        {
+          "renderer": "svg",
+          "n": 300,
+          "speed": 8,
+          "swaps": 200,
+          "seed": 20261118,
+          "perSwapMs": 56.25,
+          "runs": 5,
+          "idleRefreshHz": {
+            "median": 60,
+            "min": 60,
+            "max": 60
+          },
+          "avgFps": {
+            "median": 59.98,
+            "min": 59.98,
+            "max": 59.98
+          },
+          "p5Fps": {
+            "median": 59.84,
+            "min": 59.81,
+            "max": 59.88
+          },
+          "dropped": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "droppedVsRefresh": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "worstFrameMs": {
+            "median": 16.83,
+            "min": 16.8,
+            "max": 16.98
+          },
+          "framesPerRun": {
+            "median": 999,
+            "min": 999,
+            "max": 999
+          },
+          "wallS": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.7
+          },
+          "raw": [
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 300,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 999,
+              "wallMs": 16671.84500000009,
+              "avgFps": 59.97912438283493,
+              "p5Fps": 59.844404548174616,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.975000000000364,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 300,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16671.890000000014,
+              "avgFps": 59.97898033932251,
+              "p5Fps": 59.862316671648934,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.79500000000189,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 300,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16671.56500000006,
+              "avgFps": 59.978656243949224,
+              "p5Fps": 59.80861244019373,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.86499999999978,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 300,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16671.86999999988,
+              "avgFps": 59.97910637735804,
+              "p5Fps": 59.880239520957105,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.829999999999927,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "svg",
+              "n": 300,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 300,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 999,
+              "wallMs": 16672.154999999795,
+              "avgFps": 59.97874627009047,
+              "p5Fps": 59.84440454817136,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.80500000000029,
+              "resolved": 200,
+              "orderMatchesModel": true
+            }
+          ]
+        },
+        {
+          "renderer": "canvas",
+          "n": 5000,
+          "speed": 1,
+          "swaps": 200,
+          "seed": 20261118,
+          "perSwapMs": 450,
+          "runs": 5,
+          "idleRefreshHz": {
+            "median": 60,
+            "min": 60,
+            "max": 60
+          },
+          "avgFps": {
+            "median": 59.98,
+            "min": 59.98,
+            "max": 59.98
+          },
+          "p5Fps": {
+            "median": 59.84,
+            "min": 59.83,
+            "max": 59.86
+          },
+          "dropped": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "droppedVsRefresh": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "worstFrameMs": {
+            "median": 17,
+            "min": 16.83,
+            "max": 17.26
+          },
+          "framesPerRun": {
+            "median": 5599,
+            "min": 5599,
+            "max": 5599
+          },
+          "wallS": {
+            "median": 93.4,
+            "min": 93.4,
+            "max": 93.4
+          },
+          "raw": [
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 5000,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 5599,
+              "wallMs": 93368.84499999997,
+              "avgFps": 59.979034654630716,
+              "p5Fps": 59.862316671648934,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.995000000009895,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 5000,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5599,
+              "wallMs": 93368.05499999993,
+              "avgFps": 59.97906035554974,
+              "p5Fps": 59.844404548151815,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.939999999995052,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 5000,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5599,
+              "wallMs": 93368.28000000003,
+              "avgFps": 59.97905071770253,
+              "p5Fps": 59.82650314089089,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 17.25999999999476,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 5000,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 5599,
+              "wallMs": 93368.32500000019,
+              "avgFps": 59.97908284387195,
+              "p5Fps": 59.84440454817136,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.825000000004366,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 1,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 450,
+              "elements": 5000,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 5599,
+              "wallMs": 93367.88500000001,
+              "avgFps": 59.979082843871964,
+              "p5Fps": 59.84440454817787,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 17,
+              "resolved": 200,
+              "orderMatchesModel": true
+            }
+          ]
+        },
+        {
+          "renderer": "canvas",
+          "n": 5000,
+          "speed": 8,
+          "swaps": 200,
+          "seed": 20261118,
+          "perSwapMs": 56.25,
+          "runs": 5,
+          "idleRefreshHz": {
+            "median": 60,
+            "min": 60,
+            "max": 60
+          },
+          "avgFps": {
+            "median": 59.98,
+            "min": 59.98,
+            "max": 59.98
+          },
+          "p5Fps": {
+            "median": 59.84,
+            "min": 59.77,
+            "max": 59.88
+          },
+          "dropped": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "droppedVsRefresh": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "worstFrameMs": {
+            "median": 16.82,
+            "min": 16.75,
+            "max": 17.07
+          },
+          "framesPerRun": {
+            "median": 999,
+            "min": 999,
+            "max": 999
+          },
+          "wallS": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.7
+          },
+          "raw": [
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 5000,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 999,
+              "wallMs": 16675.125,
+              "avgFps": 59.97887230714226,
+              "p5Fps": 59.84440454817787,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.86499999999978,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 5000,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16675.155000000028,
+              "avgFps": 59.97908837189196,
+              "p5Fps": 59.77286312013852,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.80500000000029,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 5000,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16675.530000000028,
+              "avgFps": 59.978998344723735,
+              "p5Fps": 59.862316671655456,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 17.074999999999818,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 5000,
+              "idleRefreshHz": 59.97001499250391,
+              "frames": 999,
+              "wallMs": 16675.055000000168,
+              "avgFps": 59.97878228062265,
+              "p5Fps": 59.80861244019373,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.824999999999818,
+              "resolved": 200,
+              "orderMatchesModel": true
+            },
+            {
+              "renderer": "canvas",
+              "n": 5000,
+              "speed": 8,
+              "swaps": 200,
+              "seed": 20261118,
+              "perSwapMs": 56.25,
+              "elements": 5000,
+              "idleRefreshHz": 59.988002399519836,
+              "frames": 999,
+              "wallMs": 16675.27000000002,
+              "avgFps": 59.97912438283493,
+              "p5Fps": 59.88023952095548,
+              "dropped": 0,
+              "droppedVsRefresh": 0,
+              "worstFrameMs": 16.7549999999992,
+              "resolved": 200,
+              "orderMatchesModel": true
+            }
+          ]
+        }
+      ],
+      "stalls": [
+        "svg-300 1x attempt 1: run timeout 174000 ms"
+      ],
+      "cpuThrottlingRate": 4
     }
   ]
 }
