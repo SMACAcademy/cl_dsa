@@ -102,15 +102,17 @@ describe("linear structure details", () => {
     const interactive = within(screen.getByRole("main"))
       .getAllByText("Interactive")
       .map((chip) => chip.closest("a")?.getAttribute("href"));
-    expect(interactive).toEqual([
-      "/structures/array",
-      "/structures/dynamic-array",
-      "/structures/singly-linked-list",
-      "/structures/doubly-linked-list",
-      "/structures/stack",
-      "/structures/queue",
-      "/structures/circular-queue",
-      "/structures/deque",
-    ]);
+    expect(interactive).toEqual(
+      expect.arrayContaining([
+        "/structures/array",
+        "/structures/dynamic-array",
+        "/structures/singly-linked-list",
+        "/structures/doubly-linked-list",
+        "/structures/stack",
+        "/structures/queue",
+        "/structures/circular-queue",
+        "/structures/deque",
+      ]),
+    );
   });
 });

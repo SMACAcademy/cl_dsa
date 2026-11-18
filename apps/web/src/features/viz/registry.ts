@@ -4,6 +4,7 @@ import { BubbleSortPlayer } from "./BubbleSortPlayer";
 import { CountingSortPlayer } from "./CountingSortPlayer";
 import { ArrayPlayer } from "./ds/array";
 import { DynamicArrayPlayer } from "./ds/dynamicArray";
+import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
 import { DoublyLinkedListPlayer, SinglyLinkedListPlayer } from "./ds/linkedList";
 import { RingBufferPlayer } from "./ds/ringBuffer";
 import { DequePlayer, QueuePlayer, StackPlayer } from "./ds/stackQueue";
@@ -36,6 +37,9 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   queue: QueuePlayer,
   "circular-queue": RingBufferPlayer,
   deque: DequePlayer,
+  "hash-table": HashTablePlayer,
+  "open-addressing": OpenAddressingPlayer,
+  "hash-set": HashSetPlayer,
 };
 
 export function hasVisualizer(id: string): boolean {

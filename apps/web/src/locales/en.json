@@ -406,7 +406,73 @@
         "top": "top",
         "ring": "Ring buffer slots",
         "slot": "Slot {{index}}: {{value}}. {{pointers}}",
-        "emptySlot": "empty"
+        "emptySlot": "empty",
+        "buckets": "Buckets",
+        "bucket": "Bucket {{b}}: {{values}}"
+      },
+      "hashTable": {
+        "help": "insert k, lookup k, delete k",
+        "preset": {
+          "tour": "Collision and lookup",
+          "collide": "Many collisions",
+          "delete": "Delete"
+        },
+        "start": "{{m}} empty buckets. A key goes into bucket hash(key) % {{m}}.",
+        "hash": "hash({{k}}) = {{k}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "hashLetter": "hash('{{k}}') = ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "qBucket": "Which bucket does {{k}} go to?",
+        "scanNo": "{{e}} is not {{k}}: check the next key in this chain.",
+        "alreadyThere": "{{k}} is already in bucket {{b}}, so nothing changes.",
+        "storeEmpty": "Bucket {{b}} is empty: store {{k}} there.",
+        "collision": "Collision! Bucket {{b}} already holds a key, so {{k}} joins its chain (now {{size}} long).",
+        "lookupHit": "Found {{k}} in bucket {{b}} after {{checks}} check(s). The other buckets were never looked at.",
+        "lookupMiss": "{{k}} is not in bucket {{b}}, so it is not in the table ({{checks}} check(s)).",
+        "deleteFound": "Found {{k}} in bucket {{b}}: remove it from the chain.",
+        "deleted": "{{k}} removed from bucket {{b}}. No other key moved.",
+        "deleteMiss": "{{k}} is not in bucket {{b}}: nothing to delete.",
+        "end": "{{n}} key(s) in {{m}} buckets: load factor {{load}}, longest chain {{longest}}. Short chains keep every operation fast."
+      },
+      "hashSet": {
+        "help": "add x, contains x, remove x",
+        "preset": {
+          "tour": "Duplicates are ignored",
+          "dedupe": "Remove duplicates",
+          "remove": "Remove"
+        },
+        "start": "{{m}} empty buckets. A value goes into bucket hash(value) % {{m}}.",
+        "hash": "hash({{k}}) = {{k}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "hashLetter": "hash('{{k}}') = ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "qBucket": "Which bucket does {{k}} go to?",
+        "scanNo": "{{e}} is not {{k}}: check the next value in this bucket.",
+        "alreadyThere": "{{k}} is already in the set, so it is not added again.",
+        "storeEmpty": "Bucket {{b}} is empty: add {{k}} there.",
+        "collision": "Bucket {{b}} already holds a value, so {{k}} joins it (now {{size}} in this bucket).",
+        "lookupHit": "contains({{k}}) is True: found in bucket {{b}} after {{checks}} check(s).",
+        "lookupMiss": "contains({{k}}) is False: it is not in bucket {{b}}.",
+        "deleteFound": "Found {{k}} in bucket {{b}}: remove it.",
+        "deleted": "{{k}} removed from the set.",
+        "deleteMiss": "{{k}} is not in the set: nothing to remove.",
+        "end": "The set holds {{n}} distinct value(s) in {{m}} buckets (load factor {{load}})."
+      },
+      "probing": {
+        "help": "insert k, lookup k (whole numbers)",
+        "preset": {
+          "tour": "Probe past taken slots",
+          "cluster": "A growing cluster",
+          "full": "Fill the table"
+        },
+        "start": "{{m}} empty slots. A key starts at slot key % {{m}}; if that slot is taken, try the next one.",
+        "home": "{{k}} % {{m}} = {{b}}: start at slot {{b}}.",
+        "homeLetter": "ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: start at slot {{b}}.",
+        "qBucket": "Which slot does {{k}} start at?",
+        "occupied": "Slot {{i}} holds {{v}}, not {{k}}: move on to slot {{next}}.",
+        "store": "Slot {{i}} is empty: store {{k}} there ({{probes}} probe(s)).",
+        "alreadyThere": "{{k}} is already in slot {{i}}.",
+        "lookupEmpty": "Slot {{i}} is empty, so {{k}} can't be further along: not found ({{probes}} probe(s)).",
+        "lookupHit": "Found {{k}} in slot {{i}} after {{probes}} probe(s).",
+        "full": "OverflowError: all {{m}} slots are taken, so {{k}} can't be stored.",
+        "lookupFullMiss": "Checked all {{m}} slots: {{k}} is not here.",
+        "end": "{{n}} key(s) in {{m}} slots: load factor {{load}}. As it gets close to 1, probe runs get long."
       },
       "array": {
         "help": "read i, insert x at i, delete i, search x",

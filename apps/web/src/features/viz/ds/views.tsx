@@ -33,7 +33,7 @@ function Glyph({ state }: { state: NodeState }) {
   );
 }
 
-function Box({ value, state }: { value: string; state: NodeState }) {
+export function Box({ value, state }: { value: string; state: NodeState }) {
   return (
     <span
       className={`relative grid size-12 shrink-0 place-items-center rounded-control border-2 font-mono text-lg font-semibold transition-all duration-300 ${BOX[state]}`}
