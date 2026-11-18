@@ -2,6 +2,11 @@ import type { ComponentType } from "react";
 import { BinarySearchPlayer } from "./BinarySearchPlayer";
 import { BubbleSortPlayer } from "./BubbleSortPlayer";
 import { CountingSortPlayer } from "./CountingSortPlayer";
+import { ArrayPlayer } from "./ds/array";
+import { DynamicArrayPlayer } from "./ds/dynamicArray";
+import { DoublyLinkedListPlayer, SinglyLinkedListPlayer } from "./ds/linkedList";
+import { RingBufferPlayer } from "./ds/ringBuffer";
+import { DequePlayer, QueuePlayer, StackPlayer } from "./ds/stackQueue";
 import { HeapSortPlayer } from "./HeapSortPlayer";
 import { InsertionSortPlayer } from "./InsertionSortPlayer";
 import { LinearSearchPlayer } from "./LinearSearchPlayer";
@@ -22,6 +27,15 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "heap-sort": HeapSortPlayer,
   "counting-sort": CountingSortPlayer,
   "radix-sort": RadixSortPlayer,
+  // Data structures
+  array: ArrayPlayer,
+  "dynamic-array": DynamicArrayPlayer,
+  "singly-linked-list": SinglyLinkedListPlayer,
+  "doubly-linked-list": DoublyLinkedListPlayer,
+  stack: StackPlayer,
+  queue: QueuePlayer,
+  "circular-queue": RingBufferPlayer,
+  deque: DequePlayer,
 };
 
 export function hasVisualizer(id: string): boolean {

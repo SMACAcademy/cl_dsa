@@ -8,9 +8,9 @@ export type CellState =
 /** A labelled pointer drawn under a box, e.g. `i`, or `lo` / `mid` / `hi`. */
 export type Marker = { index: number; label: string };
 
-type Props = {
+type Props<T extends number | string> = {
   /** Values to show; `null` draws an empty slot. */
-  items: readonly (number | null)[];
+  items: readonly (T | null)[];
   stateOf: (index: number) => CellState;
   markers?: readonly Marker[];
   ranges?: readonly Range[];
@@ -19,7 +19,9 @@ type Props = {
   /** Show index numbers under the boxes (default true). */
   showIndex?: boolean;
   /** Optional custom rendering of a value (e.g. to underline one digit). */
-  renderValue?: (value: number, index: number) => ReactNode;
+  renderValue?: (value: T, index: number) => ReactNode;
+  /** Extra text under each index, e.g. a memory address. */
+  subLabel?: (index: number) => string;
   /** Reserve a row under the boxes for markers (default true). */
   markerRow?: boolean;
 };
@@ -51,7 +53,7 @@ const GLYPH: Record<CellState, string> = {
 };
 
 /** A row of array boxes with index labels, per-cell state, markers and range brackets. */
-export function ArrayView({
+export function ArrayView<T extends number | string>({
   items,
   stateOf,
   markers = [],
@@ -60,7 +62,8 @@ export function ArrayView({
   showIndex = true,
   renderValue,
   markerRow = true,
-}: Props) {
+  subLabel,
+}: Props<T>) {
   const { t } = useTranslation();
   const width = items.length * SLOT - (SLOT - CELL);
   return (
@@ -92,6 +95,11 @@ export function ArrayView({
               {showIndex && (
                 <span aria-hidden="true" className="font-mono text-xs text-muted">
                   {index}
+                </span>
+              )}
+              {subLabel && (
+                <span aria-hidden="true" className="font-mono text-[10px] text-muted">
+                  {subLabel(index)}
                 </span>
               )}
               {markerRow && (

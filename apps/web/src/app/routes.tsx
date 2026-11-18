@@ -64,5 +64,13 @@ export const ROUTE_PATHS: readonly string[] = [
   "/algorithms/counting-sort",
   "/algorithms/radix-sort",
   "/structures/hash-table",
+  "/structures/array",
+  "/structures/dynamic-array",
+  "/structures/singly-linked-list",
+  "/structures/doubly-linked-list",
+  "/structures/stack",
+  "/structures/queue",
+  "/structures/circular-queue",
+  "/structures/deque",
   "/algorithms/no-such-item",
 ];

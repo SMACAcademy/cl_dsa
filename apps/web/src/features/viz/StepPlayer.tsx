@@ -25,6 +25,8 @@ type Props<S> = {
   vars: (step: S) => readonly { name: string; value: ReactNode }[];
   /** Question to ask before `upcoming` is shown, or null for no question. */
   predictionBefore: (upcoming: S) => Prediction | null;
+  /** Label of the prediction toggle (defaults to "Predict before each comparison"). */
+  predictLabel?: string;
 };
 
 /**
@@ -40,6 +42,7 @@ export function StepPlayer<S>({
   stage,
   vars,
   predictionBefore,
+  predictLabel,
 }: Props<S>) {
   const { t } = useTranslation();
   const speedId = useId();
@@ -166,7 +169,7 @@ export function StepPlayer<S>({
               onChange={(e) => setPredict(e.target.checked)}
               className="size-4 accent-accent"
             />
-            {t("viz.predict.toggle")}
+            {predictLabel ?? t("viz.predict.toggle")}
           </label>
           <span className="inline-flex items-center gap-2">
             <label htmlFor={speedId}>{t("viz.controls.speed")}</label>

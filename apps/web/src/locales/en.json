@@ -371,6 +371,197 @@
       "bucketContents": "Bucket {{d}}: {{values}}",
       "emptyBucket": "empty"
     },
+    "ds": {
+      "form": {
+        "start": "Start with (up to {{max}} values, may be empty)",
+        "capacity": "Capacity (2 to 8)",
+        "ops": "Operations (up to {{max}}, separated by commas)",
+        "commands": "Commands:",
+        "predict": "Predict before each result"
+      },
+      "error": {
+        "empty": "Enter at least one operation. Commands: {{help}}",
+        "tooManyOps": "Use at most {{max}} operations. Small examples are easier to follow.",
+        "unknown": "I don't know the command “{{command}}”. Commands: {{help}}",
+        "badStart": "“{{token}}” isn't a value here. Use whole numbers from -99 to 99, or single letters.",
+        "tooManyStart": "Start with at most {{max}} values.",
+        "badCapacity": "Capacity must be one whole number from 2 to 8."
+      },
+      "view": {
+        "newNode": "new node",
+        "chain": "Linked list from head",
+        "node": "Node {{value}}, next is {{next}}, {{state}}. {{pointers}}",
+        "state": {
+          "idle": "in the list",
+          "current": "current",
+          "changed": "just re-linked",
+          "found": "found",
+          "new": "new",
+          "removed": "being removed"
+        },
+        "leaving": "just left the stack",
+        "stack": "Stack, bottom to top",
+        "empty": "empty",
+        "stackItem": "{{value}} at position {{position}}",
+        "top": "top",
+        "ring": "Ring buffer slots",
+        "slot": "Slot {{index}}: {{value}}. {{pointers}}",
+        "emptySlot": "empty"
+      },
+      "array": {
+        "help": "read i, insert x at i, delete i, search x",
+        "preset": {
+          "tour": "Read, insert, delete, search",
+          "front": "Insert at the front",
+          "end": "Insert at the end"
+        },
+        "start": "a = {{list}}: {{count}} values in neighbouring boxes. Each box is 4 bytes, starting at address 100.",
+        "read": "a[{{i}}]: jump straight to address 100 + {{i}} × 4 = {{addr}} and read {{value}}. No scanning needed.",
+        "qRead": "What is a[{{i}}]?",
+        "indexError": "IndexError: index {{i}} is outside 0..{{last}}.",
+        "insertError": "Can't insert at index {{i}}: the list only has {{n}} values (valid: 0..{{n}}).",
+        "grow": "Make room: the list grows to {{n}} slots, with an empty slot at the end.",
+        "shiftRight": "Shift {{value}} right, from index {{from}} to {{to}}.",
+        "write": "Write {{x}} into the gap at index {{i}}. Inserting here moved {{moved}} value(s).",
+        "deleteStart": "Delete index {{i}} (value {{value}}): it leaves a gap.",
+        "shiftLeft": "Shift {{value}} left, from index {{from}} to {{to}}.",
+        "shrink": "Drop the empty last slot: {{list}}. Deleting moved {{moved}} value(s).",
+        "compareNo": "Is a[{{i}}] = {{value}} equal to {{x}}? No.",
+        "compareYes": "Is a[{{i}}] = {{value}} equal to {{x}}? Yes!",
+        "found": "Found {{x}} at index {{i}} after {{checks}} check(s).",
+        "notFound": "{{x}} is not in the list: all {{checks}} values were checked.",
+        "end": "Done: a = {{list}}."
+      },
+      "dynamic": {
+        "help": "append x, pop",
+        "preset": {
+          "grow": "Grow past capacity",
+          "doubling": "Doubling twice",
+          "pop": "Pop, then append"
+        },
+        "start": "Size {{size}}, capacity {{capacity}}: {{spare}} spare slot(s) ready for appends.",
+        "full": "Full: size {{size}} = capacity {{capacity}}. Grow before appending.",
+        "allocate": "Allocate a new block with {{capacity}} slots, twice as big.",
+        "copy": "Copy slots[{{i}}] = {{value}} into the new block.",
+        "switch": "Switch to the new block (capacity {{capacity}}). The old one is freed.",
+        "write": "Write {{x}} into slots[{{i}}]. Size {{size}}, capacity {{capacity}}.",
+        "popEmpty": "IndexError: pop from an empty list.",
+        "pop": "Remove the last value {{x}}. Size {{size}}, capacity stays {{capacity}}.",
+        "qPop": "What will pop() return?",
+        "end": "{{appends}} append(s) needed {{copies}} copy step(s) in total: on average about one per append."
+      },
+      "singly": {
+        "help": "insert x after y, add-first x, delete x, find x",
+        "preset": {
+          "tour": "Insert, then delete",
+          "front": "Add to the front",
+          "find": "Find a value"
+        },
+        "start": "head → {{list}}. Each node holds a value and an arrow to the next node.",
+        "walkMiss": "Node {{value}}: not {{x}}, follow the arrow to the next node.",
+        "walkHit": "Node {{value}}: this is {{x}}.",
+        "createFirst": "Create node {{x}} pointing at the old head, {{next}}.",
+        "linkHead": "Make {{x}} the new head: {{list}}. No other node moved.",
+        "afterMissing": "{{y}} is not in the list, so there is nothing to insert after.",
+        "create": "Create node {{x}} and point it at {{next}}.",
+        "link": "Point {{y}} at {{x}}: {{list}}. Only two arrows changed.",
+        "emptyList": "The list is empty: there is no {{x}}.",
+        "findHit": "Found {{x}} after visiting {{steps}} node(s).",
+        "findMiss": "Reached None: {{x}} is not in the list ({{steps}} node(s) visited).",
+        "headMatch": "The head is {{x}}, so the new head is the node after it.",
+        "headRemoved": "{{x}} removed: {{list}}.",
+        "prevStart": "Start with prev at the head, {{value}}. Look for {{x}} one node ahead.",
+        "prevMove": "The next node isn't {{x}}: move prev to {{value}}.",
+        "deleteMissing": "Reached the end: {{x}} is not in the list.",
+        "found": "The node after {{prev}} is {{x}}: unlink it.",
+        "unlink": "Point {{prev}} past {{x}}, straight to {{next}}: {{list}}.",
+        "qNext": "After deleting {{x}}, where does {{prev}} point?",
+        "end": "Done: head → {{list}}."
+      },
+      "doubly": {
+        "help": "add-first x, add-last x, delete x",
+        "preset": {
+          "tour": "Delete from the middle",
+          "ends": "Work at both ends",
+          "build": "Build from empty"
+        },
+        "start": "head ⇄ {{list}}. Each node points both to the next node and back to the previous one.",
+        "create": "Create node {{x}}.",
+        "linkEmpty": "The list was empty, so {{x}} is both the head and the tail.",
+        "linkLast": "Link {{end}} ⇄ {{x}}: {{list}}. {{x}} is the new tail.",
+        "linkFirst": "Link {{x}} ⇄ {{end}}: {{list}}. {{x}} is the new head.",
+        "missing": "{{x}} is not in the list.",
+        "deleteFind": "Start from node {{x}}: it knows both its neighbours.",
+        "linkPrev": "{{prev}}.next skips over it, straight to {{next}}.",
+        "qPrevNext": "After unlinking, where does {{prev}}.next point?",
+        "noPrev": "{{x}} has no previous node: it was the head. The new head is {{next}}.",
+        "linkNext": "{{next}}.prev skips back to {{prev}}: {{list}}.",
+        "noNext": "{{x}} had no next node: it was the tail. The new tail is {{prev}}: {{list}}.",
+        "end": "Done: head ⇄ {{list}}."
+      },
+      "stack": {
+        "help": "push x, pop, peek",
+        "preset": { "tour": "Push, pop, peek", "undo": "Undo history", "empty": "Pop too far" },
+        "start": "items = {{list}}. Only the top can be touched.",
+        "push": "Push {{x}} on top. The stack holds {{size}} value(s).",
+        "pop": "Pop the top value {{x}}. Now items = {{list}}.",
+        "qPop": "What will pop() return?",
+        "peek": "Peek: the top is {{x}}, and it stays there.",
+        "qPeek": "What will peek() return?",
+        "popEmpty": "IndexError: pop from an empty stack.",
+        "peekEmpty": "IndexError: nothing to peek at, the stack is empty.",
+        "end": "Done: items = {{list}}."
+      },
+      "queue": {
+        "help": "enqueue x, dequeue, front",
+        "preset": {
+          "tour": "Enqueue, dequeue, front",
+          "line": "A moving line",
+          "empty": "Dequeue too far"
+        },
+        "start": "items = {{list}}. Values join at the back and leave from the front.",
+        "enqueue": "Enqueue {{x}} at the back. The queue holds {{size}} value(s).",
+        "dequeue": "Dequeue: {{x}} leaves from the front. Now items = {{list}}.",
+        "qDequeue": "What will dequeue() return?",
+        "front": "Front: {{x}} is next in line, and it stays there.",
+        "qFront": "What will front() return?",
+        "dequeueEmpty": "IndexError: pop from an empty deque.",
+        "frontEmpty": "IndexError: the queue is empty.",
+        "end": "Done: items = {{list}}."
+      },
+      "deque": {
+        "help": "push_back x, push_front x, pop_back, pop_front",
+        "preset": {
+          "tour": "Both ends",
+          "window": "Sliding window",
+          "palindrome": "Palindrome check"
+        },
+        "start": "d = deque({{list}}). Values can join or leave at either end.",
+        "pushBack": "append({{x}}) at the back: {{list}}.",
+        "pushFront": "appendleft({{x}}) at the front: {{list}}.",
+        "popBack": "pop() takes {{x}} from the back: {{list}}.",
+        "popFront": "popleft() takes {{x}} from the front: {{list}}.",
+        "qPopBack": "What will pop() return?",
+        "qPopFront": "What will popleft() return?",
+        "popEmpty": "IndexError: the deque is empty.",
+        "end": "Done: d = deque({{list}})."
+      },
+      "ring": {
+        "help": "enqueue x, dequeue",
+        "preset": { "tour": "Wrap around", "full": "Fill it up", "laps": "Go round in laps" },
+        "start": "A ring of {{capacity}} slots. head marks the front; the tail is head + size, wrapped around.",
+        "tail": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}.",
+        "tailWrap": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}: it wraps around to the start.",
+        "write": "Write {{x}} into slot {{tail}}. Size {{size}}.",
+        "full": "OverflowError: all {{capacity}} slots are full, so {{x}} can't join.",
+        "read": "Read the front value {{x}} from slot {{head}}.",
+        "qDequeue": "What will dequeue() return?",
+        "advance": "Clear the slot and move head to {{head}}. Size {{size}}.",
+        "advanceWrap": "Clear the slot and move head to {{head}}: it wraps around. Size {{size}}.",
+        "empty": "IndexError: the ring buffer is empty.",
+        "end": "Done: {{size}} of {{capacity}} slots in use. No value was ever moved."
+      }
+    },
     "binary": {
       "start": "Look for {{target}} in a sorted list of {{count}} values.",
       "init": "Start with the whole list: lo = {{lo}}, hi = {{hi}}.",
