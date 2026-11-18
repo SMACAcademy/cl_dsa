@@ -25,6 +25,7 @@ self.onmessage = async (e: MessageEvent) => {
   if (m.type === "init") {
     boot(m.sab).catch((err) => self.postMessage({ type: "error", message: "boot: " + String(err) }));
   } else if (m.type === "run") {
+    self.postMessage({ type: "started", id: m.id });
     try {
       const value = String(await pyodide.runPythonAsync(m.code));
       self.postMessage({ type: "result", id: m.id, value });

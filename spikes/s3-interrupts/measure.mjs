@@ -2,7 +2,7 @@
 // Host: prod (serve-prod.mjs) + dev (vite) x Chromium/Firefox/WebKit; then Chromium in the Playwright Docker image
 // with --cpus=0.5. Per-run assertions fail loudly. `--container` is the in-Docker entry point (prod only).
 import { spawn, execSync, execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -37,7 +37,7 @@ async function scenario({ RUNS, C_RUNS, C_CAP_MS }) {
   const s3 = window.__s3;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const must = (c, msg) => { if (!c) throw new Error(msg); };
-  const out = { pageCrossOriginIsolated: s3.crossOriginIsolated, soft: [], hard: [], cLoop: [] };
+  const out = { pageCrossOriginIsolated: s3.crossOriginIsolated, soft: [], softSends: [], hard: [], cLoop: [] };
   const checkReady = (m, where) => {
     must(m.workerCrossOriginIsolated === true, `${where}: worker crossOriginIsolated=${m.workerCrossOriginIsolated}`);
     must(m.workerSharedArrayBuffer === "function", `${where}: worker typeof SharedArrayBuffer=${m.workerSharedArrayBuffer}`);
@@ -57,11 +57,17 @@ async function scenario({ RUNS, C_RUNS, C_CAP_MS }) {
   // Soft stop of `while True: pass`; the SAME worker must then run 1+1.
   for (let i = 1; i <= RUNS; i++) {
     const r = s3.run("while True: pass");
-    await sleep(300); // let it enter the loop
+    await r.started; await sleep(300); // worker has begun executing; let it enter the loop
     t = s3.now();
-    s3.softStop();
-    const m = await Promise.race([r.done, sleep(10000).then(() => ({ type: "timeout" }))]);
+    // Resend policy: a stop that arrives before Pyodide has entered the loop is dropped (observed at 0.5 CPU and once in
+    // WebKit), so resend every 250 ms until the run ends; fail loudly if 8 sends do not stop it. Latency is from the FIRST send.
+    let m = { type: "timeout" }, sends = 0;
+    while (m.type === "timeout" && sends < 8) {
+      s3.softStop(); sends++;
+      m = await Promise.race([r.done, sleep(250).then(() => ({ type: "timeout" }))]);
+    }
     const ms = s3.now() - t;
+    out.softSends.push(sends);
     must(m.type === "error" && /KeyboardInterrupt/.test(m.message), `soft ${i}: expected KeyboardInterrupt, got ${JSON.stringify(m)}`);
     await two(`soft ${i} survival`);
     out.soft.push(ms);
@@ -69,8 +75,8 @@ async function scenario({ RUNS, C_RUNS, C_CAP_MS }) {
 
   // Hard kill of a busy worker: terminate() -> new worker ready, then 1+1 on the NEW worker.
   for (let i = 1; i <= RUNS; i++) {
-    s3.run("while True: pass");
-    await sleep(300);
+    const busy = s3.run("while True: pass");
+    await busy.started; await sleep(300);
     const k = await s3.hardKill();
     checkReady(k.ready, `hard ${i}`);
     await two(`hard ${i} new worker`);
@@ -80,7 +86,7 @@ async function scenario({ RUNS, C_RUNS, C_CAP_MS }) {
   // C-level loop: does the soft interrupt reach it?
   for (let i = 1; i <= C_RUNS; i++) {
     const r = s3.run("sum(range(10**10))");
-    await sleep(300);
+    await r.started; await sleep(300);
     t = s3.now();
     s3.softStop();
     const m = await Promise.race([r.done, sleep(C_CAP_MS).then(() => ({ type: "timeout" }))]);
@@ -95,6 +101,49 @@ async function scenario({ RUNS, C_RUNS, C_CAP_MS }) {
       await two(`cLoop ${i} survival`);
       out.cLoop.push({ softStopped: true, latencyMs: ms });
     }
+  }
+
+  // Spare-worker mode. Memory of one idle spare: measureUserAgentSpecificMemory before/after booting it (Chromium only).
+  out.spare = { swap: [], rebuild: [], double: [], doubleFirst: [], memory: null };
+  const rssNow = async () => { await sleep(1500); return window.__rss ? await window.__rss() : null; }; // container only
+  const mem0 = await s3.memory();
+  const rss0 = await rssNow();
+  const sr = await s3.prepareSpare();
+  checkReady(sr, "initial spare");
+  const mem1 = await s3.memory();
+  const rss1 = await rssNow();
+  out.spare.rss = rss0 != null && rss1 != null ? { method: "sum of /proc/*/statm resident pages inside the container, 1.5 s after each step", oneWorkerBytes: rss0, withSpareBytes: rss1, spareBytes: rss1 - rss0 } : null;
+  out.spare.memory = mem0?.bytes != null && mem1?.bytes != null
+    ? { method: "performance.measureUserAgentSpecificMemory", oneWorkerBytes: mem0.bytes, withSpareBytes: mem1.bytes, spareBytes: mem1.bytes - mem0.bytes }
+    : { unavailable: mem0?.error ?? mem1?.error ?? "no result" };
+
+  const checkTwo = (m, where) => must(m.type === "result" && m.value === "2", `${where}: 1+1 -> ${JSON.stringify(m)}`);
+  // Single kill: terminate the busy worker, route 1+1 to the spare. swap = terminate() -> spare's 1+1 result.
+  for (let i = 1; i <= RUNS; i++) {
+    const busy = s3.run("while True: pass");
+    await busy.started; await sleep(300);
+    const sw = s3.swapToSpare();
+    const m = await sw.run("1 + 1");
+    const ms = s3.now() - sw.t0;
+    checkTwo(m, `swap ${i}`);
+    out.spare.swap.push(ms);
+    const rr = await sw.spareReady; // replacement spare finished booting in the background
+    checkReady(rr, `swap ${i} replacement spare`);
+    out.spare.rebuild.push(s3.now() - sw.t0);
+  }
+  // Double kill: a second kill right after the first, while the replacement spare is still booting.
+  for (let i = 1; i <= RUNS; i++) {
+    const busy = s3.run("while True: pass");
+    await busy.started; await sleep(300);
+    const a = s3.swapToSpare();
+    checkTwo(await a.run("1 + 1"), `double ${i} first`);
+    out.spare.doubleFirst.push(s3.now() - a.t0);
+    const b = s3.swapToSpare(); // immediately: the active worker is idle, the spare it promotes is still booting
+    const m = await b.run("1 + 1");
+    const ms = s3.now() - b.t0;
+    checkTwo(m, `double ${i} second`);
+    out.spare.double.push(ms);
+    checkReady(await b.spareReady, `double ${i} replacement spare`);
   }
   return out;
 }
@@ -114,6 +163,16 @@ async function measure(label, type, origin) {
     });
     const errs = [];
     page.on("pageerror", (e) => errs.push(String(e)));
+    if (inContainer) {
+      await page.exposeFunction("__rss", () => {
+        let pages = 0;
+        for (const pid of readdirSync("/proc")) {
+          if (!/^\d+$/.test(pid)) continue;
+          try { pages += +readFileSync(`/proc/${pid}/statm`, "utf8").split(" ")[1]; } catch {}
+        }
+        return pages * 4096;
+      });
+    }
     await page.goto(origin + "/?manual");
     await page.waitForFunction(() => window.__s3, null, { timeout: 30000 });
     const d = await page.evaluate(scenario, { RUNS, C_RUNS, C_CAP_MS });
@@ -127,11 +186,16 @@ async function measure(label, type, origin) {
     out.assertions = d.soft.length * 2 + d.hard.length * 2 + d.cLoop.length + 1;
     Object.assign(out, { firstBootMs: +d.firstBootMs.toFixed(1), workerInfo: d.workerInfo, raw: d });
     out.softStopMs = stat(d.soft);
+    out.softSendsPerStop = d.softSends;
     out.hardKillRebootMs = stat(d.hard);
     const cs = d.cLoop.filter((c) => c.softStopped);
     const cf = d.cLoop.filter((c) => !c.softStopped);
     out.cLoopSummary = { runs: d.cLoop.length, softStopped: cs.length, latencyMs: cs.length ? stat(cs.map((c) => c.latencyMs)) : null,
       capMs: C_CAP_MS, hardKillRebootMs: cf.length ? stat(cf.map((c) => c.hardKillRebootMs)) : null };
+    const sp = d.spare;
+    out.spare = { swapMs: stat(sp.swap), replacementSpareReadyMs: stat(sp.rebuild), doubleKillFirstMs: stat(sp.doubleFirst),
+      doubleKillSecondMs: stat(sp.double), memory: sp.memory, rss: sp.rss };
+    out.assertions += sp.swap.length * 2 + sp.double.length * 2 + 1;
     await ctx.close();
   } finally { await browser.close().catch(() => {}); }
   return out;
@@ -165,7 +229,7 @@ async function withServer(mode, fn) {
 
 const describe = (r) => r.untested ? `${r.label}: UNTESTED ${r.untested}` :
   `${r.label} ${r.browserVersion}: first boot ${r.firstBootMs}; soft ${JSON.stringify(r.softStopMs)}; hard re-boot ${JSON.stringify(r.hardKillRebootMs)}; ` +
-  `C loop ${JSON.stringify(r.cLoopSummary)}`;
+  `C loop ${JSON.stringify(r.cLoopSummary)}; spare swap ${JSON.stringify(r.spare.swapMs)} double-kill 2nd ${JSON.stringify(r.spare.doubleKillSecondMs)} mem ${JSON.stringify(r.spare.memory)} rss ${JSON.stringify(r.spare.rss)}`;
 
 const system = systemInfo();
 console.log("SYSTEM", JSON.stringify(system));
@@ -182,7 +246,8 @@ execSync("pnpm exec vite build --config s3-interrupts/vite.config.ts s3-interrup
 const results = [];
 for (const mode of (arg("--modes") ?? "prod,dev").split(",")) {
   await withServer(mode, async (origin) => {
-    for (const [n, t] of [["chromium", chromium], ["firefox", firefox], ["webkit", webkit]]) {
+    const only = (arg("--browsers") ?? "chromium,firefox,webkit").split(",");
+    for (const [n, t] of [["chromium", chromium], ["firefox", firefox], ["webkit", webkit]].filter(([n]) => only.includes(n))) {
       let r;
       try { r = await measure(`${mode}/${n} (desktop)`, t, origin); }
       catch (e) {
@@ -216,7 +281,7 @@ if (!flag("--no-docker")) {
 
 const untested = results.filter((r) => r.untested).map((r) => r.label);
 const total = results.reduce((a, r) => a + (r.assertions ?? 0), 0);
-console.log(`ASSERTIONS OK: ${total} checks (per run: soft stop -> KeyboardInterrupt and same worker 1+1=2; hard kill -> new worker ready, worker isolated + SharedArrayBuffer, 1+1=2; C loop outcome asserted either way); untested: ${untested.join(", ") || "none"}`);
+console.log(`ASSERTIONS OK: ${total} checks (per run: soft stop -> KeyboardInterrupt and same worker 1+1=2; hard kill -> new worker ready, worker isolated + SharedArrayBuffer, 1+1=2; C loop outcome asserted either way; spare swap and double kill -> 1+1=2 on the spare, replacement spare ready); untested: ${untested.join(", ") || "none"}`);
 if (outFile) {
   mkdirSync(path.dirname(outFile), { recursive: true });
   writeFileSync(outFile, JSON.stringify({ system, results }, null, 2));
