@@ -1,4 +1,7 @@
 import type { RouteObject } from "react-router";
+import type { CatalogKind } from "../features/catalog/catalog";
+import { CatalogDetail } from "../features/catalog/CatalogDetail";
+import { CatalogList } from "../features/catalog/CatalogList";
 import { LessonPlaceholder } from "../features/lesson/LessonPlaceholder";
 import { DashboardPlaceholder } from "../features/placeholder/DashboardPlaceholder";
 import { NotFound } from "../features/placeholder/NotFound";
@@ -6,12 +9,24 @@ import { SectionPlaceholder } from "../features/placeholder/SectionPlaceholder";
 import { SettingsPlaceholder } from "../features/placeholder/SettingsPlaceholder";
 import { AppShell } from "./AppShell";
 import { ErrorFallback, RouteErrorFallback } from "./ErrorBoundary";
-import { NAV_ITEMS, SETTINGS_PATH } from "./nav";
+import { NAV_ITEMS, SETTINGS_PATH, type SectionId } from "./nav";
 
-const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").map((item) => ({
-  path: item.path.slice(1),
-  element: <SectionPlaceholder id={item.id} />,
-}));
+/** Sections whose list screen is the algorithm / data-structure catalog. */
+const CATALOG_SECTIONS: Partial<Record<SectionId, CatalogKind>> = {
+  algorithms: "algorithm",
+  structures: "structure",
+};
+
+const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
+  (item): RouteObject[] => {
+    const kind = CATALOG_SECTIONS[item.id];
+    if (!kind) return [{ path: item.path.slice(1), element: <SectionPlaceholder id={item.id} /> }];
+    return [
+      { path: item.path.slice(1), element: <CatalogList kind={kind} /> },
+      { path: `${item.path.slice(1)}/:itemId`, element: <CatalogDetail kind={kind} /> },
+    ];
+  },
+);
 
 export const appRoutes: RouteObject[] = [
   {
@@ -39,4 +54,7 @@ export const ROUTE_PATHS: readonly string[] = [
   ...NAV_ITEMS.map((item) => item.path),
   SETTINGS_PATH,
   "/learn/first-algorithms.binary-search",
+  "/algorithms/binary-search",
+  "/structures/hash-table",
+  "/algorithms/no-such-item",
 ];

@@ -184,6 +184,41 @@
     "systems": "Systems & industry",
     "frontier": "Frontier"
   },
+  "catalog": {
+    "algorithm": {
+      "intro": "Every algorithm AlgoVerse will teach. Open one to see what will be built for it and a tiny example worked by hand.",
+      "count": "{{count}} algorithms in {{groups}} groups",
+      "back": "All algorithms"
+    },
+    "structure": {
+      "intro": "Every data structure AlgoVerse will teach. Open one to see what will be built for it and a tiny example worked by hand.",
+      "count": "{{count}} data structures in {{groups}} groups",
+      "back": "All data structures"
+    },
+    "stageHint": "Each card shows its build stage: stage 1 is built first, then stage 2, and so on. The interactive lab itself arrives in the phase shown above.",
+    "level": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "stage": "Build stage {{stage}}",
+    "tile": "Curriculum tile {{tile}}",
+    "detail": {
+      "example": "Tiny worked example",
+      "input": "Input:",
+      "result": "Result:",
+      "visual": "What you'll see when it's built",
+      "cost": "Cost",
+      "buildsOn": "Builds on",
+      "pager": "Previous and next entries",
+      "previous": "Previous: {{name}}",
+      "next": "Next: {{name}}"
+    },
+    "missing": {
+      "title": "Not in the catalog",
+      "body": "There is no catalog entry called “{{id}}”."
+    }
+  },
   "settings": {
     "appearance": "Appearance",
     "themeLegend": "Colour theme"
