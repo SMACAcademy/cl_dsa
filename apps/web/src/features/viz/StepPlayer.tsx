@@ -96,8 +96,8 @@ export function StepPlayer<S>({
   );
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-      <div className="space-y-4">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      <div className="min-w-0 space-y-4">
         <div className="rounded-panel border border-line bg-raised p-4">
           {stage(step)}
           <p
@@ -191,7 +191,7 @@ export function StepPlayer<S>({
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="min-w-0 space-y-4">
         <CodePanel lines={code} active={line(step)} />
         <section
           aria-label={t("viz.vars.title")}

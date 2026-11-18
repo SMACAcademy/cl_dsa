@@ -242,6 +242,7 @@
     "vars": {
       "title": "Variables",
       "comparisons": "comparisons",
+      "swaps": "swaps",
       "returned": "returned"
     },
     "linear": {
@@ -251,6 +252,26 @@
       "compareYes": "Is items[{{i}}] = {{value}} equal to {{target}}? Yes!",
       "found": "Return {{i}}. Comparisons made: {{comparisons}}.",
       "notFound": "Reached the end without finding {{target}}. Return -1. Comparisons made: {{comparisons}}."
+    },
+    "bars": {
+      "cell": "Position {{position}}, value {{value}}, {{state}}",
+      "state": {
+        "idle": "not yet in place",
+        "comparing": "being compared",
+        "swapping": "just swapped",
+        "sorted": "in its final place"
+      }
+    },
+    "bubble": {
+      "start": "Sort {{count}} values by swapping neighbours that are out of order.",
+      "pass": "Pass {{pass}}: compare neighbours from index 0 up to index {{end}}.",
+      "compareSwap": "Compare items[{{j}}] = {{a}} and items[{{k}}] = {{b}}: {{a}} > {{b}}, so they are out of order.",
+      "compareKeep": "Compare items[{{j}}] = {{a}} and items[{{k}}] = {{b}}: already in order, leave them.",
+      "swap": "Swap them, so the larger value {{a}} moves right: {{list}}.",
+      "passEnd": "End of pass {{pass}}: {{value}} has bubbled up to index {{end}}, its final place.",
+      "earlyExit": "No swaps in pass {{pass}}: everything is already in order, so stop early.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}.",
+      "counters": "Comparisons: {{comparisons}} · Swaps: {{swaps}}"
     },
     "binary": {
       "start": "Look for {{target}} in a sorted list of {{count}} values.",
@@ -280,6 +301,9 @@
       "title": "Your prediction",
       "question": "Will items[{{i}}] = {{value}} equal {{target}}?",
       "binaryQuestion": "items[{{mid}}] = {{value}}. Where is {{target}}?",
+      "swapQuestion": "items[{{j}}] = {{a}} and items[{{k}}] = {{b}}. Swap them?",
+      "swap": "Swap",
+      "keep": "Leave them",
       "direction": {
         "left": "To the left",
         "here": "Right here",
@@ -302,7 +326,11 @@
         "first": "Found at the start",
         "missing": "Not found",
         "left": "Found on the left",
-        "right": "Found on the right"
+        "right": "Found on the right",
+        "mixed": "Mixed",
+        "reversed": "Reversed (worst case)",
+        "nearlySorted": "Nearly sorted",
+        "sorted": "Already sorted (best case)"
       },
       "error": {
         "empty": "Enter at least one value.",

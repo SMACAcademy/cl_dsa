@@ -1,37 +1,91 @@
 import { useId, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { MAX_VALUES, parseInput, type InputError, type SearchInput } from "./input";
+import { MAX_VALUES, parseInput, parseValues, type InputError, type SearchInput } from "./input";
 import { primaryButton } from "./styles";
 
-export type PresetKey = "middle" | "first" | "missing" | "left" | "right";
-export type Preset = { key: PresetKey; values: string; target: string };
+export type PresetKey =
+  | "middle"
+  | "first"
+  | "missing"
+  | "left"
+  | "right"
+  | "mixed"
+  | "reversed"
+  | "nearlySorted"
+  | "sorted";
+export type Preset = { key: PresetKey; values: string; target?: string };
+type Presets = readonly [Preset, ...Preset[]];
 
-type Props = {
-  presets: readonly [Preset, ...Preset[]];
+/** Values + target fields for the search players. The first preset is the default. */
+export function SearchInputForm({
+  presets,
+  requireSorted = false,
+  onRun,
+}: {
+  presets: Presets;
   /** Binary search needs ascending values. */
   requireSorted?: boolean;
   onRun: (input: SearchInput) => void;
-};
+}) {
+  return (
+    <InputForm
+      presets={presets}
+      withTarget
+      valuesLabel={requireSorted ? "viz.input.sortedValues" : "viz.input.values"}
+      parse={(values, target) => {
+        const parsed = parseInput(values, target, { requireSorted });
+        if (!parsed.ok) return parsed.error;
+        onRun({ items: parsed.items, target: parsed.target });
+        return null;
+      }}
+    />
+  );
+}
 
-/** Values + target fields with validation and one-click presets. The first preset is the default. */
-export function SearchInputForm({ presets, requireSorted = false, onRun }: Props) {
+/** A values-only field for the sorting players. The first preset is the default. */
+export function SortInputForm({
+  presets,
+  onRun,
+}: {
+  presets: Presets;
+  onRun: (items: number[]) => void;
+}) {
+  return (
+    <InputForm
+      presets={presets}
+      withTarget={false}
+      valuesLabel="viz.input.values"
+      parse={(values) => {
+        const parsed = parseValues(values);
+        if (!parsed.ok) return parsed.error;
+        onRun(parsed.items);
+        return null;
+      }}
+    />
+  );
+}
+
+function InputForm({
+  presets,
+  withTarget,
+  valuesLabel,
+  parse,
+}: {
+  presets: Presets;
+  withTarget: boolean;
+  valuesLabel: "viz.input.values" | "viz.input.sortedValues";
+  /** Validates and runs the input; returns an error, or null on success. */
+  parse: (values: string, target: string) => InputError | null;
+}) {
   const { t } = useTranslation();
   const valuesId = useId();
   const targetId = useId();
   const errorId = useId();
   const [valuesText, setValuesText] = useState(presets[0].values);
-  const [targetText, setTargetText] = useState(presets[0].target);
+  const [targetText, setTargetText] = useState(presets[0].target ?? "");
   const [error, setError] = useState<InputError | null>(null);
 
-  const apply = (values: string, target: string) => {
-    const parsed = parseInput(values, target, { requireSorted });
-    if (!parsed.ok) {
-      setError(parsed.error);
-      return;
-    }
-    setError(null);
-    onRun({ items: parsed.items, target: parsed.target });
-  };
+  const apply = (values: string, target: string) => setError(parse(values, target));
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -45,7 +99,7 @@ export function SearchInputForm({ presets, requireSorted = false, onRun }: Props
       <form onSubmit={onSubmit} noValidate className="flex flex-wrap items-end gap-3">
         <div className="flex min-w-48 flex-1 flex-col gap-1">
           <label htmlFor={valuesId} className="text-sm font-medium">
-            {t(requireSorted ? "viz.input.sortedValues" : "viz.input.values", { max: MAX_VALUES })}
+            {t(valuesLabel, { max: MAX_VALUES })}
           </label>
           <input
             id={valuesId}
@@ -58,21 +112,23 @@ export function SearchInputForm({ presets, requireSorted = false, onRun }: Props
             autoComplete="off"
           />
         </div>
-        <div className="flex w-28 flex-col gap-1">
-          <label htmlFor={targetId} className="text-sm font-medium">
-            {t("viz.input.target")}
-          </label>
-          <input
-            id={targetId}
-            value={targetText}
-            onChange={(e) => setTargetText(e.target.value)}
-            aria-invalid={error === "targetMissing"}
-            aria-describedby={error ? errorId : undefined}
-            className={field}
-            inputMode="numeric"
-            autoComplete="off"
-          />
-        </div>
+        {withTarget && (
+          <div className="flex w-28 flex-col gap-1">
+            <label htmlFor={targetId} className="text-sm font-medium">
+              {t("viz.input.target")}
+            </label>
+            <input
+              id={targetId}
+              value={targetText}
+              onChange={(e) => setTargetText(e.target.value)}
+              aria-invalid={error === "targetMissing"}
+              aria-describedby={error ? errorId : undefined}
+              className={field}
+              inputMode="numeric"
+              autoComplete="off"
+            />
+          </div>
+        )}
         <button type="submit" className={primaryButton}>
           {t("viz.input.apply")}
         </button>
@@ -92,8 +148,8 @@ export function SearchInputForm({ presets, requireSorted = false, onRun }: Props
             className="rounded-full border border-line bg-surface px-3 py-1 hover:border-accent"
             onClick={() => {
               setValuesText(p.values);
-              setTargetText(p.target);
-              apply(p.values, p.target);
+              setTargetText(p.target ?? "");
+              apply(p.values, p.target ?? "");
             }}
           >
             {t(`viz.input.preset.${p.key}`)}

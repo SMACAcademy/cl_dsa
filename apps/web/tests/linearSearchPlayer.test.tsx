@@ -104,6 +104,10 @@ describe("linear search player", () => {
     const interactive = within(screen.getByRole("main"))
       .getAllByText("Interactive")
       .map((chip) => chip.closest("a")?.getAttribute("href"));
-    expect(interactive).toEqual(["/algorithms/linear-search", "/algorithms/binary-search"]);
+    expect(interactive).toEqual([
+      "/algorithms/linear-search",
+      "/algorithms/binary-search",
+      "/algorithms/bubble-sort",
+    ]);
   });
 });
