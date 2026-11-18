@@ -65,7 +65,7 @@ Each concept is decomposed into 2–6 KCs (e.g. binary search: halving invariant
 expected = 1 / (1 + exp(-(θ_kc − b_item)))        # probability of success
 outcome  = score × hint_factor                    # hint_factor: 1.0, 0.75 (1 hint), 0.5 (2+), 0 if solution viewed
 θ_kc    ← θ_kc + K(n) × (outcome − expected)     # K(n) = 0.4 / (1 + 0.05·n), shrinking with evidence count n
-b_item  ← b_item − k_item × (outcome − expected) # item difficulty calibrated across learners (cloud mode)
+b_item  ← b_item − k_item × (outcome − expected) # item difficulty calibrated across learners (once enough exist)
 ```
 
 Why Elo instead of full Bayesian Knowledge Tracing or IRT: it works from the first attempt with no training data, is cheap and transparent, and is easy to explain in the UI. BKT/IRT can replace it later behind the same `mastery` service interface once enough data exists.
@@ -175,7 +175,7 @@ Badge criteria are **declarative rules** in `content/badges.yaml`, evaluated by 
 | Challenge | Mechanic | Evaluated by |
 |---|---|---|
 | Daily algorithm challenge | One generated item set mixing due/near-due concepts | Assessment engine |
-| Weekly problem-solving challenge | 3 problems of rising difficulty around a theme | Tests (Judge in cloud mode for ranking) |
+| Weekly problem-solving challenge | 3 problems of rising difficulty around a theme | Tests (Judge for ranking, Phase 8) |
 | Debugging challenge | Code with planted bugs (mutations of reference implementations) | Tests + bug-line match |
 | Code optimization challenge | Make it pass with ≤ N comparisons (counters, not wall-clock, so it is fair across devices) | Counters from tracer |
 | Algorithm comparison challenge | Predict the winner on a dataset, then explain why | Arena run + reasons |
@@ -191,4 +191,4 @@ Events (`learning_event`): `section_viewed`, `section_completed`, `trace_played`
 - Learner-facing: progress history, misconception history, time spent per tile.
 - Content-facing (aggregated, cloud): item difficulty calibration, distractor effectiveness, *trace steps with the highest misprediction rate* (to improve narration), drop-off sections.
 
-No third-party analytics. Local mode keeps everything on the learner's machine.
+No third-party analytics. Guest learners are pseudonymous; no personal data is collected.

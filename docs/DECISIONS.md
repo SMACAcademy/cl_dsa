@@ -22,15 +22,16 @@
 | 015 | Server Judge deferred to Phase 8; container-isolated, never in the API process | Proposed |
 | 016 | Trace-generated assessment items | Proposed |
 | 017 | JSON Schema is the single source of truth for the trace schema (codegen to TS + Pydantic) | Proposed |
-| 018 | Local single-user mode first; cloud multi-user later on the same codebase | Proposed |
+| 018 | Hosted web app with anonymous guest learners first; accounts later *(revised 2026-11-18, owner decision)* | Accepted |
+| 020 | Installable PWA via `vite-plugin-pwa` (Workbox), prompt-to-update | Accepted |
 
 ---
 
 ### ADR-001 — Modular monolith
-- **Context:** Small team, many domains (content, progress, assessment, gamification), long-term growth, local-first deployment.
+- **Context:** Small team, many domains (content, progress, assessment, gamification), long-term growth, cheap hosted deployment.
 - **Decision:** One FastAPI deployable with modules communicating via services/domain events. Boundaries enforced by `import-linter`.
 - **Alternatives:** Microservices (operational overhead, distributed transactions, overkill); unstructured monolith (erodes quickly).
-- **Consequences:** Simple local mode (one process). Modules can be extracted later (the Judge is already separate because of security).
+- **Consequences:** One process to run locally or host. Modules can be extracted later (the Judge is already separate because of security).
 
 ### ADR-002 — React + TypeScript + Vite
 - **Context:** The brief mandates React/TS. App is highly interactive. Needs workers, WASM and cross-origin isolation headers.
@@ -39,7 +40,7 @@
 - **Consequences:** SEO for public pages (if ever needed) handled by a small static marketing site.
 
 ### ADR-003 — Pyodide in a Web Worker ⚗
-- **Context:** Must run arbitrary learner Python securely with limits, and must not execute it in the server process. Local-first and free.
+- **Context:** Must run arbitrary learner Python securely with limits, and must not execute it in the server process. Hosted cheaply, free of paid services.
 - **Decision:** Pyodide (CPython → WASM) in a dedicated worker, hardened (no network bridges, import deny-list), with watchdog kill + SharedArrayBuffer soft interrupts.
 - **Alternatives:** Server-side sandbox for everything (cost, latency, attack surface, needs connectivity); Skulpt/Brython (not real CPython, so semantics drift); JupyterLite (heavier, notebook-centric).
 - **Consequences:** ~10 MB first download (cached). Browser CPU limits for large runs. Timing is WASM-specific (labelled). The Judge covers authoritative needs later.
@@ -101,5 +102,8 @@
 ### ADR-017 — Trace schema source of truth
 - **Decision:** JSON Schema in `packages/trace-schema`, generating TS types and Pydantic models. CI fails on stale generated code.
 
-### ADR-018 — Local-first
-- **Decision:** MVP ships as a local single-user learning environment (no login). Cloud multi-user (accounts, leaderboards, Judge) arrives in Phases 8–10 on the same codebase.
+### ADR-018 — Hosted, guest learners first (revised 2026-11-18)
+- **Context:** The owner wants AlgoVerse hosted as a web application (and installable as a PWA). The original single-user local mode would make every visitor share one learner's progress.
+- **Decision:** Every browser gets an anonymous **guest learner** on its first request (random 256-bit session token, stored hashed; httpOnly `SameSite=Lax` cookie). There is no sign-up in the MVP. Email/password accounts arrive in Phases 8–10 and adopt the guest's progress. There is no separate "local mode": local development is a localhost-hosted instance.
+- **Alternatives:** Single-user local mode (unsafe when hosted); accounts in the MVP (sign-up friction, more scope; owner chose "guest learners for now"); progress stored only in the browser (lost on clearing storage, no path to accounts).
+- **Consequences:** Clearing cookies loses guest progress until accounts exist. Data export mitigates that. Guest rows need periodic cleanup (inactive > 180 days, Phase 10).

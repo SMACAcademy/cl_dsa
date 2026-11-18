@@ -72,7 +72,7 @@ erDiagram
 
 | Table | Key columns | Notes |
 |---|---|---|
-| `app_user` | `id`, `email` (unique, nullable in local mode), `display_name`, `password_hash`, `role`, `settings` (JSON), `created_at`, `deleted_at` | |
+| `app_user` | `id`, `email` (unique, null for guests), `display_name`, `password_hash` (null for guests), `role`, `is_guest`, `settings` (JSON), `created_at`, `deleted_at` | |
 | `session` | `id` (random 256-bit, hashed at rest), `user_id`, `created_at`, `expires_at`, `ip_hash`, `user_agent` | |
 | `learner_concept` | `user_id`, `concept_id`, `state` (`locked…review_due`), `mastery` (0–1), `evidence_count`, `first_seen_at`, `proficient_at`, `mastered_at`, `last_activity_at` | PK `(user_id, concept_id)` |
 | `learner_section` | `user_id`, `concept_id`, `section` (A–L), `completed_at`, `data` (JSON, e.g. predictions made) | Resume position |
@@ -113,7 +113,7 @@ erDiagram
 | Area | Method & path | Purpose |
 |---|---|---|
 | **Health** | `GET /healthz`, `GET /readyz` | Liveness/readiness |
-| **Auth** | `POST /auth/register` · `POST /auth/login` · `POST /auth/logout` · `GET /auth/csrf` | Cloud mode; local mode auto-session |
+| **Auth** | `GET /auth/csrf` (MVP; a guest learner is created implicitly on the first request) · later: `POST /auth/register` (adopts guest progress) · `POST /auth/login` · `POST /auth/logout` | Guest sessions in the MVP; accounts in Phases 8–10 |
 | **Me** | `GET /me` · `PATCH /me` · `GET /me/export` · `DELETE /me` | Profile, preferences, data export, deletion |
 | **Content** | `GET /content/release` | Active release version (clients cache by it) |
 | | `GET /content/graph` | Tiles + concepts (metadata) + edges for the universe/explorer (no lesson bodies) |
@@ -168,7 +168,7 @@ X-CSRF-Token: …
 |---|---|---|
 | In-lesson checks, practice, predictions | **Client** (answers shipped with practice items) | Instant feedback; low stakes. XP from client-graded items is capped per concept per day |
 | Mastery checkpoints, reviews | **Server** (answers never leave the server before submission) | Mastery integrity |
-| Code exercises & problems | Client runs tests in Pyodide and reports results. Hidden tests are graded server-side by running submitted code in the Judge (Phase 8). Until then (local single-user MVP), hidden tests are delivered only at submission time and run client-side. Integrity is not a goal in local mode, where learners could only cheat themselves | Practical MVP with a clear upgrade path |
+| Code exercises & problems | Client runs tests in Pyodide and reports results. Hidden tests are graded server-side by running submitted code in the Judge (Phase 8). Until then, hidden tests are delivered only at submission time and run client-side. With guest learners and no leaderboards, cheating only affects the learner's own progress | Practical MVP with a clear upgrade path |
 
 ### 4.4 WebSocket usage
 Not needed in MVP. Introduced in Phase 8 only for streaming Judge execution output and (later) live presenter mode.

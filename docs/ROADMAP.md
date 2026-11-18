@@ -68,7 +68,7 @@ Each task lists **output**, **tests** and **done when**. After blueprint approva
 - **Done when:** both languages import generated types; CI fails if generated files are stale.
 
 #### M2.3 Backend foundation — M
-- **Output:** FastAPI app factory, settings (pydantic-settings), SQLAlchemy 2 session, Alembic baseline, RFC 9457 errors, request IDs, structlog, `/healthz` `/readyz`, local-mode auth (implicit user), CSRF middleware, module skeletons (`content`, `universe`, `progress`, `users`, `auth`), import-linter contracts.
+- **Output:** FastAPI app factory, settings (pydantic-settings), SQLAlchemy 2 session, Alembic baseline, RFC 9457 errors, request IDs, structlog, `/healthz` `/readyz`, guest-learner sessions (cookie), CSRF middleware, module skeletons (`content`, `universe`, `progress`, `users`, `auth`), import-linter contracts.
 - **Tests:** API tests on SQLite + Postgres (Testcontainers); migration up/down.
 - **Done when:** `GET /api/v1/me` returns the local user; CI green on both DBs.
 
@@ -78,7 +78,7 @@ Each task lists **output**, **tests** and **done when**. After blueprint approva
 - **Done when:** editing a YAML file and running `make content` changes API output with no code changes.
 
 #### M2.5 Frontend foundation — M
-- **Output:** Vite + React 19 + TS strict; router with 10 sections + settings; app shell (nav rail, top bar, command palette); design tokens (light/dark/high-contrast) in Tailwind v4 + CSS variables; Radix primitives wrapped in `ui/`; generated OpenAPI client + TanStack Query; i18n scaffold; error boundaries; COOP/COEP dev headers.
+- **Output:** Vite + React 19 + TS strict; router with 10 sections + settings; app shell (nav rail, top bar, command palette); design tokens (light/dark/high-contrast) in Tailwind v4 + CSS variables; Radix primitives wrapped in `ui/`; generated OpenAPI client + TanStack Query; i18n scaffold; error boundaries; COOP/COEP dev headers; installable PWA (manifest, icons, app-shell Service Worker, update prompt).
 - **Tests:** component tests for shell and navigation; axe on every route; Playwright smoke.
 - **Done when:** every nav section routes to a placeholder, theme toggle works, keyboard navigation reaches everything.
 

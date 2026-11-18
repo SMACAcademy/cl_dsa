@@ -6,7 +6,7 @@
 
 **Architecture:** A monorepo with a pnpm workspace (TypeScript) and a uv workspace (Python). `packages/content-tools` validates and compiles content into a deterministic JSON bundle. `apps/api` (FastAPI modular monolith, SQLAlchemy 2, Alembic) publishes bundles and serves content, progress and universe state. `apps/web` (React 19 + Vite) renders the shell, the triangular Universe (SVG + d3-zoom) and placeholder screens. `packages/trace-schema` defines trace schema v1 as JSON Schema with generated TS and Pydantic types, ready for Phase 3.
 
-**Tech Stack:** Node ≥ 22, pnpm 10, TypeScript (strict), React 19, Vite, Tailwind CSS v4, React Router, TanStack Query, openapi-typescript + openapi-fetch, i18next + react-i18next, Radix UI (Dialog), cmdk, lucide-react, d3-zoom/d3-selection, json-schema-to-typescript, ajv · tests: Vitest, Testing Library, fast-check, msw, vitest-axe, Playwright, @axe-core/playwright · Python 3.12 (uv-managed), FastAPI, uvicorn, SQLAlchemy 2, Alembic, psycopg (binary), Pydantic v2, pydantic-settings, Typer, PyYAML, structlog, httpx · tests: pytest, Hypothesis, jsonschema · codegen: datamodel-code-generator · Ruff, mypy, import-linter, ESLint, Prettier.
+**Tech Stack:** Node ≥ 22, pnpm 10, TypeScript (strict), React 19, Vite, Tailwind CSS v4, React Router, TanStack Query, openapi-typescript + openapi-fetch, i18next + react-i18next, Radix UI (Dialog), cmdk, lucide-react, vite-plugin-pwa (Workbox), d3-zoom/d3-selection, json-schema-to-typescript, ajv · tests: Vitest, Testing Library, fast-check, msw, vitest-axe, Playwright, @axe-core/playwright · Python 3.12 (uv-managed), FastAPI, uvicorn, SQLAlchemy 2, Alembic, psycopg (binary), Pydantic v2, pydantic-settings, Typer, PyYAML, structlog, httpx · tests: pytest, Hypothesis, jsonschema · codegen: datamodel-code-generator · Ruff, mypy, import-linter, ESLint, Prettier.
 
 **Open owner question affecting this plan:** licensing (BLUEPRINT §8 Q1). Do not add a `LICENSE` file until it is answered.
 
@@ -27,6 +27,7 @@
 - Tile states: `fogged`, `glimpsed`, `open`, `in_progress`, `completed`, `mastered`, plus a boolean `review_due` flag.
 - No CDN or third-party origin at runtime. Responses from the dev server and the API include `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
 - Accessibility: every route passes axe with zero violations. Every interactive element is reachable by keyboard.
+- **Hosted, guest-first** (owner decision 2026-11-18, ADR-018 revised): there is no single-user/local mode. Every browser gets an anonymous guest learner through an httpOnly session cookie. The app is an installable PWA (ADR-020).
 
 ## Review Focus
 
@@ -270,7 +271,7 @@ Concepts (`requires` list; all `core: true`; `sequence` is the order listed with
 
 **Interfaces:**
 - Produces:
-  - `Settings(BaseSettings)` with `env_prefix="ALGOVERSE_"`: `database_url: str = "sqlite:///./data/algoverse.db"`, `mode: Literal["local", "cloud"] = "local"`, `dev_endpoints: bool = False`, `content_bundle: Path | None = None`, `cors_origins: list[str] = []`
+  - `Settings(BaseSettings)` with `env_prefix="ALGOVERSE_"`: `database_url: str = "sqlite:///./data/algoverse.db"`, `secure_cookies: bool = False` (true in production), `dev_endpoints: bool = False`, `content_bundle: Path | None = None`, `cors_origins: list[str] = []`
   - `create_app(settings: Settings | None = None) -> FastAPI`
   - `ProblemError(status: int, title: str, detail: str | None = None, type_: str = "about:blank")`, with exception handlers rendering RFC 9457 for `ProblemError`, `RequestValidationError` (422, with an `errors` extension) and unmatched routes (404)
   - `CamelModel(BaseModel)` in `core/schemas.py`, which every response schema inherits
@@ -312,7 +313,8 @@ def test_unknown_route_is_problem_json(client):
   - `concept(release_id fk, id, tile_id, module, title, summary, kind, core, difficulty, est_minutes, maturity, sequence, threads json)` with pk `(release_id, id)`
   - `concept_edge(release_id, from_id, to_id, type)` with pk on all 4
   - `lesson(release_id, concept_id, sections json, body_markdown)` with pk `(release_id, concept_id)`
-  - `app_user(id uuid pk, email nullable unique, display_name, role, settings json, created_at)`
+  - `app_user(id uuid pk, email nullable unique, display_name, role, is_guest bool, settings json, created_at)`
+  - `session(token_hash pk (sha256 hex), user_id fk, created_at, last_seen_at, expires_at)`
   - `learner_concept(user_id fk, concept_id, state, updated_at)` with pk `(user_id, concept_id)`. There is **no foreign key to `concept`**, so progress survives releases.
   - `learner_section(user_id fk, concept_id, section, completed_at)` with pk `(user_id, concept_id, section)`
 
@@ -320,7 +322,7 @@ def test_unknown_route_is_problem_json(client):
 
 ```python
 @pytest.mark.parametrize("url", db_urls())   # sqlite file in tmp_path + ALGOVERSE_TEST_PG_URL when set
-def test_upgrade_then_downgrade(url): ...     # alembic upgrade head; inspector lists the 8 tables; downgrade base; 0 tables
+def test_upgrade_then_downgrade(url): ...     # alembic upgrade head; inspector lists the 9 tables; downgrade base; 0 tables
 def test_models_match_migration(url): ...     # alembic autogenerate diff after upgrade is empty
 ```
 
@@ -331,7 +333,7 @@ def test_models_match_migration(url): ...     # alembic autogenerate diff after 
 - [ ] **Step 4:** Run the tests with and without `ALGOVERSE_TEST_PG_URL`. Expected: pass (Postgres cases skipped when unset).
 - [ ] **Step 5:** Commit: `git commit -m "feat(api): SQLAlchemy models and Alembic baseline"`
 
-### Task 9: Local user, CSRF and `/me`
+### Task 9: Guest sessions, CSRF and `/me`
 
 **Files:**
 - Create: `apps/api/src/algoverse_api/core/security.py`, `apps/api/src/algoverse_api/modules/users/{service.py, router.py}`
@@ -339,18 +341,21 @@ def test_models_match_migration(url): ...     # alembic autogenerate diff after 
 
 **Interfaces:**
 - Produces:
-  - `ensure_local_user(session: Session) -> AppUser`. It is idempotent: there is exactly one user with `display_name="Learner"` and `role="learner"`, created on first call.
-  - `current_user` dependency. Local mode returns the local user. Cloud mode raises `ProblemError(401, "Authentication required")`.
-  - `GET /api/v1/auth/csrf` → `{"token": str}` and sets cookie `av_csrf` (`SameSite=Strict`, `Path=/`, not httpOnly, `Secure` in cloud mode).
+  - `create_guest(session: Session) -> tuple[AppUser, str]`: creates an `app_user` (`display_name="Guest"`, `role="learner"`, `is_guest=True`) and a `session` row. It returns the user and the raw token (`secrets.token_urlsafe(32)`). Only `sha256(token)` is stored. `expires_at` is 365 days from creation.
+  - `current_user` dependency: resolves the `av_session` cookie to a non-expired session (updates `last_seen_at` at most once per hour). Missing, unknown or expired → `create_guest` and set cookie `av_session` (httpOnly, `SameSite=Lax`, `Path=/`, `Max-Age` 365 days, `Secure` when `settings.secure_cookies`).
+  - `GET /api/v1/auth/csrf` → `{"token": str}` and sets cookie `av_csrf` (`SameSite=Strict`, `Path=/`, not httpOnly, `Secure` when `settings.secure_cookies`).
   - `require_csrf` dependency, applied to every `POST`/`PATCH`/`PUT`/`DELETE` router. It returns 403 `ProblemError(403, "CSRF token missing or invalid")` unless header `X-CSRF-Token` equals the cookie (`secrets.compare_digest`).
-  - `GET /api/v1/me` → `{"id", "displayName", "role", "mode"}`
+  - `GET /api/v1/me` → `{"id", "displayName", "role", "isGuest"}`
 
 - [ ] **Step 1: Write the failing tests.**
 
 ```python
-def test_me_returns_local_user(client):      assert client.get("/api/v1/me").json()["displayName"] == "Learner"
-def test_local_user_created_once(session):   ensure_local_user(session); ensure_local_user(session); assert count(AppUser) == 1
-def test_cloud_mode_requires_auth():         # create_app(Settings(mode="cloud")) -> /me is 401 problem
+def test_first_request_creates_guest(client):     me = client.get("/api/v1/me").json(); assert me["isGuest"] is True and me["displayName"] == "Guest"
+def test_guest_is_stable_across_requests(client): # two /me calls with the same client -> same id; exactly 1 app_user row
+def test_two_browsers_get_two_guests(app):       # two TestClients -> different ids
+def test_session_cookie_flags(client):           # av_session is HttpOnly, SameSite=Lax, Max-Age=31536000
+def test_token_stored_hashed(client, session):    # session.token_hash == sha256(cookie) and the raw cookie value appears in no column
+def test_expired_or_unknown_cookie_gets_new_guest(client, session):
 def test_mutation_without_csrf_is_403(client):   # POST /api/v1/progress/events without header -> 403 (route added in Task 12; use a test-only router here)
 def test_mutation_with_matching_token_passes(client):
 ```
@@ -358,7 +363,7 @@ def test_mutation_with_matching_token_passes(client):
 - [ ] **Step 2:** Run the tests. Expected: FAIL.
 - [ ] **Step 3:** Implement. Register a test-only `POST /api/v1/_test/echo` behind `require_csrf`, mounted only when `dev_endpoints` is true, so the CSRF tests do not depend on Task 12.
 - [ ] **Step 4:** Run the tests. Expected: all pass.
-- [ ] **Step 5:** Commit: `git commit -m "feat(api): local user, CSRF double-submit, /me"`
+- [ ] **Step 5:** Commit: `git commit -m "feat(api): guest sessions, CSRF double-submit, /me"`
 
 ### Task 10: Content publish and content endpoints
 
@@ -498,6 +503,7 @@ it("each route has no axe violations", async () => { for (const p of ROUTE_PATHS
 ```
 
 - [ ] **Step 2:** Run `pnpm --filter @algoverse/web test`. Expected: FAIL.
+- [ ] **Step 3a (PWA, ADR-020):** Add `vite-plugin-pwa` with `registerType: "prompt"`, a manifest (`name`/`short_name` "AlgoVerse", `display: "standalone"`, `start_url: "/"`, `theme_color` and `background_color` from the dark tokens, icons 192/512 + maskable 512 generated from a triangle SVG in `public/icons/`), and Workbox precaching of the app shell with `navigateFallback: "/index.html"` and `/api/` excluded. `ui/UpdatePrompt.tsx` shows an "Update available, reload" toast via `useRegisterSW`. Test: `it("manifest declares name, start_url, standalone display and 3 icons")` reads the generated manifest from the build config.
 - [ ] **Step 3:** Implement. Section screens render `SectionPlaceholder` (translated title + "Coming in phase N" text taken from [PRD §9](../PRD.md#9-feature-to-phase-map)). Every string comes from `en.json`. The nav rail collapses to icons below 1280 px. The skip-to-content link is the first focusable element.
 - [ ] **Step 4:** Run the tests. Expected: all pass. Run `pnpm --filter @algoverse/web dev` and confirm `crossOriginIsolated === true` in the browser console.
 - [ ] **Step 5:** Commit: `git commit -m "feat(web): app shell, routing, themes, i18n"`
@@ -649,13 +655,21 @@ test("fresh learner journey", async ({ page }) => {
 test("universe keyboard navigation", ...);   // focus apex, ArrowDown -> First Algorithms bridge focused (aria-label check), Enter zooms
 test("all routes have no axe violations", ...);
 test("page is cross-origin isolated", async ({ page }) => { expect(await page.evaluate(() => crossOriginIsolated)).toBe(true); });
+test("PWA: service worker controls the page and isolation survives", async ({ page, context }) => {
+  // load, wait for navigator.serviceWorker.ready, reload -> navigator.serviceWorker.controller !== null
+  // and crossOriginIsolated === true (SW-served responses keep COOP/COEP)
+  // context.setOffline(true); reload -> app shell (nav rail) still renders; setOffline(false)
+});
+test("progress is isolated between two guest browsers", async ({ browser }) => {
+  // two new contexts; complete section A in context 1 -> context 2 shows the concept still "available"
+});
 test("universe visual regression", async ({ page }) => {
   // /universe at "fit", fresh learner, light and dark -> toHaveScreenshot("universe-<theme>.png", { maxDiffPixelRatio: 0.01 })
   // baselines are generated and compared on ubuntu-latest Chromium only (annotate skip elsewhere)
 });
 ```
 
-- [ ] **Step 2:** Run `pnpm e2e`. Expected: FAIL until the config and servers are wired, then all 5 specs pass in Chromium. Run `pnpm e2e --project=firefox --project=webkit` and confirm they pass there too.
+- [ ] **Step 2:** Run `pnpm e2e`. Expected: FAIL until the config and servers are wired, then all 7 specs pass in Chromium. Run `pnpm e2e --project=firefox --project=webkit` and confirm they pass there too.
 - [ ] **Step 3:** Write `.github/workflows/ci.yml` with these jobs:
   - `checks` (matrix `ubuntu-latest`, `windows-latest`): install uv + pnpm, `uv sync --all-packages`, `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm content:validate`, `pnpm --filter @algoverse/trace-schema check-gen`, `pnpm --filter @algoverse/web check:api`
   - `postgres` (ubuntu, `postgres:16` service): `ALGOVERSE_TEST_PG_URL=… uv run pytest apps/api -q`

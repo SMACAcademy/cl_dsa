@@ -194,7 +194,7 @@ sequenceDiagram
 | Measure execution time | `measure` mode, repeated runs (median of k), labelled as browser WASM timing |
 | Compare memory usage | `tracemalloc` peak where available. Fallback: structural size estimate via `sys.getsizeof` traversal (labelled "estimate"). Feasibility verified in the Phase 3 spike |
 | Preloaded examples | Every algorithm concept exposes its reference code as an example |
-| Save | Local (IndexedDB) in local mode. Account snippets in cloud mode |
+| Save | Server-side per learner (guest or account), with an IndexedDB draft cache for offline use |
 
 ---
 
