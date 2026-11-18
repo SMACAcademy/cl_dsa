@@ -59,6 +59,10 @@ Notes:
 
 On the owner's fast desktop, Chromium and Firefox hold 60 fps (median avg 59.98, 5th percentile >= 59.84, 0 dropped in the medians) for both wheel zoom 1 -> 8 -> 1 and drag pan at k = 3 with 81 tiles and 800 nodes, so the pass condition is met there. WebKit (not Safari) also holds the frame rate on pan and has a few 40 ms frames on zoom. The "changes": the 4x CPU-throttled Chromium row misses 60 fps on the zoom sweep (47 fps average), so the real Universe screen should not mount all 800 circles and 800 labels at once. Cull concepts and labels to the viewport (and/or per tile), and consider batching or deferring the mount at LOD thresholds. This is a recommendation I have **not** measured.
 
+**The desktop rows (Chromium and Firefox) decide this verdict; the 4x row is only an indicator, and it is not laptop-ready evidence. 4x zoom (47 fps average, 5th percentile 20 fps) fails the literal "60 fps" criterion, and it stays a failure until a re-measure with viewport culling at 4x shows otherwise (the culling fix is unmeasured).** PASS here means "passes on a fast desktop", not "ready for laptops".
+
+LOD thresholds are also checked at the boundaries by `spikes/s6-universe/lod.check.mjs` (hardcoded 2.5 and 4, k = 2.4999, 2.5, 3.9999, 4 up and down, in Chromium and Firefox; 72 checks pass), independent of the constants in the app.
+
 Scope: one fast machine, 60 Hz, synthetic events (no input latency), main-thread-only throttling in Chromium, a Playwright WebKit that is not Safari, synthetic concepts without edges, no curved overlay links on focus, no tile text beyond ids.
 
 ## Consequences for ADRs

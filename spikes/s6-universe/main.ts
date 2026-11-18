@@ -188,3 +188,9 @@ async function run(o: RunOpts) {
 
 (window as any).runS6 = run;
 (window as any).s6ready = true;
+
+// Test hook for lod.check.mjs: set the zoom transform to exactly k (about the viewport centre) and return the DOM counts.
+(window as any).s6probe = (k: number) => {
+  svg.call(zoomer.transform, zoomIdentity.translate(W / 2, H / 2).scale(k).translate(-W / 2, -H / 2));
+  return counts();
+};
