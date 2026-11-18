@@ -79,7 +79,7 @@ describe("bubble sort player", () => {
 
   it("the best-case preset finishes after one pass", async () => {
     const user = await openPlayer();
-    await user.click(screen.getByRole("button", { name: "Already sorted (best case)" }));
+    await user.click(screen.getByRole("button", { name: "Already sorted" }));
     expect(screen.getByText("Step 1 of 7")).toBeVisible();
     await clickNext(user, 6);
     expect(screen.getByText("Sorted! Comparisons: 3, swaps: 0.")).toBeVisible();

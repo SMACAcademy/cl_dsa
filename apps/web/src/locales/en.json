@@ -225,13 +225,26 @@
     "array": {
       "label": "Array",
       "cell": "Index {{index}}, value {{value}}, {{state}}",
+      "emptyCell": "Index {{index}}, empty",
       "state": {
         "idle": "not checked yet",
         "checked": "checked, not a match",
         "discarded": "ruled out",
         "comparing": "being compared now",
-        "found": "found"
+        "found": "found",
+        "used": "already used",
+        "outside": "not part of this step",
+        "empty": "empty"
       }
+    },
+    "ranges": {
+      "sortedPart": "sorted part",
+      "left": "left half",
+      "right": "right half",
+      "merged": "merged",
+      "small": "≤ pivot",
+      "big": "> pivot",
+      "heap": "heap"
     },
     "code": {
       "caption": "Python"
@@ -243,6 +256,7 @@
       "title": "Variables",
       "comparisons": "comparisons",
       "swaps": "swaps",
+      "shifts": "shifts",
       "returned": "returned"
     },
     "linear": {
@@ -257,9 +271,13 @@
       "cell": "Position {{position}}, value {{value}}, {{state}}",
       "state": {
         "idle": "not yet in place",
+        "minimum": "smallest so far",
+        "key": "the key being inserted",
+        "pivot": "the pivot",
         "comparing": "being compared",
         "swapping": "just swapped",
-        "sorted": "in its final place"
+        "sorted": "in its final place",
+        "outside": "not part of this step"
       }
     },
     "bubble": {
@@ -272,6 +290,86 @@
       "earlyExit": "No swaps in pass {{pass}}: everything is already in order, so stop early.",
       "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}.",
       "counters": "Comparisons: {{comparisons}} · Swaps: {{swaps}}"
+    },
+    "selection": {
+      "start": "Sort {{count}} values: each pass finds the smallest remaining value and puts it next in line.",
+      "pass": "Pass {{pass}}: fill index {{i}}. Start by assuming items[{{i}}] = {{value}} is the smallest.",
+      "compareNew": "Is items[{{j}}] = {{a}} smaller than the smallest so far, {{b}}? Yes!",
+      "compareKeep": "Is items[{{j}}] = {{a}} smaller than the smallest so far, {{b}}? No.",
+      "newMin": "Remember the new smallest: {{value}} at index {{j}}.",
+      "swap": "Swap it into index {{i}}: {{value}} is now in its final place: {{list}}.",
+      "inPlace": "{{value}} is already at index {{i}}, so no swap is needed.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "insertion": {
+      "start": "Sort {{count}} values like cards in your hand: take each one and slide it left into place.",
+      "pick": "Pass {{pass}}: lift out key = items[{{i}}] = {{value}}. Index 0..{{last}} is already sorted.",
+      "compareShift": "Is items[{{j}}] = {{a}} bigger than the key {{value}}? Yes: it must shift right.",
+      "compareStop": "Is items[{{j}}] = {{a}} bigger than the key {{value}}? No: stop here.",
+      "reachedStart": "Reached the start of the list: {{value}} is the smallest so far.",
+      "shift": "Shift {{a}} one place right. The gap is now at index {{gap}}.",
+      "insert": "Drop the key {{value}} into the gap at index {{pos}}: {{list}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, shifts: {{shifts}}.",
+      "counters": "Comparisons: {{comparisons}} · Shifts: {{shifts}}"
+    },
+    "merge": {
+      "start": "Sort {{count}} values by splitting the list in half until each piece has one value, then merging the pieces back in order.",
+      "split": "Split {{list}} into {{left}} and {{right}}.",
+      "mergeStart": "Merge {{left}} and {{right}}: point a finger at the start of each half.",
+      "takeLeft": "{{a}} ≤ {{b}}: take {{a}} from the left half.",
+      "takeRight": "{{a}} > {{b}}: take {{b}} from the right half.",
+      "rest": "One half is used up: copy the leftovers {{rest}}.",
+      "merged": "Merged: {{list}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}.",
+      "counters": "Comparisons: {{comparisons}}",
+      "resultLabel": "result"
+    },
+    "quick": {
+      "start": "Sort {{count}} values: pick a pivot, move smaller values to its left and larger ones to its right, then sort each side.",
+      "partition": "Partition index {{lo}}..{{hi}} around the pivot {{pivot}} (the last value).",
+      "compareSmall": "Is items[{{j}}] = {{a}} ≤ the pivot {{pivot}}? Yes: it joins the small side.",
+      "compareBig": "Is items[{{j}}] = {{a}} ≤ the pivot {{pivot}}? No: it stays on the big side.",
+      "swap": "Swap {{a}} into index {{i}}, the end of the small side.",
+      "placePivot": "Put the pivot {{pivot}} at index {{p}}: smaller values are left of it, larger ones right. It is in its final place.",
+      "single": "Only {{value}} is left in this range: it is in its final place at index {{p}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "heap": {
+      "start": "Sort {{count}} values with a heap: a tree stored in the list, where every parent is at least as big as its children.",
+      "build": "Phase 1: build a max-heap. Sift down every parent, starting from the last one at index {{k}}.",
+      "siftStart": "Sift down from index {{root}} (value {{value}}).",
+      "pickTwo": "Children of index {{root}} are {{a}} and {{b}}: the bigger one is {{c}} at index {{child}}.",
+      "pickOne": "Index {{root}} has one child: {{c}} at index {{child}}.",
+      "heapOk": "Parent {{v}} ≥ child {{c}}: this part of the heap is fine, stop.",
+      "swapDown": "Parent {{v}} < child {{c}}: swap them, so {{c}} moves up.",
+      "leaf": "Index {{root}} has no children left to check: stop.",
+      "sortPhase": "Phase 2: the biggest value is at the top. Move it to the end, shrink the heap, and repair it.",
+      "extract": "Swap the top {{max}} with the last heap value: {{max}} is now in its final place at index {{end}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "counting": {
+      "start": "Sort {{count}} small whole numbers without comparing them: count how many of each there are, then write them out.",
+      "makeCounts": "The largest value is {{k}}, so make {{size}} counters, all starting at 0.",
+      "tally": "items[{{p}}] = {{x}}: add one to count[{{x}}], which is now {{c}}.",
+      "write": "count[{{value}}] = {{c}}: write {{value}} out {{c}} time(s). Result so far: {{list}}.",
+      "done": "Sorted: {{list}}. Each of the {{n}} values was counted once and written once, with no comparisons.",
+      "itemsRow": "items",
+      "countRow": "count",
+      "resultRow": "result"
+    },
+    "radix": {
+      "start": "Sort {{count}} values digit by digit, without comparing them: first by the ones digit, then by the tens digit.",
+      "pass": "Pass for the {{digit}} digit (place = {{place}}): start with 10 empty buckets, 0 to 9.",
+      "drop": "{{x}}: its {{digit}} digit is {{d}}, so it goes into bucket {{d}}.",
+      "collect": "Collect the buckets from 0 to 9, keeping each bucket's order: {{list}}.",
+      "done": "place = {{place}} is bigger than the largest value {{max}}, so stop. Sorted: {{list}}.",
+      "digit": {
+        "ones": "ones",
+        "tens": "tens"
+      },
+      "bucketsLabel": "Buckets 0 to 9",
+      "bucketContents": "Bucket {{d}}: {{values}}",
+      "emptyBucket": "empty"
     },
     "binary": {
       "start": "Look for {{target}} in a sorted list of {{count}} values.",
@@ -304,6 +402,22 @@
       "swapQuestion": "items[{{j}}] = {{a}} and items[{{k}}] = {{b}}. Swap them?",
       "swap": "Swap",
       "keep": "Leave them",
+      "minQuestion": "items[{{j}}] = {{a}}. Is it smaller than the smallest so far, {{b}}?",
+      "newMin": "Yes, new smallest",
+      "notMin": "No",
+      "shiftQuestion": "items[{{j}}] = {{a}}. Is it bigger than the key {{key}}?",
+      "shift": "Yes, shift it right",
+      "stop": "No, stop here",
+      "mergeQuestion": "Left has {{a}}, right has {{b}}. Which goes into the result next?",
+      "takeLeft": "{{value}} (left)",
+      "takeRight": "{{value}} (right)",
+      "pivotQuestion": "Is {{a}} ≤ the pivot {{pivot}}?",
+      "smallSide": "Yes, small side",
+      "bigSide": "No, big side",
+      "heapQuestion": "Parent {{v}}, bigger child {{c}}. Swap them?",
+      "heapStop": "No, stop",
+      "countQuestion": "items[{{p}}] = {{x}}. Which counter goes up?",
+      "bucketQuestion": "Which bucket does {{x}} go into?",
       "direction": {
         "left": "To the left",
         "here": "Right here",
@@ -318,6 +432,8 @@
     "input": {
       "values": "Values (up to {{max}} whole numbers)",
       "sortedValues": "Sorted values (up to {{max}} whole numbers)",
+      "digitValues": "Values from 0 to 9 (up to {{max}})",
+      "nonNegativeValues": "Values from 0 to 99 (up to {{max}})",
       "target": "Target",
       "apply": "Run with these values",
       "presets": "Try:",
@@ -328,9 +444,11 @@
         "left": "Found on the left",
         "right": "Found on the right",
         "mixed": "Mixed",
-        "reversed": "Reversed (worst case)",
+        "reversed": "Reversed",
         "nearlySorted": "Nearly sorted",
-        "sorted": "Already sorted (best case)"
+        "sorted": "Already sorted",
+        "fewKeys": "Many repeats",
+        "twoDigits": "One- and two-digit numbers"
       },
       "error": {
         "empty": "Enter at least one value.",
@@ -338,7 +456,9 @@
         "notInteger": "Use whole numbers only, separated by commas.",
         "outOfRange": "Keep values between -99 and 99.",
         "targetMissing": "Enter a target value to search for.",
-        "notSorted": "Binary search needs the values in ascending order, for example 1, 3, 5, 7."
+        "notSorted": "Binary search needs the values in ascending order, for example 1, 3, 5, 7.",
+        "notDigits": "Counting sort here uses small keys: whole numbers from 0 to 9.",
+        "negative": "Radix sort here needs numbers from 0 to 99, with no negatives."
       }
     }
   },

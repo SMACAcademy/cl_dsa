@@ -1,6 +1,13 @@
 import { useId, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { MAX_VALUES, parseInput, parseValues, type InputError, type SearchInput } from "./input";
+import {
+  MAX_VALUES,
+  parseInput,
+  parseValues,
+  type InputError,
+  type SearchInput,
+  type ValueConstraint,
+} from "./input";
 import { primaryButton } from "./styles";
 
 export type PresetKey =
@@ -12,7 +19,9 @@ export type PresetKey =
   | "mixed"
   | "reversed"
   | "nearlySorted"
-  | "sorted";
+  | "sorted"
+  | "fewKeys"
+  | "twoDigits";
 export type Preset = { key: PresetKey; values: string; target?: string };
 type Presets = readonly [Preset, ...Preset[]];
 
@@ -45,18 +54,27 @@ export function SearchInputForm({
 /** A values-only field for the sorting players. The first preset is the default. */
 export function SortInputForm({
   presets,
+  constraint,
   onRun,
 }: {
   presets: Presets;
+  /** Counting sort needs digits 0..9; radix sort needs non-negative values. */
+  constraint?: ValueConstraint;
   onRun: (items: number[]) => void;
 }) {
   return (
     <InputForm
       presets={presets}
       withTarget={false}
-      valuesLabel="viz.input.values"
+      valuesLabel={
+        constraint === "digits"
+          ? "viz.input.digitValues"
+          : constraint === "nonNegative"
+            ? "viz.input.nonNegativeValues"
+            : "viz.input.values"
+      }
       parse={(values) => {
-        const parsed = parseValues(values);
+        const parsed = parseValues(values, constraint);
         if (!parsed.ok) return parsed.error;
         onRun(parsed.items);
         return null;
@@ -73,7 +91,11 @@ function InputForm({
 }: {
   presets: Presets;
   withTarget: boolean;
-  valuesLabel: "viz.input.values" | "viz.input.sortedValues";
+  valuesLabel:
+    | "viz.input.values"
+    | "viz.input.sortedValues"
+    | "viz.input.digitValues"
+    | "viz.input.nonNegativeValues";
   /** Validates and runs the input; returns an error, or null on success. */
   parse: (values: string, target: string) => InputError | null;
 }) {

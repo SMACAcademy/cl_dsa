@@ -6,7 +6,14 @@ export const VALUE_RANGE = { min: -99, max: 99 } as const;
 export type SearchInput = { items: number[]; target: number };
 
 export type InputError =
-  "empty" | "tooMany" | "notInteger" | "outOfRange" | "targetMissing" | "notSorted";
+  | "empty"
+  | "tooMany"
+  | "notInteger"
+  | "outOfRange"
+  | "targetMissing"
+  | "notSorted"
+  | "notDigits"
+  | "negative";
 
 export type ParsedInput = ({ ok: true } & SearchInput) | { ok: false; error: InputError };
 
@@ -15,8 +22,23 @@ export type ParsedValues = { ok: true; items: number[] } | { ok: false; error: I
 const INTEGER = /^-?\d+$/;
 const inRange = (n: number) => n >= VALUE_RANGE.min && n <= VALUE_RANGE.max;
 
+/** Extra rules some algorithms need: counting sort uses keys 0..9, radix sort no negatives. */
+export type ValueConstraint = "digits" | "nonNegative";
+
 /** Parses "4, 8, 1, 9" (commas and/or spaces) into at most MAX_VALUES small integers. */
-export function parseValues(valuesText: string): ParsedValues {
+export function parseValues(valuesText: string, constraint?: ValueConstraint): ParsedValues {
+  const parsed = parseRawValues(valuesText);
+  if (!parsed.ok) return parsed;
+  if (constraint === "digits" && parsed.items.some((v) => v < 0 || v > 9)) {
+    return { ok: false, error: "notDigits" };
+  }
+  if (constraint === "nonNegative" && parsed.items.some((v) => v < 0)) {
+    return { ok: false, error: "negative" };
+  }
+  return parsed;
+}
+
+function parseRawValues(valuesText: string): ParsedValues {
   const parts = valuesText
     .split(/[,\s]+/)
     .map((p) => p.trim())

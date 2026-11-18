@@ -57,6 +57,12 @@ export const ROUTE_PATHS: readonly string[] = [
   "/algorithms/binary-search",
   "/algorithms/linear-search",
   "/algorithms/bubble-sort",
+  "/algorithms/insertion-sort",
+  "/algorithms/merge-sort",
+  "/algorithms/quick-sort",
+  "/algorithms/heap-sort",
+  "/algorithms/counting-sort",
+  "/algorithms/radix-sort",
   "/structures/hash-table",
   "/algorithms/no-such-item",
 ];

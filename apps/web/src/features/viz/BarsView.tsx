@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
+import { RangeRow, type Range } from "./RangeRow";
 
-export type BarState = "idle" | "comparing" | "swapping" | "sorted";
+export type BarState =
+  "idle" | "minimum" | "key" | "pivot" | "comparing" | "swapping" | "sorted" | "outside";
 
 type Props = {
   /** Current values, left to right. */
@@ -10,6 +12,8 @@ type Props = {
   stateAt: (position: number) => BarState;
   /** Labels drawn under positions, e.g. `j` and `j+1`. */
   markers?: readonly { position: number; label: string }[];
+  /** Brackets under spans of positions, e.g. "sorted part". */
+  ranges?: readonly Range[];
 };
 
 const SLOT = 56; // px per position, including the gap
@@ -19,20 +23,33 @@ const MAX_HEIGHT = 112;
 
 const BAR: Record<BarState, string> = {
   idle: "border-line bg-raised",
+  minimum: "border-accent bg-accent-soft text-accent-ink",
+  key: "border-accent bg-accent-soft text-accent-ink ring-2 ring-accent",
+  pivot: "border-accent bg-accent-soft text-accent-ink ring-2 ring-accent",
   comparing: "border-compare bg-compare-soft text-compare-ink",
   swapping: "border-compare bg-compare-soft text-compare-ink ring-2 ring-compare",
   sorted: "border-found bg-found-soft text-found-ink",
+  outside: "border-dashed border-line bg-sunken text-muted opacity-50",
 };
 
 /** Glyphs keep each state readable without colour (UI_UX §1). */
-const GLYPH: Record<BarState, string> = { idle: "", comparing: "?", swapping: "⇄", sorted: "✓" };
+const GLYPH: Record<BarState, string> = {
+  idle: "",
+  minimum: "★",
+  key: "↑",
+  pivot: "P",
+  comparing: "?",
+  swapping: "⇄",
+  sorted: "✓",
+  outside: "",
+};
 
 /**
- * Value bars that slide to their new position when swapped. The picture is
+ * Value bars that slide to their new position when moved. The picture is
  * hidden from screen readers; a plain list beside it reads out every value
  * and its state.
  */
-export function BarsView({ values, ids, stateAt, markers = [] }: Props) {
+export function BarsView({ values, ids, stateAt, markers = [], ranges = [] }: Props) {
   const { t } = useTranslation();
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -92,13 +109,14 @@ export function BarsView({ values, ids, stateAt, markers = [] }: Props) {
         {markers.map((m) => (
           <span
             key={m.label}
-            className="absolute top-4 text-center font-mono text-xs font-semibold text-accent-ink transition-[left] duration-300"
+            className="absolute top-4 flex justify-center font-mono whitespace-nowrap text-xs font-semibold text-accent-ink transition-[left] duration-300"
             style={{ left: m.position * SLOT, width: BAR_WIDTH }}
           >
             ▲ {m.label}
           </span>
         ))}
       </div>
+      <RangeRow ranges={ranges} slot={SLOT} cell={BAR_WIDTH} width={width} />
       <ol aria-label={t("viz.array.label")} className="sr-only">
         {values.map((value, position) => (
           <li key={position}>

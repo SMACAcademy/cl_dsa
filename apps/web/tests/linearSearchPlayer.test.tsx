@@ -108,6 +108,13 @@ describe("linear search player", () => {
       "/algorithms/linear-search",
       "/algorithms/binary-search",
       "/algorithms/bubble-sort",
+      "/algorithms/selection-sort",
+      "/algorithms/insertion-sort",
+      "/algorithms/merge-sort",
+      "/algorithms/quick-sort",
+      "/algorithms/heap-sort",
+      "/algorithms/counting-sort",
+      "/algorithms/radix-sort",
     ]);
   });
 });
