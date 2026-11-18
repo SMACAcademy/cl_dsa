@@ -1,0 +1,550 @@
+{
+  "system": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "logicalCores": 32,
+    "ramGB": 63.9,
+    "os": "Windows_NT 10.0.26100",
+    "node": "v22.23.4",
+    "playwright": "1.65.1",
+    "vite": "8.3.8",
+    "pyodide": "314.0.8"
+  },
+  "results": [
+    {
+      "label": "prod/chromium (desktop)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "uncaughtKeyboardInterruptErrors": 5,
+      "assertions": 24,
+      "firstBootMs": 1682.7,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "plain import(@vite-ignore)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          7.75,
+          2.375,
+          2.230000000447035,
+          3.3149999994784594,
+          3.4649999998509884
+        ],
+        "hard": [
+          2171.765000000596,
+          2249.535000000149,
+          2237.8549999985844,
+          2261.015000000596,
+          2223.4000000003725
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2204.8349999990314
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2244.4350000005215
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2164.5950000006706
+          }
+        ],
+        "firstBootMs": 1682.6699999999255,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "plain import(@vite-ignore)"
+        }
+      },
+      "softStopMs": {
+        "median": 3.3,
+        "min": 2.2,
+        "max": 7.8
+      },
+      "hardKillRebootMs": {
+        "median": 2237.9,
+        "min": 2171.8,
+        "max": 2261
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2204.8,
+          "min": 2164.6,
+          "max": 2244.4
+        }
+      },
+      "server": "prod"
+    },
+    {
+      "label": "prod/firefox (desktop)",
+      "browser": "firefox",
+      "browserVersion": "159.0",
+      "uncaughtKeyboardInterruptErrors": 0,
+      "assertions": 24,
+      "firstBootMs": 2039.6,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "plain import(@vite-ignore)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          5.960000000000036,
+          3.7200000000002547,
+          4.799999999999727,
+          4.9399999999996,
+          5.059999999999945
+        ],
+        "hard": [
+          2810.3599999999997,
+          2668.62,
+          2549.08,
+          2086.3999999999996,
+          2731.779999999999
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2577.7999999999993
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2448.579999999998
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2537.239999999998
+          }
+        ],
+        "firstBootMs": 2039.56,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "plain import(@vite-ignore)"
+        }
+      },
+      "softStopMs": {
+        "median": 4.9,
+        "min": 3.7,
+        "max": 6
+      },
+      "hardKillRebootMs": {
+        "median": 2668.6,
+        "min": 2086.4,
+        "max": 2810.4
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2537.2,
+          "min": 2448.6,
+          "max": 2577.8
+        }
+      },
+      "server": "prod"
+    },
+    {
+      "label": "prod/webkit (desktop)",
+      "browser": "webkit",
+      "browserVersion": "27.2",
+      "uncaughtKeyboardInterruptErrors": 0,
+      "assertions": 24,
+      "firstBootMs": 1727.4,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "plain import(@vite-ignore)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          15.83999999999969,
+          15.299999999999727,
+          14.800000000000182,
+          14.740000000000236,
+          15.320000000000164
+        ],
+        "hard": [
+          2414.74,
+          2452.76,
+          2467.279999999999,
+          2404.3999999999996,
+          2585.4400000000005
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2374.540000000001
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2347.279999999999
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2587.739999999998
+          }
+        ],
+        "firstBootMs": 1727.36,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "plain import(@vite-ignore)"
+        }
+      },
+      "softStopMs": {
+        "median": 15.3,
+        "min": 14.7,
+        "max": 15.8
+      },
+      "hardKillRebootMs": {
+        "median": 2452.8,
+        "min": 2404.4,
+        "max": 2585.4
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2374.5,
+          "min": 2347.3,
+          "max": 2587.7
+        }
+      },
+      "server": "prod"
+    },
+    {
+      "label": "dev/chromium (desktop)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "uncaughtKeyboardInterruptErrors": 5,
+      "assertions": 24,
+      "firstBootMs": 1890.2,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "function-import (dev fallback)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          9.355000000447035,
+          2.4049999993294477,
+          2.755000000819564,
+          3.6850000005215406,
+          3.8849999997764826
+        ],
+        "hard": [
+          1995.030000001192,
+          1999.605000000447,
+          2119.214999999851,
+          2085.109999999404,
+          2078.530000001192
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2018.4350000005215
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2029.195000000298
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 1939.309999998659
+          }
+        ],
+        "firstBootMs": 1890.1500000003725,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "function-import (dev fallback)"
+        }
+      },
+      "softStopMs": {
+        "median": 3.7,
+        "min": 2.4,
+        "max": 9.4
+      },
+      "hardKillRebootMs": {
+        "median": 2078.5,
+        "min": 1995,
+        "max": 2119.2
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2018.4,
+          "min": 1939.3,
+          "max": 2029.2
+        }
+      },
+      "server": "dev"
+    },
+    {
+      "label": "dev/firefox (desktop)",
+      "browser": "firefox",
+      "browserVersion": "159.0",
+      "uncaughtKeyboardInterruptErrors": 0,
+      "assertions": 24,
+      "firstBootMs": 1930.4,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "function-import (dev fallback)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          6.1200000000008,
+          4.819999999999709,
+          4.699999999999818,
+          5.079999999999927,
+          4.700000000000728
+        ],
+        "hard": [
+          2704.8599999999997,
+          2680.2999999999993,
+          2652.08,
+          2724.620000000001,
+          2725.34
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 4610.720000000001
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2690.4799999999996
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2604.540000000001
+          }
+        ],
+        "firstBootMs": 1930.3800000000006,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "function-import (dev fallback)"
+        }
+      },
+      "softStopMs": {
+        "median": 4.8,
+        "min": 4.7,
+        "max": 6.1
+      },
+      "hardKillRebootMs": {
+        "median": 2704.9,
+        "min": 2652.1,
+        "max": 2725.3
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2690.5,
+          "min": 2604.5,
+          "max": 4610.7
+        }
+      },
+      "server": "dev"
+    },
+    {
+      "label": "dev/webkit (desktop)",
+      "browser": "webkit",
+      "browserVersion": "27.2",
+      "uncaughtKeyboardInterruptErrors": 0,
+      "assertions": 24,
+      "firstBootMs": 1722.5,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "function-import (dev fallback)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          15.340000000000146,
+          15.61999999999989,
+          15.800000000000182,
+          13.88000000000011,
+          16.139999999999873
+        ],
+        "hard": [
+          2482.34,
+          2396.1000000000004,
+          2461.8600000000006,
+          2535.5600000000013,
+          2368.1800000000003
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2285.579999999998
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 2191.7400000000016
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 1974.6799999999967
+          }
+        ],
+        "firstBootMs": 1722.46,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "function-import (dev fallback)"
+        }
+      },
+      "softStopMs": {
+        "median": 15.6,
+        "min": 13.9,
+        "max": 16.1
+      },
+      "hardKillRebootMs": {
+        "median": 2461.9,
+        "min": 2368.2,
+        "max": 2535.6
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 2191.7,
+          "min": 1974.7,
+          "max": 2285.6
+        }
+      },
+      "server": "dev"
+    },
+    {
+      "label": "chromium, mid-range-laptop approximation (Docker --cpus=0.5)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "uncaughtKeyboardInterruptErrors": 5,
+      "assertions": 24,
+      "firstBootMs": 6108.6,
+      "workerInfo": {
+        "crossOriginIsolated": true,
+        "sharedArrayBuffer": "function",
+        "loader": "plain import(@vite-ignore)"
+      },
+      "raw": {
+        "pageCrossOriginIsolated": true,
+        "soft": [
+          11.119999999646097,
+          3.1599999996833503,
+          2.7599999997764826,
+          2.919999999925494,
+          2.5700000002980232
+        ],
+        "hard": [
+          4182.524999999907,
+          4298.575000000186,
+          4030.3799999998882,
+          4098.715000000317,
+          3888.5800000000745
+        ],
+        "cLoop": [
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 3970.2549999998882
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 4092.5349999996834
+          },
+          {
+            "softStopped": false,
+            "capMs": 3000,
+            "hardKillRebootMs": 3834.6699999999255
+          }
+        ],
+        "firstBootMs": 6108.555000000168,
+        "workerInfo": {
+          "crossOriginIsolated": true,
+          "sharedArrayBuffer": "function",
+          "loader": "plain import(@vite-ignore)"
+        }
+      },
+      "softStopMs": {
+        "median": 2.9,
+        "min": 2.6,
+        "max": 11.1
+      },
+      "hardKillRebootMs": {
+        "median": 4098.7,
+        "min": 3888.6,
+        "max": 4298.6
+      },
+      "cLoopSummary": {
+        "runs": 3,
+        "softStopped": 0,
+        "latencyMs": null,
+        "capMs": 3000,
+        "hardKillRebootMs": {
+          "median": 3970.3,
+          "min": 3834.7,
+          "max": 4092.5
+        }
+      },
+      "server": "prod",
+      "system": {
+        "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+        "logicalCores": 32,
+        "ramGB": 31.3,
+        "os": "Linux 6.18.33.2-microsoft-standard-WSL2",
+        "node": "v26.13.1",
+        "playwright": "1.65.1",
+        "vite": null,
+        "pyodide": "314.0.8",
+        "cgroupCpuMax": "50000 100000"
+      }
+    }
+  ]
+}
