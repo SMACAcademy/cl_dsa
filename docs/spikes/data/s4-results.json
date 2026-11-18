@@ -1,0 +1,832 @@
+{
+  "system": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "logicalCores": 32,
+    "ramGB": 63.9,
+    "os": "Windows_NT 10.0.26100",
+    "node": "v22.23.4",
+    "playwright": "1.65.1",
+    "vite": "8.3.8",
+    "pyodide": "314.0.8"
+  },
+  "watchdogMs": 15000,
+  "ceilingRuns": 3,
+  "results": [
+    {
+      "label": "prod/chromium (desktop)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "firstBootMs": 1667.1,
+      "idleHeapMB": 30,
+      "step1_tracemalloc": {
+        "current": 4000000,
+        "peak": 4000004,
+        "afterResetPeak": [
+          4000000,
+          4000000
+        ],
+        "getsizeof": 4000028,
+        "pointerBytes": 4
+      },
+      "step2_giant": {
+        "[0]*10**10": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 11.9,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2081
+        },
+        "[0]*10**9": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
+          "wallMs": 8,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2484.9
+        },
+        "bytearray(3*2**30)": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 8.4,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2370.2
+        }
+      },
+      "step3_ceiling": {
+        "runs": [
+          {
+            "outcome": "MemoryError",
+            "wallMs": 1084.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 1.08,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2465.3
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 1055.4,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 1.05,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2524.1
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 1062.4,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 1.06,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2461.1
+          }
+        ],
+        "summary": {
+          "outcomes": [
+            "MemoryError"
+          ],
+          "maxMB": {
+            "median": 4050,
+            "min": 4050,
+            "max": 4050
+          },
+          "heapMBAtFailure": {
+            "median": 4096,
+            "min": 4096,
+            "max": 4096
+          },
+          "timeToFailureS": {
+            "median": 1.06,
+            "min": 1.06,
+            "max": 1.08
+          }
+        }
+      },
+      "softLimit": {
+        "limitMB": 256,
+        "byN": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 149.1,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 250,
+            "mb": 300,
+            "tracedAtStopMB": 300.0030002593994,
+            "events": 20,
+            "pySeconds": 0.05299997329711914,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2452.8
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 418.9,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 1600,
+            "mb": 1600,
+            "tracedAtStopMB": 1600.0038108825684,
+            "events": 100,
+            "pySeconds": 0.3149998188018799,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2464.7
+          },
+          "1000": {
+            "outcome": "native MemoryError (soft hook never fired)",
+            "wallMs": 1159.6,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "mb": 4050,
+            "tracedAtStopMB": 0,
+            "events": 249,
+            "pySeconds": 1.067000150680542,
+            "stoppedBeforeWasmCeiling": false,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2551.7
+          }
+        }
+      },
+      "overheadMs": {
+        "baseline": {
+          "median": 105.2,
+          "min": 82.4,
+          "max": 111.2
+        },
+        "tracemalloc_only": {
+          "median": 423.1,
+          "min": 416.4,
+          "max": 459.7
+        },
+        "hook_no_tracemalloc_check": {
+          "median": 889.2,
+          "min": 845.9,
+          "max": 911.5
+        },
+        "hook_N1000": {
+          "median": 1466,
+          "min": 1454.8,
+          "max": 1550.9
+        },
+        "hook_N100": {
+          "median": 1465.2,
+          "min": 1443.7,
+          "max": 1534.7
+        },
+        "hook_N1": {
+          "median": 2218.2,
+          "min": 1484.9,
+          "max": 2248.4
+        }
+      },
+      "overheadRaw": {
+        "baseline": [
+          82.35000000000036,
+          106.44999999999882,
+          111.20000000000019,
+          105.2199999999992,
+          98.19999999999851
+        ],
+        "tracemalloc_only": [
+          459.67499999999984,
+          424.8200000000004,
+          423.06500000000113,
+          416.3800000000002,
+          421.2900000000026
+        ],
+        "hook_no_tracemalloc_check": [
+          890.0200000000002,
+          845.8500000000005,
+          889.1799999999996,
+          871.7000000000006,
+          911.5099999999998
+        ],
+        "hook_N1000": [
+          1454.765,
+          1465.985,
+          1481.4400000000028,
+          1550.8799999999994,
+          1458.8999999999999
+        ],
+        "hook_N100": [
+          1465.23,
+          1451.080000000001,
+          1443.7149999999974,
+          1534.6949999999993,
+          1490.624999999998
+        ],
+        "hook_N1": [
+          2218.165000000001,
+          2148.085,
+          2237.7150000000015,
+          2248.4,
+          1484.9350000000002
+        ]
+      },
+      "overheadFactorVsBaseline": {
+        "baseline": 1,
+        "tracemalloc_only": 4.02,
+        "hook_no_tracemalloc_check": 8.45,
+        "hook_N1000": 13.94,
+        "hook_N100": 13.93,
+        "hook_N1": 21.09
+      },
+      "structuralEstimate": {
+        "[0]*10**6": {
+          "tracemallocCurrentBytes": 4000076,
+          "tracemallocPeakBytes": 4000080,
+          "estimateBytes": 4000044,
+          "estimateMs": 290.2600000000035
+        },
+        "list(range(10**6))": {
+          "tracemallocCurrentBytes": 19995224,
+          "tracemallocPeakBytes": 19995224,
+          "estimateBytes": 20000028,
+          "estimateMs": 1791.3600000000044
+        },
+        "[str(i) for i in range(10**5)]": {
+          "tracemallocCurrentBytes": 2989430,
+          "tracemallocPeakBytes": 2989450,
+          "estimateBytes": 2989382,
+          "estimateMs": 210.6500000000011
+        },
+        "{i: i for i in range(10**5)}": {
+          "tracemallocCurrentBytes": 4740136,
+          "tracemallocPeakBytes": 6111128,
+          "estimateBytes": 4745780,
+          "estimateMs": 221.87499999999716
+        }
+      },
+      "pageCrashes": 0,
+      "events": [],
+      "assertions": 26
+    },
+    {
+      "label": "prod/firefox (desktop)",
+      "browser": "firefox",
+      "browserVersion": "159.0",
+      "firstBootMs": 1764,
+      "idleHeapMB": 30,
+      "step1_tracemalloc": {
+        "current": 4000000,
+        "peak": 4000004,
+        "afterResetPeak": [
+          4000000,
+          4000000
+        ],
+        "getsizeof": 4000028,
+        "pointerBytes": 4
+      },
+      "step2_giant": {
+        "[0]*10**10": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 5.5,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2362.3
+        },
+        "[0]*10**9": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
+          "wallMs": 4.4,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2712.1
+        },
+        "bytearray(3*2**30)": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 4.3,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2650.4
+        }
+      },
+      "step3_ceiling": {
+        "runs": [
+          {
+            "outcome": "MemoryError",
+            "wallMs": 676.8,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.67,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2793.8
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 681.6,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.68,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2773.7
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 694.7,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.69,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2880.7
+          }
+        ],
+        "summary": {
+          "outcomes": [
+            "MemoryError"
+          ],
+          "maxMB": {
+            "median": 4050,
+            "min": 4050,
+            "max": 4050
+          },
+          "heapMBAtFailure": {
+            "median": 4096,
+            "min": 4096,
+            "max": 4096
+          },
+          "timeToFailureS": {
+            "median": 0.68,
+            "min": 0.68,
+            "max": 0.69
+          }
+        }
+      },
+      "softLimit": {
+        "limitMB": 256,
+        "byN": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 185.5,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 250,
+            "mb": 300,
+            "tracedAtStopMB": 300.0030002593994,
+            "events": 20,
+            "pySeconds": 0.06799983978271484,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2821.4
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 401.2,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 1600,
+            "mb": 1600,
+            "tracedAtStopMB": 1600.0038108825684,
+            "events": 100,
+            "pySeconds": 0.2849998474121094,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2723
+          },
+          "1000": {
+            "outcome": "native MemoryError (soft hook never fired)",
+            "wallMs": 890.7,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "mb": 4050,
+            "tracedAtStopMB": 0,
+            "events": 249,
+            "pySeconds": 0.7680001258850098,
+            "stoppedBeforeWasmCeiling": false,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2789.5
+          }
+        }
+      },
+      "overheadMs": {
+        "baseline": {
+          "median": 108.4,
+          "min": 101,
+          "max": 112.5
+        },
+        "tracemalloc_only": {
+          "median": 467.5,
+          "min": 455.8,
+          "max": 595.8
+        },
+        "hook_no_tracemalloc_check": {
+          "median": 934.9,
+          "min": 811.5,
+          "max": 991.5
+        },
+        "hook_N1000": {
+          "median": 1608,
+          "min": 1573.9,
+          "max": 1806.2
+        },
+        "hook_N100": {
+          "median": 1636.7,
+          "min": 1537.2,
+          "max": 1669.5
+        },
+        "hook_N1": {
+          "median": 2987.2,
+          "min": 2465.3,
+          "max": 2996
+        }
+      },
+      "overheadRaw": {
+        "baseline": [
+          103.24,
+          108.42000000000063,
+          110.57999999999879,
+          100.97999999999985,
+          112.5199999999964
+        ],
+        "tracemalloc_only": [
+          595.8200000000003,
+          455.7599999999997,
+          467.4999999999976,
+          462.89999999999765,
+          490.1000000000053
+        ],
+        "hook_no_tracemalloc_check": [
+          991.4999999999998,
+          811.5199999999998,
+          926.7000000000003,
+          945.3999999999994,
+          934.8799999999997
+        ],
+        "hook_N1000": [
+          1806.1600000000003,
+          1605.5799999999997,
+          1573.9199999999976,
+          1647.62,
+          1607.9799999999977
+        ],
+        "hook_N100": [
+          1669.5199999999995,
+          1640.9599999999998,
+          1593.440000000001,
+          1537.1800000000028,
+          1636.6800000000055
+        ],
+        "hook_N1": [
+          2465.32,
+          2987.2,
+          2978.379999999998,
+          2996.0199999999977,
+          2992.739999999998
+        ]
+      },
+      "overheadFactorVsBaseline": {
+        "baseline": 1,
+        "tracemalloc_only": 4.31,
+        "hook_no_tracemalloc_check": 8.62,
+        "hook_N1000": 14.83,
+        "hook_N100": 15.1,
+        "hook_N1": 27.56
+      },
+      "structuralEstimate": {
+        "[0]*10**6": {
+          "tracemallocCurrentBytes": 4000076,
+          "tracemallocPeakBytes": 4000080,
+          "estimateBytes": 4000044,
+          "estimateMs": 382.9600000000042
+        },
+        "list(range(10**6))": {
+          "tracemallocCurrentBytes": 19995224,
+          "tracemallocPeakBytes": 19995224,
+          "estimateBytes": 20000028,
+          "estimateMs": 3834.040000000002
+        },
+        "[str(i) for i in range(10**5)]": {
+          "tracemallocCurrentBytes": 2989430,
+          "tracemallocPeakBytes": 2989450,
+          "estimateBytes": 2989382,
+          "estimateMs": 346.0200000000029
+        },
+        "{i: i for i in range(10**5)}": {
+          "tracemallocCurrentBytes": 4740136,
+          "tracemallocPeakBytes": 6111128,
+          "estimateBytes": 4745780,
+          "estimateMs": 427.9599999999988
+        }
+      },
+      "pageCrashes": 0,
+      "events": [],
+      "assertions": 26
+    },
+    {
+      "label": "prod/webkit (desktop)",
+      "browser": "webkit",
+      "browserVersion": "27.2",
+      "firstBootMs": 1600.5,
+      "idleHeapMB": 30,
+      "step1_tracemalloc": {
+        "current": 4000000,
+        "peak": 4000004,
+        "afterResetPeak": [
+          4000000,
+          4000000
+        ],
+        "getsizeof": 4000028,
+        "pointerBytes": 4
+      },
+      "step2_giant": {
+        "[0]*10**10": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 15,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 1837.1
+        },
+        "[0]*10**9": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nMemoryError\n",
+          "wallMs": 0.2,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2364.5
+        },
+        "bytearray(3*2**30)": {
+          "outcome": "error",
+          "errName": "PythonError",
+          "message": "PythonError: Traceback (most recent call last):\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 619, in eval_code_async\n    await CodeRunner(\n    ...<10 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python314.zip/_pyodide/_base.py\", line 420, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 1, in <module>\nOverflowError: cannot fit 'int' into an index-sized integer\n",
+          "wallMs": 0.2,
+          "killedByWatchdog": false,
+          "heapMBAtEnd": 30,
+          "sameWorkerAnswers": "yes",
+          "freshWorkerBootMs": 2330.7
+        }
+      },
+      "step3_ceiling": {
+        "runs": [
+          {
+            "outcome": "MemoryError",
+            "wallMs": 609.7,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.62,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2540.8
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 626.5,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.64,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2486.9
+          },
+          {
+            "outcome": "MemoryError",
+            "wallMs": 631.2,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "heapMBAtLastReport": 4095.9,
+            "heapMBAtEnd": 4095.9,
+            "maxMB": 4050,
+            "pySeconds": 0.64,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2404.4
+          }
+        ],
+        "summary": {
+          "outcomes": [
+            "MemoryError"
+          ],
+          "maxMB": {
+            "median": 4050,
+            "min": 4050,
+            "max": 4050
+          },
+          "heapMBAtFailure": {
+            "median": 4096,
+            "min": 4096,
+            "max": 4096
+          },
+          "timeToFailureS": {
+            "median": 0.63,
+            "min": 0.61,
+            "max": 0.63
+          }
+        }
+      },
+      "softLimit": {
+        "limitMB": 256,
+        "byN": {
+          "1": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 144,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 250,
+            "mb": 300,
+            "tracedAtStopMB": 300.0030002593994,
+            "events": 20,
+            "pySeconds": 0.0559999942779541,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2323
+          },
+          "100": {
+            "outcome": "soft-limit MemoryError",
+            "wallMs": 341.3,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 1600,
+            "mb": 1600,
+            "tracedAtStopMB": 1600.0038108825684,
+            "events": 100,
+            "pySeconds": 0.24400019645690918,
+            "stoppedBeforeWasmCeiling": true,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2304.4
+          },
+          "1000": {
+            "outcome": "native MemoryError (soft hook never fired)",
+            "wallMs": 740.2,
+            "killedByWatchdog": false,
+            "message": null,
+            "lastReportedMB": 4050,
+            "mb": 4050,
+            "tracedAtStopMB": 0,
+            "events": 249,
+            "pySeconds": 0.6489999294281006,
+            "stoppedBeforeWasmCeiling": false,
+            "sameWorkerAnswers": "yes",
+            "freshWorkerBootMs": 2451.4
+          }
+        }
+      },
+      "overheadMs": {
+        "baseline": {
+          "median": 84.2,
+          "min": 54.8,
+          "max": 89.1
+        },
+        "tracemalloc_only": {
+          "median": 359.6,
+          "min": 232.4,
+          "max": 421.8
+        },
+        "hook_no_tracemalloc_check": {
+          "median": 727.1,
+          "min": 562.6,
+          "max": 759.1
+        },
+        "hook_N1000": {
+          "median": 1208.7,
+          "min": 1131.3,
+          "max": 1360.8
+        },
+        "hook_N100": {
+          "median": 1232.3,
+          "min": 1180.5,
+          "max": 1331.4
+        },
+        "hook_N1": {
+          "median": 1901.6,
+          "min": 1703.1,
+          "max": 1989.7
+        }
+      },
+      "overheadRaw": {
+        "baseline": [
+          89.11999999999986,
+          70.89999999999996,
+          84.1599999999989,
+          88.56000000000108,
+          54.819999999999425
+        ],
+        "tracemalloc_only": [
+          421.75999999999993,
+          359.63999999999885,
+          361.7599999999985,
+          334.7800000000021,
+          232.44000000000042
+        ],
+        "hook_no_tracemalloc_check": [
+          759.0599999999998,
+          729.4599999999996,
+          718.3200000000003,
+          727.059999999998,
+          562.5999999999998
+        ],
+        "hook_N1000": [
+          1131.3399999999997,
+          1208.7399999999989,
+          1197.000000000001,
+          1245.3199999999995,
+          1360.759999999999
+        ],
+        "hook_N100": [
+          1259.6,
+          1180.4800000000012,
+          1214.6000000000008,
+          1232.3400000000006,
+          1331.4200000000014
+        ],
+        "hook_N1": [
+          1703.1199999999992,
+          1952.6599999999999,
+          1989.6600000000008,
+          1901.5799999999992,
+          1874.3599999999994
+        ]
+      },
+      "overheadFactorVsBaseline": {
+        "baseline": 1,
+        "tracemalloc_only": 4.27,
+        "hook_no_tracemalloc_check": 8.64,
+        "hook_N1000": 14.36,
+        "hook_N100": 14.64,
+        "hook_N1": 22.58
+      },
+      "structuralEstimate": {
+        "[0]*10**6": {
+          "tracemallocCurrentBytes": 4000076,
+          "tracemallocPeakBytes": 4000080,
+          "estimateBytes": 4000044,
+          "estimateMs": 197.98000000000116
+        },
+        "list(range(10**6))": {
+          "tracemallocCurrentBytes": 19995224,
+          "tracemallocPeakBytes": 19995224,
+          "estimateBytes": 20000028,
+          "estimateMs": 1343.8000000000015
+        },
+        "[str(i) for i in range(10**5)]": {
+          "tracemallocCurrentBytes": 2989430,
+          "tracemallocPeakBytes": 2989450,
+          "estimateBytes": 2989382,
+          "estimateMs": 118.51999999999663
+        },
+        "{i: i for i in range(10**5)}": {
+          "tracemallocCurrentBytes": 4740136,
+          "tracemallocPeakBytes": 6111128,
+          "estimateBytes": 4745780,
+          "estimateMs": 113.15999999999349
+        }
+      },
+      "pageCrashes": 0,
+      "events": [],
+      "assertions": 26
+    }
+  ]
+}
