@@ -130,8 +130,8 @@ Level-of-detail rendering: below a zoom threshold concept nodes are not mounted,
 
 | State | Rule | Visual |
 |---|---|---|
-| `fogged` | Not adjacent to any `open` tile | Dark silhouette, no name |
-| `glimpsed` | Adjacent to an `open` tile | Name visible, dimmed, lock glyph |
+| `fogged` | Not glimpsed (below) | Dark silhouette, no name |
+| `glimpsed` | Shares an edge with an `open`-or-beyond tile, **or** contains a concept whose prerequisite lives in an `open`-or-beyond tile. The second clause matters because domains such as D1.0 touch the apex only at a corner | Name visible, dimmed, lock glyph |
 | `open` | ≥ 1 concept in the tile is `available` | Outlined, tier colour |
 | `in_progress` | ≥ 1 concept started | Partial fill = % core concepts proficient |
 | `completed` | All ★ core concepts ≥ `proficient` | Solid fill |

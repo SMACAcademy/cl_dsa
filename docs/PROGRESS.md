@@ -4,7 +4,7 @@
 > Legend: ✅ done · 🟡 in progress · ⏳ pending · 🔬 spike · ⛔ blocked
 
 ## Current status
-**Phase 1 — Product & Engineering Blueprint: 🟡 delivered, awaiting owner review** (2026-11-18)
+**Phase 1 — Product & Engineering Blueprint: ✅ approved** (2026-11-18). **Phase 2 — plans written, execution not started.**
 
 ## Phase 1 — Blueprint deliverables
 
@@ -31,8 +31,9 @@
 ## Next up (after approval)
 | Milestone | Status |
 |---|---|
-| Owner review of blueprint; answer open questions in [BLUEPRINT §8](BLUEPRINT.md#8-questions-that-genuinely-need-your-input) | ⏳ |
-| Write step-by-step Phase 2 execution plan in `docs/plans/` | ⏳ |
+| Owner review of blueprint | ✅ approved 2026-11-18 |
+| Answer open questions in [BLUEPRINT §8](BLUEPRINT.md#8-questions-that-genuinely-need-your-input) (licence blocks only the `LICENSE` file) | ⏳ |
+| Phase 2 execution plans: [2A spikes](plans/2026-11-18-phase-2a-spikes.md) (8 tasks) · [2B foundation](plans/2026-11-18-phase-2b-foundation.md) (19 tasks) | ✅ written |
 | M2.0 De-risking spikes (S1–S6) | ⏳ |
 | M2.1 Monorepo scaffold | ⏳ |
 
@@ -40,8 +41,8 @@
 
 | Phase | Status |
 |---|---|
-| 1 Blueprint | 🟡 awaiting approval |
-| 2 Foundation | ⏳ |
+| 1 Blueprint | ✅ approved |
+| 2 Foundation | 🟡 planned |
 | 3 Visualization engine | ⏳ |
 | 4 Pyramid I (MVP) | ⏳ |
 | 5 Data structures | ⏳ |
@@ -53,3 +54,4 @@
 
 ## Change log
 - **2026-11-18** — Phase 1 blueprint drafted: 16 documents, the universe diagram and 18 proposed ADRs.
+- **2026-11-18** — Blueprint approved. Phase 2A (spikes) and 2B (foundation) execution plans written. The tile "glimpsed" rule now also follows prerequisite links (PYRAMID_MODEL §5.1).
