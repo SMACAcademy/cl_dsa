@@ -60,3 +60,31 @@ cls = C().m(x)
     trace_source(src, namespace=ns)
     assert ns["y"] == [3, 1] and ns["x"][0] == 13 and ns["chained"] is True
     assert ns["cls"] is False
+
+
+# --- unpacking semantics (fix round 1) ---
+
+def _outcome(src, traced):
+    ns = {}
+    try:
+        (trace_source(src, namespace=ns) if traced else exec(src, ns))
+    except Exception as e:  # compare type and message with plain Python
+        return type(e), str(e)
+    return None, {k: v for k, v in ns.items() if not k.startswith("_") and k != "src"}
+
+def test_unpack_generator_and_set_work():
+    ns = {}
+    trace_source("a, b = (i for i in range(2))\nc, d = {7, 7}.union({8})\nx, y = 1, 2\nx, y = y, x", namespace=ns)
+    assert (ns["a"], ns["b"]) == (0, 1) and sorted([ns["c"], ns["d"]]) == [7, 8] and (ns["x"], ns["y"]) == (2, 1)
+
+def test_unpack_length_mismatch_raises_like_plain_python():
+    for src in ("a, b = (1, 2, 3)", "a, b = [1]", "a, b = (i for i in range(3))",
+                "arr = [0, 0]\narr[0], arr[1] = (1, 2, 3)", "arr = [0, 0]\narr[0], arr[1] = [1]"):
+        plain, traced = _outcome(src, False), _outcome(src, True)
+        assert plain[0] is ValueError and traced == plain, (src, plain, traced)
+
+def test_subscript_swap_emits_two_writes_with_crossing_origins():
+    events = trace_source("arr = [5, 1]\nif arr[0] > arr[1]:\n    arr[0], arr[1] = arr[1], arr[0]\n")
+    writes = [e for e in events if e["kind"] == "write"]
+    assert [(w["key"], w["value"]) for w in writes] == [(0, 1), (1, 5)]
+    assert writes[0]["container"] == writes[1]["container"]

@@ -99,6 +99,25 @@ def _has_slice(node):
         isinstance(node, ast.Tuple) and any(_has_slice(e) for e in node.elts))
 
 
+def _has_sub(t):
+    """True if the assignment target stores into a (non-slice) subscript somewhere."""
+    if isinstance(t, ast.Subscript):
+        return not _has_slice(t.slice)
+    if isinstance(t, (ast.Tuple, ast.List)):
+        return any(_has_sub(e) for e in t.elts)
+    return False
+
+
+def _av_unpack(value, n):
+    """list(value); on a wrong length, re-run a native n-target unpack so CPython raises its own
+    (version-specific) ValueError message."""
+    items = list(value)
+    if len(items) != n:
+        src = ", ".join(f"t{i}" for i in range(n)) + (", = v" if n == 1 else " = v")
+        exec(src, {"v": value if hasattr(value, "__len__") else iter(items)})
+    return items
+
+
 def _call(name, *args):
     return ast.Call(ast.Name(name, ast.Load()), list(args), [])
 
@@ -129,7 +148,8 @@ class _Rewriter(ast.NodeTransformer):
                 isinstance(e, ast.Starred) for e in target.elts):
             tmp = f"_av_t{self.tmp}"
             self.tmp += 1
-            out = [ast.copy_location(ast.Assign([ast.Name(tmp, ast.Store())], value), node)]
+            unpack = _call("_av_unpack", value, ast.Constant(len(target.elts)))
+            out = [ast.copy_location(ast.Assign([ast.Name(tmp, ast.Store())], unpack), node)]
             for i, elt in enumerate(target.elts):
                 item = ast.Subscript(ast.Name(tmp, ast.Load()), ast.Constant(i), ast.Load())
                 out += self._lower(elt, item, node)
@@ -138,8 +158,10 @@ class _Rewriter(ast.NodeTransformer):
 
     def visit_Assign(self, node):
         node.value = self.visit(node.value)
-        needs = lambda t: isinstance(t, (ast.Subscript, ast.Tuple, ast.List))
-        if not any(needs(t) for t in node.targets):
+        # Only lower when a target stores into a subscript; plain `a, b = x` keeps native unpacking.
+        # Starred targets are left un-lowered (their subscript stores are not instrumented).
+        if not any(_has_sub(t) for t in node.targets) or any(
+                isinstance(e, ast.Starred) for t in node.targets if isinstance(t, (ast.Tuple, ast.List)) for e in t.elts):
             node.targets = [self.visit(t) for t in node.targets]
             return node
         if len(node.targets) == 1:
@@ -162,7 +184,7 @@ def trace_source(source: str, namespace: dict | None = None, copy_containers: bo
     tree = ast.fix_missing_locations(_Rewriter().visit(ast.parse(source, _FILE)))
     code = compile(tree, _FILE, "exec")
     ns = namespace if namespace is not None else {}
-    helpers = {"_av_cmp": tracer.cmp, "_av_get": tracer.get, "_av_set": tracer.set}
+    helpers = {"_av_cmp": tracer.cmp, "_av_get": tracer.get, "_av_set": tracer.set, "_av_unpack": _av_unpack}
     ns.update(helpers)
     previous = sys.gettrace()
     sys.settrace(tracer.glob)
