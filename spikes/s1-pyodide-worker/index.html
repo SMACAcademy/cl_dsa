@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>S1 Pyodide worker</title>
+</head>
+<body>
+  <h1>S1: Pyodide in a module worker</h1>
+  <pre>
+crossOriginIsolated: <span id="isolated">...</span>
+boot ms:             <span id="boot">...</span>
+1 + 1:               <span id="sum">...</span>
+sys.version:         <span id="version">...</span>
+error:               <span id="error"></span>
+  </pre>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
