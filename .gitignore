@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+dist/
+build/
+data/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+playwright-report/
+test-results/
+*.db
+spikes/**/public/pyodide/
+.superpowers/

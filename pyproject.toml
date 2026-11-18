@@ -1,0 +1,37 @@
+[project]
+name = "algoverse"
+version = "0.0.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest", "hypothesis", "ruff", "mypy", "import-linter"]
+
+[tool.uv.workspace]
+# packages/trace-schema is added by Task 2 once it exists.
+members = ["packages/content-tools", "apps/api"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["spikes"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true
+mypy_path = ["packages/content-tools/src", "apps/api/src"]
+explicit_package_bases = true
+
+[tool.importlinter]
+root_packages = ["algoverse_content", "algoverse_api"]
+
+[[tool.importlinter.contracts]]
+name = "Content tools stay independent of the server"
+type = "forbidden"
+source_modules = ["algoverse_content"]
+forbidden_modules = ["algoverse_api"]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
