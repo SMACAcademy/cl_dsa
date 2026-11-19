@@ -3,6 +3,7 @@ import { BinarySearchPlayer } from "./BinarySearchPlayer";
 import { BubbleSortPlayer } from "./BubbleSortPlayer";
 import { CountingSortPlayer } from "./CountingSortPlayer";
 import { ArrayPlayer } from "./ds/array";
+import { NQueensPlayer, SubsetsPlayer } from "./ds/backtracking";
 import { DynamicArrayPlayer } from "./ds/dynamicArray";
 import {
   CoinChangePlayer,
@@ -70,6 +71,8 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   knapsack: KnapsackPlayer,
   lcs: LcsPlayer,
   "edit-distance": EditDistancePlayer,
+  subsets: SubsetsPlayer,
+  "n-queens": NQueensPlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

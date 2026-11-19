@@ -398,7 +398,8 @@
         "badCount": "The number of items must be one whole number from 2 to 8.",
         "badVertex": "Enter one vertex to start from, for example A.",
         "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
-        "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4."
+        "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4.",
+        "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3."
       },
       "view": {
         "newNode": "new node",
@@ -539,6 +540,46 @@
         "qRow": "With letter {{ch}} added, how many edits turn it into all of {{b}}?",
         "row": "Row {{ch}}: each cell is the cheapest of delete (above + 1), insert (left + 1), or keep / replace (diagonal + 0 or 1). Last cell: {{best}}.",
         "answer": "{{a}} → {{b}} takes {{d}} edit(s): {{edits}}."
+      },
+      "subsets": {
+        "help": "all (list every subset) or sum s (only subsets adding up to s)",
+        "preset": {
+          "tour": "Subsets of [1, 2]",
+          "three": "Subsets of [1, 2, 3]",
+          "sum": "Add up to 5"
+        },
+        "treeTitle": "Decision tree (circle = sum so far, −x = skip x, +x = take x)",
+        "start": "Items {{items}}. Each level decides one item: skip it (left branch) or take it (right branch).",
+        "startSum": "Items {{items}}. Find the subsets that add up to {{target}}: skip or take each item, and stop early when the sum is already too big.",
+        "skip": "Skip {{x}}: picked stays {{picked}}.",
+        "take": "Take {{x}}: picked = {{picked}}.",
+        "qLeaf": "Every item is decided. Which subset does this leaf hold?",
+        "leaf": "Every item is decided: record {{subset}} (subset {{count}}).",
+        "miss": "Every item is decided: {{subset}} adds up to {{total}}, not {{target}}, so it isn't recorded.",
+        "prune": "The sum is already {{total}}, more than {{target}}: prune this branch, since nothing below it can work.",
+        "undo": "Back from the take-{{x}} branch: pop {{x}} so picked = {{picked}} again. That undo is the “back” in backtracking.",
+        "end": "{{count}} subsets, one per leaf (2^{{n}}): {{list}}.",
+        "endSum": "{{count}} subset(s) add up to {{target}}: {{list}}. Pruning cut off {{pruned}} branch(es) early."
+      },
+      "queens": {
+        "help": "queens n (board size from 1 to 6)",
+        "preset": { "tour": "4 × 4 board", "five": "5 × 5 board", "none": "3 × 3 (no answer)" },
+        "caption": "{{n}} × {{n}} board (♛ queen, · attacked, ↑ just lifted, ▶ row being filled)",
+        "square": {
+          "queen": "queen",
+          "lifted": "queen just lifted off",
+          "attacked": "attacked",
+          "free": "safe"
+        },
+        "start": "Place {{n}} queen(s) on a {{n}} × {{n}} board, one per row, so that no two share a column or a diagonal.",
+        "qColumn": "Row {{row}}: which is the first safe column, starting at column {{from}}?",
+        "place": "Row {{row}}: column {{col}} is the first safe square. Put a queen there and move on to the next row.",
+        "dead": "Row {{row}}: every square is attacked. Dead end, so go back up a row.",
+        "deadFrom": "Row {{row}}: no safe square from column {{from}} on. Dead end, so go back up a row.",
+        "deadEnd": "Row {{row}}: no columns left to try. Dead end, so go back up a row.",
+        "lift": "Lift the queen off row {{row}}, column {{col}}, and try the next columns in that row.",
+        "solved": "Every row has a queen and none attack each other: columns {{cols}}.",
+        "none": "Every choice in row 1 led to a dead end: a {{n}} × {{n}} board has no answer."
       },
       "twoPointers": {
         "help": "pair s (find two values that add up to s)",

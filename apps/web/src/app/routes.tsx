@@ -79,6 +79,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/algorithms/knapsack",
   "/algorithms/lcs",
   "/algorithms/edit-distance",
+  "/algorithms/subsets",
+  "/algorithms/n-queens",
   "/structures/hash-table",
   "/structures/array",
   "/structures/dynamic-array",
