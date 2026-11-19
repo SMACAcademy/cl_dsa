@@ -26,7 +26,8 @@ export type OpsError =
   | { key: "badNumber"; token: string }
   | { key: "emptyStart" }
   | { key: "badCount" }
-  | { key: "badVertex" };
+  | { key: "badVertex" }
+  | { key: "notSorted" };
 
 export type Parsed<T> = { ok: true; value: T } | { ok: false; error: OpsError };
 

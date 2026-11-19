@@ -17,6 +17,7 @@ import {
   TopoSortPlayer,
 } from "./ds/graphAlgos";
 import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
+import { PrefixSumsPlayer, SlidingWindowPlayer, TwoPointersPlayer } from "./ds/patterns";
 import { HanoiPlayer, RecursionPlayer } from "./ds/recursion";
 import { SegmentTreePlayer } from "./ds/segmentTree";
 import { TriePlayer } from "./ds/trie";
@@ -51,6 +52,9 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   kruskal: KruskalPlayer,
   recursion: RecursionPlayer,
   "tower-of-hanoi": HanoiPlayer,
+  "two-pointers": TwoPointersPlayer,
+  "sliding-window": SlidingWindowPlayer,
+  "prefix-sums": PrefixSumsPlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

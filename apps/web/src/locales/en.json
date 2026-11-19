@@ -392,7 +392,8 @@
         "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
         "emptyStart": "Start with at least one value.",
         "badCount": "The number of items must be one whole number from 2 to 8.",
-        "badVertex": "Enter one vertex to start from, for example A."
+        "badVertex": "Enter one vertex to start from, for example A.",
+        "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7."
       },
       "view": {
         "newNode": "new node",
@@ -445,6 +446,50 @@
         "neighbours": "{{u}}'s neighbours: {{list}} (degree {{deg}}). The list has them ready; the matrix would scan all {{n}} cells of row {{u}}.",
         "noVertex": "{{u}} isn't in the graph.",
         "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
+      },
+      "twoPointers": {
+        "help": "pair s (find two values that add up to s)",
+        "preset": {
+          "tour": "Find a pair for 9",
+          "none": "When no pair exists",
+          "many": "Two targets"
+        },
+        "start": "A sorted list {{list}} ({{n}} values). Checking every pair would take up to n(n−1)/2 tries.",
+        "pointers": "Look for two values adding up to {{target}}: L starts at the smallest value, R at the largest.",
+        "qMove": "{{a}} + {{b}} vs {{target}}: move L → (sum too small), ← R (too big), or stop (=)?",
+        "tooBig": "{{a}} + {{b}} = {{s}} > {{target}}: too big. Only a smaller right value can help, so move R left.",
+        "tooSmall": "{{a}} + {{b}} = {{s}} < {{target}}: too small. Only a bigger left value can help, so move L right.",
+        "found": "{{a}} + {{b}} = {{s}}: found the pair after {{checks}} check(s).",
+        "none": "L and R met: no two values add up to {{target}} ({{checks}} check(s)).",
+        "end": "Each check moves one pointer inward, so at most n − 1 = {{n}} − 1 checks: O(n) instead of O(n²)."
+      },
+      "window": {
+        "help": "window k (best sum of k values in a row)",
+        "preset": {
+          "tour": "Best 3 in a row",
+          "longer": "Two window sizes",
+          "negative": "With negatives"
+        },
+        "start": "Values {{list}}. Find the biggest sum of k neighbouring values.",
+        "badK": "A window of {{k}} doesn't fit: use 1 to {{n}}.",
+        "first": "Add up the first {{k}}: {{list}} = {{window}}. That's the best so far.",
+        "slide": "Slide right: drop {{dropped}}, add {{added}}: {{before}} − {{dropped}} + {{added}} = {{window}}. Best stays {{best}}.",
+        "slideBest": "Slide right: drop {{dropped}}, add {{added}}: {{before}} − {{dropped}} + {{added}} = {{window}}. New best!",
+        "qWindow": "The window sum is {{before}}. Drop {{dropped}}, add {{added}}: what is the new sum?",
+        "best": "Best sum of {{k}} in a row: {{best}} (index {{from}}..{{to}}). Each slide cost one add and one subtract ({{slides}} slide(s)).",
+        "end": "Every window was summed without re-adding its values: O(n) instead of O(n × k)."
+      },
+      "prefix": {
+        "help": "sum l r (sum of index l..r)",
+        "preset": { "tour": "One range", "many": "Several ranges", "negative": "With negatives" },
+        "prefixRow": "Prefix sums",
+        "start": "Values {{list}}. Build running totals once: prefix[i] is the sum of the first i values.",
+        "build": "prefix[{{next}}] = prefix[{{i}}] + {{x}} = {{prev}} + {{x}} = {{s}}.",
+        "built": "Built in one pass: prefix = {{list}}.",
+        "query": "sum({{l}}..{{r}}) = prefix[{{r1}}] − prefix[{{l}}] = {{hi}} − {{lo}} = {{total}}: one subtraction.",
+        "qSum": "What is the sum of index {{l}}..{{r}}?",
+        "badRange": "The range {{l}}..{{r}} isn't valid: use 0 ≤ l ≤ r ≤ {{last}}.",
+        "end": "Building took one pass over {{n}} values; after that, every range sum is O(1)."
       },
       "recursion": {
         "help": "factorial n, total n (n from 0 to 7)",
