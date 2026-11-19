@@ -29,6 +29,7 @@ import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashi
 import { PrefixSumsPlayer, SlidingWindowPlayer, TwoPointersPlayer } from "./ds/patterns";
 import { HanoiPlayer, RecursionPlayer } from "./ds/recursion";
 import { SegmentTreePlayer } from "./ds/segmentTree";
+import { GcdPlayer, KmpPlayer, NaiveMatchPlayer, SievePlayer } from "./ds/stringsNumbers";
 import { TriePlayer } from "./ds/trie";
 import { UnionFindPlayer } from "./ds/unionFind";
 import { DoublyLinkedListPlayer, SinglyLinkedListPlayer } from "./ds/linkedList";
@@ -73,6 +74,10 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "edit-distance": EditDistancePlayer,
   subsets: SubsetsPlayer,
   "n-queens": NQueensPlayer,
+  "string-matching": NaiveMatchPlayer,
+  kmp: KmpPlayer,
+  gcd: GcdPlayer,
+  sieve: SievePlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

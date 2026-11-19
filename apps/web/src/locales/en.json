@@ -581,6 +581,80 @@
         "solved": "Every row has a queen and none attack each other: columns {{cols}}.",
         "none": "Every choice in row 1 led to a dead end: a {{n}} × {{n}} board has no answer."
       },
+      "str": {
+        "cell": "{{i}}: {{ch}}, {{state}}",
+        "state": {
+          "idle": "not compared",
+          "current": "being compared",
+          "match": "matches",
+          "miss": "doesn't match",
+          "faded": "already read"
+        }
+      },
+      "naive": {
+        "help": "find PATTERN in TEXT (pattern up to 6 letters, text up to 12)",
+        "preset": {
+          "tour": "ab in aab",
+          "overlap": "aa in aaaa",
+          "slow": "aab in aaaaab (slow case)"
+        },
+        "start": "Look for “{{pat}}” in “{{text}}”: there are {{count}} starting positions to try.",
+        "qPos": "Position {{s}}: will the whole pattern match here? (✓ / ✗)",
+        "eq": "Position {{s}}: text[{{i}}] = {{a}} matches pat[{{j}}] = {{b}}.",
+        "ne": "Position {{s}}: text[{{i}}] = {{a}} ≠ pat[{{j}}] = {{b}}. Slide the pattern one step right and start again.",
+        "match": "All {{m}} letters match: found at position {{s}}. Slide on to look for more.",
+        "end": "Found at position(s) {{list}}, using {{compares}} letter comparisons.",
+        "endNone": "The pattern doesn't occur ({{compares}} letter comparisons)."
+      },
+      "kmp": {
+        "help": "find PATTERN in TEXT (pattern up to 6 letters, text up to 12)",
+        "preset": {
+          "tour": "abab in abacababab",
+          "slow": "aab in aaaaab (no re-reading)",
+          "table": "A bigger table"
+        },
+        "start": "First build the fail table for “{{pat}}”: for each prefix, the length of the longest part that is both its start and its end. fail[0] is always 0.",
+        "qFill": "What is fail[{{i}}], the overlap of “{{prefix}}”?",
+        "fill": "fail[{{i}}] = {{k}}: “{{prefix}}” starts and ends with “{{part}}”.",
+        "fillZero": "fail[{{i}}] = 0: no start of “{{prefix}}” is also its end.",
+        "search": "Table done: [{{table}}]. Now read the {{n}} text letters once, left to right; j counts how much of the pattern matches so far.",
+        "qLen": "text[{{i}}] = {{ch}}. How long is the matched part after reading it?",
+        "match": "text[{{i}}] = {{ch}} = pat[{{j}}]: the matched length grows to {{len}}.",
+        "miss": "text[{{i}}] = {{ch}} ≠ pat[0] = {{p0}}: nothing matches, so go on to the next letter.",
+        "jumpMatch": "text[{{i}}] = {{ch}} ≠ pat[{{j}}] = {{pj}}. Don't restart: the fail table drops the matched length {{chain}}, and then {{ch}} matches, so it is {{len}}.",
+        "jumpMiss": "text[{{i}}] = {{ch}} ≠ pat[{{j}}] = {{pj}}. The fail table drops the matched length {{chain}}, and {{ch}} still doesn't match.",
+        "found": "The whole pattern matched: found at position {{pos}}. Keep the overlap and carry on from length {{to}}.",
+        "end": "Found at position(s) {{list}}. Each of the {{n}} text letters was read once ({{compares}} comparisons).",
+        "endNone": "No match. Each of the {{n}} text letters was read once ({{compares}} comparisons)."
+      },
+      "gcd": {
+        "help": "gcd a b (whole numbers from 1 to 999)",
+        "preset": { "tour": "gcd(48, 18)", "coprime": "gcd(21, 13)", "swap": "gcd(12, 30)" },
+        "legend": "A {{w}} × {{h}} rectangle. Each step cuts off the biggest squares that fit; the dashed part is what's left.",
+        "start": "Find gcd({{a}}, {{b}}), the biggest number that divides both. Picture a {{a}} × {{b}} rectangle.",
+        "qMod": "What is {{a}} mod {{b}}?",
+        "mod": "{{b}} fits {{q}} time(s) into {{a}}, leaving {{a}} mod {{b}} = {{r}}: cut off {{q}} square(s) of side {{b}}. Now gcd({{b}}, {{r}}).",
+        "swap": "{{a}} < {{b}}, so {{a}} mod {{b}} = {{a}}: the pair just swaps to gcd({{b}}, {{a}}).",
+        "done": "b is 0, so the answer is {{g}} after {{steps}} step(s): {{g}} × {{g}} squares tile the whole rectangle."
+      },
+      "sieve": {
+        "help": "sieve n (n from 2 to 60)",
+        "preset": { "tour": "Up to 10", "thirty": "Up to 30", "sixty": "Up to 60" },
+        "grid": "Numbers 1 to {{n}}",
+        "state": {
+          "none": "not prime",
+          "unknown": "not decided yet",
+          "current": "the prime being used",
+          "fresh": "crossed out just now",
+          "crossed": "crossed out",
+          "prime": "prime"
+        },
+        "start": "Every number from 2 to {{n}} starts as maybe-prime (1 isn't prime). Take each p in turn while p × p ≤ {{n}}.",
+        "qFirst": "{{p}} is prime. Which multiple is the first one to cross out?",
+        "cross": "{{p}} is prime: cross out its multiples starting at {{p}} × {{p}} = {{sq}}: {{list}}. A smaller multiple has a smaller factor, so it is crossed out already.",
+        "skip": "{{p}} is already crossed out (a multiple of {{by}}), so its multiples are crossed out too. Skip it.",
+        "stop": "{{p}} × {{p}} = {{sq}} > {{n}}: stop. Every number left is prime: {{list}} ({{count}} primes)."
+      },
       "twoPointers": {
         "help": "pair s (find two values that add up to s)",
         "preset": {
