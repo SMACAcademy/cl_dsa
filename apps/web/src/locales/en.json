@@ -446,6 +446,32 @@
         "noVertex": "{{u}} isn't in the graph.",
         "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
       },
+      "recursion": {
+        "help": "factorial n, total n (n from 0 to 7)",
+        "preset": { "tour": "factorial(3)", "deeper": "factorial(5)", "total": "1 + 2 + 3 + 4" },
+        "stackTitle": "Call stack (top = running now)",
+        "frameRunning": "running",
+        "frameWaiting": "waiting for the call above",
+        "frameReturns": "returns {{value}}",
+        "start": "Each call gets its own frame on the call stack, with its own n. A call waits until the call it made returns.",
+        "call": "{{name}} isn't a base case, so it needs {{next}}: call it. Stack depth {{depth}}.",
+        "base": "{{name}} is the base case: it returns {{value}} straight away, without calling again (depth {{depth}}).",
+        "return": "{{name}} gets {{r}} back and returns {{n}} {{op}} {{r}} = {{value}}. Its frame is removed.",
+        "qReturn": "What does {{name}} return?",
+        "result": "{{name}} = {{value}}. The stack grew to {{depth}} frame(s), then emptied as each call returned.",
+        "end": "Every frame waited for the one above it, then returned in reverse order: last in, first out, like a stack."
+      },
+      "hanoi": {
+        "help": "hanoi n (n from 1 to 4)",
+        "preset": { "tour": "2 disks", "three": "3 disks", "four": "4 disks" },
+        "pegsLabel": "Pegs",
+        "pegContents": "Peg {{peg}}: {{disks}}",
+        "start": "Move {{n}} disk(s) from peg A to peg C, one at a time, never putting a bigger disk on a smaller one. It takes at least {{min}} moves.",
+        "moveSmall": "Move disk {{disk}} from {{source}} to {{target}}. (Move {{moves}}.)",
+        "move": "The {{below}} smaller disk(s) that were on top of it are parked on {{spare}}, so disk {{disk}} can move from {{source}} to {{target}}. (Move {{moves}}.)",
+        "qPeg": "Disk {{disk}} leaves {{source}}. Which peg does it go to?",
+        "done": "All {{n}} disk(s) are on C after {{moves}} moves: 2ⁿ − 1, so each extra disk doubles the work."
+      },
       "graphAlgo": {
         "orderLabel": "order:"
       },

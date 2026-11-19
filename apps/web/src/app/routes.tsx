@@ -67,6 +67,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/algorithms/topological-sort",
   "/algorithms/dijkstra",
   "/algorithms/kruskal",
+  "/algorithms/recursion",
+  "/algorithms/tower-of-hanoi",
   "/structures/hash-table",
   "/structures/array",
   "/structures/dynamic-array",
