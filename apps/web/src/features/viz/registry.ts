@@ -8,9 +8,11 @@ import { AvlTreePlayer } from "./ds/avl";
 import { MinHeapPlayer } from "./ds/binaryHeap";
 import { BinaryTreePlayer } from "./ds/binaryTree";
 import { BinarySearchTreePlayer } from "./ds/bst";
+import { GraphPlayer } from "./ds/graph";
 import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
 import { SegmentTreePlayer } from "./ds/segmentTree";
 import { TriePlayer } from "./ds/trie";
+import { UnionFindPlayer } from "./ds/unionFind";
 import { DoublyLinkedListPlayer, SinglyLinkedListPlayer } from "./ds/linkedList";
 import { RingBufferPlayer } from "./ds/ringBuffer";
 import { DequePlayer, QueuePlayer, StackPlayer } from "./ds/stackQueue";
@@ -52,6 +54,8 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "binary-heap": MinHeapPlayer,
   trie: TriePlayer,
   "segment-tree": SegmentTreePlayer,
+  graph: GraphPlayer,
+  "union-find": UnionFindPlayer,
 };
 
 export function hasVisualizer(id: string): boolean {

@@ -24,7 +24,8 @@ export type OpsError =
   | { key: "tooManyStart"; max: number }
   | { key: "badCapacity" }
   | { key: "badNumber"; token: string }
-  | { key: "emptyStart" };
+  | { key: "emptyStart" }
+  | { key: "badCount" };
 
 export type Parsed<T> = { ok: true; value: T } | { ok: false; error: OpsError };
 

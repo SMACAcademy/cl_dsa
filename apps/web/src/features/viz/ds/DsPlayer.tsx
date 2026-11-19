@@ -21,7 +21,7 @@ type Props<S, Op> = {
   code: readonly string[];
   presets: readonly [DsPreset, ...DsPreset[]];
   /** What the first field holds: starting values, a capacity, or nothing. */
-  startField: "values" | "capacity" | null;
+  startField: "values" | "capacity" | "count" | null;
   /** Extra check on the starting values (e.g. capacity 2..8). */
   validateStart?: (start: string[]) => OpsError | null;
   forms: readonly OpForm<Op>[];
@@ -86,7 +86,9 @@ export function DsPlayer<S, Op>(props: Props<S, Op>) {
             <label htmlFor={startId} className="text-sm font-medium">
               {startField === "values"
                 ? t("viz.ds.form.start", { max: MAX_START })
-                : t("viz.ds.form.capacity")}
+                : startField === "capacity"
+                  ? t("viz.ds.form.capacity")
+                  : t("viz.ds.form.count")}
             </label>
             <input
               id={startId}

@@ -80,5 +80,7 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/binary-heap",
   "/structures/trie",
   "/structures/segment-tree",
+  "/structures/graph",
+  "/structures/union-find",
   "/algorithms/no-such-item",
 ];

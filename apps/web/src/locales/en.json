@@ -375,6 +375,7 @@
       "form": {
         "start": "Start with (up to {{max}} values, may be empty)",
         "capacity": "Capacity (2 to 8)",
+        "count": "Number of items (2 to 8)",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
         "predict": "Predict before each result"
@@ -387,7 +388,8 @@
         "tooManyStart": "Start with at most {{max}} values.",
         "badCapacity": "Capacity must be one whole number from 2 to 8.",
         "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
-        "emptyStart": "Start with at least one value."
+        "emptyStart": "Start with at least one value.",
+        "badCount": "The number of items must be one whole number from 2 to 8."
       },
       "view": {
         "newNode": "new node",
@@ -414,6 +416,51 @@
         "tree": "Tree nodes",
         "treeNode": "{{label}}{{sub}}: children {{children}}. {{state}}",
         "noChildren": "none"
+      },
+      "graph": {
+        "help": "add u v, remove u v, has u v, neighbours u",
+        "preset": {
+          "tour": "Build and check edges",
+          "square": "A square, then remove an edge",
+          "star": "A star around H"
+        },
+        "emptyGraph": "No vertices yet. Add an edge to start.",
+        "listTitle": "Adjacency list",
+        "matrixTitle": "Adjacency matrix",
+        "start": "An empty undirected graph. It is shown three ways: as a picture, as an adjacency list and as an adjacency matrix.",
+        "addNew": "Add edge {{u}}–{{v}} (new vertex: {{fresh}}). Each list gets the other vertex; the matrix gets two 1s.",
+        "add": "Add edge {{u}}–{{v}}. Each list gets the other vertex; the matrix gets two 1s.",
+        "already": "{{u}}–{{v}} is already an edge.",
+        "selfLoop": "{{u}}–{{u}} would link a vertex to itself, which this graph doesn't allow.",
+        "qHas": "Is {{u}}–{{v}} an edge? (✓ yes / ✗ no)",
+        "matrixYes": "Matrix: row {{u}}, column {{v}} holds 1, so yes. One lookup, no matter how big the graph is.",
+        "matrixNo": "Matrix: row {{u}}, column {{v}} holds 0, so no. One lookup.",
+        "listYes": "List: scan {{u}}'s neighbours {{list}}: found {{v}} after {{checks}} check(s).",
+        "listNo": "List: scan {{u}}'s neighbours {{list}}: no {{v}} after {{checks}} check(s).",
+        "removed": "Remove edge {{u}}–{{v}} from both lists and both matrix cells.",
+        "removeMissing": "{{u}}–{{v}} isn't an edge: nothing to remove.",
+        "neighbours": "{{u}}'s neighbours: {{list}} (degree {{deg}}). The list has them ready; the matrix would scan all {{n}} cells of row {{u}}.",
+        "noVertex": "{{u}} isn't in the graph.",
+        "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
+      },
+      "unionFind": {
+        "help": "union a b, find a, connected a b",
+        "preset": {
+          "tour": "Join groups",
+          "compress": "Path compression",
+          "same": "Already together"
+        },
+        "start": "{{n}} items, 0 to {{last}}, each in its own group: parent[i] = i.",
+        "hop": "{{x}} isn't a root: go up to its parent, {{p}}.",
+        "root": "{{root}} is its own parent, so it is the root (the group's name) for {{x}}.",
+        "compress": "Path compression: point {{nodes}} straight at {{root}}, so the next find is one hop.",
+        "attach": "Different groups: attach root {{small}} under root {{big}} (the bigger group). The group now has {{size}} item(s).",
+        "sameSet": "{{a}} and {{b}} already share root {{root}}: nothing to join.",
+        "qConnected": "Are {{a}} and {{b}} in the same group? (✓ yes / ✗ no)",
+        "connectedYes": "Both have root {{ra}}: {{a}} and {{b}} are connected.",
+        "connectedNo": "Roots {{ra}} and {{rb}} differ: {{a}} and {{b}} are not connected.",
+        "badItem": "Item {{x}} doesn't exist: items are 0 to {{last}}.",
+        "end": "{{n}} items in {{sets}} group(s). With union by size and path compression, each operation is nearly O(1)."
       },
       "traversal": {
         "help": "preorder, inorder, postorder, levelorder",

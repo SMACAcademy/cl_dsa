@@ -88,15 +88,22 @@ export function TreeView({
   stateOf,
   pointers = {},
   label,
+  hideRoot = false,
 }: {
   tree: DrawTree;
   binary?: boolean;
   stateOf: (id: number) => NodeState;
   pointers?: Readonly<Record<number, readonly string[]>>;
   label: string;
+  /** Hide the root and its edges: used to draw a forest under an invisible super-root. */
+  hideRoot?: boolean;
 }) {
   const { t } = useTranslation();
   const pos = layoutTree(tree, binary);
+  if (hideRoot && tree.root != null) {
+    pos.delete(tree.root);
+    for (const p of pos.values()) p.depth -= 1;
+  }
   const xs = [...pos.values()].map((p) => p.x);
   const depths = [...pos.values()].map((p) => p.depth);
   const width = Math.max(1, (xs.length ? Math.max(...xs) : 0) + 1) * SLOT + PAD * 2;
