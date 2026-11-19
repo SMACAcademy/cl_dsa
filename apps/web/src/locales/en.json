@@ -380,6 +380,8 @@
         "edges": "Edges (up to {{max}}, separated by commas)",
         "meetings": "Meetings as start-end (up to {{max}}, separated by commas)",
         "freqs": "Letters and how often they appear (up to {{max}})",
+        "coins": "Coins (whole numbers from 1 to 99)",
+        "items": "Items as name weight value (up to {{max}})",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
         "predict": "Predict before each result"
@@ -395,7 +397,8 @@
         "emptyStart": "Start with at least one value.",
         "badCount": "The number of items must be one whole number from 2 to 8.",
         "badVertex": "Enter one vertex to start from, for example A.",
-        "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7."
+        "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
+        "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4."
       },
       "view": {
         "newNode": "new node",
@@ -474,6 +477,68 @@
         "qRarest": "Which subtree is the rarest, so it is taken first?",
         "merge": "Join the two rarest, {{a}} and {{b}}, into one tree of weight {{w}}.",
         "codes": "One tree is left. Read each code from the root (left = 0, right = 1): {{codes}}. That's {{bits}} bits in total, versus {{fixed}} with equal-length codes."
+      },
+      "dp": {
+        "notYet": "not worked out yet"
+      },
+      "fib": {
+        "help": "fib n (n from 0 to 7)",
+        "preset": { "tour": "fib(5)", "small": "fib(3)", "big": "fib(7)" },
+        "treeTitle": "Calls made (= value returned, ringed = answered from memo)",
+        "start": "Memoized Fibonacci: every answer is saved in memo, so each fib(k) is worked out only once.",
+        "call": "fib({{k}}) isn't in memo and isn't a base case, so it calls fib({{a}}) and then fib({{b}}).",
+        "base": "fib({{k}}) is a base case: return {{k}} and save it in memo.",
+        "hit": "fib({{k}}) is already in memo: return {{value}} at once, with no further calls.",
+        "qFib": "What is fib({{k}})?",
+        "store": "fib({{k}}) = {{a}} + {{b}} = {{value}}. Save it in memo for next time.",
+        "result": "fib({{n}}) = {{value}} using {{calls}} calls. Without memo it would take {{naive}} calls."
+      },
+      "coins": {
+        "help": "make n (amount from 1 to 12)",
+        "preset": { "tour": "Coins 1, 3, 4", "us": "Coins 1, 5, 10", "gap": "Coins 3, 5" },
+        "start": "Coins {{coins}}. best[a] will hold the fewest coins that make amount a.",
+        "base": "Make {{amount}}: best[0] = 0 (no coins needed for nothing); every other amount starts at ∞.",
+        "qBest": "What is best[{{a}}]?",
+        "fill": "Amount {{a}}: try each coin: {{list}}. The smallest wins: best[{{a}}] = {{value}} (last coin {{coin}}).",
+        "unreachable": "Amount {{a}}: no coin leads to a reachable amount, so best[{{a}}] stays ∞.",
+        "answer": "Fewest coins for {{amount}}: {{value}} ({{pieces}}). Biggest-coin-first would use {{greedy}}.",
+        "answerStuck": "Fewest coins for {{amount}}: {{value}} ({{pieces}}). Biggest-coin-first takes {{greedy}} and gets stuck with {{rest}} left over.",
+        "impossible": "Amount {{amount}} can't be made from these coins: best[{{amount}}] is ∞."
+      },
+      "knapsack": {
+        "help": "A 1 1 (item A, weight 1, value 1); the first field is the bag's capacity",
+        "preset": {
+          "tour": "Capacity 4, three items",
+          "four": "Capacity 7, four items",
+          "greedyFails": "When best value per weight fails"
+        },
+        "caption": "dp[i][c]: rows = items considered so far, columns = capacity",
+        "start": "A bag that holds weight {{W}}, and {{n}} item(s). dp[i][c] = the best value using the first i items with capacity c. Row 0 (no items) is all 0.",
+        "qRow": "With item {{name}} available too, what is the best value for capacity {{W}}?",
+        "row": "Item {{name}} (weight {{w}}, value {{v}}): at each capacity, skip it (the value above) or take it ({{v}} + the value {{w}} column(s) left in the row above). Taking wins at capacity {{takes}}. Best for the full bag: {{best}}.",
+        "tookItem": "dp[{{i}}][{{c}}] differs from the row above, so item {{name}} was taken: move up and {{w}} column(s) left.",
+        "skippedItem": "dp[{{i}}][{{c}}] equals the row above, so item {{name}} was skipped: move straight up.",
+        "answer": "Best value {{best}} with capacity {{W}}: take {{taken}}."
+      },
+      "lcs": {
+        "help": "lcs WORD WORD (up to 6 letters each)",
+        "preset": { "tour": "ABCB vs BDCB", "dna": "GATTA vs GTA", "none": "No common letters" },
+        "caption": "dp[i][j]: longest common subsequence of the first i letters of {{a}} and the first j of {{b}}",
+        "start": "Compare {{a}} and {{b}}. An empty prefix (ε) has nothing in common with anything, so row 0 and column 0 are 0.",
+        "qRow": "With letter {{ch}} added, how long is the common subsequence with all of {{b}}?",
+        "rowMatch": "Row {{ch}}: it matches {{cols}}; there the cell is diagonal + 1. Every other cell takes the bigger of above and left. Last cell: {{best}}.",
+        "rowNoMatch": "Row {{ch}}: no letter matches, so every cell takes the bigger of above and left. Last cell: {{best}}.",
+        "answer": "Walk back from the corner, collecting the letters on diagonal matches: “{{lcs}}”, length {{len}}."
+      },
+      "edit": {
+        "help": "edit WORD WORD (up to 6 letters each)",
+        "preset": { "tour": "CAT → CUT", "kitten": "KITTEN → SITTIN", "insert": "CAT → CART" },
+        "caption": "dp[i][j]: edits to turn the first i letters of {{a}} into the first j of {{b}}",
+        "start": "Turn {{a}} into {{b}} with the fewest single-letter inserts, deletes and replacements.",
+        "borders": "Borders first: turning i letters into nothing takes i deletes, and turning nothing into j letters takes j inserts.",
+        "qRow": "With letter {{ch}} added, how many edits turn it into all of {{b}}?",
+        "row": "Row {{ch}}: each cell is the cheapest of delete (above + 1), insert (left + 1), or keep / replace (diagonal + 0 or 1). Last cell: {{best}}.",
+        "answer": "{{a}} → {{b}} takes {{d}} edit(s): {{edits}}."
       },
       "twoPointers": {
         "help": "pair s (find two values that add up to s)",

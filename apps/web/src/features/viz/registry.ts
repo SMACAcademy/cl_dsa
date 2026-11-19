@@ -4,6 +4,13 @@ import { BubbleSortPlayer } from "./BubbleSortPlayer";
 import { CountingSortPlayer } from "./CountingSortPlayer";
 import { ArrayPlayer } from "./ds/array";
 import { DynamicArrayPlayer } from "./ds/dynamicArray";
+import {
+  CoinChangePlayer,
+  EditDistancePlayer,
+  FibonacciMemoPlayer,
+  KnapsackPlayer,
+  LcsPlayer,
+} from "./ds/dp";
 import { AvlTreePlayer } from "./ds/avl";
 import { MinHeapPlayer } from "./ds/binaryHeap";
 import { BinaryTreePlayer } from "./ds/binaryTree";
@@ -58,6 +65,11 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "prefix-sums": PrefixSumsPlayer,
   "activity-selection": ActivitySelectionPlayer,
   "huffman-coding": HuffmanPlayer,
+  "fibonacci-memo": FibonacciMemoPlayer,
+  "coin-change": CoinChangePlayer,
+  knapsack: KnapsackPlayer,
+  lcs: LcsPlayer,
+  "edit-distance": EditDistancePlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

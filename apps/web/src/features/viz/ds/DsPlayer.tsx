@@ -21,9 +21,9 @@ type Props<S, Op> = {
   code: readonly string[];
   presets: readonly [DsPreset, ...DsPreset[]];
   /** What the first field holds: starting values, a capacity, or nothing. */
-  startField: "values" | "capacity" | "count" | "vertex" | null;
+  startField: "values" | "capacity" | "count" | "vertex" | "coins" | null;
   /** The second field holds operations (default) or the edges of a graph. */
-  opsField?: "ops" | "edges" | "meetings" | "freqs";
+  opsField?: "ops" | "edges" | "meetings" | "freqs" | "items";
   /** Extra check on the starting values (e.g. capacity 2..8). */
   validateStart?: (start: string[]) => OpsError | null;
   forms: readonly OpForm<Op>[];
@@ -92,7 +92,9 @@ export function DsPlayer<S, Op>(props: Props<S, Op>) {
                   ? t("viz.ds.form.capacity")
                   : startField === "count"
                     ? t("viz.ds.form.count")
-                    : t("viz.ds.form.vertex")}
+                    : startField === "coins"
+                      ? t("viz.ds.form.coins")
+                      : t("viz.ds.form.vertex")}
             </label>
             <input
               id={startId}
