@@ -385,7 +385,9 @@
         "unknown": "I don't know the command “{{command}}”. Commands: {{help}}",
         "badStart": "“{{token}}” isn't a value here. Use whole numbers from -99 to 99, or single letters.",
         "tooManyStart": "Start with at most {{max}} values.",
-        "badCapacity": "Capacity must be one whole number from 2 to 8."
+        "badCapacity": "Capacity must be one whole number from 2 to 8.",
+        "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
+        "emptyStart": "Start with at least one value."
       },
       "view": {
         "newNode": "new node",
@@ -408,7 +410,145 @@
         "slot": "Slot {{index}}: {{value}}. {{pointers}}",
         "emptySlot": "empty",
         "buckets": "Buckets",
-        "bucket": "Bucket {{b}}: {{values}}"
+        "bucket": "Bucket {{b}}: {{values}}",
+        "tree": "Tree nodes",
+        "treeNode": "{{label}}{{sub}}: children {{children}}. {{state}}",
+        "noChildren": "none"
+      },
+      "traversal": {
+        "help": "preorder, inorder, postorder, levelorder",
+        "preset": {
+          "tour": "All four orders",
+          "inorder": "In-order of a search tree",
+          "letters": "Letters"
+        },
+        "outputLabel": "visited:",
+        "start": "A binary tree of {{count}} nodes, filled level by level. Each traversal visits every node once, in a different order.",
+        "preorderStart": "Pre-order: visit the node first, then its left subtree, then its right subtree.",
+        "inorderStart": "In-order: left subtree first, then the node, then the right subtree.",
+        "postorderStart": "Post-order: both subtrees first, the node last.",
+        "levelorderStart": "Level-order: row by row from the top, using a queue.",
+        "visit": "Visit {{value}}. Visited so far: {{output}}.",
+        "qNext": "Which node is visited next?",
+        "preorderResult": "Pre-order: {{output}}.",
+        "inorderResult": "In-order: {{output}}.",
+        "postorderResult": "Post-order: {{output}}.",
+        "levelorderResult": "Level-order: {{output}}.",
+        "end": "Each traversal visited all {{count}} nodes exactly once: O(n)."
+      },
+      "bst": {
+        "help": "insert k, search k, delete k (whole numbers)",
+        "preset": {
+          "tour": "Build and search",
+          "delete": "Three kinds of delete",
+          "chain": "Sorted inserts make a chain"
+        },
+        "start": "In order: {{list}} ({{n}} nodes). Smaller keys go left, larger keys go right.",
+        "qSide": "From {{v}}, does {{k}} go left (←) or right (→)?",
+        "goLeft": "{{k}} < {{v}}: go left.",
+        "goRight": "{{k}} > {{v}}: go right.",
+        "createRoot": "The tree is empty: {{k}} becomes the root.",
+        "createLeft": "Empty spot: {{k}} becomes the left child of {{parent}} (depth {{depth}}).",
+        "createRight": "Empty spot: {{k}} becomes the right child of {{parent}} (depth {{depth}}).",
+        "duplicate": "{{k}} is already in the tree, so nothing changes.",
+        "searchHit": "Found {{k}} after {{comparisons}} comparison(s).",
+        "searchMiss": "Reached an empty spot: {{k}} is not in the tree ({{comparisons}} comparison(s)).",
+        "deleteMiss": "{{k}} is not in the tree: nothing to delete.",
+        "deleteLeaf": "{{k}} has no children: simply remove it.",
+        "deleteOneChild": "{{k}} has one child, {{child}}: the child takes its place.",
+        "deleted": "Done: in order {{list}}.",
+        "deleteTwo": "{{k}} has two children. Replace it with its successor: the smallest key in its right subtree.",
+        "succStart": "Step into the right subtree: start at {{s}}.",
+        "succLeft": "Go as far left as possible: {{s}}.",
+        "copySucc": "{{s}} is the successor: copy it into {{k}}'s place.",
+        "removeSucc": "Remove the old {{s}} node (it has no left child). In order: {{list}}.",
+        "end": "{{n}} node(s), height {{h}}. A search takes at most {{h}} comparison(s)."
+      },
+      "avl": {
+        "help": "insert k (whole numbers)",
+        "preset": {
+          "tour": "Right-right: one rotation",
+          "zigzag": "Left-right: two rotations",
+          "sorted": "Sorted inserts stay balanced"
+        },
+        "start": "An AVL tree with {{n}} node(s), height {{h}}. The number under each node is its balance: left height minus right height.",
+        "qSide": "From {{v}}, does {{k}} go left (←) or right (→)?",
+        "goLeft": "{{k}} < {{v}}: go left.",
+        "goRight": "{{k}} > {{v}}: go right.",
+        "duplicate": "{{k}} is already in the tree, so nothing changes.",
+        "create": "Insert {{k}} as a new leaf. Now walk back up and check each balance.",
+        "balanced": "{{v}} has balance {{b}}: fine (between -1 and +1).",
+        "unbalanced": "{{v}} has balance {{b}}: too lopsided, so rotate.",
+        "caseLL": "Left-left case at {{v}}: one right rotation fixes it.",
+        "caseRR": "Right-right case at {{v}}: one left rotation fixes it.",
+        "caseLR": "Left-right case at {{v}}: first rotate {{c}} left, then rotate {{v}} right.",
+        "caseRL": "Right-left case at {{v}}: first rotate {{c}} right, then rotate {{v}} left.",
+        "rotatedChildLeft": "After the left rotation, {{top}} is on top of that subtree.",
+        "rotatedChildRight": "After the right rotation, {{top}} is on top of that subtree.",
+        "rotatedRight": "Rotated right: {{top}} moves up. Every balance is back between -1 and +1.",
+        "rotatedLeft": "Rotated left: {{top}} moves up. Every balance is back between -1 and +1.",
+        "end": "{{n}} node(s), height {{h}}, in order {{list}}. AVL keeps the height near log₂ n."
+      },
+      "heap": {
+        "help": "insert x, extract, peek (whole numbers)",
+        "preset": {
+          "tour": "Insert, then extract",
+          "pq": "Priority queue",
+          "sink": "Sift a value down"
+        },
+        "start": "Min-heap {{list}}: every parent is ≤ its children, so the smallest value is at index 0.",
+        "append": "Append {{x}} at index {{i}}, the next free spot.",
+        "swapUp": "Parent {{pv}} > {{x}}: swap, so {{x}} moves up to index {{p}}.",
+        "stayUp": "Parent {{pv}} ≤ {{x}}: {{x}} stays at index {{i}}.",
+        "reachedTop": "{{x}} reached the top: it is the new minimum.",
+        "qSettle": "At which index does {{x}} end up?",
+        "peek": "heap[0] = {{top}} is the smallest value. No work needed.",
+        "qTop": "Which value is at the top?",
+        "top": "The top, {{top}}, will be returned. Take the last value off the end.",
+        "moveLast": "Put {{last}} at the top, then sift it down.",
+        "stayDown": "{{v}} ≤ its smaller child {{c}}: stop.",
+        "swapDown": "{{v}} > its smaller child {{c}}: swap them.",
+        "extracted": "Returned {{top}}. Heap: {{list}}.",
+        "empty": "IndexError: the heap is empty.",
+        "end": "Heap: {{list}}. Each insert or extract followed one path: O(log n)."
+      },
+      "trie": {
+        "help": "insert word, search word, prefix p (letters only)",
+        "preset": {
+          "tour": "Shared prefixes",
+          "search": "Word or just a prefix?",
+          "autocomplete": "Autocomplete"
+        },
+        "start": "An empty trie. Each node is one letter; a ringed node ends a word.",
+        "create": "No '{{ch}}' child yet: create one.",
+        "follow": "Follow the existing '{{ch}}' child.",
+        "markWord": "Mark the last node: \"{{word}}\" ends here.",
+        "alreadyWord": "\"{{word}}\" was already in the trie.",
+        "missing": "No '{{ch}}' child: \"{{word}}\" isn't in the trie.",
+        "searchHit": "The last node is marked: \"{{word}}\" is a word in the trie.",
+        "searchPrefixOnly": "The path exists but isn't marked as a word: \"{{word}}\" is only a prefix.",
+        "prefixWords": "Words starting with \"{{prefix}}\": {{words}} ({{count}}).",
+        "end": "{{count}} word(s) in {{nodes}} letter node(s): {{words}}. Shared prefixes are stored once."
+      },
+      "segment": {
+        "help": "sum l r, set i x",
+        "preset": {
+          "tour": "Query, then update",
+          "wide": "Eight values",
+          "update": "Update, then query"
+        },
+        "start": "{{n}} values. Each node stores the sum of its range; the root holds the total, {{total}}.",
+        "skip": "[{{lo}}..{{hi}}] is outside {{l}}..{{r}}: skip it.",
+        "take": "[{{lo}}..{{hi}}] is inside {{l}}..{{r}}: take its whole sum {{sum}} (running total {{total}}).",
+        "split": "[{{lo}}..{{hi}}] partly overlaps {{l}}..{{r}}: look at both halves.",
+        "result": "sum({{l}}..{{r}}) = {{result}}, built from {{used}} stored sum(s).",
+        "badRange": "The range {{l}}..{{r}} isn't valid: use 0 ≤ l ≤ r ≤ {{last}}.",
+        "goLeft": "{{i}} is in the left half of [{{lo}}..{{hi}}]: go left.",
+        "goRight": "{{i}} is in the right half of [{{lo}}..{{hi}}]: go right.",
+        "setLeaf": "Set value {{i}} from {{old}} to {{x}}.",
+        "recompute": "[{{lo}}..{{hi}}] = {{a}} + {{b}} = {{sum}} (was {{before}}).",
+        "badIndex": "Index {{i}} is outside 0..{{last}}.",
+        "end": "Total: {{total}}. Queries and updates each touched about 2 × log₂ n nodes."
       },
       "hashTable": {
         "help": "insert k, lookup k, delete k",

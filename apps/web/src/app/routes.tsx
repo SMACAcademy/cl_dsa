@@ -74,5 +74,11 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/deque",
   "/structures/open-addressing",
   "/structures/hash-set",
+  "/structures/binary-tree",
+  "/structures/binary-search-tree",
+  "/structures/avl-tree",
+  "/structures/binary-heap",
+  "/structures/trie",
+  "/structures/segment-tree",
   "/algorithms/no-such-item",
 ];

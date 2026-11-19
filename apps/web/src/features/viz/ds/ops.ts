@@ -22,7 +22,9 @@ export type OpsError =
   | { key: "unknown"; command: string }
   | { key: "badStart"; token: string }
   | { key: "tooManyStart"; max: number }
-  | { key: "badCapacity" };
+  | { key: "badCapacity" }
+  | { key: "badNumber"; token: string }
+  | { key: "emptyStart" };
 
 export type Parsed<T> = { ok: true; value: T } | { ok: false; error: OpsError };
 
@@ -68,6 +70,16 @@ export function parseStart(text: string): Parsed<string[]> {
 export const V = "(-?\\d{1,2}|[A-Za-z])";
 /** Regex fragment for an index. */
 export const I = "(\\d{1,2})";
+/** Regex fragment for a number (-99..99), for structures that compare values. */
+export const N = "(-?\\d{1,2})";
+/** Regex fragment for a short lowercase word (1–6 letters). */
+export const W = "([a-zA-Z]{1,6})";
+
+/** Starting values must be numbers (for structures that order their keys). */
+export function numbersOnly(start: string[]): OpsError | null {
+  const bad = start.find((t) => !/^-?\d{1,2}$/.test(t));
+  return bad === undefined ? null : { key: "badNumber", token: bad };
+}
 
 /** Builds a whole-command, case-insensitive pattern from a template like `push ${V}`. */
 export function cmd(source: string): RegExp {
