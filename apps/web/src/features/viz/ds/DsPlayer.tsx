@@ -21,7 +21,9 @@ type Props<S, Op> = {
   code: readonly string[];
   presets: readonly [DsPreset, ...DsPreset[]];
   /** What the first field holds: starting values, a capacity, or nothing. */
-  startField: "values" | "capacity" | "count" | null;
+  startField: "values" | "capacity" | "count" | "vertex" | null;
+  /** The second field holds operations (default) or the edges of a graph. */
+  opsField?: "ops" | "edges";
   /** Extra check on the starting values (e.g. capacity 2..8). */
   validateStart?: (start: string[]) => OpsError | null;
   forms: readonly OpForm<Op>[];
@@ -88,7 +90,9 @@ export function DsPlayer<S, Op>(props: Props<S, Op>) {
                 ? t("viz.ds.form.start", { max: MAX_START })
                 : startField === "capacity"
                   ? t("viz.ds.form.capacity")
-                  : t("viz.ds.form.count")}
+                  : startField === "count"
+                    ? t("viz.ds.form.count")
+                    : t("viz.ds.form.vertex")}
             </label>
             <input
               id={startId}
@@ -102,7 +106,9 @@ export function DsPlayer<S, Op>(props: Props<S, Op>) {
         )}
         <div className="flex min-w-64 flex-1 flex-col gap-1">
           <label htmlFor={opsId} className="text-sm font-medium">
-            {t("viz.ds.form.ops", { max: MAX_OPS })}
+            {props.opsField === "edges"
+              ? t("viz.ds.form.edges", { max: MAX_OPS })
+              : t("viz.ds.form.ops", { max: MAX_OPS })}
           </label>
           <input
             id={opsId}

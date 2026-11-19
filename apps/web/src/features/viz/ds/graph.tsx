@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { DsPlayer } from "./DsPlayer";
+import { GraphPicture, undirectedEdges } from "./graphPicture";
 import { cmd, V, type OpForm } from "./ops";
 import { pyList, StepLog, type DsStep, type Question } from "./steps";
 
@@ -157,103 +158,6 @@ export function graphSteps(_start: readonly string[], ops: readonly GraphOp[]) {
   return log.steps;
 }
 
-const SIZE = 220;
-const R = 16;
-
-/** Vertices on a circle (sorted), edges as lines. */
-export function GraphPicture({
-  adj,
-  vertexState,
-  edgeOn,
-  edgeLabel,
-}: {
-  adj: Readonly<Record<string, readonly string[]>>;
-  vertexState: (v: string) => "idle" | "current" | "found" | "changed";
-  edgeOn: (u: string, v: string) => boolean;
-  edgeLabel?: (u: string, v: string) => string | undefined;
-}) {
-  const vs = sortedVertices(adj);
-  const pos = new Map(
-    vs.map((v, i) => {
-      const a = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(vs.length, 1);
-      const r = vs.length === 1 ? 0 : SIZE / 2 - R - 10;
-      return [v, { x: SIZE / 2 + r * Math.cos(a), y: SIZE / 2 + r * Math.sin(a) }];
-    }),
-  );
-  const fill = {
-    idle: "fill-raised stroke-control",
-    current: "fill-accent-soft stroke-accent",
-    found: "fill-found-soft stroke-found",
-    changed: "fill-compare-soft stroke-compare",
-  };
-  // Each undirected edge appears in both neighbour lists; draw it once.
-  const seen = new Set<string>();
-  const unique: [string, string][] = [];
-  for (const u of vs) {
-    for (const w of adj[u] ?? []) {
-      const key = [u, w].sort().join("|");
-      if (!seen.has(key)) {
-        seen.add(key);
-        unique.push([u, w]);
-      }
-    }
-  }
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox={`0 0 ${SIZE} ${SIZE}`}
-      className="mx-auto block w-full max-w-60"
-    >
-      {unique.map(([u, w]) => {
-        const a = pos.get(u);
-        const b = pos.get(w);
-        if (!a || !b) return null;
-        const on = edgeOn(u, w);
-        const label = edgeLabel?.(u, w);
-        return (
-          <g key={`${u}-${w}`}>
-            <line
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              className={on ? "stroke-compare" : "stroke-control"}
-              strokeWidth={on ? 3.5 : 1.5}
-            />
-            {label && (
-              <text
-                x={(a.x + b.x) / 2}
-                y={(a.y + b.y) / 2 - 5}
-                textAnchor="middle"
-                className="fill-muted font-mono text-[11px] font-semibold"
-              >
-                {label}
-              </text>
-            )}
-          </g>
-        );
-      })}
-      {vs.map((v) => {
-        const p = pos.get(v) as { x: number; y: number };
-        return (
-          <g key={v}>
-            <circle cx={p.x} cy={p.y} r={R} className={fill[vertexState(v)]} strokeWidth={2} />
-            <text
-              x={p.x}
-              y={p.y}
-              dy="0.35em"
-              textAnchor="middle"
-              className="fill-fg font-mono text-[13px] font-semibold"
-            >
-              {v}
-            </text>
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
 function GraphStage({ s }: { s: DsStep<GraphState> }) {
   const { t } = useTranslation();
   const { adj, hl } = s.state;
@@ -265,11 +169,14 @@ function GraphStage({ s }: { s: DsStep<GraphState> }) {
   return (
     <div className="grid items-start gap-4 md:grid-cols-3">
       <GraphPicture
-        adj={adj}
+        vertices={vs}
+        edges={undirectedEdges(adj, vs)}
         vertexState={(v) => (hl.vertices.includes(v) ? "current" : "idle")}
-        edgeOn={(u, w) =>
+        edgeState={(u, w) =>
           hl.edge !== null &&
           ((hl.edge[0] === u && hl.edge[1] === w) || (hl.edge[0] === w && hl.edge[1] === u))
+            ? "on"
+            : "idle"
         }
       />
       <div>

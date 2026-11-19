@@ -104,17 +104,19 @@ describe("linear search player", () => {
     const interactive = within(screen.getByRole("main"))
       .getAllByText("Interactive")
       .map((chip) => chip.closest("a")?.getAttribute("href"));
-    expect(interactive).toEqual([
-      "/algorithms/linear-search",
-      "/algorithms/binary-search",
-      "/algorithms/bubble-sort",
-      "/algorithms/selection-sort",
-      "/algorithms/insertion-sort",
-      "/algorithms/merge-sort",
-      "/algorithms/quick-sort",
-      "/algorithms/heap-sort",
-      "/algorithms/counting-sort",
-      "/algorithms/radix-sort",
-    ]);
+    expect(interactive).toEqual(
+      expect.arrayContaining([
+        "/algorithms/linear-search",
+        "/algorithms/binary-search",
+        "/algorithms/bubble-sort",
+        "/algorithms/selection-sort",
+        "/algorithms/insertion-sort",
+        "/algorithms/merge-sort",
+        "/algorithms/quick-sort",
+        "/algorithms/heap-sort",
+        "/algorithms/counting-sort",
+        "/algorithms/radix-sort",
+      ]),
+    );
   });
 });

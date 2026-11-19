@@ -9,6 +9,13 @@ import { MinHeapPlayer } from "./ds/binaryHeap";
 import { BinaryTreePlayer } from "./ds/binaryTree";
 import { BinarySearchTreePlayer } from "./ds/bst";
 import { GraphPlayer } from "./ds/graph";
+import {
+  BfsPlayer,
+  DfsPlayer,
+  DijkstraPlayer,
+  KruskalPlayer,
+  TopoSortPlayer,
+} from "./ds/graphAlgos";
 import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
 import { SegmentTreePlayer } from "./ds/segmentTree";
 import { TriePlayer } from "./ds/trie";
@@ -36,6 +43,11 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "heap-sort": HeapSortPlayer,
   "counting-sort": CountingSortPlayer,
   "radix-sort": RadixSortPlayer,
+  bfs: BfsPlayer,
+  dfs: DfsPlayer,
+  "topological-sort": TopoSortPlayer,
+  dijkstra: DijkstraPlayer,
+  kruskal: KruskalPlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

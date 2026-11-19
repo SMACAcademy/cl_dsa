@@ -376,6 +376,8 @@
         "start": "Start with (up to {{max}} values, may be empty)",
         "capacity": "Capacity (2 to 8)",
         "count": "Number of items (2 to 8)",
+        "vertex": "Start at (one vertex)",
+        "edges": "Edges (up to {{max}}, separated by commas)",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
         "predict": "Predict before each result"
@@ -389,7 +391,8 @@
         "badCapacity": "Capacity must be one whole number from 2 to 8.",
         "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
         "emptyStart": "Start with at least one value.",
-        "badCount": "The number of items must be one whole number from 2 to 8."
+        "badCount": "The number of items must be one whole number from 2 to 8.",
+        "badVertex": "Enter one vertex to start from, for example A."
       },
       "view": {
         "newNode": "new node",
@@ -442,6 +445,91 @@
         "neighbours": "{{u}}'s neighbours: {{list}} (degree {{deg}}). The list has them ready; the matrix would scan all {{n}} cells of row {{u}}.",
         "noVertex": "{{u}} isn't in the graph.",
         "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
+      },
+      "graphAlgo": {
+        "orderLabel": "order:"
+      },
+      "bfs": {
+        "help": "A B (an edge between A and B), e.g. A B, A C, B D",
+        "preset": { "tour": "Square", "rings": "Ring by ring", "island": "Unreachable vertices" },
+        "waitingLabel": "queue:",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Start at {{s}}: mark it seen and put it in the queue.",
+        "visit": "Take {{v}} from the front of the queue and visit it. Order so far: {{order}}.",
+        "qNext": "Which vertex is visited next?",
+        "seen": "{{w}} has already been seen: skip it.",
+        "enqueue": "{{w}} is new: mark it seen and add it to the back of the queue {{queue}}.",
+        "endAll": "Queue empty: every vertex was visited, nearest first. Order {{order}}.",
+        "endSome": "Queue empty. Order {{order}}. Never reached: {{missed}} (no path from the start)."
+      },
+      "dfs": {
+        "help": "A B (an edge between A and B), e.g. A B, A C, B D",
+        "preset": {
+          "tour": "Square",
+          "deep": "Two long branches",
+          "island": "Unreachable vertices"
+        },
+        "waitingLabel": "path (call stack):",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Start the search at {{s}}.",
+        "visit": "Visit {{v}}. Order so far: {{order}}.",
+        "qNext": "Which vertex is visited next?",
+        "seen": "{{w}} has already been visited: skip it.",
+        "deeper": "{{w}} is new: go deeper from {{v}} to {{w}}.",
+        "back": "{{v}} has no unvisited neighbours left: back up to {{parent}}.",
+        "doneRoot": "{{v}} has no unvisited neighbours left: the search is complete.",
+        "endAll": "Every vertex was visited, going as deep as possible first. Order {{order}}.",
+        "endSome": "Order {{order}}. Never reached: {{missed}} (no path from the start)."
+      },
+      "topo": {
+        "help": "a > b (a must come before b), e.g. wake > dress",
+        "preset": {
+          "tour": "Morning routine",
+          "courses": "Course prerequisites",
+          "cycle": "A cycle"
+        },
+        "readyLabel": "ready:",
+        "indegree": "in {{d}}",
+        "start": "Count each task's prerequisites (in-degree). Tasks with none are ready: {{ready}}.",
+        "output": "Do {{v}} next. Order so far: {{order}}.",
+        "qNext": "Which task comes next?",
+        "decrement": "{{w}} needed {{v}}; it still waits for {{d}} more.",
+        "nowReady": "{{w}} needed {{v}}, its last prerequisite: {{w}} is now ready.",
+        "endAll": "Every task is placed after its prerequisites: {{order}}.",
+        "cycle": "Nothing is ready, but {{left}} are left: they wait on each other in a cycle, so no order exists. Placed: {{order}}."
+      },
+      "dijkstra": {
+        "help": "A B 4 (an edge A–B of length 4), e.g. A B 4, A C 1",
+        "preset": {
+          "tour": "A shortcut through C",
+          "detour": "Cheap detour",
+          "tie": "Two equal routes"
+        },
+        "heapLabel": "heap:",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Every distance starts at ∞, except {{s}} = 0. Put (0, {{s}}) on the heap.",
+        "settle": "The closest unsettled vertex is {{v}} at distance {{d}}: its distance is now final.",
+        "qNext": "Which vertex is settled next?",
+        "stale": "({{d}}, {{v}}) is out of date: {{v}} was already settled at {{best}}. Skip it.",
+        "improve": "Via {{v}}: {{d}} + {{weight}} = {{nd}} beats {{old}}, so dist[{{w}}] = {{nd}}.",
+        "keep": "Via {{v}}: {{d}} + {{weight}} = {{nd}} doesn't beat {{old}}: keep it.",
+        "end": "Shortest distances: {{dists}}."
+      },
+      "kruskal": {
+        "help": "A B 1 (an edge A–B of weight 1), e.g. A B 1, B C 2",
+        "preset": {
+          "tour": "Skip a loop",
+          "square": "A square with a diagonal",
+          "forest": "Two separate pieces"
+        },
+        "sortedLabel": "edges by weight:",
+        "start": "Sort the edges by weight: {{sorted}}. Take the cheapest edge that doesn't close a loop.",
+        "consider": "Next cheapest: {{u}}–{{w}} ({{weight}}).",
+        "qTake": "Take {{u}}–{{w}}? (✓ take / ✗ skip)",
+        "take": "{{u}} and {{w}} are in different pieces: take it. Total weight {{total}}.",
+        "skip": "{{u}} and {{w}} are already connected: {{u}}–{{w}} would close a loop, so skip it.",
+        "end": "Done: {{count}} edges connect all {{n}} vertices with total weight {{total}}.",
+        "endForest": "The graph isn't connected: {{count}} edge(s) join what can be joined (total {{total}})."
       },
       "unionFind": {
         "help": "union a b, find a, connected a b",
