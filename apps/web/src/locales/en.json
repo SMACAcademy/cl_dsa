@@ -378,6 +378,8 @@
         "count": "Number of items (2 to 8)",
         "vertex": "Start at (one vertex)",
         "edges": "Edges (up to {{max}}, separated by commas)",
+        "meetings": "Meetings as start-end (up to {{max}}, separated by commas)",
+        "freqs": "Letters and how often they appear (up to {{max}})",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
         "predict": "Predict before each result"
@@ -446,6 +448,32 @@
         "neighbours": "{{u}}'s neighbours: {{list}} (degree {{deg}}). The list has them ready; the matrix would scan all {{n}} cells of row {{u}}.",
         "noVertex": "{{u}} isn't in the graph.",
         "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
+      },
+      "activity": {
+        "help": "1-3 (a meeting from 1 to 3), e.g. 1-3, 2-5, 4-6",
+        "preset": { "tour": "Four meetings", "long": "One long meeting", "busy": "A busy day" },
+        "timeline": "Meetings on a timeline",
+        "meeting": "Meeting {{span}}: {{state}}",
+        "state": {
+          "idle": "not looked at yet",
+          "current": "being considered",
+          "chosen": "chosen",
+          "skipped": "skipped"
+        },
+        "freeAt": "The room is free from {{t}}",
+        "start": "Sort the meetings by end time: {{order}}. Always take the one that ends first, so the room frees up as early as possible.",
+        "qTake": "Meeting {{span}}: the room is free from {{freeAt}}. Take it? (✓ / ✗)",
+        "take": "{{span}} starts after the room is free (at {{before}}): take it. The room is now busy until {{freeAt}}.",
+        "skip": "{{span}} starts before {{freeAt}}, while the room is still busy: skip it.",
+        "end": "{{count}} of {{total}} meetings fit: {{list}}. Taking the earliest finish first never blocks a better choice."
+      },
+      "huffman": {
+        "help": "a 5 (letter a appears 5 times), e.g. a 5, b 2, c 1",
+        "preset": { "tour": "a, b, c", "word": "banana", "even": "Four equal letters" },
+        "start": "Each letter starts as its own little tree, weighted by how often it appears: {{heap}}.",
+        "qRarest": "Which subtree is the rarest, so it is taken first?",
+        "merge": "Join the two rarest, {{a}} and {{b}}, into one tree of weight {{w}}.",
+        "codes": "One tree is left. Read each code from the root (left = 0, right = 1): {{codes}}. That's {{bits}} bits in total, versus {{fixed}} with equal-length codes."
       },
       "twoPointers": {
         "help": "pair s (find two values that add up to s)",

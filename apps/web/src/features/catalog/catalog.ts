@@ -1049,7 +1049,7 @@ const ALGORITHM_ENTRIES: Entry[] = [
       steps: [
         "Merge c (1) + b (2) → 3",
         "Merge 3 + a (5) → 8",
-        "Read codes from the tree: a = 0, b = 11, c = 10",
+        "Read codes from the tree: a = 0, b = 10, c = 11",
       ],
       result: "a gets 1 bit, b and c get 2 bits",
     },

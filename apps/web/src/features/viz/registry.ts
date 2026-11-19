@@ -16,6 +16,7 @@ import {
   KruskalPlayer,
   TopoSortPlayer,
 } from "./ds/graphAlgos";
+import { ActivitySelectionPlayer, HuffmanPlayer } from "./ds/greedy";
 import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
 import { PrefixSumsPlayer, SlidingWindowPlayer, TwoPointersPlayer } from "./ds/patterns";
 import { HanoiPlayer, RecursionPlayer } from "./ds/recursion";
@@ -55,6 +56,8 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "two-pointers": TwoPointersPlayer,
   "sliding-window": SlidingWindowPlayer,
   "prefix-sums": PrefixSumsPlayer,
+  "activity-selection": ActivitySelectionPlayer,
+  "huffman-coding": HuffmanPlayer,
   // Data structures
   array: ArrayPlayer,
   "dynamic-array": DynamicArrayPlayer,

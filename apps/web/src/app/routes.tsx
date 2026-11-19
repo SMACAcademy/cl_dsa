@@ -72,6 +72,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/algorithms/two-pointers",
   "/algorithms/sliding-window",
   "/algorithms/prefix-sums",
+  "/algorithms/activity-selection",
+  "/algorithms/huffman-coding",
   "/structures/hash-table",
   "/structures/array",
   "/structures/dynamic-array",
