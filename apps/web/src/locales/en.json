@@ -209,7 +209,7 @@
       "example": "Tiny worked example",
       "input": "Input:",
       "result": "Result:",
-      "visual": "What you'll see when it's built",
+      "visual": "What you'll see",
       "cost": "Cost",
       "buildsOn": "Builds on",
       "pager": "Previous and next entries",
