@@ -381,6 +381,7 @@
         "meetings": "Meetings as start-end (up to {{max}}, separated by commas)",
         "freqs": "Letters and how often they appear (up to {{max}})",
         "coins": "Coins (whole numbers from 1 to 99)",
+        "bits": "Bits (4 to 16)",
         "items": "Items as name weight value (up to {{max}})",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
@@ -399,7 +400,8 @@
         "badVertex": "Enter one vertex to start from, for example A.",
         "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
         "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4.",
-        "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3."
+        "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3.",
+        "badBits": "The number of bits must be one whole number from 4 to 16."
       },
       "view": {
         "newNode": "new node",
@@ -580,6 +582,42 @@
         "lift": "Lift the queen off row {{row}}, column {{col}}, and try the next columns in that row.",
         "solved": "Every row has a queen and none attack each other: columns {{cols}}.",
         "none": "Every choice in row 1 led to a dead end: a {{n}} × {{n}} board has no answer."
+      },
+      "lru": {
+        "help": "put k v (store a value), get k (read it back)",
+        "preset": {
+          "tour": "Capacity 2",
+          "update": "Updating a key",
+          "three": "Capacity 3"
+        },
+        "listTitle": "Recency list: least recent (LRU) on the left, most recent (MRU) on the right",
+        "map": "dict keys: {{keys}} ({{n}} of {{cap}})",
+        "start": "An empty cache for {{cap}} items: a dict finds any key in O(1), and a doubly linked list keeps the keys in order of use.",
+        "qGet": "What does get({{k}}) return?",
+        "hit": "get({{k}}) = {{v}}: the dict finds it at once, and it moves to the most-recent end.",
+        "miss": "get({{k}}) = -1: {{k}} isn't in the cache (it was never added, or it was evicted).",
+        "add": "put({{k}}, {{v}}): a new key goes on the most-recent end ({{size}} of {{cap}} used).",
+        "update": "put({{k}}, {{v}}): {{k}} is already cached, so its value changes from {{old}} to {{v}} and it moves to the most-recent end.",
+        "qEvict": "put({{k}}) overflows the cache. Which key is evicted?",
+        "evict": "Over capacity ({{cap}}): evict {{k}}:{{v}} from the least-recent end. It's the one used longest ago.",
+        "end": "The cache holds {{list}} ({{n}} of {{cap}}), least to most recent. Every get and put took O(1) time."
+      },
+      "bloom": {
+        "help": "add word, query word (up to 6 letters; a = 1 … z = 26)",
+        "preset": {
+          "tour": "8 bits: a false alarm",
+          "bigger": "16 bits: fewer false alarms",
+          "crowded": "A crowded filter"
+        },
+        "bits": "Bit array",
+        "added": "words added: {{words}}",
+        "start": "{{m}} bits, all 0. Each word is hashed by two pretend hash functions, and each picks one bit.",
+        "add": "add “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Set bits {{a}} and {{b}} to 1.",
+        "qQuery": "query “{{w}}” checks bits {{a}} and {{b}}. Is the answer “maybe” or “no”?",
+        "no": "query “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Bit {{zero}} is 0, so “{{w}}” was definitely never added.",
+        "maybe": "query “{{w}}”: bits {{a}} and {{b}} are both 1, so “maybe”, and “{{w}}” really was added.",
+        "falsePositive": "query “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Both bits are 1, so “maybe”, but “{{w}}” was never added. Other words set those bits: a false positive.",
+        "end": "{{set}} of {{m}} bits are set after {{words}} word(s), with {{alarms}} false alarm(s). A “no” is always right; only a “maybe” can be wrong."
       },
       "str": {
         "cell": "{{i}}: {{ch}}, {{state}}",

@@ -104,5 +104,7 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/segment-tree",
   "/structures/graph",
   "/structures/union-find",
+  "/structures/lru-cache",
+  "/structures/bloom-filter",
   "/algorithms/no-such-item",
 ];

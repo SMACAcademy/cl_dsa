@@ -4,6 +4,7 @@ import { BubbleSortPlayer } from "./BubbleSortPlayer";
 import { CountingSortPlayer } from "./CountingSortPlayer";
 import { ArrayPlayer } from "./ds/array";
 import { NQueensPlayer, SubsetsPlayer } from "./ds/backtracking";
+import { BloomFilterPlayer, LruCachePlayer } from "./ds/designed";
 import { DynamicArrayPlayer } from "./ds/dynamicArray";
 import {
   CoinChangePlayer,
@@ -98,6 +99,8 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "segment-tree": SegmentTreePlayer,
   graph: GraphPlayer,
   "union-find": UnionFindPlayer,
+  "lru-cache": LruCachePlayer,
+  "bloom-filter": BloomFilterPlayer,
 };
 
 export function hasVisualizer(id: string): boolean {

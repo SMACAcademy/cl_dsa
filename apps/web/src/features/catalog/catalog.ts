@@ -565,10 +565,10 @@ const STRUCTURE_ENTRIES: Entry[] = [
     example: {
       input: "8 bits, 2 pretend hash functions",
       steps: [
-        'add "cat" → sets bits 1 and 5',
-        'add "dog" → sets bits 3 and 5',
-        'query "cow" → bits 1 and 3 → both set → "maybe" (a false positive)',
-        'query "eel" → bits 2 and 5 → bit 2 is 0 → "definitely not"',
+        'add "cat" → sets bits 0 and 1',
+        'add "dog" → sets bits 2 and 7',
+        'query "bat" → bits 7 and 0 → both set → "maybe" (a false positive)',
+        'query "cow" → bits 1 and 6 → bit 6 is 0 → "definitely not"',
       ],
       result: "No false negatives, occasional false positives",
     },
