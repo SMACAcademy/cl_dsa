@@ -16,9 +16,14 @@ type Props = {
   ranges?: readonly Range[];
 };
 
-/** Bar size by length: more values get narrower bars so 16 still fit. */
-function barSizing(count: number) {
-  if (count > 12) return { slot: 36, bar: 30, text: "text-xs" };
+/**
+ * Bar size by length: more values get narrower bars so 16 still fit. The
+ * stage beside the code panel is about 510 px wide, so 11 or more bars
+ * narrow further (12 x 44 px would overflow it, and so would 16 x 36 px).
+ */
+export function barSizing(count: number) {
+  if (count > 12) return { slot: 30, bar: 26, text: "text-xs" };
+  if (count > 10) return { slot: 36, bar: 30, text: "text-xs" };
   if (count > 8) return { slot: 44, bar: 38, text: "text-sm" };
   return { slot: 56, bar: 48, text: "text-base" };
 }

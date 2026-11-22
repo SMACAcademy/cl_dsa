@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { arraySizing } from "../src/features/viz/ArrayView";
+import { barSizing } from "../src/features/viz/BarsView";
 import { MAX_VALUES, parseValues, RANDOM_COUNT, randomValues } from "../src/features/viz/input";
 import { MAX_OPS, MAX_START, randomNumbers } from "../src/features/viz/ds/ops";
 import { renderRoute } from "./render";
@@ -37,9 +38,27 @@ describe("bigger inputs", () => {
   it("shrinks array boxes as arrays grow", () => {
     expect(arraySizing(8).cell).toBe(56);
     expect(arraySizing(10).cell).toBe(44);
-    expect(arraySizing(16).cell).toBe(36);
-    // 16 boxes still fit in about 640 px.
-    expect(16 * arraySizing(16).slot).toBeLessThanOrEqual(640);
+    expect(arraySizing(11).cell).toBe(36);
+    expect(arraySizing(16).cell).toBe(28);
+    // The row is n slots minus one gap; it must fit the ~510 px stage.
+    const rowWidth = (n: number) => {
+      const { cell, slot } = arraySizing(n);
+      return n * slot - (slot - cell);
+    };
+    for (const n of [8, 10, 12, 16]) {
+      expect(rowWidth(n)).toBeLessThanOrEqual(510);
+    }
+  });
+
+  it("narrows sort bars so 12 random values fit beside the code panel", () => {
+    expect(barSizing(8).slot).toBe(56);
+    expect(barSizing(10).slot).toBe(44);
+    expect(barSizing(11).slot).toBe(36);
+    expect(barSizing(13).slot).toBe(30);
+    // The bar stage is about 510 px wide next to the code panel.
+    for (const n of [8, 10, 12, 16]) {
+      expect(n * barSizing(n).slot).toBeLessThanOrEqual(510);
+    }
   });
 
   it("opens bubble sort on 10 values, and Random fills in 12 new ones", async () => {

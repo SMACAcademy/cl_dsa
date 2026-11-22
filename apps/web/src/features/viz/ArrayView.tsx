@@ -28,9 +28,13 @@ type Props<T extends number | string> = {
   sizeFor?: number;
 };
 
-/** Box size by length: long arrays get smaller boxes so 16 values still fit. */
+/**
+ * Box size by length: long arrays get smaller boxes so 16 values still fit
+ * the stage beside the code panel (about 510 px wide).
+ */
 export function arraySizing(count: number) {
-  if (count > 12) return { cell: 36, slot: 40, text: "text-sm" };
+  if (count > 12) return { cell: 28, slot: 31, text: "text-xs" };
+  if (count > 10) return { cell: 36, slot: 40, text: "text-sm" };
   if (count > 8) return { cell: 44, slot: 50, text: "text-base" };
   return { cell: 56, slot: 64, text: "text-xl" };
 }
