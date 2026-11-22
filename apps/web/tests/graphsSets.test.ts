@@ -107,9 +107,9 @@ describe("union–find", () => {
     expect(keys(steps)).toContain("badItem");
   });
 
-  it("needs 2 to 8 items", () => {
+  it("needs 2 to 12 items", () => {
     expect(validateCount(["5"])).toBeNull();
     expect(validateCount(["1"])).toEqual({ key: "badCount" });
-    expect(validateCount(["12"])).toEqual({ key: "badCount" });
+    expect(validateCount(["13"])).toEqual({ key: "badCount" });
   });
 });

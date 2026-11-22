@@ -12,7 +12,7 @@ import {
   type LruOp,
 } from "../src/features/viz/ds/designed";
 import { parseOps, type OpForm } from "../src/features/viz/ds/ops";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 const parsed = <Op,>(text: string, forms: readonly OpForm<Op>[]) => {
@@ -129,7 +129,7 @@ describe("Bloom filter", () => {
   it("accepts 4 to 16 bits", () => {
     expect(validateBits(["8"])).toBeNull();
     expect(validateBits(["3"])).toEqual({ key: "badBits" });
-    expect(validateBits(["17"])).toEqual({ key: "badBits" });
+    expect(validateBits(["33"])).toEqual({ key: "badBits" });
     expect(validateBits(["8", "2"])).toEqual({ key: "badBits" });
   });
 });
@@ -138,6 +138,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/structures/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 

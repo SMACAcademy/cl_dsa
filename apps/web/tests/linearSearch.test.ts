@@ -72,7 +72,7 @@ describe("parseInput", () => {
 
   it.each([
     ["", "1", "empty"],
-    ["1,2,3,4,5,6,7,8,9", "1", "tooMany"],
+    ["1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17", "1", "tooMany"],
     ["1, two, 3", "1", "notInteger"],
     ["1.5, 2", "1", "notInteger"],
     ["1, 2", "x", "notInteger"],

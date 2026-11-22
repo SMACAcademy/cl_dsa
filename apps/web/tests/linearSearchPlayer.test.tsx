@@ -1,7 +1,7 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const PATH = "/algorithms/linear-search";
 
@@ -9,6 +9,7 @@ async function openPlayer() {
   const user = userEvent.setup();
   renderRoute(PATH);
   await screen.findByRole("heading", { level: 2, name: "Try it: step through Linear search" });
+  await startFromCard(user);
   return user;
 }
 
@@ -64,8 +65,14 @@ describe("linear search player", () => {
 
   it("runs a preset where the target is missing", async () => {
     const user = await openPlayer();
-    await user.click(screen.getByRole("button", { name: "Not found" }));
-    expect(screen.getByLabelText("Values (up to 8 whole numbers)")).toHaveValue("5, 3, 8");
+    // The small not-found case (the preset now uses 10 values).
+    const values = screen.getByLabelText("Values (up to 16 whole numbers)");
+    await user.clear(values);
+    await user.type(values, "5, 3, 8");
+    const target = screen.getByLabelText("Target");
+    await user.clear(target);
+    await user.type(target, "4");
+    await user.click(screen.getByRole("button", { name: "Run with these values" }));
     const next = screen.getByRole("button", { name: "Next" });
     for (let k = 0; k < 7; k++) await user.click(next);
     expect(
@@ -75,18 +82,18 @@ describe("linear search player", () => {
 
   it("explains invalid input instead of running it", async () => {
     const user = await openPlayer();
-    const values = screen.getByLabelText("Values (up to 8 whole numbers)");
+    const values = screen.getByLabelText("Values (up to 16 whole numbers)");
     await user.clear(values);
-    await user.type(values, "1,2,3,4,5,6,7,8,9");
+    await user.type(values, "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
-    expect(screen.getByRole("alert")).toHaveTextContent("Use at most 8 values.");
+    expect(screen.getByRole("alert")).toHaveTextContent("Use at most 16 values.");
     expect(values).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByText("Step 1 of 8")).toBeVisible();
   });
 
   it("runs custom values", async () => {
     const user = await openPlayer();
-    const values = screen.getByLabelText("Values (up to 8 whole numbers)");
+    const values = screen.getByLabelText("Values (up to 16 whole numbers)");
     const target = screen.getByLabelText("Target");
     await user.clear(values);
     await user.type(values, "3 5");

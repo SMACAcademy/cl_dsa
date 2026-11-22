@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState } from "../ArrayView";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, V, type OpForm } from "./ops";
+import { cmd, pick, randomNumbers, V, type OpForm } from "./ops";
 import { validateCapacity } from "./ringBuffer";
 import { StepLog, type DsStep } from "./steps";
 import { Box, type NodeState } from "./views";
@@ -221,10 +221,30 @@ export function HashTablePlayer() {
       startField="capacity"
       validateStart={validateCapacity}
       presets={[
-        { key: "tour", start: "5", ops: "insert 12, insert 7, insert 9, lookup 7" },
-        { key: "collide", start: "4", ops: "insert 3, insert 7, insert 11, insert 15, lookup 11" },
-        { key: "delete", start: "5", ops: "insert 1, insert 6, delete 1, lookup 6, delete 4" },
+        {
+          key: "tour",
+          start: "7",
+          ops: "insert 12, insert 7, insert 9, insert 23, insert 15, insert 30, insert 41, insert 5, insert 19, lookup 23, lookup 8",
+        },
+        {
+          key: "collide",
+          start: "4",
+          ops: "insert 3, insert 7, insert 11, insert 15, insert 19, insert 2, insert 6, insert 10, lookup 11",
+        },
+        {
+          key: "delete",
+          start: "5",
+          ops: "insert 1, insert 6, insert 11, insert 3, insert 8, delete 6, lookup 11, delete 4",
+        },
+        { key: "card", start: "5", ops: "insert 12, insert 7, insert 9, lookup 7" },
       ]}
+      random={() => {
+        const keys = randomNumbers(9);
+        return {
+          start: "7",
+          ops: [...keys.map((k) => `insert ${k}`), `lookup ${pick(keys)}`, "lookup 0"].join(", "),
+        };
+      }}
       forms={HASH_TABLE_FORMS}
       run={chainingSteps}
       stage={(s: DsStep<ChainState>) => <BucketsView s={s} />}
@@ -241,9 +261,22 @@ export function HashSetPlayer() {
       startField="capacity"
       validateStart={validateCapacity}
       presets={[
-        { key: "tour", start: "5", ops: "add a, add b, add a, contains b" },
-        { key: "dedupe", start: "4", ops: "add 3, add 7, add 3, add 7, add 2" },
-        { key: "remove", start: "5", ops: "add x, add y, remove x, contains x" },
+        {
+          key: "tour",
+          start: "5",
+          ops: "add a, add b, add c, add a, add d, add b, add e, contains b, contains z",
+        },
+        {
+          key: "dedupe",
+          start: "4",
+          ops: "add 3, add 7, add 3, add 7, add 2, add 9, add 2, add 12, add 9, add 3",
+        },
+        {
+          key: "remove",
+          start: "5",
+          ops: "add x, add y, add z, add w, remove x, contains x, contains y",
+        },
+        { key: "card", start: "5", ops: "add a, add b, add a, contains b" },
       ]}
       forms={HASH_SET_FORMS}
       run={chainingSteps}
@@ -367,10 +400,30 @@ export function OpenAddressingPlayer() {
       startField="capacity"
       validateStart={validateCapacity}
       presets={[
-        { key: "tour", start: "5", ops: "insert 10, insert 15, insert 21, lookup 15" },
-        { key: "cluster", start: "7", ops: "insert 3, insert 10, insert 17, insert 4, lookup 4" },
-        { key: "full", start: "3", ops: "insert 1, insert 4, insert 7, insert 2" },
+        {
+          key: "tour",
+          start: "11",
+          ops: "insert 10, insert 15, insert 21, insert 32, insert 4, insert 26, insert 43, insert 8, lookup 32, lookup 5",
+        },
+        {
+          key: "cluster",
+          start: "7",
+          ops: "insert 3, insert 10, insert 17, insert 4, insert 24, insert 11, lookup 4, lookup 18",
+        },
+        {
+          key: "full",
+          start: "5",
+          ops: "insert 1, insert 6, insert 11, insert 16, insert 21, insert 2",
+        },
+        { key: "card", start: "5", ops: "insert 10, insert 15, insert 21, lookup 15" },
       ]}
+      random={() => {
+        const keys = randomNumbers(8);
+        return {
+          start: "11",
+          ops: [...keys.map((k) => `insert ${k}`), `lookup ${pick(keys)}`, "lookup 0"].join(", "),
+        };
+      }}
       forms={PROBING_FORMS}
       run={probingSteps}
       stage={(s: DsStep<ProbeState>) => (

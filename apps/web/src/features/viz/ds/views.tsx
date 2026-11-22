@@ -33,10 +33,19 @@ function Glyph({ state }: { state: NodeState }) {
   );
 }
 
-export function Box({ value, state }: { value: string; state: NodeState }) {
+export function Box({
+  value,
+  state,
+  small = false,
+}: {
+  value: string;
+  state: NodeState;
+  /** A smaller box, for long chains. */
+  small?: boolean;
+}) {
   return (
     <span
-      className={`relative grid size-12 shrink-0 place-items-center rounded-control border-2 font-mono text-lg font-semibold transition-all duration-300 ${BOX[state]}`}
+      className={`relative grid shrink-0 place-items-center rounded-control border-2 font-mono font-semibold transition-all duration-300 ${small ? "size-10 text-sm" : "size-12 text-lg"} ${BOX[state]}`}
     >
       {value}
       <Glyph state={state} />
@@ -68,6 +77,9 @@ export function ChainView({
 }) {
   const { t } = useTranslation();
   const arrow = doubly ? "⇄" : "→";
+  // Long chains get smaller boxes so ten or so nodes fit without scrolling.
+  const small = nodes.length > 7;
+  const rowHeight = small ? "h-10" : "h-12";
   return (
     <div className="w-full overflow-x-auto py-2">
       <div className="mx-auto w-max">
@@ -85,7 +97,7 @@ export function ChainView({
         <ol aria-label={t("viz.ds.view.chain")} className="flex items-start gap-1">
           <li
             aria-hidden="true"
-            className="flex h-12 items-center pr-1 font-mono text-xs text-muted"
+            className={`flex ${rowHeight} items-center pr-1 font-mono text-xs text-muted`}
           >
             head →
           </li>
@@ -96,9 +108,9 @@ export function ChainView({
             const state = stateOf(node.id);
             const next = nodes[k + 1]?.value ?? "None";
             return (
-              <li key={node.id} className="flex items-start gap-1">
-                <span className="flex w-12 flex-col items-center gap-1">
-                  <Box value={node.value} state={state} />
+              <li key={node.id} className={`flex items-start ${small ? "gap-0.5" : "gap-1"}`}>
+                <span className={`flex ${small ? "w-10" : "w-12"} flex-col items-center gap-1`}>
+                  <Box value={node.value} state={state} small={small} />
                   <span
                     aria-hidden="true"
                     className="flex min-h-8 flex-col items-center font-mono text-xs leading-4 font-semibold text-accent-ink"
@@ -116,7 +128,10 @@ export function ChainView({
                     })}
                   </span>
                 </span>
-                <span aria-hidden="true" className="flex h-12 items-center px-1 text-muted">
+                <span
+                  aria-hidden="true"
+                  className={`flex ${rowHeight} items-center ${small ? "px-0.5" : "px-1"} text-muted`}
+                >
                   {k === nodes.length - 1 ? (
                     <span className="font-mono text-xs">→ None</span>
                   ) : (
@@ -210,24 +225,32 @@ export function RingView({
 }) {
   const { t } = useTranslation();
   const n = slots.length;
+  // More than 8 slots need a bigger circle so the boxes don't touch.
+  const big = n > 8;
+  const ringSize = big ? RING + 60 : RING;
+  const radius = big ? RADIUS + 28 : RADIUS;
   const at = (i: number, r: number) => {
     const angle = -Math.PI / 2 + (2 * Math.PI * i) / n;
-    return { x: RING / 2 + r * Math.cos(angle), y: RING / 2 + r * Math.sin(angle) };
+    return { x: ringSize / 2 + r * Math.cos(angle), y: ringSize / 2 + r * Math.sin(angle) };
   };
   return (
     <div className="flex flex-col items-center py-2">
-      <svg aria-hidden="true" viewBox={`0 0 ${RING} ${RING}`} className="w-full max-w-72">
+      <svg
+        aria-hidden="true"
+        viewBox={`0 0 ${ringSize} ${ringSize}`}
+        className={`w-full ${big ? "max-w-80" : "max-w-72"}`}
+      >
         <circle
-          cx={RING / 2}
-          cy={RING / 2}
-          r={RADIUS}
+          cx={ringSize / 2}
+          cy={ringSize / 2}
+          r={radius}
           className="fill-none stroke-line"
           strokeWidth={2}
           strokeDasharray="4 4"
         />
         {slots.map((v, i) => {
-          const { x, y } = at(i, RADIUS);
-          const label = at(i, RADIUS + 42);
+          const { x, y } = at(i, radius);
+          const label = at(i, radius + 42);
           const state = v === null ? "removed" : stateAt(i);
           const marks = [i === head ? "head" : null, i === tail ? "tail" : null].filter(Boolean);
           return (
@@ -260,8 +283,8 @@ export function RingView({
                 {v ?? ""}
               </text>
               <text
-                x={RING / 2 + (RADIUS - 30) * Math.cos(-Math.PI / 2 + (2 * Math.PI * i) / n)}
-                y={RING / 2 + (RADIUS - 30) * Math.sin(-Math.PI / 2 + (2 * Math.PI * i) / n)}
+                x={ringSize / 2 + (radius - 30) * Math.cos(-Math.PI / 2 + (2 * Math.PI * i) / n)}
+                y={ringSize / 2 + (radius - 30) * Math.sin(-Math.PI / 2 + (2 * Math.PI * i) / n)}
                 dy="0.35em"
                 textAnchor="middle"
                 className="fill-muted font-mono text-[10px]"

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ArrayView } from "../ArrayView";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, I, N, numbersOnly, type OpForm, type OpsError } from "./ops";
+import { cmd, I, N, numbersOnly, pick, randomNumbers, type OpForm, type OpsError } from "./ops";
 import { StepLog, type DsStep } from "./steps";
 import { TreeView, type DrawTree } from "./treeView";
 import type { NodeState } from "./views";
@@ -196,10 +196,32 @@ export function SegmentTreePlayer() {
       startField="values"
       validateStart={validateSegmentStart}
       presets={[
-        { key: "tour", start: "2, 1, 5, 3", ops: "sum 1 2, set 2 4" },
-        { key: "wide", start: "3, 1, 4, 1, 5, 9, 2, 6", ops: "sum 2 6, sum 0 7" },
-        { key: "update", start: "5, 5, 5, 5", ops: "set 0 1, sum 0 1" },
+        {
+          key: "tour",
+          start: "2, 1, 5, 3, 7, 4, 6, 8, 3, 2",
+          ops: "sum 1 4, set 2 9, sum 0 9, sum 5 7",
+        },
+        {
+          key: "wide",
+          start: "3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8",
+          ops: "sum 2 6, sum 0 11, sum 7 10",
+        },
+        {
+          key: "update",
+          start: "5, 5, 5, 5, 5, 5, 5, 5",
+          ops: "set 0 1, sum 0 1, set 7 9, sum 4 7",
+        },
+        { key: "card", start: "2, 1, 5, 3", ops: "sum 1 2, set 2 4" },
       ]}
+      random={() => {
+        const values = randomNumbers(10, { min: 1, max: 20, unique: false });
+        const l = pick([0, 1, 2, 3]);
+        const r = pick([6, 7, 8, 9]);
+        return {
+          start: values.join(", "),
+          ops: `sum ${l} ${r}, set ${pick([2, 4, 5])} ${pick([1, 12, 20])}, sum ${l} ${r}, sum 0 9`,
+        };
+      }}
       forms={SEGMENT_FORMS}
       run={segmentSteps}
       stage={(s: DsStep<SegState>) => <SegStage s={s} />}

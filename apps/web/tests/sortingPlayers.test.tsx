@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function open(path: string, name: string) {
   const user = userEvent.setup();
   renderRoute(path);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -100,7 +101,7 @@ describe("sorting player details", () => {
 
   it("counting sort rejects keys above 9", async () => {
     const user = await open("/algorithms/counting-sort", "Counting sort");
-    const values = screen.getByLabelText("Values from 0 to 9 (up to 8)");
+    const values = screen.getByLabelText("Values from 0 to 9 (up to 16)");
     await user.clear(values);
     await user.type(values, "3, 12");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
@@ -120,7 +121,7 @@ describe("sorting player details", () => {
 
   it("radix sort rejects negative numbers", async () => {
     const user = await open("/algorithms/radix-sort", "Radix sort");
-    const values = screen.getByLabelText("Values from 0 to 99 (up to 8)");
+    const values = screen.getByLabelText("Values from 0 to 99 (up to 16)");
     await user.clear(values);
     await user.type(values, "4, -2");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));

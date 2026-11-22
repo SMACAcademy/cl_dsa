@@ -16,8 +16,12 @@ type Props = {
   ranges?: readonly Range[];
 };
 
-const SLOT = 56; // px per position, including the gap
-const BAR_WIDTH = 48;
+/** Bar size by length: more values get narrower bars so 16 still fit. */
+function barSizing(count: number) {
+  if (count > 12) return { slot: 36, bar: 30, text: "text-xs" };
+  if (count > 8) return { slot: 44, bar: 38, text: "text-sm" };
+  return { slot: 56, bar: 48, text: "text-base" };
+}
 const MIN_HEIGHT = 28;
 const MAX_HEIGHT = 112;
 
@@ -51,6 +55,7 @@ const GLYPH: Record<BarState, string> = {
  */
 export function BarsView({ values, ids, stateAt, markers = [], ranges = [] }: Props) {
   const { t } = useTranslation();
+  const { slot: SLOT, bar: BAR_WIDTH, text } = barSizing(values.length);
   const min = Math.min(...values);
   const max = Math.max(...values);
   const heightOf = (v: number) =>
@@ -87,7 +92,7 @@ export function BarsView({ values, ids, stateAt, markers = [], ranges = [] }: Pr
                 )}
               </span>
               <span
-                className={`flex w-full items-start justify-center rounded-t-control border-2 pt-1 font-mono text-base font-semibold transition-colors duration-300 ${BAR[state]}`}
+                className={`flex w-full items-start justify-center rounded-t-control border-2 pt-1 font-mono font-semibold transition-colors duration-300 ${text} ${BAR[state]}`}
                 style={{ height: heightOf(value) }}
               >
                 {value}

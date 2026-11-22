@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { presetNumbers } from "./input";
 import { useTranslation } from "react-i18next";
 import { BarsView, type BarState } from "./BarsView";
 import { QUICK_SORT_CODE, quickSortSteps, type QuickSortStep } from "./quickSort";
@@ -6,17 +7,18 @@ import { SortInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "mixed", values: "3, 6, 1, 5, 2" },
-  { key: "reversed", values: "5, 4, 3, 2, 1" },
-  { key: "nearlySorted", values: "1, 2, 4, 3, 5" },
-  { key: "sorted", values: "1, 2, 3, 4, 5" },
+  { key: "mixed", values: "29, 10, 14, 37, 13, 5, 41, 22, 8, 33" },
+  { key: "reversed", values: "10, 9, 8, 7, 6, 5, 4, 3, 2, 1" },
+  { key: "nearlySorted", values: "1, 2, 3, 5, 4, 6, 7, 9, 8, 10" },
+  { key: "sorted", values: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10" },
+  { key: "card", values: "3, 6, 1, 5, 2" },
 ];
 
 const DASH = "—";
 
 /** Interactive quick sort: partition around a pivot, then sort each side. */
 export function QuickSortPlayer() {
-  const [items, setItems] = useState<number[]>([3, 6, 1, 5, 2]);
+  const [items, setItems] = useState<number[]>(() => presetNumbers(PRESETS[0].values));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">

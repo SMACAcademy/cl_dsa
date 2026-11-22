@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/structures/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -58,12 +59,12 @@ describe("graphs & sets details", () => {
 
   it("union–find rejects too many items", async () => {
     const user = await open("union-find", "Union–Find (disjoint sets)");
-    const count = screen.getByLabelText("Number of items (2 to 8)");
+    const count = screen.getByLabelText("Number of items (2 to 12)");
     await user.clear(count);
-    await user.type(count, "12");
+    await user.type(count, "13");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "The number of items must be one whole number from 2 to 8.",
+      "The number of items must be one whole number from 2 to 12.",
     );
   });
 });

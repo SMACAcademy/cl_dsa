@@ -24,14 +24,14 @@ describe("command parsing", () => {
     expect(parseOps("push 100", STACK_FORMS)).toMatchObject({ ok: false });
   });
 
-  it("limits operations and starting values to 8", () => {
-    expect(parseOps(Array(9).fill("pop").join(","), STACK_FORMS)).toEqual({
+  it("limits operations and starting values (12 and 16)", () => {
+    expect(parseOps(Array(13).fill("pop").join(","), STACK_FORMS)).toEqual({
       ok: false,
-      error: { key: "tooManyOps", max: 8 },
+      error: { key: "tooManyOps", max: 12 },
     });
-    expect(parseStart("1 2 3 4 5 6 7 8 9")).toEqual({
+    expect(parseStart("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17")).toEqual({
       ok: false,
-      error: { key: "tooManyStart", max: 8 },
+      error: { key: "tooManyStart", max: 16 },
     });
     expect(parseStart("3, AB")).toEqual({ ok: false, error: { key: "badStart", token: "AB" } });
     expect(parseStart("")).toEqual({ ok: true, value: [] });
@@ -299,7 +299,7 @@ describe("ring buffer", () => {
 
   it("checks the capacity is 2..8", () => {
     expect(validateCapacity(["4"])).toBeNull();
-    expect(validateCapacity(["9"])).toEqual({ key: "badCapacity" });
+    expect(validateCapacity(["13"])).toEqual({ key: "badCapacity" });
     expect(validateCapacity(["1"])).toEqual({ key: "badCapacity" });
     expect(validateCapacity(["4", "5"])).toEqual({ key: "badCapacity" });
     expect(validateCapacity([])).toEqual({ key: "badCapacity" });

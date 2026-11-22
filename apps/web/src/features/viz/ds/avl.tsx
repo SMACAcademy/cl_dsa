@@ -12,7 +12,7 @@ import {
 } from "./binaryNodes";
 import { sideQuestion } from "./bst";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, N, numbersOnly, type OpForm } from "./ops";
+import { cmd, N, numbersOnly, randomNumbers, type OpForm } from "./ops";
 import { pyList, StepLog, type DsStep, type Vars } from "./steps";
 import { TreeView } from "./treeView";
 import type { NodeState } from "./views";
@@ -250,14 +250,25 @@ export function AvlTreePlayer() {
       startField="values"
       validateStart={numbersOnly}
       presets={[
-        { key: "tour", start: "", ops: "insert 1, insert 2, insert 3" },
+        {
+          key: "tour",
+          start: "",
+          ops: "insert 10, insert 20, insert 30, insert 40, insert 50, insert 25, insert 35, insert 5, insert 3, insert 45",
+        },
         { key: "zigzag", start: "30, 10", ops: "insert 20" },
         {
           key: "sorted",
           start: "",
-          ops: "insert 1, insert 2, insert 3, insert 4, insert 5, insert 6, insert 7",
+          ops: "insert 1, insert 2, insert 3, insert 4, insert 5, insert 6, insert 7, insert 8, insert 9, insert 10, insert 11, insert 12",
         },
+        { key: "card", start: "", ops: "insert 1, insert 2, insert 3" },
       ]}
+      random={() => ({
+        start: "",
+        ops: randomNumbers(10)
+          .map((v) => `insert ${v}`)
+          .join(", "),
+      })}
       forms={AVL_FORMS}
       run={avlSteps}
       stage={(s: DsStep<AvlState>) => <AvlStage s={s} />}

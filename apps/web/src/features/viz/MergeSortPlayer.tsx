@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { presetNumbers } from "./input";
 import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState, type Marker } from "./ArrayView";
 import { MERGE_SORT_CODE, mergeSortSteps, type MergeSortStep } from "./mergeSort";
@@ -6,17 +7,18 @@ import { SortInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "mixed", values: "6, 2, 5, 1" },
-  { key: "reversed", values: "8, 7, 6, 5, 4, 3, 2, 1" },
-  { key: "nearlySorted", values: "1, 2, 4, 3, 5" },
-  { key: "sorted", values: "1, 2, 3, 4" },
+  { key: "mixed", values: "29, 10, 14, 37, 13, 5, 41, 22, 8, 33, 17, 2" },
+  { key: "reversed", values: "12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1" },
+  { key: "nearlySorted", values: "1, 2, 3, 5, 4, 6, 7, 9, 8, 10" },
+  { key: "sorted", values: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10" },
+  { key: "card", values: "6, 2, 5, 1" },
 ];
 
 const DASH = "—";
 
 /** Interactive merge sort: split into halves, then merge with two fingers. */
 export function MergeSortPlayer() {
-  const [items, setItems] = useState<number[]>([6, 2, 5, 1]);
+  const [items, setItems] = useState<number[]>(() => presetNumbers(PRESETS[0].values));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">
@@ -119,6 +121,7 @@ function MergeSortStage({ items }: { items: number[] }) {
                   stateOf={() => "idle"}
                   showIndex={false}
                   markerRow={false}
+                  sizeFor={s.values.length}
                 />
               </div>
             )}

@@ -171,7 +171,11 @@ export function TriePlayer() {
       code={TRIE_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "insert car, insert cat, insert dog, prefix ca" },
+        {
+          key: "tour",
+          start: "",
+          ops: "insert car, insert cat, insert cart, insert care, insert dog, insert dot, insert do, prefix ca, search do, search ca",
+        },
         {
           key: "search",
           start: "",
@@ -180,8 +184,9 @@ export function TriePlayer() {
         {
           key: "autocomplete",
           start: "",
-          ops: "insert in, insert inn, insert ink, insert it, prefix in",
+          ops: "insert in, insert inn, insert ink, insert it, insert ice, insert idea, insert ideal, prefix in, prefix id",
         },
+        { key: "card", start: "", ops: "insert car, insert cat, insert dog, prefix ca" },
       ]}
       forms={TRIE_FORMS}
       run={trieSteps}

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { presetNumbers } from "./input";
 import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState } from "./ArrayView";
 import { COUNTING_SORT_CODE, countingSortSteps, type CountingSortStep } from "./countingSort";
@@ -6,9 +7,10 @@ import { SortInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "mixed", values: "2, 0, 2, 1" },
-  { key: "fewKeys", values: "3, 1, 3, 3, 1, 0" },
-  { key: "reversed", values: "5, 4, 3, 2, 1" },
+  { key: "mixed", values: "2, 0, 2, 1, 7, 3, 9, 3, 5, 0, 8, 2" },
+  { key: "fewKeys", values: "3, 1, 3, 3, 1, 0, 1, 3, 0, 3" },
+  { key: "reversed", values: "9, 8, 7, 6, 5, 4, 3, 2, 1, 0" },
+  { key: "card", values: "2, 0, 2, 1" },
 ];
 
 const DASH = "—";
@@ -19,7 +21,7 @@ function RowTitle({ children }: { children: string }) {
 
 /** Interactive counting sort: tally each key, then write the keys out in order. */
 export function CountingSortPlayer() {
-  const [items, setItems] = useState<number[]>([2, 0, 2, 1]);
+  const [items, setItems] = useState<number[]>(() => presetNumbers(PRESETS[0].values));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">
@@ -70,7 +72,12 @@ function CountingSortStage({ items }: { items: number[] }) {
       stage={(s) => (
         <>
           <RowTitle>{t("viz.counting.itemsRow")}</RowTitle>
-          <ArrayView items={items} stateOf={itemState(s)} markerRow={false} />
+          <ArrayView
+            items={items}
+            stateOf={itemState(s)}
+            markerRow={false}
+            sizeFor={Math.max(items.length, s.counts.length)}
+          />
           {s.counts.length > 0 && (
             <>
               <RowTitle>{t("viz.counting.countRow")}</RowTitle>
@@ -79,6 +86,7 @@ function CountingSortStage({ items }: { items: number[] }) {
                 items={s.counts}
                 stateOf={(v) => (s.key === v ? "comparing" : "idle")}
                 markerRow={false}
+                sizeFor={Math.max(items.length, s.counts.length)}
               />
             </>
           )}
@@ -88,6 +96,7 @@ function CountingSortStage({ items }: { items: number[] }) {
             items={Array.from({ length: items.length }, (_, i) => s.result[i] ?? null)}
             stateOf={() => (s.done ? "found" : "idle")}
             markerRow={false}
+            sizeFor={Math.max(items.length, s.counts.length)}
           />
         </>
       )}

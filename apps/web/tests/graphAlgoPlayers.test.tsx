@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -53,7 +54,7 @@ describe("graph algorithm details", () => {
   it("BFS shows the queue and asks which vertex is next", async () => {
     const user = await open("bfs", "Breadth-first search (BFS)");
     expect(screen.getByLabelText("Start at (one vertex)")).toHaveValue("A");
-    expect(screen.getByLabelText("Edges (up to 8, separated by commas)")).toHaveValue(
+    expect(screen.getByLabelText("Edges (up to 12, separated by commas)")).toHaveValue(
       "A B, A C, B D, C D",
     );
     await user.click(screen.getByRole("checkbox", { name: "Predict before each result" }));

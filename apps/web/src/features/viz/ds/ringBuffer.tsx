@@ -35,7 +35,7 @@ export const RING_FORMS: readonly OpForm<RingOp>[] = [
 export function validateCapacity(start: string[]): OpsError | null {
   const [c, ...rest] = start;
   const n = Number(c);
-  return rest.length === 0 && Number.isInteger(n) && n >= 2 && n <= 8
+  return rest.length === 0 && Number.isInteger(n) && n >= 2 && n <= 12
     ? null
     : { key: "badCapacity" };
 }
@@ -113,14 +113,23 @@ export function RingBufferPlayer() {
       presets={[
         {
           key: "tour",
-          start: "4",
-          ops: "enqueue 1, enqueue 2, enqueue 3, dequeue, enqueue 4, enqueue 5",
+          start: "8",
+          ops: "enqueue 1, enqueue 2, enqueue 3, enqueue 4, enqueue 5, enqueue 6, dequeue, dequeue, enqueue 7, enqueue 8, enqueue 9, enqueue 10",
         },
-        { key: "full", start: "3", ops: "enqueue A, enqueue B, enqueue C, enqueue D" },
+        {
+          key: "full",
+          start: "6",
+          ops: "enqueue A, enqueue B, enqueue C, enqueue D, enqueue E, enqueue F, enqueue G",
+        },
         {
           key: "laps",
-          start: "3",
-          ops: "enqueue 1, dequeue, enqueue 2, dequeue, enqueue 3, dequeue, enqueue 4",
+          start: "5",
+          ops: "enqueue 1, enqueue 2, enqueue 3, dequeue, enqueue 4, enqueue 5, dequeue, enqueue 6, enqueue 7, dequeue, enqueue 8",
+        },
+        {
+          key: "card",
+          start: "4",
+          ops: "enqueue 1, enqueue 2, enqueue 3, dequeue, enqueue 4, enqueue 5",
         },
       ]}
       forms={RING_FORMS}

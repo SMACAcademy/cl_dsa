@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/structures/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -76,7 +77,7 @@ describe("linear structure details", () => {
 
   it("explains an unknown command", async () => {
     const user = await open("stack", "Stack");
-    const ops = screen.getByLabelText("Operations (up to 8, separated by commas)");
+    const ops = screen.getByLabelText("Operations (up to 12, separated by commas)");
     await user.clear(ops);
     await user.type(ops, "push 1, jump 3");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
@@ -85,14 +86,14 @@ describe("linear structure details", () => {
     );
   });
 
-  it("ring buffer rejects a capacity above 8", async () => {
+  it("ring buffer rejects a capacity above 12", async () => {
     const user = await open("circular-queue", "Circular queue (ring buffer)");
-    const capacity = screen.getByLabelText("Capacity (2 to 8)");
+    const capacity = screen.getByLabelText("Capacity (2 to 12)");
     await user.clear(capacity);
-    await user.type(capacity, "9");
+    await user.type(capacity, "13");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "Capacity must be one whole number from 2 to 8.",
+      "Capacity must be one whole number from 2 to 12.",
     );
   });
 

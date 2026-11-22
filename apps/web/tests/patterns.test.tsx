@@ -7,7 +7,7 @@ import {
   sortedNumbers,
   twoPointerSteps,
 } from "../src/features/viz/ds/patterns";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 const strs = (...xs: number[]) => xs.map(String);
@@ -100,6 +100,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -129,7 +130,7 @@ describe("pattern players", () => {
 
   it("two pointers rejects unsorted values", async () => {
     const user = await open("two-pointers", "Two pointers");
-    const start = screen.getByLabelText("Start with (up to 8 values, may be empty)");
+    const start = screen.getByLabelText("Start with (up to 16 values, may be empty)");
     await user.clear(start);
     await user.type(start, "5, 1, 3");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));

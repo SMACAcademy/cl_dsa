@@ -585,9 +585,10 @@ export function BfsPlayer() {
       validateStart={validateVertex}
       opsField="edges"
       presets={[
-        { key: "tour", start: "A", ops: "A B, A C, B D, C D" },
-        { key: "rings", start: "A", ops: "A B, A C, B D, B E, C F, E F" },
-        { key: "island", start: "A", ops: "A B, B C, D E" },
+        { key: "tour", start: "A", ops: "A B, A C, B D, B E, C F, C G, D H, E H, F I, G I" },
+        { key: "card", start: "A", ops: "A B, A C, B D, C D" },
+        { key: "rings", start: "A", ops: "A B, A C, B D, B E, C F, E F, D G, F H, G H" },
+        { key: "island", start: "A", ops: "A B, B C, A D, D E, F G, G H" },
       ]}
       forms={UNDIRECTED_FORMS}
       run={bfsSteps}
@@ -609,9 +610,10 @@ export function DfsPlayer() {
       validateStart={validateVertex}
       opsField="edges"
       presets={[
-        { key: "tour", start: "A", ops: "A B, A C, B D, C D" },
-        { key: "deep", start: "A", ops: "A B, B C, C D, A E, E F" },
-        { key: "island", start: "A", ops: "A B, B C, D E" },
+        { key: "tour", start: "A", ops: "A B, A C, B D, B E, C F, C G, D H, E H, F I, G I" },
+        { key: "deep", start: "A", ops: "A B, B C, C D, D E, E F, A G, G H, H I, C J" },
+        { key: "island", start: "A", ops: "A B, B C, A D, D E, F G, G H" },
+        { key: "card", start: "A", ops: "A B, A C, B D, C D" },
       ]}
       forms={UNDIRECTED_FORMS}
       run={dfsSteps}
@@ -632,9 +634,22 @@ export function TopoSortPlayer() {
       startField={null}
       opsField="edges"
       presets={[
-        { key: "tour", start: "", ops: "wake > dress, wake > eat, dress > leave, eat > leave" },
-        { key: "courses", start: "", ops: "intro > data, intro > algo, data > algo, algo > ai" },
-        { key: "cycle", start: "", ops: "a > b, b > c, c > a, c > d" },
+        {
+          key: "tour",
+          start: "",
+          ops: "wake > shower, wake > eat, shower > dress, eat > brush, brush > dress, dress > shoes, dress > bag, shoes > leave, bag > leave, eat > coffee, coffee > leave",
+        },
+        {
+          key: "courses",
+          start: "",
+          ops: "intro > data, intro > algo, data > algo, algo > ai, math > algo, math > stats, stats > ai, data > db, db > web, algo > web",
+        },
+        { key: "cycle", start: "", ops: "a > b, b > c, c > d, d > e, e > c, a > f, f > g" },
+        {
+          key: "card",
+          start: "",
+          ops: "wake > dress, wake > eat, dress > leave, eat > leave",
+        },
       ]}
       forms={DIRECTED_FORMS}
       run={topoSteps}
@@ -656,9 +671,18 @@ export function DijkstraPlayer() {
       validateStart={validateVertex}
       opsField="edges"
       presets={[
-        { key: "tour", start: "A", ops: "A B 4, A C 1, C B 2, B D 1" },
-        { key: "detour", start: "S", ops: "S A 7, S B 2, B C 2, C A 1, A T 1, C T 6" },
-        { key: "tie", start: "A", ops: "A B 1, A C 1, B D 1, C D 1" },
+        {
+          key: "tour",
+          start: "A",
+          ops: "A B 4, A C 1, C B 2, B D 1, C E 5, D E 1, D F 6, E F 2, E G 7, F G 1",
+        },
+        {
+          key: "detour",
+          start: "S",
+          ops: "S A 7, S B 2, B C 2, C A 1, A T 1, C T 6, S D 3, D E 4, E T 2, B E 9",
+        },
+        { key: "tie", start: "A", ops: "A B 1, A C 1, B D 1, C D 1, D E 2, D F 2, E G 1, F G 1" },
+        { key: "card", start: "A", ops: "A B 4, A C 1, C B 2, B D 1" },
       ]}
       forms={WEIGHTED_FORMS}
       run={dijkstraSteps}
@@ -679,9 +703,18 @@ export function KruskalPlayer() {
       startField={null}
       opsField="edges"
       presets={[
-        { key: "tour", start: "", ops: "A B 1, B C 2, A C 3, C D 4" },
-        { key: "square", start: "", ops: "A B 3, B C 1, C D 4, D A 2, A C 5" },
-        { key: "forest", start: "", ops: "A B 2, C D 1" },
+        {
+          key: "tour",
+          start: "",
+          ops: "A B 4, A C 3, B C 1, B D 2, C D 4, C E 5, D E 7, D F 6, E F 3, E G 8, F G 2",
+        },
+        {
+          key: "square",
+          start: "",
+          ops: "A B 3, B C 1, C D 4, D A 2, A C 5, B D 6, D E 2, E F 3, F A 7",
+        },
+        { key: "forest", start: "", ops: "A B 2, B C 1, D E 3, E F 2, G H 4" },
+        { key: "card", start: "", ops: "A B 1, B C 2, A C 3, C D 4" },
       ]}
       forms={WEIGHTED_FORMS}
       run={kruskalSteps}

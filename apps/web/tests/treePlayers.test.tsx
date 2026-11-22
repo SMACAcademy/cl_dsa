@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/structures/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
@@ -91,7 +92,7 @@ describe("tree details", () => {
 
   it("segment tree rejects letters and empty starts", async () => {
     const user = await open("segment-tree", "Segment tree");
-    const start = screen.getByLabelText("Start with (up to 8 values, may be empty)");
+    const start = screen.getByLabelText("Start with (up to 16 values, may be empty)");
     await user.clear(start);
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
     expect(screen.getByRole("alert")).toHaveTextContent("Start with at least one value.");

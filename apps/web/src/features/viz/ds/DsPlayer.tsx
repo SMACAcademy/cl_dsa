@@ -1,5 +1,6 @@
 import { useId, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { RANDOM_COUNT } from "../input";
 import { StepPlayer, type Prediction } from "../StepPlayer";
 import { primaryButton } from "../styles";
 import {
@@ -30,6 +31,8 @@ type Props<S, Op> = {
   run: (start: string[], ops: Op[]) => DsStep<S>[];
   stage: (step: DsStep<S>) => ReactNode;
   vars: (step: DsStep<S>) => readonly { name: string; value: ReactNode }[];
+  /** Makes a fresh random input; shows a Random button when given. */
+  random?: () => { start: string; ops: string };
 };
 
 /** Translates a key that is only known at runtime (missing keys fail the test suite). */
@@ -151,9 +154,23 @@ export function DsPlayer<S, Op>(props: Props<S, Op>) {
               apply(p.start, p.ops);
             }}
           >
-            {tx(`viz.ds.${prefix}.preset.${p.key}`)}
+            {p.key === "card" ? t("viz.input.preset.card") : tx(`viz.ds.${prefix}.preset.${p.key}`)}
           </button>
         ))}
+        {props.random && (
+          <button
+            type="button"
+            className="rounded-full border border-accent bg-surface px-3 py-1 text-accent-ink hover:bg-accent-soft"
+            onClick={() => {
+              const r = (props.random as NonNullable<typeof props.random>)();
+              setStartText(r.start);
+              setOpsText(r.ops);
+              apply(r.start, r.ops);
+            }}
+          >
+            {t("viz.input.random", { count: RANDOM_COUNT })}
+          </button>
+        )}
       </div>
 
       {input && <DsStage key={run} {...props} start={input.start} ops={input.ops} />}

@@ -7,22 +7,26 @@ import {
   isDiscarded,
   type BinarySearchStep,
 } from "./binarySearch";
-import type { SearchInput } from "./input";
+import { presetNumbers, type SearchInput } from "./input";
 import { SearchInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 import { TargetLine } from "./TargetLine";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "right", values: "1, 3, 5, 7, 9, 11", target: "7" },
-  { key: "left", values: "2, 4, 6, 8, 10", target: "4" },
-  { key: "missing", values: "2, 4, 6, 8", target: "5" },
+  { key: "right", values: "1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23", target: "17" },
+  { key: "left", values: "2, 4, 6, 8, 10, 12, 14, 16, 18, 20", target: "4" },
+  { key: "missing", values: "2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24", target: "15" },
+  { key: "card", values: "1, 3, 5, 7, 9, 11", target: "7" },
 ];
 
 const DASH = "—";
 
 /** Interactive binary search on a sorted tiny array, with lo / mid / hi markers. */
 export function BinarySearchPlayer() {
-  const [input, setInput] = useState<SearchInput>({ items: [1, 3, 5, 7, 9, 11], target: 7 });
+  const [input, setInput] = useState<SearchInput>(() => ({
+    items: presetNumbers(PRESETS[0].values),
+    target: Number(PRESETS[0].target),
+  }));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">

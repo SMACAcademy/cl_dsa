@@ -161,9 +161,18 @@ export function ActivitySelectionPlayer() {
       startField={null}
       opsField="meetings"
       presets={[
-        { key: "tour", start: "", ops: "1-3, 2-5, 4-6, 6-8" },
-        { key: "long", start: "", ops: "0-10, 1-2, 3-4, 5-6, 7-8" },
-        { key: "busy", start: "", ops: "1-4, 3-5, 0-6, 5-7, 3-9, 5-9, 6-10, 8-11" },
+        {
+          key: "tour",
+          start: "",
+          ops: "1-3, 2-5, 4-6, 6-8, 5-9, 8-10, 9-12, 11-13, 12-15, 14-16",
+        },
+        { key: "long", start: "", ops: "0-10, 1-2, 3-4, 5-6, 7-8, 9-11, 12-14, 13-15" },
+        {
+          key: "busy",
+          start: "",
+          ops: "1-4, 3-5, 0-6, 5-7, 3-9, 5-9, 6-10, 8-11, 8-12, 2-14, 12-16",
+        },
+        { key: "card", start: "", ops: "1-3, 2-5, 4-6, 6-8" },
       ]}
       forms={MEETING_FORMS}
       run={activitySteps}
@@ -352,9 +361,10 @@ export function HuffmanPlayer() {
       startField={null}
       opsField="freqs"
       presets={[
-        { key: "tour", start: "", ops: "a 5, b 2, c 1" },
-        { key: "word", start: "", ops: "a 3, b 1, n 2" },
-        { key: "even", start: "", ops: "w 4, x 4, y 4, z 4" },
+        { key: "tour", start: "", ops: "e 12, t 9, a 8, o 7, n 6, s 4, h 3, x 1" },
+        { key: "word", start: "", ops: "m 1, i 4, s 4, p 2" },
+        { key: "even", start: "", ops: "a 4, b 4, c 4, d 4, e 4, f 4, g 4, h 4" },
+        { key: "card", start: "", ops: "a 5, b 2, c 1" },
       ]}
       forms={FREQ_FORMS}
       run={huffmanSteps}

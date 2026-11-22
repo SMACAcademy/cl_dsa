@@ -1,6 +1,6 @@
 import { ArrayView, type CellState } from "../ArrayView";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, V, type OpForm } from "./ops";
+import { cmd, randomNumbers, V, type OpForm } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 import { StackView, type NodeState } from "./views";
 
@@ -81,10 +81,23 @@ export function StackPlayer() {
       code={STACK_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "", ops: "push 4, push 7, push 1, pop, peek" },
-        { key: "undo", start: "A, B, C", ops: "pop, pop, push D" },
+        {
+          key: "tour",
+          start: "3, 9, 2, 6",
+          ops: "push 4, push 7, push 1, push 8, pop, pop, peek, push 5",
+        },
+        { key: "undo", start: "A, B, C, D, E, F, G, H", ops: "pop, pop, pop, push I" },
         { key: "empty", start: "5", ops: "pop, pop" },
+        { key: "card", start: "", ops: "push 4, push 7, push 1, pop, peek" },
       ]}
+      random={() => {
+        const values = randomNumbers(10);
+        const pushes = values.slice(6).map((v) => `push ${v}`);
+        return {
+          start: values.slice(0, 6).join(", "),
+          ops: [...pushes, "pop", "pop", "peek", "pop"].join(", "),
+        };
+      }}
       forms={STACK_FORMS}
       run={stackSteps}
       stage={(s: DsStep<StackState>) => (
@@ -213,10 +226,27 @@ export function QueuePlayer() {
       code={QUEUE_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "", ops: "enqueue A, enqueue B, enqueue C, dequeue, front" },
-        { key: "line", start: "1, 2, 3", ops: "dequeue, enqueue 4, dequeue" },
+        {
+          key: "tour",
+          start: "A, B, C, D, E",
+          ops: "enqueue F, enqueue G, dequeue, dequeue, front, enqueue H, enqueue I, dequeue",
+        },
+        {
+          key: "line",
+          start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+          ops: "dequeue, enqueue 11, dequeue, enqueue 12, dequeue",
+        },
         { key: "empty", start: "", ops: "enqueue X, dequeue, dequeue" },
+        { key: "card", start: "", ops: "enqueue A, enqueue B, enqueue C, dequeue, front" },
       ]}
+      random={() => {
+        const values = randomNumbers(10);
+        const joins = values.slice(6).map((v) => `enqueue ${v}`);
+        return {
+          start: values.slice(0, 6).join(", "),
+          ops: [...joins, "dequeue", "dequeue", "front", "dequeue"].join(", "),
+        };
+      }}
       forms={QUEUE_FORMS}
       run={queueSteps}
       stage={lineStage}
@@ -296,14 +326,23 @@ export function DequePlayer() {
       presets={[
         {
           key: "tour",
-          start: "",
-          ops: "push_back 2, push_front 1, push_back 3, pop_front, pop_back",
+          start: "4, 5, 6, 7, 8",
+          ops: "push_back 9, push_front 3, push_back 10, push_front 2, pop_front, pop_back, pop_back",
         },
-        { key: "window", start: "4, 5, 6", ops: "push_back 7, pop_front, push_back 8, pop_front" },
+        {
+          key: "window",
+          start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+          ops: "push_back 11, pop_front, push_back 12, pop_front, push_back 13, pop_front",
+        },
         {
           key: "palindrome",
           start: "R, A, C, E, C, A, R",
           ops: "pop_front, pop_back, pop_front, pop_back",
+        },
+        {
+          key: "card",
+          start: "",
+          ops: "push_back 2, push_front 1, push_back 3, pop_front, pop_back",
         },
       ]}
       forms={DEQUE_FORMS}

@@ -1,5 +1,5 @@
 import { DsPlayer } from "./DsPlayer";
-import { cmd, V, type OpForm } from "./ops";
+import { cmd, pick, randomNumbers, V, type OpForm } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 import { ChainView, type ChainNode, type NodeState } from "./views";
 
@@ -322,10 +322,24 @@ export function SinglyLinkedListPlayer() {
       code={SINGLY_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "3, 8, 5", ops: "insert 4 after 3, delete 8" },
-        { key: "front", start: "2, 9", ops: "add-first 1, add-first 0" },
-        { key: "find", start: "6, 1, 7, 4", ops: "find 7, find 5" },
+        {
+          key: "tour",
+          start: "3, 8, 5, 12, 7, 1, 9, 14, 6, 10",
+          ops: "insert 4 after 3, delete 8, delete 10",
+        },
+        { key: "front", start: "2, 9, 4, 7, 11, 5, 8, 13", ops: "add-first 1, add-first 0" },
+        { key: "find", start: "6, 1, 7, 4, 12, 9, 3, 15, 8, 2", ops: "find 7, find 8, find 5" },
+        { key: "card", start: "3, 8, 5", ops: "insert 4 after 3, delete 8" },
       ]}
+      random={() => {
+        // 11 distinct numbers: 10 in the list, 1 kept aside to insert.
+        const values = randomNumbers(11);
+        const fresh = values.pop() as number;
+        return {
+          start: values.join(", "),
+          ops: `insert ${fresh} after ${pick(values)}, delete ${pick(values)}, find ${pick(values)}`,
+        };
+      }}
       forms={SINGLY_FORMS}
       run={singlyListSteps}
       stage={stage(false)}
@@ -341,10 +355,29 @@ export function DoublyLinkedListPlayer() {
       code={DOUBLY_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "2, 6, 9", ops: "delete 6" },
-        { key: "ends", start: "5", ops: "add-last 7, add-first 3, delete 3, delete 7" },
-        { key: "build", start: "", ops: "add-last 1, add-last 2, add-first 0" },
+        { key: "tour", start: "2, 6, 9, 13, 4, 11, 7, 15, 8, 10", ops: "delete 6, delete 10" },
+        {
+          key: "ends",
+          start: "5, 12, 8, 3, 14, 9",
+          ops: "add-last 7, add-first 1, delete 1, delete 7",
+        },
+        {
+          key: "build",
+          start: "",
+          ops: "add-last 1, add-last 2, add-last 3, add-last 4, add-first 0, add-last 5, add-last 6, add-first -1",
+        },
+        { key: "card", start: "2, 6, 9", ops: "delete 6" },
       ]}
+      random={() => {
+        // 12 distinct numbers: 10 in the list, 2 kept aside to add.
+        const values = randomNumbers(12);
+        const last = values.pop() as number;
+        const first = values.pop() as number;
+        return {
+          start: values.join(", "),
+          ops: `delete ${pick(values)}, add-first ${first}, add-last ${last}`,
+        };
+      }}
       forms={DOUBLY_FORMS}
       run={doublyListSteps}
       stage={stage(true)}

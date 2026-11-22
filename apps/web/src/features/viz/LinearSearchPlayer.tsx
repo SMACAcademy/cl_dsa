@@ -1,23 +1,27 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState } from "./ArrayView";
-import type { SearchInput } from "./input";
+import { presetNumbers, type SearchInput } from "./input";
 import { LINEAR_SEARCH_CODE, linearSearchSteps, type LinearSearchStep } from "./linearSearch";
 import { SearchInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 import { TargetLine } from "./TargetLine";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "middle", values: "4, 8, 1, 9", target: "1" },
-  { key: "first", values: "6, 2, 7, 3", target: "6" },
-  { key: "missing", values: "5, 3, 8", target: "4" },
+  { key: "middle", values: "14, 3, 27, 8, 19, 42, 5, 31, 11, 23", target: "19" },
+  { key: "first", values: "6, 2, 7, 3, 9, 12, 1, 15, 4, 10", target: "6" },
+  { key: "missing", values: "5, 3, 8, 12, 17, 2, 9, 14, 6, 11", target: "4" },
+  { key: "card", values: "4, 8, 1, 9", target: "1" },
 ];
 
 const DASH = "—";
 
 /** Interactive linear search: choose a tiny input, then step, play or predict. */
 export function LinearSearchPlayer() {
-  const [input, setInput] = useState<SearchInput>({ items: [4, 8, 1, 9], target: 1 });
+  const [input, setInput] = useState<SearchInput>(() => ({
+    items: presetNumbers(PRESETS[0].values),
+    target: Number(PRESETS[0].target),
+  }));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">

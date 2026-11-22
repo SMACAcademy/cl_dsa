@@ -51,7 +51,7 @@ export const UF_FORMS: readonly OpForm<UfOp>[] = [
 export function validateCount(start: string[]): OpsError | null {
   const [c, ...rest] = start;
   const n = Number(c);
-  return rest.length === 0 && Number.isInteger(n) && n >= 2 && n <= 8 ? null : { key: "badCount" };
+  return rest.length === 0 && Number.isInteger(n) && n >= 2 && n <= 12 ? null : { key: "badCount" };
 }
 
 export type UfState = {
@@ -210,15 +210,20 @@ export function UnionFindPlayer() {
       presets={[
         {
           key: "tour",
-          start: "5",
-          ops: "union 0 1, union 3 4, union 1 4, connected 3 0, connected 2 0",
+          start: "10",
+          ops: "union 0 1, union 2 3, union 4 5, union 1 3, union 6 7, union 8 9, union 5 7, connected 0 2, connected 4 6, connected 0 9",
         },
         {
           key: "compress",
-          start: "6",
-          ops: "union 0 1, union 2 3, union 0 2, union 4 5, union 0 4, find 5",
+          start: "10",
+          ops: "union 0 1, union 2 3, union 0 2, union 4 5, union 6 7, union 4 6, union 0 4, union 8 9, union 9 0, find 7",
         },
         { key: "same", start: "4", ops: "union 0 1, union 1 2, union 2 0" },
+        {
+          key: "card",
+          start: "5",
+          ops: "union 0 1, union 3 4, union 1 4, connected 3 0, connected 2 0",
+        },
       ]}
       forms={UF_FORMS}
       run={unionFindSteps}

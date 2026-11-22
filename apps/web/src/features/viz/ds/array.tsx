@@ -1,6 +1,6 @@
 import { ArrayView, type CellState } from "../ArrayView";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, I, V, type OpForm } from "./ops";
+import { cmd, I, pick, randomNumbers, V, type OpForm } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 
 export const ARRAY_CODE: readonly string[] = [
@@ -154,10 +154,24 @@ export function ArrayPlayer() {
       code={ARRAY_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "7, 3, 9, 4", ops: "read 2, insert 5 at 1, delete 0, search 9" },
-        { key: "front", start: "1, 2, 3, 4, 5", ops: "insert 0 at 0" },
-        { key: "end", start: "1, 2, 3, 4, 5", ops: "insert 6 at 5" },
+        {
+          key: "tour",
+          start: "7, 3, 9, 4, 12, 5, 8, 1, 6, 10",
+          ops: "read 2, insert 11 at 1, delete 0, search 6",
+        },
+        { key: "front", start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10", ops: "insert 0 at 0" },
+        { key: "end", start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10", ops: "insert 11 at 10" },
+        { key: "card", start: "7, 3, 9, 4", ops: "read 2, insert 5 at 1, delete 0, search 9" },
       ]}
+      random={() => {
+        // 11 distinct numbers: 10 to start with, 1 kept aside to insert.
+        const values = randomNumbers(11);
+        const fresh = values.pop() as number;
+        return {
+          start: values.join(", "),
+          ops: `read ${pick([0, 3, 7])}, insert ${fresh} at ${pick([1, 5, 9])}, delete ${pick([0, 4, 8])}, search ${pick(values)}`,
+        };
+      }}
       forms={ARRAY_FORMS}
       run={arraySteps}
       stage={stage}

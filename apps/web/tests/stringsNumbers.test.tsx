@@ -11,7 +11,7 @@ import {
   naiveSteps,
   sieveSteps,
 } from "../src/features/viz/ds/stringsNumbers";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 
@@ -130,10 +130,10 @@ describe("sieve of Eratosthenes", () => {
     expect(steps.at(-1)!.say.vars).toMatchObject({ p: 4, list: "2, 3, 5, 7", count: 4 });
   });
 
-  it("matches trial division up to 60, and skips crossed-out numbers", () => {
+  it("matches trial division up to 100, and skips crossed-out numbers", () => {
     const isPrime = (v: number) =>
       v > 1 && Array.from({ length: v - 2 }, (_, k) => k + 2).every((d) => v % d);
-    for (const n of [2, 3, 30, 49, 60]) {
+    for (const n of [2, 3, 30, 49, 60, 100]) {
       const last = sieveSteps([], [{ n }]).at(-1)!;
       const want = Array.from({ length: n }, (_, k) => k + 1).filter(isPrime);
       expect(last.say.vars?.list, `n = ${n}`).toBe(want.join(", "));
@@ -153,6 +153,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 

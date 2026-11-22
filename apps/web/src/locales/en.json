@@ -374,14 +374,14 @@
     "ds": {
       "form": {
         "start": "Start with (up to {{max}} values, may be empty)",
-        "capacity": "Capacity (2 to 8)",
-        "count": "Number of items (2 to 8)",
+        "capacity": "Capacity (2 to 12)",
+        "count": "Number of items (2 to 12)",
         "vertex": "Start at (one vertex)",
         "edges": "Edges (up to {{max}}, separated by commas)",
         "meetings": "Meetings as start-end (up to {{max}}, separated by commas)",
         "freqs": "Letters and how often they appear (up to {{max}})",
         "coins": "Coins (whole numbers from 1 to 99)",
-        "bits": "Bits (4 to 16)",
+        "bits": "Bits (4 to 32)",
         "items": "Items as name weight value (up to {{max}})",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
@@ -393,15 +393,15 @@
         "unknown": "I don't know the command “{{command}}”. Commands: {{help}}",
         "badStart": "“{{token}}” isn't a value here. Use whole numbers from -99 to 99, or single letters.",
         "tooManyStart": "Start with at most {{max}} values.",
-        "badCapacity": "Capacity must be one whole number from 2 to 8.",
+        "badCapacity": "Capacity must be one whole number from 2 to 12.",
         "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
         "emptyStart": "Start with at least one value.",
-        "badCount": "The number of items must be one whole number from 2 to 8.",
+        "badCount": "The number of items must be one whole number from 2 to 12.",
         "badVertex": "Enter one vertex to start from, for example A.",
         "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
         "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4.",
         "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3.",
-        "badBits": "The number of bits must be one whole number from 4 to 16."
+        "badBits": "The number of bits must be one whole number from 4 to 32."
       },
       "view": {
         "newNode": "new node",
@@ -457,7 +457,7 @@
       },
       "activity": {
         "help": "1-3 (a meeting from 1 to 3), e.g. 1-3, 2-5, 4-6",
-        "preset": { "tour": "Four meetings", "long": "One long meeting", "busy": "A busy day" },
+        "preset": { "tour": "Ten meetings", "long": "One long meeting", "busy": "A busy day" },
         "timeline": "Meetings on a timeline",
         "meeting": "Meeting {{span}}: {{state}}",
         "state": {
@@ -475,7 +475,11 @@
       },
       "huffman": {
         "help": "a 5 (letter a appears 5 times), e.g. a 5, b 2, c 1",
-        "preset": { "tour": "a, b, c", "word": "banana", "even": "Four equal letters" },
+        "preset": {
+          "tour": "English-like letter counts",
+          "word": "mississippi",
+          "even": "Eight equal letters"
+        },
         "start": "Each letter starts as its own little tree, weighted by how often it appears: {{heap}}.",
         "qRarest": "Which subtree is the rarest, so it is taken first?",
         "merge": "Join the two rarest, {{a}} and {{b}}, into one tree of weight {{w}}.",
@@ -485,8 +489,8 @@
         "notYet": "not worked out yet"
       },
       "fib": {
-        "help": "fib n (n from 0 to 7)",
-        "preset": { "tour": "fib(5)", "small": "fib(3)", "big": "fib(7)" },
+        "help": "fib n (n from 0 to 10)",
+        "preset": { "tour": "fib(8)", "small": "fib(5)", "big": "fib(10)" },
         "treeTitle": "Calls made (= value returned, ringed = answered from memo)",
         "start": "Memoized Fibonacci: every answer is saved in memo, so each fib(k) is worked out only once.",
         "call": "fib({{k}}) isn't in memo and isn't a base case, so it calls fib({{a}}) and then fib({{b}}).",
@@ -497,8 +501,8 @@
         "result": "fib({{n}}) = {{value}} using {{calls}} calls. Without memo it would take {{naive}} calls."
       },
       "coins": {
-        "help": "make n (amount from 1 to 12)",
-        "preset": { "tour": "Coins 1, 3, 4", "us": "Coins 1, 5, 10", "gap": "Coins 3, 5" },
+        "help": "make n (amount from 1 to 20)",
+        "preset": { "tour": "Coins 1, 5, 6, 9", "us": "Coins 1, 5, 10", "gap": "Coins 3, 5" },
         "start": "Coins {{coins}}. best[a] will hold the fewest coins that make amount a.",
         "base": "Make {{amount}}: best[0] = 0 (no coins needed for nothing); every other amount starts at ∞.",
         "qBest": "What is best[{{a}}]?",
@@ -511,7 +515,7 @@
       "knapsack": {
         "help": "A 1 1 (item A, weight 1, value 1); the first field is the bag's capacity",
         "preset": {
-          "tour": "Capacity 4, three items",
+          "tour": "Capacity 10, five items",
           "four": "Capacity 7, four items",
           "greedyFails": "When best value per weight fails"
         },
@@ -524,8 +528,12 @@
         "answer": "Best value {{best}} with capacity {{W}}: take {{taken}}."
       },
       "lcs": {
-        "help": "lcs WORD WORD (up to 6 letters each)",
-        "preset": { "tour": "ABCB vs BDCB", "dna": "GATTA vs GTA", "none": "No common letters" },
+        "help": "lcs WORD WORD (up to 8 letters each)",
+        "preset": {
+          "tour": "ABCBDAB vs BDCABA",
+          "dna": "GATTACA vs GCATGCA",
+          "none": "No common letters"
+        },
         "caption": "dp[i][j]: longest common subsequence of the first i letters of {{a}} and the first j of {{b}}",
         "start": "Compare {{a}} and {{b}}. An empty prefix (ε) has nothing in common with anything, so row 0 and column 0 are 0.",
         "qRow": "With letter {{ch}} added, how long is the common subsequence with all of {{b}}?",
@@ -534,8 +542,12 @@
         "answer": "Walk back from the corner, collecting the letters on diagonal matches: “{{lcs}}”, length {{len}}."
       },
       "edit": {
-        "help": "edit WORD WORD (up to 6 letters each)",
-        "preset": { "tour": "CAT → CUT", "kitten": "KITTEN → SITTIN", "insert": "CAT → CART" },
+        "help": "edit WORD WORD (up to 8 letters each)",
+        "preset": {
+          "tour": "SUNDAY → SATURDAY",
+          "kitten": "KITTEN → SITTING",
+          "insert": "FLAW → LAWN"
+        },
         "caption": "dp[i][j]: edits to turn the first i letters of {{a}} into the first j of {{b}}",
         "start": "Turn {{a}} into {{b}} with the fewest single-letter inserts, deletes and replacements.",
         "borders": "Borders first: turning i letters into nothing takes i deletes, and turning nothing into j letters takes j inserts.",
@@ -546,9 +558,9 @@
       "subsets": {
         "help": "all (list every subset) or sum s (only subsets adding up to s)",
         "preset": {
-          "tour": "Subsets of [1, 2]",
-          "three": "Subsets of [1, 2, 3]",
-          "sum": "Add up to 5"
+          "tour": "Subsets of [1, 2, 3]",
+          "three": "Subsets of [1, 2, 3, 4]",
+          "sum": "Add up to 10"
         },
         "treeTitle": "Decision tree (circle = sum so far, −x = skip x, +x = take x)",
         "start": "Items {{items}}. Each level decides one item: skip it (left branch) or take it (right branch).",
@@ -564,8 +576,8 @@
         "endSum": "{{count}} subset(s) add up to {{target}}: {{list}}. Pruning cut off {{pruned}} branch(es) early."
       },
       "queens": {
-        "help": "queens n (board size from 1 to 6)",
-        "preset": { "tour": "4 × 4 board", "five": "5 × 5 board", "none": "3 × 3 (no answer)" },
+        "help": "queens n (board size from 1 to 8)",
+        "preset": { "tour": "6 × 6 board", "five": "8 × 8 board", "none": "3 × 3 (no answer)" },
         "caption": "{{n}} × {{n}} board (♛ queen, · attacked, ↑ just lifted, ▶ row being filled)",
         "square": {
           "queen": "queen",
@@ -586,9 +598,9 @@
       "lru": {
         "help": "put k v (store a value), get k (read it back)",
         "preset": {
-          "tour": "Capacity 2",
+          "tour": "Capacity 4",
           "update": "Updating a key",
-          "three": "Capacity 3"
+          "three": "Capacity 5"
         },
         "listTitle": "Recency list: least recent (LRU) on the left, most recent (MRU) on the right",
         "map": "dict keys: {{keys}} ({{n}} of {{cap}})",
@@ -603,10 +615,10 @@
         "end": "The cache holds {{list}} ({{n}} of {{cap}}), least to most recent. Every get and put took O(1) time."
       },
       "bloom": {
-        "help": "add word, query word (up to 6 letters; a = 1 … z = 26)",
+        "help": "add word, query word (up to 8 letters; a = 1 … z = 26)",
         "preset": {
-          "tour": "8 bits: a false alarm",
-          "bigger": "16 bits: fewer false alarms",
+          "tour": "16 bits, six words",
+          "bigger": "32 bits: fewer false alarms",
           "crowded": "A crowded filter"
         },
         "bits": "Bit array",
@@ -630,11 +642,11 @@
         }
       },
       "naive": {
-        "help": "find PATTERN in TEXT (pattern up to 6 letters, text up to 12)",
+        "help": "find PATTERN in TEXT (pattern up to 8 letters, text up to 20)",
         "preset": {
-          "tour": "ab in aab",
-          "overlap": "aa in aaaa",
-          "slow": "aab in aaaaab (slow case)"
+          "tour": "abc in aabcbabcabcab",
+          "overlap": "aa in aaaaaaaa",
+          "slow": "aaab in aaaaaaaaaab (slow case)"
         },
         "start": "Look for “{{pat}}” in “{{text}}”: there are {{count}} starting positions to try.",
         "qPos": "Position {{s}}: will the whole pattern match here? (✓ / ✗)",
@@ -645,10 +657,10 @@
         "endNone": "The pattern doesn't occur ({{compares}} letter comparisons)."
       },
       "kmp": {
-        "help": "find PATTERN in TEXT (pattern up to 6 letters, text up to 12)",
+        "help": "find PATTERN in TEXT (pattern up to 8 letters, text up to 20)",
         "preset": {
-          "tour": "abab in abacababab",
-          "slow": "aab in aaaaab (no re-reading)",
+          "tour": "abab in abacabababcabab",
+          "slow": "aaab in aaaaaaaaaab (no re-reading)",
           "table": "A bigger table"
         },
         "start": "First build the fail table for “{{pat}}”: for each prefix, the length of the longest part that is both its start and its end. fail[0] is always 0.",
@@ -667,7 +679,7 @@
       },
       "gcd": {
         "help": "gcd a b (whole numbers from 1 to 999)",
-        "preset": { "tour": "gcd(48, 18)", "coprime": "gcd(21, 13)", "swap": "gcd(12, 30)" },
+        "preset": { "tour": "gcd(462, 252)", "coprime": "gcd(89, 55)", "swap": "gcd(192, 270)" },
         "legend": "A {{w}} × {{h}} rectangle. Each step cuts off the biggest squares that fit; the dashed part is what's left.",
         "start": "Find gcd({{a}}, {{b}}), the biggest number that divides both. Picture a {{a}} × {{b}} rectangle.",
         "qMod": "What is {{a}} mod {{b}}?",
@@ -676,8 +688,8 @@
         "done": "b is 0, so the answer is {{g}} after {{steps}} step(s): {{g}} × {{g}} squares tile the whole rectangle."
       },
       "sieve": {
-        "help": "sieve n (n from 2 to 60)",
-        "preset": { "tour": "Up to 10", "thirty": "Up to 30", "sixty": "Up to 60" },
+        "help": "sieve n (n from 2 to 100)",
+        "preset": { "tour": "Up to 50", "thirty": "Up to 30", "sixty": "Up to 100" },
         "grid": "Numbers 1 to {{n}}",
         "state": {
           "none": "not prime",
@@ -696,7 +708,7 @@
       "twoPointers": {
         "help": "pair s (find two values that add up to s)",
         "preset": {
-          "tour": "Find a pair for 9",
+          "tour": "Find a pair for 24",
           "none": "When no pair exists",
           "many": "Two targets"
         },
@@ -727,7 +739,11 @@
       },
       "prefix": {
         "help": "sum l r (sum of index l..r)",
-        "preset": { "tour": "One range", "many": "Several ranges", "negative": "With negatives" },
+        "preset": {
+          "tour": "Three ranges",
+          "many": "Several ranges",
+          "negative": "With negatives"
+        },
         "prefixRow": "Prefix sums",
         "start": "Values {{list}}. Build running totals once: prefix[i] is the sum of the first i values.",
         "build": "prefix[{{next}}] = prefix[{{i}}] + {{x}} = {{prev}} + {{x}} = {{s}}.",
@@ -738,8 +754,8 @@
         "end": "Building took one pass over {{n}} values; after that, every range sum is O(1)."
       },
       "recursion": {
-        "help": "factorial n, total n (n from 0 to 7)",
-        "preset": { "tour": "factorial(3)", "deeper": "factorial(5)", "total": "1 + 2 + 3 + 4" },
+        "help": "factorial n, total n (n from 0 to 10)",
+        "preset": { "tour": "factorial(6)", "deeper": "factorial(10)", "total": "1 + 2 + … + 8" },
         "stackTitle": "Call stack (top = running now)",
         "frameRunning": "running",
         "frameWaiting": "waiting for the call above",
@@ -753,8 +769,8 @@
         "end": "Every frame waited for the one above it, then returned in reverse order: last in, first out, like a stack."
       },
       "hanoi": {
-        "help": "hanoi n (n from 1 to 4)",
-        "preset": { "tour": "2 disks", "three": "3 disks", "four": "4 disks" },
+        "help": "hanoi n (n from 1 to 5)",
+        "preset": { "tour": "3 disks", "three": "4 disks", "four": "5 disks" },
         "pegsLabel": "Pegs",
         "pegContents": "Peg {{peg}}: {{disks}}",
         "start": "Move {{n}} disk(s) from peg A to peg C, one at a time, never putting a bigger disk on a smaller one. It takes at least {{min}} moves.",
@@ -768,7 +784,11 @@
       },
       "bfs": {
         "help": "A B (an edge between A and B), e.g. A B, A C, B D",
-        "preset": { "tour": "Square", "rings": "Ring by ring", "island": "Unreachable vertices" },
+        "preset": {
+          "tour": "Branches that meet again",
+          "rings": "Ring by ring",
+          "island": "Unreachable vertices"
+        },
         "waitingLabel": "queue:",
         "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
         "start": "Start at {{s}}: mark it seen and put it in the queue.",
@@ -782,7 +802,7 @@
       "dfs": {
         "help": "A B (an edge between A and B), e.g. A B, A C, B D",
         "preset": {
-          "tour": "Square",
+          "tour": "Branches that meet again",
           "deep": "Two long branches",
           "island": "Unreachable vertices"
         },
@@ -818,7 +838,7 @@
       "dijkstra": {
         "help": "A B 4 (an edge A–B of length 4), e.g. A B 4, A C 1",
         "preset": {
-          "tour": "A shortcut through C",
+          "tour": "Shortcuts through C and F",
           "detour": "Cheap detour",
           "tie": "Two equal routes"
         },
@@ -835,9 +855,9 @@
       "kruskal": {
         "help": "A B 1 (an edge A–B of weight 1), e.g. A B 1, B C 2",
         "preset": {
-          "tour": "Skip a loop",
-          "square": "A square with a diagonal",
-          "forest": "Two separate pieces"
+          "tour": "Skip the loops",
+          "square": "Two loops sharing a corner",
+          "forest": "Three separate pieces"
         },
         "sortedLabel": "edges by weight:",
         "start": "Sort the edges by weight: {{sorted}}. Take the cheapest edge that doesn't close a loop.",
@@ -1297,8 +1317,10 @@
         "nearlySorted": "Nearly sorted",
         "sorted": "Already sorted",
         "fewKeys": "Many repeats",
-        "twoDigits": "One- and two-digit numbers"
+        "twoDigits": "One- and two-digit numbers",
+        "card": "Card example (small)"
       },
+      "random": "🎲 Random ({{count}} values)",
       "error": {
         "empty": "Enter at least one value.",
         "tooMany": "Use at most {{max}} values. Small examples are easier to follow.",

@@ -26,11 +26,11 @@ const TEXT: Record<BarState, string> = {
   outside: "fill-muted",
 };
 
-function place(i: number) {
+function place(i: number, width: number) {
   const level = Math.floor(Math.log2(i + 1));
   const first = 2 ** level - 1;
   const slots = 2 ** level;
-  return { x: ((i - first + 0.5) * WIDTH) / slots, y: R + 6 + level * LEVEL_GAP };
+  return { x: ((i - first + 0.5) * width) / slots, y: R + 6 + level * LEVEL_GAP };
 }
 
 /**
@@ -50,16 +50,18 @@ export function HeapTree({
   const n = values.length;
   const levels = n === 0 ? 1 : Math.floor(Math.log2(n)) + 1;
   const height = R * 2 + 12 + (levels - 1) * LEVEL_GAP;
+  // A fifth level (16 values) needs twice the width so its circles don't touch.
+  const width = levels >= 5 ? WIDTH * 2 : WIDTH;
   return (
     <svg
       aria-hidden="true"
-      viewBox={`0 0 ${WIDTH} ${height}`}
-      className="mx-auto block w-full max-w-sm"
+      viewBox={`0 0 ${width} ${height}`}
+      className={`mx-auto block w-full ${levels >= 5 ? "max-w-2xl" : "max-w-sm"}`}
     >
       {values.map((_, i) => {
         if (i === 0 || i >= heapSize) return null;
-        const p = place(Math.floor((i - 1) / 2));
-        const c = place(i);
+        const p = place(Math.floor((i - 1) / 2), width);
+        const c = place(i, width);
         return (
           <line
             key={`e${i}`}
@@ -73,7 +75,7 @@ export function HeapTree({
         );
       })}
       {values.map((v, i) => {
-        const { x, y } = place(i);
+        const { x, y } = place(i, width);
         const state = stateAt(i);
         const inHeap = i < heapSize;
         return (

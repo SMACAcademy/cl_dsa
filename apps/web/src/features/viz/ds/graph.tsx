@@ -256,17 +256,22 @@ export function GraphPlayer() {
         {
           key: "tour",
           start: "",
-          ops: "add A B, add A C, add B D, has B D, has C D, neighbours A",
+          ops: "add A B, add A C, add B D, add C E, add D F, add E F, add F G, add G H, has B D, has C D, neighbours F",
         },
         {
           key: "square",
           start: "",
-          ops: "add 1 2, add 2 3, add 3 4, add 4 1, remove 1 2, neighbours 1",
+          ops: "add 1 2, add 2 3, add 3 4, add 4 5, add 5 6, add 6 1, add 1 4, remove 1 2, neighbours 1, has 3 6",
         },
         {
           key: "star",
           start: "",
-          ops: "add H A, add H B, add H C, add H D, neighbours H, has A B",
+          ops: "add H A, add H B, add H C, add H D, add H E, add H F, add H G, neighbours H, has A B",
+        },
+        {
+          key: "card",
+          start: "",
+          ops: "add A B, add A C, add B D, has B D, has C D, neighbours A",
         },
       ]}
       forms={GRAPH_FORMS}

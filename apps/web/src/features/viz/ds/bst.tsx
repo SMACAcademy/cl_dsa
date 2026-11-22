@@ -12,7 +12,7 @@ import {
   type BTree,
 } from "./binaryNodes";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, N, numbersOnly, type OpForm } from "./ops";
+import { cmd, N, numbersOnly, pick, randomNumbers, type OpForm } from "./ops";
 import { pyList, StepLog, type DsStep, type Question } from "./steps";
 import { TreeView } from "./treeView";
 import type { NodeState } from "./views";
@@ -227,12 +227,34 @@ export function BinarySearchTreePlayer() {
       presets={[
         {
           key: "tour",
+          start: "50, 30, 70, 20, 40, 60, 80, 10, 35, 65",
+          ops: "insert 45, insert 75, search 35, search 55, delete 30",
+        },
+        {
+          key: "delete",
+          start: "8, 3, 10, 1, 6, 14, 4, 7, 13, 12, 2, 5",
+          ops: "delete 3, delete 1, delete 10",
+        },
+        {
+          key: "chain",
+          start: "",
+          ops: "insert 1, insert 2, insert 3, insert 4, insert 5, insert 6, insert 7, insert 8, search 8",
+        },
+        {
+          key: "card",
           start: "",
           ops: "insert 8, insert 3, insert 10, insert 1, insert 6, search 6",
         },
-        { key: "delete", start: "8, 3, 10, 1, 6, 14, 4, 7", ops: "delete 3, delete 1, delete 10" },
-        { key: "chain", start: "", ops: "insert 1, insert 2, insert 3, insert 4, search 4" },
       ]}
+      random={() => {
+        // 11 distinct numbers: 10 in the tree, 1 kept aside to insert.
+        const values = randomNumbers(11);
+        const fresh = values.pop() as number;
+        return {
+          start: values.join(", "),
+          ops: `insert ${fresh}, search ${pick(values)}, delete ${pick(values)}`,
+        };
+      }}
       forms={BST_FORMS}
       run={bstSteps}
       stage={(s: DsStep<BstState>) => <BstStage s={s} />}

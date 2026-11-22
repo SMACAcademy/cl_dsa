@@ -15,7 +15,7 @@ import {
   type WordsOp,
 } from "../src/features/viz/ds/dp";
 import { parseOps, type OpForm } from "../src/features/viz/ds/ops";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 const parsed = <Op,>(text: string, forms: readonly OpForm<Op>[]) => {
@@ -49,9 +49,9 @@ describe("memoized Fibonacci", () => {
     expect(steps[7]!.question?.correct).toBe("1");
   });
 
-  it("gives the right value for n = 0 to 7", () => {
-    const fib = [0, 1, 1, 2, 3, 5, 8, 13];
-    for (let n = 0; n <= 7; n++)
+  it("gives the right value for n = 0 to 10", () => {
+    const fib = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
+    for (let n = 0; n <= 10; n++)
       expect(fibSteps([], [{ kind: "fib", n }]).at(-1)!.say.vars?.value, `fib ${n}`).toBe(fib[n]);
   });
 });
@@ -233,12 +233,15 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
 describe("dynamic programming players", () => {
   it("Fibonacci asks for fib(2) once both smaller calls return", async () => {
     const user = await open("fibonacci-memo", "Fibonacci with memoization");
+    // The small preset: fib(5), the old default.
+    await user.click(screen.getByRole("button", { name: "fib(5)" }));
     expect(screen.getByText("Step 1 of 15")).toBeVisible();
     await user.click(screen.getByRole("checkbox", { name: "Predict before each result" }));
     const next = screen.getByRole("button", { name: "Next" });

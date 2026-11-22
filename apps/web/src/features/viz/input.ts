@@ -1,6 +1,32 @@
 /** Tiny, validated inputs for the search players. */
 
-export const MAX_VALUES = 8;
+export const MAX_VALUES = 16;
+/** The numbers of a preset such as "4, 8, 1" (presets are always valid). */
+export function presetNumbers(text: string): number[] {
+  return text
+    .split(/[,\s]+/)
+    .filter((p) => p !== "")
+    .map(Number);
+}
+
+/** How many values the Random button picks. */
+export const RANDOM_COUNT = 12;
+
+/** Whole numbers from `min` to `max`, chosen at random; optionally distinct and/or ascending. */
+export function randomValues(
+  count: number,
+  { min = 1, max = 99, unique = false, sorted = false } = {},
+  random: () => number = Math.random,
+): number[] {
+  const span = max - min + 1;
+  const n = unique ? Math.min(count, span) : count;
+  const out: number[] = [];
+  while (out.length < n) {
+    const v = min + Math.floor(random() * span);
+    if (!unique || !out.includes(v)) out.push(v);
+  }
+  return sorted ? out.sort((a, b) => a - b) : out;
+}
 export const VALUE_RANGE = { min: -99, max: 99 } as const;
 
 export type SearchInput = { items: number[]; target: number };

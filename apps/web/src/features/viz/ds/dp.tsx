@@ -2,7 +2,10 @@ import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState } from "../ArrayView";
 import { DpGrid, type GridCell } from "./dpGrid";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, W, type OpForm, type OpsError } from "./ops";
+import { cmd, type OpForm, type OpsError } from "./ops";
+
+/** A word for LCS / edit distance: 1 to 8 letters. */
+const WORD = "([a-zA-Z]{1,8})";
 import { useDynamicT } from "./DsPlayer";
 import { validateCapacity } from "./ringBuffer";
 import { choices, StepLog, type DsStep, type Question } from "./steps";
@@ -39,8 +42,8 @@ export type FibOp = { kind: "fib"; n: number };
 
 export const FIB_FORMS: readonly OpForm<FibOp>[] = [
   {
-    pattern: cmd("fib (\\d)"),
-    build: (m) => (Number(m[1]) <= 7 ? { kind: "fib", n: Number(m[1]) } : null),
+    pattern: cmd("fib (\\d{1,2})"),
+    build: (m) => (Number(m[1]) <= 10 ? { kind: "fib", n: Number(m[1]) } : null),
   },
 ];
 
@@ -178,9 +181,9 @@ export function FibonacciMemoPlayer() {
       code={FIB_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "fib 5" },
-        { key: "small", start: "", ops: "fib 3" },
-        { key: "big", start: "", ops: "fib 7" },
+        { key: "tour", start: "", ops: "fib 8" },
+        { key: "small", start: "", ops: "fib 5" },
+        { key: "big", start: "", ops: "fib 10" },
       ]}
       forms={FIB_FORMS}
       run={fibSteps}
@@ -208,7 +211,7 @@ export const MAKE_FORMS: readonly OpForm<MakeOp>[] = [
   {
     pattern: cmd("make (\\d{1,2})"),
     build: (m) =>
-      Number(m[1]) >= 1 && Number(m[1]) <= 12 ? { kind: "make", amount: Number(m[1]) } : null,
+      Number(m[1]) >= 1 && Number(m[1]) <= 20 ? { kind: "make", amount: Number(m[1]) } : null,
   },
 ];
 
@@ -324,9 +327,10 @@ export function CoinChangePlayer() {
       startField="coins"
       validateStart={validateCoins}
       presets={[
-        { key: "tour", start: "1, 3, 4", ops: "make 6" },
-        { key: "us", start: "1, 5, 10", ops: "make 12" },
-        { key: "gap", start: "3, 5", ops: "make 7, make 9" },
+        { key: "tour", start: "1, 5, 6, 9", ops: "make 20" },
+        { key: "us", start: "1, 5, 10", ops: "make 18" },
+        { key: "gap", start: "3, 5", ops: "make 7, make 19" },
+        { key: "card", start: "1, 3, 4", ops: "make 6" },
       ]}
       forms={MAKE_FORMS}
       run={coinSteps}
@@ -466,9 +470,10 @@ export function KnapsackPlayer() {
       validateStart={validateCapacity}
       opsField="items"
       presets={[
-        { key: "tour", start: "4", ops: "A 1 1, B 3 5, C 4 5" },
+        { key: "tour", start: "10", ops: "A 2 3, B 3 4, C 4 5, D 5 8, E 9 10" },
         { key: "four", start: "7", ops: "A 1 1, B 3 4, C 4 5, D 5 7" },
-        { key: "greedyFails", start: "4", ops: "A 3 5, B 2 3, C 2 3" },
+        { key: "greedyFails", start: "10", ops: "A 6 30, B 5 20, C 5 20" },
+        { key: "card", start: "4", ops: "A 1 1, B 3 5, C 4 5" },
       ]}
       forms={ITEM_FORMS}
       run={knapsackSteps}
@@ -512,7 +517,7 @@ export type WordsOp = { a: string; b: string };
 
 const wordsForm = (verb: string): OpForm<WordsOp>[] => [
   {
-    pattern: cmd(`${verb} ${W} ${W}`),
+    pattern: cmd(`${verb} ${WORD} ${WORD}`),
     build: (m) => ({ a: (m[1] as string).toUpperCase(), b: (m[2] as string).toUpperCase() }),
   },
 ];
@@ -701,9 +706,10 @@ export function LcsPlayer() {
       code={LCS_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "lcs ABCB BDCB" },
-        { key: "dna", start: "", ops: "lcs GATTA GTA" },
-        { key: "none", start: "", ops: "lcs ABC XYZ" },
+        { key: "tour", start: "", ops: "lcs ABCBDAB BDCABA" },
+        { key: "dna", start: "", ops: "lcs GATTACA GCATGCA" },
+        { key: "none", start: "", ops: "lcs ABCDEF UVWXYZ" },
+        { key: "card", start: "", ops: "lcs ABCB BDCB" },
       ]}
       forms={LCS_FORMS}
       run={lcsSteps}
@@ -720,9 +726,10 @@ export function EditDistancePlayer() {
       code={EDIT_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "edit CAT CUT" },
-        { key: "kitten", start: "", ops: "edit KITTEN SITTIN" },
-        { key: "insert", start: "", ops: "edit CAT CART" },
+        { key: "tour", start: "", ops: "edit SUNDAY SATURDAY" },
+        { key: "kitten", start: "", ops: "edit KITTEN SITTING" },
+        { key: "insert", start: "", ops: "edit FLAW LAWN" },
+        { key: "card", start: "", ops: "edit CAT CUT" },
       ]}
       forms={EDIT_FORMS}
       run={editSteps}

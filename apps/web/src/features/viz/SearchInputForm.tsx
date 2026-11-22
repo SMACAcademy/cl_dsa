@@ -4,6 +4,8 @@ import {
   MAX_VALUES,
   parseInput,
   parseValues,
+  RANDOM_COUNT,
+  randomValues,
   type InputError,
   type SearchInput,
   type ValueConstraint,
@@ -21,7 +23,8 @@ export type PresetKey =
   | "nearlySorted"
   | "sorted"
   | "fewKeys"
-  | "twoDigits";
+  | "twoDigits"
+  | "card";
 export type Preset = { key: PresetKey; values: string; target?: string };
 type Presets = readonly [Preset, ...Preset[]];
 
@@ -40,6 +43,17 @@ export function SearchInputForm({
     <InputForm
       presets={presets}
       withTarget
+      random={() => {
+        const items = randomValues(RANDOM_COUNT, { unique: true, sorted: requireSorted });
+        // Usually a value from the list; sometimes one that isn't there.
+        const pick = Math.random() < 0.75;
+        let target = items[Math.floor(Math.random() * items.length)] as number;
+        if (!pick) {
+          do target = 1 + Math.floor(Math.random() * 99);
+          while (items.includes(target));
+        }
+        return { values: items.join(", "), target: String(target) };
+      }}
       valuesLabel={requireSorted ? "viz.input.sortedValues" : "viz.input.values"}
       parse={(values, target) => {
         const parsed = parseInput(values, target, { requireSorted });
@@ -66,6 +80,12 @@ export function SortInputForm({
     <InputForm
       presets={presets}
       withTarget={false}
+      random={() => ({
+        values: randomValues(
+          RANDOM_COUNT,
+          constraint === "digits" ? { min: 0, max: 9 } : { min: constraint ? 0 : 1, max: 99 },
+        ).join(", "),
+      })}
       valuesLabel={
         constraint === "digits"
           ? "viz.input.digitValues"
@@ -88,9 +108,12 @@ function InputForm({
   withTarget,
   valuesLabel,
   parse,
+  random,
 }: {
   presets: Presets;
   withTarget: boolean;
+  /** Makes a fresh random input for the Random button. */
+  random: () => { values: string; target?: string };
   valuesLabel:
     | "viz.input.values"
     | "viz.input.sortedValues"
@@ -177,6 +200,18 @@ function InputForm({
             {t(`viz.input.preset.${p.key}`)}
           </button>
         ))}
+        <button
+          type="button"
+          className="rounded-full border border-accent bg-surface px-3 py-1 text-accent-ink hover:bg-accent-soft"
+          onClick={() => {
+            const r = random();
+            setValuesText(r.values);
+            setTargetText(r.target ?? "");
+            apply(r.values, r.target ?? "");
+          }}
+        >
+          {t("viz.input.random", { count: RANDOM_COUNT })}
+        </button>
       </div>
     </div>
   );

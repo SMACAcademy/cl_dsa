@@ -194,9 +194,10 @@ export function SubsetsPlayer() {
       startField="values"
       validateStart={validateItems}
       presets={[
-        { key: "tour", start: "1, 2", ops: "all" },
-        { key: "three", start: "1, 2, 3", ops: "all" },
-        { key: "sum", start: "1, 2, 3, 4", ops: "sum 5" },
+        { key: "tour", start: "1, 2, 3", ops: "all" },
+        { key: "three", start: "1, 2, 3, 4", ops: "all" },
+        { key: "sum", start: "2, 3, 5, 7", ops: "sum 10" },
+        { key: "card", start: "1, 2", ops: "all" },
       ]}
       forms={SUBSET_FORMS}
       run={subsetSteps}
@@ -235,7 +236,7 @@ export type QueensOp = { n: number };
 export const QUEENS_FORMS: readonly OpForm<QueensOp>[] = [
   {
     pattern: cmd("queens (\\d)"),
-    build: (m) => (Number(m[1]) >= 1 && Number(m[1]) <= 6 ? { n: Number(m[1]) } : null),
+    build: (m) => (Number(m[1]) >= 1 && Number(m[1]) <= 8 ? { n: Number(m[1]) } : null),
   },
 ];
 
@@ -403,9 +404,10 @@ export function NQueensPlayer() {
       code={QUEENS_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "queens 4" },
-        { key: "five", start: "", ops: "queens 5" },
+        { key: "tour", start: "", ops: "queens 6" },
+        { key: "five", start: "", ops: "queens 8" },
         { key: "none", start: "", ops: "queens 3" },
+        { key: "card", start: "", ops: "queens 4" },
       ]}
       forms={QUEENS_FORMS}
       run={queensSteps}

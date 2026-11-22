@@ -115,7 +115,7 @@ export type FindOp = { pat: string; text: string };
 
 export const FIND_FORMS: readonly OpForm<FindOp>[] = [
   {
-    pattern: cmd("find ([a-z]{1,6}) in ([a-z]{1,12})"),
+    pattern: cmd("find ([a-z]{1,8}) in ([a-z]{1,20})"),
     build: (m) => ({ pat: (m[1] as string).toLowerCase(), text: (m[2] as string).toLowerCase() }),
   },
 ];
@@ -226,9 +226,10 @@ export function NaiveMatchPlayer() {
       code={NAIVE_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "find ab in aab" },
-        { key: "overlap", start: "", ops: "find aa in aaaa" },
-        { key: "slow", start: "", ops: "find aab in aaaaab" },
+        { key: "tour", start: "", ops: "find abc in aabcbabcabcab" },
+        { key: "overlap", start: "", ops: "find aa in aaaaaaaa" },
+        { key: "slow", start: "", ops: "find aaab in aaaaaaaaaab" },
+        { key: "card", start: "", ops: "find ab in aab" },
       ]}
       forms={FIND_FORMS}
       run={naiveSteps}
@@ -442,9 +443,10 @@ export function KmpPlayer() {
       code={KMP_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "find abab in abacababab" },
-        { key: "slow", start: "", ops: "find aab in aaaaab" },
-        { key: "table", start: "", ops: "find aabaab in aabaabaab" },
+        { key: "tour", start: "", ops: "find abab in abacabababcabab" },
+        { key: "slow", start: "", ops: "find aaab in aaaaaaaaaab" },
+        { key: "table", start: "", ops: "find aabaab in aabaabaabaab" },
+        { key: "card", start: "", ops: "find abab in abacababab" },
       ]}
       forms={FIND_FORMS}
       run={kmpSteps}
@@ -635,9 +637,10 @@ export function GcdPlayer() {
       code={GCD_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "gcd 48 18" },
-        { key: "coprime", start: "", ops: "gcd 21 13" },
-        { key: "swap", start: "", ops: "gcd 12 30" },
+        { key: "tour", start: "", ops: "gcd 462 252" },
+        { key: "coprime", start: "", ops: "gcd 89 55" },
+        { key: "swap", start: "", ops: "gcd 192 270" },
+        { key: "card", start: "", ops: "gcd 48 18" },
       ]}
       forms={GCD_FORMS}
       run={gcdSteps}
@@ -669,8 +672,8 @@ export type SieveOp = { n: number };
 
 export const SIEVE_FORMS: readonly OpForm<SieveOp>[] = [
   {
-    pattern: cmd("sieve (\\d{1,2})"),
-    build: (m) => (Number(m[1]) >= 2 && Number(m[1]) <= 60 ? { n: Number(m[1]) } : null),
+    pattern: cmd("sieve (\\d{1,3})"),
+    build: (m) => (Number(m[1]) >= 2 && Number(m[1]) <= 100 ? { n: Number(m[1]) } : null),
   },
 ];
 
@@ -790,9 +793,10 @@ export function SievePlayer() {
       code={SIEVE_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "sieve 10" },
+        { key: "tour", start: "", ops: "sieve 50" },
         { key: "thirty", start: "", ops: "sieve 30" },
-        { key: "sixty", start: "", ops: "sieve 60" },
+        { key: "sixty", start: "", ops: "sieve 100" },
+        { key: "card", start: "", ops: "sieve 10" },
       ]}
       forms={SIEVE_FORMS}
       run={sieveSteps}

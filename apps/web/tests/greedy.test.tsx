@@ -10,7 +10,7 @@ import {
   type MeetingOp,
 } from "../src/features/viz/ds/greedy";
 import { parseOps } from "../src/features/viz/ds/ops";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 const meetings = (text: string) => {
@@ -93,6 +93,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 

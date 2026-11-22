@@ -2,7 +2,7 @@ import { ArrayView, type CellState } from "../ArrayView";
 import type { BarState } from "../BarsView";
 import { HeapTree } from "../HeapTree";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, N, numbersOnly, type OpForm } from "./ops";
+import { cmd, N, numbersOnly, randomNumbers, type OpForm } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 
 export const MIN_HEAP_CODE: readonly string[] = [
@@ -182,10 +182,29 @@ export function MinHeapPlayer() {
       startField="values"
       validateStart={numbersOnly}
       presets={[
-        { key: "tour", start: "", ops: "insert 5, insert 3, insert 8, insert 1, extract" },
-        { key: "pq", start: "4, 9, 2, 7", ops: "peek, extract, extract, peek" },
-        { key: "sink", start: "1, 2, 3, 4, 5, 6, 7", ops: "extract" },
+        {
+          key: "tour",
+          start: "",
+          ops: "insert 5, insert 3, insert 8, insert 1, insert 9, insert 2, insert 7, insert 4, insert 6, extract, extract",
+        },
+        {
+          key: "pq",
+          start: "4, 9, 2, 7, 12, 5, 11, 3, 8, 10",
+          ops: "peek, extract, extract, extract, insert 1, peek",
+        },
+        {
+          key: "sink",
+          start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12",
+          ops: "extract, extract",
+        },
+        { key: "card", start: "", ops: "insert 5, insert 3, insert 8, insert 1, extract" },
       ]}
+      random={() => {
+        // 11 distinct numbers: 10 in the heap, 1 kept aside to insert.
+        const values = randomNumbers(11);
+        const fresh = values.pop() as number;
+        return { start: values.join(", "), ops: `extract, extract, insert ${fresh}, peek` };
+      }}
       forms={HEAP_FORMS}
       run={minHeapSteps}
       stage={(s: DsStep<HeapState>) => (

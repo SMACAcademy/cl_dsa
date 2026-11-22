@@ -155,13 +155,22 @@ export function LruCachePlayer() {
       startField="capacity"
       validateStart={validateCapacity}
       presets={[
-        { key: "tour", start: "2", ops: "put a 1, put b 2, get a, put c 3, get b" },
-        { key: "update", start: "2", ops: "put a 1, put b 2, put a 5, put c 3, get b, get a" },
+        {
+          key: "tour",
+          start: "4",
+          ops: "put a 1, put b 2, put c 3, put d 4, get a, put e 5, get b, get c, put f 6, get d, get a",
+        },
+        {
+          key: "update",
+          start: "3",
+          ops: "put a 1, put b 2, put c 3, put a 5, put d 4, get b, get a, put c 9, put e 7, get d",
+        },
         {
           key: "three",
-          start: "3",
-          ops: "put a 1, put b 2, put c 3, get a, put d 4, get b, get c",
+          start: "5",
+          ops: "put a 1, put b 2, put c 3, put d 4, put e 5, get a, put f 6, get b, get c, put g 7, get d, get a",
         },
+        { key: "card", start: "2", ops: "put a 1, put b 2, get a, put c 3, get b" },
       ]}
       forms={LRU_FORMS}
       run={lruSteps}
@@ -196,7 +205,7 @@ export type BloomOp = { kind: "add" | "query"; word: string };
 
 export const BLOOM_FORMS: readonly OpForm<BloomOp>[] = [
   {
-    pattern: cmd("(add|query) ([a-z]{1,6})"),
+    pattern: cmd("(add|query) ([a-z]{1,8})"),
     build: (m) => ({
       kind: (m[1] as string).toLowerCase() as "add" | "query",
       word: (m[2] as string).toLowerCase(),
@@ -208,7 +217,7 @@ export const BLOOM_FORMS: readonly OpForm<BloomOp>[] = [
 export function validateBits(start: string[]): OpsError | null {
   const [b, ...rest] = start;
   const n = Number(b);
-  return rest.length === 0 && /^\d{1,2}$/.test(b ?? "") && n >= 4 && n <= 16
+  return rest.length === 0 && /^\d{1,2}$/.test(b ?? "") && n >= 4 && n <= 32
     ? null
     : { key: "badBits" };
 }
@@ -355,13 +364,22 @@ export function BloomFilterPlayer() {
       startField="bits"
       validateStart={validateBits}
       presets={[
-        { key: "tour", start: "8", ops: "add cat, add dog, query bat, query cow" },
-        { key: "bigger", start: "16", ops: "add cat, add dog, query bat, query cow" },
+        {
+          key: "tour",
+          start: "16",
+          ops: "add cat, add dog, add eel, add fox, add owl, add bee, query bat, query cow, query ant, query cat",
+        },
+        {
+          key: "bigger",
+          start: "32",
+          ops: "add cat, add dog, add eel, add fox, add owl, add bee, query bat, query cow, query ant, query cat",
+        },
         {
           key: "crowded",
           start: "8",
-          ops: "add cat, add dog, add eel, add fox, query bat, query owl, query cat",
+          ops: "add cat, add dog, add eel, add fox, add owl, add bee, query bat, query cow, query ant, query cat",
         },
+        { key: "card", start: "8", ops: "add cat, add dog, query bat, query cow" },
       ]}
       forms={BLOOM_FORMS}
       run={bloomSteps}

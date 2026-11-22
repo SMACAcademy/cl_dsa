@@ -4,8 +4,8 @@
  * integers (-99..99) or single letters, so examples stay readable.
  */
 
-export const MAX_OPS = 8;
-export const MAX_START = 8;
+export const MAX_OPS = 12;
+export const MAX_START = 16;
 
 const VALUE = /^(-?\d{1,2}|[A-Za-z])$/;
 
@@ -85,6 +85,26 @@ export const W = "([a-zA-Z]{1,6})";
 export function numbersOnly(start: string[]): OpsError | null {
   const bad = start.find((t) => !/^-?\d{1,2}$/.test(t));
   return bad === undefined ? null : { key: "badNumber", token: bad };
+}
+
+/** Random whole numbers for a Random button, e.g. 12 distinct values from 1 to 99. */
+export function randomNumbers(
+  count: number,
+  opts: { min?: number; max?: number; unique?: boolean; sorted?: boolean } = {},
+): number[] {
+  const { min = 1, max = 99, unique = true, sorted = false } = opts;
+  const span = max - min + 1;
+  const out: number[] = [];
+  while (out.length < Math.min(count, unique ? span : count)) {
+    const v = min + Math.floor(Math.random() * span);
+    if (!unique || !out.includes(v)) out.push(v);
+  }
+  return sorted ? out.sort((a, b) => a - b) : out;
+}
+
+/** One random element of a non-empty list. */
+export function pick<T>(xs: readonly T[]): T {
+  return xs[Math.floor(Math.random() * xs.length)] as T;
 }
 
 /** Builds a whole-command, case-insensitive pattern from a template like `push ${V}`. */

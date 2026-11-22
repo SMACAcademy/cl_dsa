@@ -22,10 +22,10 @@ export type RecursionOp = { kind: "factorial" | "total"; n: number };
 export const RECURSION_FORMS: readonly OpForm<RecursionOp>[] = (
   ["factorial", "total"] as const
 ).map((kind) => ({
-  pattern: cmd(`${kind} (\\d)`),
+  pattern: cmd(`${kind} (\\d{1,2})`),
   build: (m) => {
     const n = Number(m[1]);
-    return n <= 7 ? { kind, n } : null;
+    return n <= 10 ? { kind, n } : null;
   },
 }));
 
@@ -154,9 +154,10 @@ export function RecursionPlayer() {
       code={RECURSION_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "factorial 3" },
-        { key: "deeper", start: "", ops: "factorial 5" },
-        { key: "total", start: "", ops: "total 4" },
+        { key: "tour", start: "", ops: "factorial 6" },
+        { key: "deeper", start: "", ops: "factorial 10" },
+        { key: "total", start: "", ops: "total 8" },
+        { key: "card", start: "", ops: "factorial 3" },
       ]}
       forms={RECURSION_FORMS}
       run={recursionSteps}
@@ -183,7 +184,7 @@ export const HANOI_CODE: readonly string[] = [
 export type HanoiOp = { kind: "hanoi"; n: number };
 
 export const HANOI_FORMS: readonly OpForm<HanoiOp>[] = [
-  { pattern: cmd("hanoi ([1-4])"), build: (m) => ({ kind: "hanoi", n: Number(m[1]) }) },
+  { pattern: cmd("hanoi ([1-5])"), build: (m) => ({ kind: "hanoi", n: Number(m[1]) }) },
 ];
 
 const PEGS = ["A", "B", "C"] as const;
@@ -270,7 +271,8 @@ function HanoiView({ s }: { s: DsStep<HanoiState> }) {
         <div className="absolute right-2 bottom-6 left-2 h-1 rounded bg-control" />
         {disks.map((d) => {
           const pos = where.get(d) as { peg: number; level: number };
-          const w = 26 + d * 20;
+          // Disk 5 (the largest allowed) is 116 px, just inside its 120 px peg slot.
+          const w = 26 + d * 18;
           return (
             <div
               key={d}
@@ -312,9 +314,10 @@ export function HanoiPlayer() {
       code={HANOI_CODE}
       startField={null}
       presets={[
-        { key: "tour", start: "", ops: "hanoi 2" },
-        { key: "three", start: "", ops: "hanoi 3" },
-        { key: "four", start: "", ops: "hanoi 4" },
+        { key: "tour", start: "", ops: "hanoi 3" },
+        { key: "three", start: "", ops: "hanoi 4" },
+        { key: "four", start: "", ops: "hanoi 5" },
+        { key: "card", start: "", ops: "hanoi 2" },
       ]}
       forms={HANOI_FORMS}
       run={hanoiSteps}

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { presetNumbers } from "./input";
 import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState } from "./ArrayView";
 import { digitOf, RADIX_SORT_CODE, radixSortSteps, type RadixSortStep } from "./radixSort";
@@ -6,9 +7,10 @@ import { SortInputForm, type Preset } from "./SearchInputForm";
 import { StepPlayer, type Prediction } from "./StepPlayer";
 
 const PRESETS: readonly [Preset, ...Preset[]] = [
-  { key: "mixed", values: "21, 13, 32, 12" },
-  { key: "twoDigits", values: "45, 7, 90, 23, 8, 61" },
-  { key: "reversed", values: "50, 40, 30, 20, 10" },
+  { key: "mixed", values: "21, 13, 32, 12, 45, 7, 90, 23, 8, 61, 54, 36" },
+  { key: "twoDigits", values: "45, 7, 90, 23, 8, 61, 70, 2, 99, 18" },
+  { key: "reversed", values: "99, 88, 77, 66, 55, 44, 33, 22, 11, 10" },
+  { key: "card", values: "21, 13, 32, 12" },
 ];
 
 const DASH = "—";
@@ -63,7 +65,7 @@ function Buckets({ s }: { s: RadixSortStep }) {
 
 /** Interactive radix sort: drop values into digit buckets, collect, repeat. */
 export function RadixSortPlayer() {
-  const [items, setItems] = useState<number[]>([21, 13, 32, 12]);
+  const [items, setItems] = useState<number[]>(() => presetNumbers(PRESETS[0].values));
   const [run, setRun] = useState(0);
   return (
     <div className="space-y-4">

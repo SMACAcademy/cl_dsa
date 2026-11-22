@@ -110,26 +110,31 @@ function RowCaption({ children }: { children: string }) {
   return <p className="mt-1 text-center font-mono text-xs font-semibold text-muted">{children}</p>;
 }
 
-const stage = (s: DsStep<DynamicState>) => (
-  <>
-    <RowCaption>{`self.slots  # len ${s.state.slots.length}`}</RowCaption>
-    <ArrayView
-      label="slots"
-      items={s.state.slots}
-      stateOf={(i) => s.state.marks[i] ?? (i < s.state.size ? "idle" : "empty")}
-      markerRow={false}
-    />
-    {s.state.newSlots && <RowCaption>{`new_slots  # len ${s.state.newSlots.length}`}</RowCaption>}
-    {s.state.newSlots && (
+const stage = (s: DsStep<DynamicState>) => {
+  const sizeFor = Math.max(s.state.slots.length, s.state.newSlots?.length ?? 0);
+  return (
+    <>
+      <RowCaption>{`self.slots  # len ${s.state.slots.length}`}</RowCaption>
       <ArrayView
-        label="new_slots"
-        items={s.state.newSlots}
-        stateOf={(i) => s.state.newMarks[i] ?? "idle"}
+        label="slots"
+        items={s.state.slots}
+        stateOf={(i) => s.state.marks[i] ?? (i < s.state.size ? "idle" : "empty")}
         markerRow={false}
+        sizeFor={sizeFor}
       />
-    )}
-  </>
-);
+      {s.state.newSlots && <RowCaption>{`new_slots  # len ${s.state.newSlots.length}`}</RowCaption>}
+      {s.state.newSlots && (
+        <ArrayView
+          label="new_slots"
+          items={s.state.newSlots}
+          stateOf={(i) => s.state.newMarks[i] ?? "idle"}
+          markerRow={false}
+          sizeFor={sizeFor}
+        />
+      )}
+    </>
+  );
+};
 
 export function DynamicArrayPlayer() {
   return (
@@ -138,9 +143,18 @@ export function DynamicArrayPlayer() {
       code={DYNAMIC_ARRAY_CODE}
       startField="values"
       presets={[
-        { key: "grow", start: "", ops: "append 1, append 2, append 3" },
-        { key: "doubling", start: "", ops: "append 1, append 2, append 3, append 4, append 5" },
-        { key: "pop", start: "4, 8, 15", ops: "pop, append 16, append 23" },
+        {
+          key: "doubling",
+          start: "",
+          ops: "append 1, append 2, append 3, append 4, append 5, append 6, append 7, append 8, append 9, append 10",
+        },
+        { key: "grow", start: "", ops: "append 1, append 2, append 3, append 4, append 5" },
+        {
+          key: "pop",
+          start: "4, 8, 15",
+          ops: "append 16, append 23, append 42, pop, pop, append 7, append 9, append 11",
+        },
+        { key: "card", start: "", ops: "append 1, append 2, append 3" },
       ]}
       forms={DYNAMIC_FORMS}
       run={dynamicArraySteps}

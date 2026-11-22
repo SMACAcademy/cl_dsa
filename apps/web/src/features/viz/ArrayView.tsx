@@ -24,10 +24,16 @@ type Props<T extends number | string> = {
   subLabel?: (index: number) => string;
   /** Reserve a row under the boxes for markers (default true). */
   markerRow?: boolean;
+  /** Size boxes as if there were this many (so stacked rows line up). */
+  sizeFor?: number;
 };
 
-const SLOT = 64; // box 56 px + gap 8 px
-const CELL = 56;
+/** Box size by length: long arrays get smaller boxes so 16 values still fit. */
+export function arraySizing(count: number) {
+  if (count > 12) return { cell: 36, slot: 40, text: "text-sm" };
+  if (count > 8) return { cell: 44, slot: 50, text: "text-base" };
+  return { cell: 56, slot: 64, text: "text-xl" };
+}
 
 const BOX: Record<CellState, string> = {
   idle: "border-line bg-raised",
@@ -63,19 +69,26 @@ export function ArrayView<T extends number | string>({
   renderValue,
   markerRow = true,
   subLabel,
+  sizeFor,
 }: Props<T>) {
   const { t } = useTranslation();
+  const { cell: CELL, slot: SLOT, text } = arraySizing(sizeFor ?? items.length);
   const width = items.length * SLOT - (SLOT - CELL);
   return (
     <div className="w-full overflow-x-auto py-2">
-      <ol aria-label={label ?? t("viz.array.label")} className="mx-auto flex w-max gap-2">
+      <ol
+        aria-label={label ?? t("viz.array.label")}
+        className="mx-auto flex w-max"
+        style={{ gap: SLOT - CELL }}
+      >
         {items.map((value, index) => {
           const state = value === null ? "empty" : stateOf(index);
           const labels = markers.filter((m) => m.index === index).map((m) => m.label);
           return (
-            <li key={index} className="flex w-14 flex-col items-center gap-1">
+            <li key={index} className="flex flex-col items-center gap-1" style={{ width: CELL }}>
               <span
-                className={`relative grid size-14 place-items-center rounded-control border-2 font-mono text-xl font-semibold transition-all duration-300 ${BOX[state]}`}
+                className={`relative grid place-items-center rounded-control border-2 font-mono font-semibold transition-all duration-300 ${text} ${BOX[state]}`}
+                style={{ width: CELL, height: CELL }}
               >
                 {value === null ? "" : renderValue ? renderValue(value, index) : value}
                 {GLYPH[state] && (

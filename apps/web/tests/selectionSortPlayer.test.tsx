@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function openPlayer() {
   const user = userEvent.setup();
   renderRoute("/algorithms/selection-sort");
   await screen.findByRole("heading", { level: 2, name: "Try it: step through Selection sort" });
+  await startFromCard(user);
   return user;
 }
 
@@ -19,7 +20,7 @@ async function clickNext(user: ReturnType<typeof userEvent.setup>, times: number
 describe("selection sort player", () => {
   it("starts on the catalog example", async () => {
     await openPlayer();
-    expect(screen.getByLabelText("Values (up to 8 whole numbers)")).toHaveValue("3, 1, 4, 2");
+    expect(screen.getByLabelText("Values (up to 16 whole numbers)")).toHaveValue("3, 1, 4, 2");
     expect(screen.getByText("Step 1 of 17")).toBeVisible();
   });
 
@@ -69,7 +70,11 @@ describe("selection sort player", () => {
 
   it("already-sorted input still scans everything but never swaps", async () => {
     const user = await openPlayer();
-    await user.click(screen.getByRole("button", { name: "Already sorted" }));
+    // The small already-sorted case (the preset now uses 10 values).
+    const values = screen.getByLabelText("Values (up to 16 whole numbers)");
+    await user.clear(values);
+    await user.type(values, "1, 2, 3, 4");
+    await user.click(screen.getByRole("button", { name: "Run with these values" }));
     expect(screen.getByText("Step 1 of 14")).toBeVisible();
     await clickNext(user, 5);
     expect(screen.getByText("1 is already at index 0, so no swap is needed.")).toBeVisible();

@@ -1,12 +1,13 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 async function openPlayer() {
   const user = userEvent.setup();
   renderRoute("/algorithms/binary-search");
   await screen.findByRole("heading", { level: 2, name: "Try it: step through Binary search" });
+  await startFromCard(user);
   return user;
 }
 
@@ -19,7 +20,7 @@ async function clickNext(user: ReturnType<typeof userEvent.setup>, times: number
 describe("binary search player", () => {
   it("starts on the catalog example", async () => {
     await openPlayer();
-    expect(screen.getByLabelText("Sorted values (up to 8 whole numbers)")).toHaveValue(
+    expect(screen.getByLabelText("Sorted values (up to 16 whole numbers)")).toHaveValue(
       "1, 3, 5, 7, 9, 11",
     );
     expect(screen.getByText("Step 1 of 14")).toBeVisible();
@@ -64,7 +65,7 @@ describe("binary search player", () => {
 
   it("refuses unsorted values with an explanation", async () => {
     const user = await openPlayer();
-    const values = screen.getByLabelText("Sorted values (up to 8 whole numbers)");
+    const values = screen.getByLabelText("Sorted values (up to 16 whole numbers)");
     await user.clear(values);
     await user.type(values, "9, 2, 5");
     await user.click(screen.getByRole("button", { name: "Run with these values" }));
@@ -76,7 +77,14 @@ describe("binary search player", () => {
 
   it("runs the not-found preset to -1", async () => {
     const user = await openPlayer();
-    await user.click(screen.getByRole("button", { name: "Not found" }));
+    // The small not-found case (the preset now uses 12 values).
+    const values = screen.getByLabelText("Sorted values (up to 16 whole numbers)");
+    await user.clear(values);
+    await user.type(values, "2, 4, 6, 8");
+    const target = screen.getByLabelText("Target");
+    await user.clear(target);
+    await user.type(target, "5");
+    await user.click(screen.getByRole("button", { name: "Run with these values" }));
     expect(screen.getByText("Step 1 of 12")).toBeVisible();
     await clickNext(user, 11);
     expect(screen.getByText("5 is not in the list. Return -1. Comparisons made: 2.")).toBeVisible();

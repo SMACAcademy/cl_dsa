@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { toDraw, type BTree } from "./binaryNodes";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, type OpForm } from "./ops";
+import { cmd, randomNumbers, type OpForm } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 import { TreeView } from "./treeView";
 import type { NodeState } from "./views";
@@ -162,10 +162,23 @@ export function BinaryTreePlayer() {
       code={TRAVERSAL_CODE}
       startField="values"
       presets={[
-        { key: "tour", start: "1, 2, 3, 4, 5", ops: "preorder, inorder, postorder, levelorder" },
-        { key: "inorder", start: "4, 2, 6, 1, 3, 5, 7", ops: "inorder" },
-        { key: "letters", start: "A, B, C, D, E, F", ops: "preorder, postorder" },
+        {
+          key: "tour",
+          start: "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12",
+          ops: "preorder, inorder, postorder, levelorder",
+        },
+        {
+          key: "inorder",
+          start: "8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15",
+          ops: "inorder",
+        },
+        { key: "letters", start: "A, B, C, D, E, F, G, H, I, J", ops: "preorder, postorder" },
+        { key: "card", start: "1, 2, 3, 4, 5", ops: "preorder, inorder, postorder, levelorder" },
       ]}
+      random={() => ({
+        start: randomNumbers(12).join(", "),
+        ops: "preorder, inorder, postorder, levelorder",
+      })}
       forms={TRAVERSAL_FORMS}
       run={traversalSteps}
       stage={(s: DsStep<TraversalState>) => <TraversalStage s={s} />}

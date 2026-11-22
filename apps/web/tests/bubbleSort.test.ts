@@ -97,8 +97,11 @@ describe("bubbleSortSteps", () => {
 });
 
 describe("parseValues", () => {
-  it("accepts up to 8 values without a target", () => {
+  it("accepts up to 16 values without a target", () => {
     expect(parseValues("5 1 4 2")).toEqual({ ok: true, items: [5, 1, 4, 2] });
-    expect(parseValues("1,2,3,4,5,6,7,8,9")).toEqual({ ok: false, error: "tooMany" });
+    expect(parseValues("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17")).toEqual({
+      ok: false,
+      error: "tooMany",
+    });
   });
 });

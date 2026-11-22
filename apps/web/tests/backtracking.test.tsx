@@ -7,7 +7,7 @@ import {
   subsetSteps,
   validateItems,
 } from "../src/features/viz/ds/backtracking";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 
@@ -114,8 +114,8 @@ describe("N-Queens", () => {
     expect(steps[3]!.question).toMatchObject({ correct: "none" });
   });
 
-  it("matches trying every arrangement for boards 1 to 6, and never places an attacked queen", () => {
-    for (let n = 1; n <= 6; n++) {
+  it("matches trying every arrangement for boards 1 to 8, and never places an attacked queen", () => {
+    for (let n = 1; n <= 8; n++) {
       const steps = queensSteps([], [{ n }]);
       const want = firstSolution(n);
       if (want === null) expect(steps.at(-1)!.say.key, `n = ${n}`).toBe("none");
@@ -132,6 +132,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 

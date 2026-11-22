@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ArrayView, type CellState, type Marker } from "../ArrayView";
 import type { Range } from "../RangeRow";
 import { DsPlayer } from "./DsPlayer";
-import { cmd, I, N, numbersOnly, type OpForm, type OpsError } from "./ops";
+import { cmd, I, N, numbersOnly, pick, randomNumbers, type OpForm, type OpsError } from "./ops";
 import { choices, pyList, StepLog, type DsStep } from "./steps";
 
 /** Starting values must be numbers in ascending order (two pointers needs sorted input). */
@@ -285,6 +285,7 @@ export function prefixSumSteps(start: readonly string[], ops: readonly RangeOp[]
 function ArrayStage({ s, extraLabel }: { s: DsStep<ArrayStepState>; extraLabel?: string }) {
   const { t } = useTranslation();
   const st = s.state;
+  const sizeFor = Math.max(st.values.length, st.extra?.length ?? 0);
   return (
     <>
       <p className="text-center font-mono text-xs font-semibold text-muted">items</p>
@@ -294,6 +295,7 @@ function ArrayStage({ s, extraLabel }: { s: DsStep<ArrayStepState>; extraLabel?:
         markers={st.markers}
         ranges={st.ranges}
         markerRow={st.markers.length > 0}
+        sizeFor={sizeFor}
       />
       {st.extra && extraLabel && (
         <>
@@ -305,6 +307,7 @@ function ArrayStage({ s, extraLabel }: { s: DsStep<ArrayStepState>; extraLabel?:
             items={st.extra}
             stateOf={(i) => st.extraMarks[i] ?? "idle"}
             markerRow={false}
+            sizeFor={sizeFor}
           />
         </>
       )}
@@ -320,10 +323,23 @@ export function TwoPointersPlayer() {
       startField="values"
       validateStart={sortedNumbers}
       presets={[
-        { key: "tour", start: "1, 2, 4, 7, 11", ops: "pair 9" },
-        { key: "none", start: "1, 3, 5, 7", ops: "pair 11, pair 9" },
-        { key: "many", start: "2, 3, 4, 5, 6, 8, 9", ops: "pair 14, pair 5" },
+        { key: "tour", start: "1, 2, 4, 7, 11, 13, 16, 19, 22, 25, 28, 31", ops: "pair 24" },
+        { key: "none", start: "1, 3, 5, 7, 9, 11, 13, 15, 17, 19", ops: "pair 21, pair 9" },
+        {
+          key: "many",
+          start: "2, 3, 4, 5, 6, 8, 9, 11, 12, 14, 15, 17",
+          ops: "pair 20, pair 5",
+        },
+        { key: "card", start: "1, 2, 4, 7, 11", ops: "pair 9" },
       ]}
+      random={() => {
+        const values = randomNumbers(12, { max: 60, sorted: true });
+        // Usually the sum of two values in the list, so a pair exists.
+        const a = pick(values);
+        const b = pick(values.filter((v) => v !== a));
+        const target = Math.random() < 0.75 ? a + b : pick([3, 50, 99]);
+        return { start: values.join(", "), ops: `pair ${target}` };
+      }}
       forms={PAIR_FORMS}
       run={twoPointerSteps}
       stage={(s: DsStep<ArrayStepState>) => <ArrayStage s={s} />}
@@ -343,10 +359,19 @@ export function SlidingWindowPlayer() {
       startField="values"
       validateStart={someNumbers}
       presets={[
-        { key: "tour", start: "2, 1, 5, 1, 3", ops: "window 3" },
-        { key: "longer", start: "4, 2, 1, 7, 8, 1, 2, 8", ops: "window 2, window 4" },
-        { key: "negative", start: "3, -2, 5, -1, 6", ops: "window 2" },
+        { key: "tour", start: "2, 1, 5, 1, 3, 2, 9, 4, 1, 6, 2, 3", ops: "window 3" },
+        {
+          key: "longer",
+          start: "4, 2, 1, 7, 8, 1, 2, 8, 3, 5, 6, 1",
+          ops: "window 2, window 4",
+        },
+        { key: "negative", start: "3, -2, 5, -1, 6, -4, 2, 7, -3, 1", ops: "window 3" },
+        { key: "card", start: "2, 1, 5, 1, 3", ops: "window 3" },
       ]}
+      random={() => ({
+        start: randomNumbers(12, { max: 20, unique: false }).join(", "),
+        ops: "window 3, window 5",
+      })}
       forms={WINDOW_FORMS}
       run={slidingWindowSteps}
       stage={(s: DsStep<ArrayStepState>) => <ArrayStage s={s} />}
@@ -363,10 +388,23 @@ export function PrefixSumsPlayer() {
       startField="values"
       validateStart={someNumbers}
       presets={[
-        { key: "tour", start: "3, 1, 4, 1", ops: "sum 1 2" },
-        { key: "many", start: "5, 2, 7, 1, 3, 6", ops: "sum 0 5, sum 2 4, sum 3 3" },
-        { key: "negative", start: "4, -3, 2, -1", ops: "sum 0 3, sum 1 2" },
+        { key: "tour", start: "3, 1, 4, 1, 5, 9, 2, 6, 5, 3", ops: "sum 1 2, sum 2 7, sum 0 9" },
+        {
+          key: "many",
+          start: "5, 2, 7, 1, 3, 6, 4, 8, 2, 9, 1, 5",
+          ops: "sum 0 11, sum 2 4, sum 3 3, sum 5 10",
+        },
+        {
+          key: "negative",
+          start: "4, -3, 2, -1, 6, -5, 3, 2, -2, 1",
+          ops: "sum 0 9, sum 1 2, sum 3 7",
+        },
+        { key: "card", start: "3, 1, 4, 1", ops: "sum 1 2" },
       ]}
+      random={() => ({
+        start: randomNumbers(10, { max: 20, unique: false }).join(", "),
+        ops: `sum ${pick([0, 1, 2])} ${pick([5, 6, 7])}, sum ${pick([3, 4])} ${pick([8, 9])}, sum 0 9`,
+      })}
       forms={RANGE_FORMS}
       run={prefixSumSteps}
       stage={(s: DsStep<ArrayStepState>) => <ArrayStage s={s} extraLabel="prefix" />}

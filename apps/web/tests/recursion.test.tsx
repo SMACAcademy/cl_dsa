@@ -9,7 +9,7 @@ import {
   recursionSteps,
   type HanoiOp,
 } from "../src/features/viz/ds/recursion";
-import { renderRoute } from "./render";
+import { renderRoute, startFromCard } from "./render";
 
 const keys = (steps: { say: { key: string } }[]) => steps.map((s) => s.say.key);
 
@@ -49,9 +49,9 @@ describe("recursion steps", () => {
     ]);
   });
 
-  it("only accepts n from 0 to 7", () => {
+  it("only accepts n from 0 to 10", () => {
     expect(parseOps("factorial 5", RECURSION_FORMS)).toMatchObject({ ok: true });
-    expect(parseOps("factorial 8", RECURSION_FORMS)).toMatchObject({ ok: false });
+    expect(parseOps("factorial 11", RECURSION_FORMS)).toMatchObject({ ok: false });
   });
 });
 
@@ -76,9 +76,9 @@ describe("Tower of Hanoi steps", () => {
     }
   });
 
-  it("only accepts 1 to 4 disks", () => {
-    expect(parseOps<HanoiOp>("hanoi 4", HANOI_FORMS)).toMatchObject({ ok: true });
-    expect(parseOps<HanoiOp>("hanoi 5", HANOI_FORMS)).toMatchObject({ ok: false });
+  it("only accepts 1 to 5 disks", () => {
+    expect(parseOps<HanoiOp>("hanoi 5", HANOI_FORMS)).toMatchObject({ ok: true });
+    expect(parseOps<HanoiOp>("hanoi 6", HANOI_FORMS)).toMatchObject({ ok: false });
   });
 });
 
@@ -86,6 +86,7 @@ async function open(id: string, name: string) {
   const user = userEvent.setup();
   renderRoute(`/algorithms/${id}`);
   await screen.findByRole("heading", { level: 2, name: `Try it: step through ${name}` });
+  await startFromCard(user);
   return user;
 }
 
