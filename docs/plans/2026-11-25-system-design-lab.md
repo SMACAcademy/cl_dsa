@@ -46,3 +46,8 @@ Branch: `system-design` (from `phase-2`).
 
 ## Ledger
 - 2026-11-25: plan written; load-balancing lab committed (2e688c5).
+- Engine + player (b825d1c). Modules 01–02 (acc88e7). Module 03 (aa8b187).
+  Lesson files: `apps/web/src/features/systems/lessons/{foundations,scaling,loadBalancing,data1,data2,data3}.ts`,
+  registered in `lessons/index.ts`. Tests: `apps/web/tests/systems.test.tsx` checks every lesson.
+- Next: modules 04–09 (comms, reliability, architecture, security, shipping, whole), then the
+  public-site work (base path, Pages workflow, About/branding).

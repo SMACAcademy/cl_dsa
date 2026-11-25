@@ -1,9 +1,11 @@
 import type { Lesson, Module } from "../model";
+import { APIS, PUBSUB, QUEUES, REALTIME } from "./communication";
 import { INDEXES, REPLICATION, SQL_NOSQL, STORAGE_ENGINES } from "./data1";
 import { CAP, CONSISTENT_HASHING, SHARDING, UNIQUE_IDS } from "./data2";
 import { CONSENSUS, FILES_MEDIA, TRANSACTIONS } from "./data3";
 import { LATENCY_THROUGHPUT, NAPKIN_MATH, REQUEST_JOURNEY } from "./foundations";
 import { LOAD_BALANCING } from "./loadBalancing";
+import { OBSERVABILITY, RATE_LIMITING, REDUNDANCY, TIMEOUTS_RETRIES } from "./reliability";
 import { CACHING, CDN, SCALE_UP_OUT, STATELESS } from "./scaling";
 
 /** Every module in teaching order. Modules without lessons yet are hidden. */
@@ -46,14 +48,14 @@ const ALL_MODULES: Module[] = [
     number: "04",
     title: "Communication",
     blurb: "How programs ask each other for things, now or later.",
-    lessons: [],
+    lessons: [APIS, QUEUES, PUBSUB, REALTIME],
   },
   {
     id: "reliability",
     number: "05",
     title: "Reliability",
     blurb: "Everything fails eventually. Designing so that no single failure takes you down.",
-    lessons: [],
+    lessons: [REDUNDANCY, RATE_LIMITING, TIMEOUTS_RETRIES, OBSERVABILITY],
   },
   {
     id: "architecture",
