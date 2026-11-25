@@ -26,6 +26,22 @@ personal branding, and gains a full system-design track. Plan and ledger:
 
 Tests: 711 passing in 39 files; type check and lint clean (2026-11-25).
 
+## Every section built (2026-11-25, branch `site-sections`, on top of `system-design`)
+| Section | What it is now |
+|---|---|
+| Dashboard | Home page: continue where you left off, the three labs with progress, suggestions, practice and cheat-sheet cards |
+| Learning Universe | A five-row pyramid of every topic that fills in with progress, plus a list twin |
+| Curriculum | The whole course in four stages, with time estimates, status and a to-do filter |
+| Python Playground | Real Python in the browser (Pyodide 0.28.3 in a worker), 6 examples and 7 project starters |
+| Problem Solving | Shuffled rounds of the 44 lesson questions, with explanations and a best score |
+| Real-World Projects | 7 guided projects with milestones and challenges, each opening in the playground |
+| My Progress | Lessons, players opened, best practice round, by-module bars, confirmed reset |
+| Knowledge Library | Cost of every algorithm and structure, numbers to remember, all 40 lesson recaps, glossary; filterable |
+| Settings | Theme, moving or still diagrams, where your data lives |
+
+Progress is stored in localStorage only (no database). New pages load lazily; main bundle 344 KB.
+Tests: 718 passing in 40 files; type check and lint clean.
+
 ## Interactive catalog (built ahead of the roadmap)
 The web app has a catalog of 54 entries, each with a worked example and a step-through player:
 code panel with the current line, variables, narration, "predict the next step" questions,
