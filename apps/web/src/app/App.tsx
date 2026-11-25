@@ -15,7 +15,12 @@ export function AppProviders({ children }: { children: ReactNode }) {
 }
 
 export function App() {
-  const [router] = useState(() => createBrowserRouter(appRoutes));
+  // On GitHub Pages the site lives under /<repo>/; BASE_URL carries that prefix.
+  const [router] = useState(() =>
+    createBrowserRouter(appRoutes, {
+      basename: import.meta.env.BASE_URL.replace(/\/$/, "") || "/",
+    }),
+  );
   return (
     <AppProviders>
       <RouterProvider router={router} />

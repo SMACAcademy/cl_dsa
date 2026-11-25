@@ -15,6 +15,7 @@ const SPEC_ORDER = [
   "/curriculum",
   "/algorithms",
   "/structures",
+  "/systems",
   "/playground",
   "/problems",
   "/projects",
@@ -26,12 +27,12 @@ const navLinks = () =>
   within(screen.getByRole("navigation", { name: "Main" })).getAllByRole("link");
 
 describe("navigation", () => {
-  it("renders 10 nav links in spec order", () => {
+  it("renders 11 nav links in spec order", () => {
     render(<App />);
     expect(navLinks().map((l) => l.getAttribute("href"))).toEqual(SPEC_ORDER);
   });
 
-  it("NAV_ITEMS lists the 10 sections in spec order with translated labels", () => {
+  it("NAV_ITEMS lists the 11 sections in spec order with translated labels", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual(SPEC_ORDER);
     for (const item of NAV_ITEMS) expect(i18n.exists(item.labelKey)).toBe(true);
   });

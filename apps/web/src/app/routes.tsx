@@ -19,6 +19,23 @@ const CATALOG_SECTIONS: Partial<Record<SectionId, CatalogKind>> = {
 
 const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
   (item): RouteObject[] => {
+    if (item.id === "systems") {
+      // The 40 lessons are loaded on first visit, keeping them out of the main bundle.
+      return [
+        {
+          path: "systems",
+          lazy: async () => ({
+            Component: (await import("../features/systems/SystemsHome")).SystemsHome,
+          }),
+        },
+        {
+          path: "systems/:lessonId",
+          lazy: async () => ({
+            Component: (await import("../features/systems/LessonPage")).LessonPage,
+          }),
+        },
+      ];
+    }
     const kind = CATALOG_SECTIONS[item.id];
     if (!kind) return [{ path: item.path.slice(1), element: <SectionPlaceholder id={item.id} /> }];
     return [
@@ -33,6 +50,8 @@ export const appRoutes: RouteObject[] = [
     path: "/",
     element: <AppShell />,
     errorElement: <ErrorFallback />,
+    // Shown for a moment when the first page is a lazily loaded one.
+    hydrateFallbackElement: <div aria-busy="true" className="min-h-dvh bg-surface" />,
     children: [
       {
         // Pathless layout route: a screen that throws renders the fallback inside the shell.
@@ -41,6 +60,12 @@ export const appRoutes: RouteObject[] = [
           { index: true, element: <DashboardPlaceholder /> },
           ...sectionRoutes,
           { path: SETTINGS_PATH.slice(1), element: <SettingsPlaceholder /> },
+          {
+            path: "about",
+            lazy: async () => ({
+              Component: (await import("../features/about/AboutPage")).AboutPage,
+            }),
+          },
           { path: "learn/:conceptId", element: <LessonPlaceholder /> },
           { path: "*", element: <NotFound /> },
         ],
@@ -53,6 +78,7 @@ export const appRoutes: RouteObject[] = [
 export const ROUTE_PATHS: readonly string[] = [
   ...NAV_ITEMS.map((item) => item.path),
   SETTINGS_PATH,
+  "/about",
   "/learn/first-algorithms.binary-search",
   "/algorithms/binary-search",
   "/algorithms/linear-search",
@@ -106,5 +132,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/union-find",
   "/structures/lru-cache",
   "/structures/bloom-filter",
+  "/systems/load-balancing",
+  "/systems/load-balancing?step=4",
+  "/systems/no-such-lesson",
   "/algorithms/no-such-item",
 ];

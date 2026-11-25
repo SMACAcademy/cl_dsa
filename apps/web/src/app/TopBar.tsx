@@ -1,5 +1,8 @@
-import { Flame, Zap } from "lucide-react";
+import { Flame, Info, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
+import { CREATOR, hasCreator } from "../branding";
+import { LinkedInMark } from "../ui/LinkedInMark";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import { AccountMenu } from "./AccountMenu";
 
@@ -19,6 +22,24 @@ export function TopBar() {
         </span>
         <span className="truncate text-muted">{t("topbar.previewHint")}</span>
       </p>
+      <Link
+        to="/about"
+        className="inline-flex h-8 items-center gap-1.5 rounded-full px-2 text-sm text-accent-ink hover:bg-accent-soft"
+      >
+        <Info className="size-4" aria-hidden="true" />
+        {t("topbar.about")}
+      </Link>
+      {hasCreator() && CREATOR.linkedin && (
+        <a
+          href={CREATOR.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden h-8 items-center gap-1.5 rounded-full bg-[#0a66c2] px-3 text-sm font-medium text-white lg:inline-flex"
+        >
+          <LinkedInMark />
+          {t("topbar.builtBy", { name: CREATOR.name })}
+        </a>
+      )}
 
       <div className="ml-auto flex items-center gap-2">
         <ul aria-label={t("topbar.statsLabel")} className="hidden items-center gap-2 sm:flex">

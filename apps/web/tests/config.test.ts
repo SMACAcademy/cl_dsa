@@ -11,10 +11,12 @@ describe("PWA (ADR-020)", () => {
   const manifest = pwaOptions.manifest;
   if (!manifest) throw new Error("manifest missing");
 
-  it("manifest declares name, start_url, standalone display and 3 icons", () => {
+  it("manifest declares name, standalone display and 3 icons; start_url follows the base", () => {
     expect(manifest.name).toBe("AlgoVerse");
     expect(manifest.short_name).toBe("AlgoVerse");
-    expect(manifest.start_url).toBe("/");
+    // Left unset so vite-plugin-pwa fills start_url and scope from Vite's base path.
+    expect(manifest.start_url).toBeUndefined();
+    expect(manifest.scope).toBeUndefined();
     expect(manifest.display).toBe("standalone");
     expect(manifest.icons).toHaveLength(3);
     expect(manifest.icons?.map((i) => [i.sizes, i.purpose ?? "any"])).toEqual([
@@ -31,16 +33,23 @@ describe("PWA (ADR-020)", () => {
 
   it("every manifest icon exists in public/", () => {
     for (const icon of manifest.icons ?? []) {
-      expect(existsSync(new URL(`../public${icon.src}`, import.meta.url)), icon.src).toBe(true);
+      expect(icon.src.startsWith("/"), `${icon.src} is relative`).toBe(false);
+      expect(existsSync(new URL(`../public/${icon.src}`, import.meta.url)), icon.src).toBe(true);
     }
   });
 
   it("prompts for updates and precaches the app shell, never /api/", () => {
     expect(pwaOptions.registerType).toBe("prompt");
-    expect(pwaOptions.workbox?.navigateFallback).toBe("/index.html");
+    expect(pwaOptions.workbox?.navigateFallback).toBe("index.html");
     const deny = pwaOptions.workbox?.navigateFallbackDenylist ?? [];
     expect(deny.some((re) => re.test("/api/v1/me"))).toBe(true);
     expect(pwaOptions.workbox?.runtimeCaching ?? []).toEqual([]);
+  });
+});
+
+describe("public site on GitHub Pages", () => {
+  it("serves from / unless VITE_BASE says otherwise", () => {
+    expect(config.base).toBe(process.env["VITE_BASE"] ?? "/");
   });
 });
 

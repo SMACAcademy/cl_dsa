@@ -9,6 +9,22 @@
 - **2A spikes:** S1–S6 run and written up (Task 7, consolidating them into decisions, is still open).
 - **2B foundation:** Tasks 1 (monorepo scaffold) and 13 (web shell) done; the trace-schema package (Task 2) is started but uncommitted; the rest are pending.
 - **Ahead of plan:** an interactive catalog of all 54 algorithms and data structures, each with a step-through player (see below).
+- **Ahead of plan:** the System Design Lab (40 animated lessons) and the public static site (see below).
+
+## System Design Lab and public site (2026-11-25, branch `system-design`)
+Owner direction: AlgoVerse becomes a public static site (no database; progress in localStorage) with
+personal branding, and gains a full system-design track. Plan and ledger:
+[plans/2026-11-25-system-design-lab.md](plans/2026-11-25-system-design-lab.md).
+
+| Piece | Status |
+|---|---|
+| Isometric scene engine (SVG, animated request/response flows, zones, notes, reduced-motion fallback) | ✅ |
+| Lesson player (step kinds, callouts, what changed, live metrics, quizzes, tables, timeline, `?step=` links, keyboard, progress) | ✅ |
+| 40 lessons in 9 modules, told through AlgoVerse's own growth | ✅ |
+| Load-balancing lab (drive requests, policies and failures) | ✅ |
+| GitHub Pages workflow, base-path-safe PWA, link-preview tags, About page, creator card | ✅ (needs owner: public repo, Pages source, LinkedIn URL) |
+
+Tests: 711 passing in 39 files; type check and lint clean (2026-11-25).
 
 ## Interactive catalog (built ahead of the roadmap)
 The web app has a catalog of 54 entries, each with a worked example and a step-through player:
@@ -85,4 +101,5 @@ Tests: 601 passing in 36 files (Vitest + Testing Library + axe); type check and 
 - **2026-11-18** — Blueprint approved. Phase 2A (spikes) and 2B (foundation) execution plans written. The tile "glimpsed" rule now also follows prerequisite links (PYRAMID_MODEL §5.1).
 - **2026-11-18** — Spikes S1–S6 run and written up in [spikes/](spikes/). Monorepo scaffold and web app shell (routing, themes, i18n). Owner decision: hosted web app, installable PWA, guest learners. System-freeze incident recorded in [incidents/](incidents/).
 - **2026-11-18 – 11-20** — Interactive catalog: 54 algorithms and data structures, each with a step-through player, built section by section.
+- **2026-11-25** — System Design Lab: scene engine, lesson player and all 40 lessons; public-site setup (GitHub Pages workflow, About page, branding). Trace schema (2B Task 2) committed on `phase-2`.
 - **2026-11-22** — Bigger examples: players open on 10–12 values (up to 16), each keeps a small "card example", and a 🎲 Random button fills in 12 fresh values. Bars and array boxes shrink so 16 values fit beside the code panel.
