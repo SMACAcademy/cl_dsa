@@ -3,7 +3,6 @@ import type { CatalogKind } from "../features/catalog/catalog";
 import { CatalogDetail } from "../features/catalog/CatalogDetail";
 import { CatalogList } from "../features/catalog/CatalogList";
 import { LessonPlaceholder } from "../features/lesson/LessonPlaceholder";
-import { DashboardPlaceholder } from "../features/placeholder/DashboardPlaceholder";
 import { NotFound } from "../features/placeholder/NotFound";
 import { SectionPlaceholder } from "../features/placeholder/SectionPlaceholder";
 import { SettingsPlaceholder } from "../features/placeholder/SettingsPlaceholder";
@@ -15,6 +14,33 @@ import { NAV_ITEMS, SETTINGS_PATH, type SectionId } from "./nav";
 const CATALOG_SECTIONS: Partial<Record<SectionId, CatalogKind>> = {
   algorithms: "algorithm",
   structures: "structure",
+};
+
+type LazyPage = NonNullable<RouteObject["lazy"]>;
+
+/** Built sections, each loaded on first visit to keep the main bundle small. */
+const PAGES: Partial<Record<SectionId, LazyPage>> = {
+  universe: async () => ({
+    Component: (await import("../features/map/UniversePage")).UniversePage,
+  }),
+  curriculum: async () => ({
+    Component: (await import("../features/map/CurriculumPage")).CurriculumPage,
+  }),
+  playground: async () => ({
+    Component: (await import("../features/playground/PlaygroundPage")).PlaygroundPage,
+  }),
+  projects: async () => ({
+    Component: (await import("../features/projects/ProjectsPage")).ProjectsPage,
+  }),
+  problems: async () => ({
+    Component: (await import("../features/practice/PracticePage")).PracticePage,
+  }),
+  library: async () => ({
+    Component: (await import("../features/library/LibraryPage")).LibraryPage,
+  }),
+  progress: async () => ({
+    Component: (await import("../features/progress/ProgressPage")).ProgressPage,
+  }),
 };
 
 const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
@@ -36,6 +62,8 @@ const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/
         },
       ];
     }
+    const page = PAGES[item.id];
+    if (page) return [{ path: item.path.slice(1), lazy: page }];
     const kind = CATALOG_SECTIONS[item.id];
     if (!kind) return [{ path: item.path.slice(1), element: <SectionPlaceholder id={item.id} /> }];
     return [
@@ -57,7 +85,12 @@ export const appRoutes: RouteObject[] = [
         // Pathless layout route: a screen that throws renders the fallback inside the shell.
         errorElement: <RouteErrorFallback />,
         children: [
-          { index: true, element: <DashboardPlaceholder /> },
+          {
+            index: true,
+            lazy: async () => ({
+              Component: (await import("../features/home/HomePage")).HomePage,
+            }),
+          },
           ...sectionRoutes,
           { path: SETTINGS_PATH.slice(1), element: <SettingsPlaceholder /> },
           {

@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useId, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode } from "react";
+import { recordVisit } from "../../lib/progress";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
@@ -17,6 +18,9 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
   const found = findItem(itemId);
   const item = found?.kind === kind ? found : undefined;
   useDocumentTitle(item ? item.name : t("catalog.missing.title"));
+  useEffect(() => {
+    if (item) recordVisit({ path: itemPath(item), title: item.name, kind: item.kind });
+  }, [item]);
 
   const listPath = KIND_PATH[kind];
   const back = (

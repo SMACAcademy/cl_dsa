@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { slug, useScrollToHash } from "../../lib/slug";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { PhaseBadge } from "../../ui/PhaseBadge";
 import { SECTION_ICON, SECTION_PHASE } from "../placeholder/sections";
@@ -23,6 +24,7 @@ export function CatalogList({ kind }: { kind: CatalogKind }) {
   const items = itemsOfKind(kind);
   const groups = groupItems(items);
   useDocumentTitle(title);
+  useScrollToHash();
 
   return (
     <div className="space-y-8">
@@ -56,7 +58,7 @@ export function CatalogList({ kind }: { kind: CatalogKind }) {
 function CatalogGroup({ title, items }: { title: string; items: CatalogItem[] }) {
   const headingId = useId();
   return (
-    <section aria-labelledby={headingId}>
+    <section id={slug(title)} aria-labelledby={headingId} className="scroll-mt-20">
       <h2 id={headingId} className="text-lg font-semibold tracking-tight">
         {title}
       </h2>

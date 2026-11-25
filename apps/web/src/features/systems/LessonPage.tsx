@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Check, Pause, Play, RotateCcw } from "lucide-rea
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams, useSearchParams } from "react-router";
+import { readMotion, recordVisit } from "../../lib/progress";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { button, primaryButton } from "../viz/styles";
 import { IsoScene, sceneBounds } from "./IsoScene";
@@ -54,7 +55,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
   const requested = Number(params.get("step") ?? "1");
   const at = Number.isInteger(requested) ? Math.min(Math.max(requested, 1), total) - 1 : 0;
   const step = lesson.steps[at] as LessonStep;
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(() => readMotion() === "still");
   const [replay, setReplay] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const bounds = useMemo(() => sceneBounds(lesson.steps.map((s) => s.scene)), [lesson]);
@@ -73,7 +74,12 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
 
   useEffect(() => {
     if (at === total - 1) markDone(lesson.id);
-  }, [at, total, lesson.id]);
+    recordVisit({
+      path: `/systems/${lesson.id}${at > 0 ? `?step=${at + 1}` : ""}`,
+      title: lesson.title,
+      kind: "lesson",
+    });
+  }, [at, total, lesson.id, lesson.title]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
