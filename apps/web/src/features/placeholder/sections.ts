@@ -13,6 +13,7 @@ export const SECTION_PHASE: Record<PlaceholderId, number> = {
   curriculum: 2, // Phase 2 acceptance: fixture curriculum renders
   algorithms: 4, // M7, Time Machine basic in M4.6 (Arena: phase 6)
   structures: 5, // M8, DS Lab
+  systems: 7, // CURRICULUM D7.2 / B7.3; first lessons built ahead of the roadmap
   playground: 4, // M6, Playground v1 in M4.6
   problems: 4, // M12, ~20 problems for Pyramid I
   projects: 9, // M13

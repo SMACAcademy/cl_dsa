@@ -15,6 +15,7 @@ import { NAV_ITEMS, SETTINGS_PATH, type SectionId } from "./nav";
 const CATALOG_SECTIONS: Partial<Record<SectionId, CatalogKind>> = {
   algorithms: "algorithm",
   structures: "structure",
+  systems: "system",
 };
 
 const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
@@ -106,5 +107,6 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/union-find",
   "/structures/lru-cache",
   "/structures/bloom-filter",
+  "/systems/load-balancing",
   "/algorithms/no-such-item",
 ];

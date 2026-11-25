@@ -28,6 +28,7 @@ import {
 import { ActivitySelectionPlayer, HuffmanPlayer } from "./ds/greedy";
 import { HashSetPlayer, HashTablePlayer, OpenAddressingPlayer } from "./ds/hashing";
 import { PrefixSumsPlayer, SlidingWindowPlayer, TwoPointersPlayer } from "./ds/patterns";
+import { LoadBalancerPlayer } from "./ds/loadBalancing";
 import { HanoiPlayer, RecursionPlayer } from "./ds/recursion";
 import { SegmentTreePlayer } from "./ds/segmentTree";
 import { GcdPlayer, KmpPlayer, NaiveMatchPlayer, SievePlayer } from "./ds/stringsNumbers";
@@ -101,6 +102,8 @@ export const VISUALIZERS: Readonly<Record<string, ComponentType>> = {
   "union-find": UnionFindPlayer,
   "lru-cache": LruCachePlayer,
   "bloom-filter": BloomFilterPlayer,
+  // System design
+  "load-balancing": LoadBalancerPlayer,
 };
 
 export function hasVisualizer(id: string): boolean {

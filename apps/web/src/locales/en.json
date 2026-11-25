@@ -14,6 +14,7 @@
     "curriculum": "Curriculum",
     "algorithms": "Algorithm Lab",
     "structures": "Data Structure Lab",
+    "systems": "System Design Lab",
     "playground": "Python Playground",
     "problems": "Problem Solving",
     "projects": "Real-World Projects",
@@ -92,6 +93,14 @@
         "A canvas for nodes, pointers and buckets",
         "A live Python view that round-trips your edits",
         "Animated insert, delete, search and traverse"
+      ]
+    },
+    "systems": {
+      "description": "See how real systems scale: load balancers, caches, queues, shards and replicas, built on the data structures you already know.",
+      "planned": [
+        "Live diagrams of servers, caches and databases with requests flowing between them",
+        "Simulations you drive: send traffic, change the rules, break a server",
+        "The Python behind each decision, highlighted step by step"
       ]
     },
     "playground": {
@@ -194,6 +203,11 @@
       "intro": "Every data structure AlgoVerse will teach. Open one to see what will be built for it and a tiny example worked by hand.",
       "count": "{{count}} data structures in {{groups}} groups",
       "back": "All data structures"
+    },
+    "system": {
+      "intro": "How real systems scale, built on the data structures you already know. Drive each lesson yourself: send requests, change the rules, break a server, and watch what happens.",
+      "count": "Lessons built so far: {{count}}",
+      "back": "All system design lessons"
     },
     "stageHint": "Each card shows its build stage: stage 1 is built first, then stage 2, and so on. The interactive lab itself arrives in the phase shown above.",
     "level": {
@@ -382,6 +396,7 @@
         "freqs": "Letters and how often they appear (up to {{max}})",
         "coins": "Coins (whole numbers from 1 to 99)",
         "bits": "Bits (4 to 32)",
+        "servers": "Servers (2 to 5)",
         "items": "Items as name weight value (up to {{max}})",
         "ops": "Operations (up to {{max}}, separated by commas)",
         "commands": "Commands:",
@@ -401,7 +416,8 @@
         "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
         "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4.",
         "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3.",
-        "badBits": "The number of bits must be one whole number from 4 to 32."
+        "badBits": "The number of bits must be one whole number from 4 to 32.",
+        "badServers": "The number of servers must be one whole number from 2 to 5."
       },
       "view": {
         "newNode": "new node",
@@ -613,6 +629,50 @@
         "qEvict": "put({{k}}) overflows the cache. Which key is evicted?",
         "evict": "Over capacity ({{cap}}): evict {{k}}:{{v}} from the least-recent end. It's the one used longest ago.",
         "end": "The cache holds {{list}} ({{n}} of {{cap}}), least to most recent. Every get and put took O(1) time."
+      },
+      "lb": {
+        "help": "req 1–9 (a request needing that many ticks of work), tick, policy rr or policy lc, down B, up B",
+        "preset": {
+          "roundRobin": "Round robin",
+          "leastConn": "Least connections",
+          "failure": "A server fails"
+        },
+        "balancer": "Load balancer",
+        "policyName": {
+          "rr": "round robin",
+          "lc": "least connections"
+        },
+        "metric": {
+          "policy": "Policy",
+          "sent": "Sent",
+          "done": "Finished",
+          "failed": "Failed",
+          "busiest": "Busiest",
+          "busiestValue": "{{s}} · {{w}} ticks"
+        },
+        "workLeft": "{{w}} left",
+        "downLabel": "down",
+        "more": "+{{n}}",
+        "legend": "Each square is one request; its number is the ticks of work it still needs. Amber: being worked on. Green: just arrived.",
+        "diagram": "Servers behind the load balancer",
+        "server": "Server {{s}}: {{state}}. Requests waiting: {{n}}. Work left: {{w}} ticks.",
+        "serverUp": "up",
+        "serverDown": "down",
+        "start": "{{n}} servers ({{names}}) sit behind one load balancer. Clients only know the balancer's address, and it picks a server for every request.",
+        "qRoute": "Request #{{id}} needs {{w}} ticks of work. Which server gets it?",
+        "routeRr": "Request #{{id}} (work {{w}}) → {{s}}. Round robin just takes the next server in turn; it never looks at how busy {{s}} is. {{wait}} ticks of work are ahead of it.",
+        "routeLc": "Request #{{id}} (work {{w}}) → {{s}}, the server with the fewest open connections ({{conns}}). {{wait}} ticks of work are ahead of it.",
+        "noPool": "Request #{{id}} fails: every server is down, so there is nowhere to send it.",
+        "tick": "One tick passes, and each server works on its first request. Finished: {{fin}}. Busiest now: {{s}}, with {{w}} ticks of work.",
+        "tickNone": "One tick passes, and each server works on its first request. Nothing has finished yet. Busiest now: {{s}}, with {{w}} ticks of work.",
+        "policyRr": "The balancer switches to round robin: the servers take turns.",
+        "policyLc": "The balancer switches to least connections: each request goes to the server with the fewest open requests.",
+        "down": "Server {{s}} fails its health check, so the balancer takes it out of the pool. Its {{lost}} waiting requests fail.",
+        "alreadyDown": "Server {{s}} is already out of the pool.",
+        "up": "Server {{s}} passes its health check again and rejoins the pool.",
+        "alreadyUp": "Server {{s}} is already in the pool.",
+        "noServer": "There is no server {{s}} here.",
+        "end": "{{sent}} requests sent: {{done}} finished, {{failed}} failed. The busiest server, {{s}}, still has {{w}} ticks of work, so a new request there could wait that long."
       },
       "bloom": {
         "help": "add word, query word (up to 8 letters; a = 1 … z = 26)",

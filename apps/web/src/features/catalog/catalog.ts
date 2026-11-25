@@ -6,7 +6,7 @@
  * curriculum tile it belongs to.
  */
 
-export type CatalogKind = "algorithm" | "structure";
+export type CatalogKind = "algorithm" | "structure" | "system";
 export type Level = "beginner" | "intermediate" | "advanced";
 
 export type CatalogItem = {
@@ -1292,6 +1292,47 @@ const ALGORITHM_ENTRIES: Entry[] = [
   },
 ];
 
+/**
+ * System design lessons (CURRICULUM D7.2 / B7.3), built ahead of the roadmap.
+ * Each one is a small simulation the learner drives, with the Python that makes
+ * the system's decision shown beside it.
+ */
+const SYSTEM_ENTRIES: Entry[] = [
+  {
+    id: "load-balancing",
+    name: "Load balancing",
+    group: "Scaling",
+    level: "beginner",
+    stage: 1,
+    tile: "D7.2",
+    summary:
+      "One front door for many servers. The load balancer picks a server for every request, and stops sending work to servers that fail their health checks.",
+    visual: [
+      "The balancer, its servers, and each server's queue of requests",
+      "Each request travels to the server the policy picks",
+      "Switch between round robin and least connections, or take a server down, and watch the queues",
+    ],
+    example: {
+      input: "3 servers A, B, C; round robin",
+      steps: [
+        "Requests 1, 2, 3 → A, B, C, in turn",
+        "Request 4 → A again",
+        "B fails its health check → it leaves the pool",
+        "Request 5 → A, request 6 → C (B is skipped)",
+      ],
+      result: "Every request reached a healthy server",
+    },
+    cost: [
+      { label: "Pick a server (round robin)", value: "O(1)" },
+      {
+        label: "Pick a server (least connections)",
+        value: "O(n) for n servers; O(log n) with a heap",
+      },
+    ],
+    buildsOn: ["queue"],
+  },
+];
+
 export const STRUCTURES: readonly CatalogItem[] = STRUCTURE_ENTRIES.map((e) => ({
   ...e,
   kind: "structure",
@@ -1300,16 +1341,21 @@ export const ALGORITHMS: readonly CatalogItem[] = ALGORITHM_ENTRIES.map((e) => (
   ...e,
   kind: "algorithm",
 }));
-export const CATALOG: readonly CatalogItem[] = [...STRUCTURES, ...ALGORITHMS];
+export const SYSTEMS: readonly CatalogItem[] = SYSTEM_ENTRIES.map((e) => ({
+  ...e,
+  kind: "system",
+}));
+export const CATALOG: readonly CatalogItem[] = [...STRUCTURES, ...ALGORITHMS, ...SYSTEMS];
 
 /** The route section each kind lives under. */
-export const KIND_PATH: Record<CatalogKind, "/algorithms" | "/structures"> = {
+export const KIND_PATH: Record<CatalogKind, "/algorithms" | "/structures" | "/systems"> = {
   algorithm: "/algorithms",
   structure: "/structures",
+  system: "/systems",
 };
 
 export function itemsOfKind(kind: CatalogKind): readonly CatalogItem[] {
-  return kind === "algorithm" ? ALGORITHMS : STRUCTURES;
+  return kind === "algorithm" ? ALGORITHMS : kind === "structure" ? STRUCTURES : SYSTEMS;
 }
 
 export function findItem(id: string): CatalogItem | undefined {

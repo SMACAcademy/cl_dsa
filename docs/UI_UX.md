@@ -41,7 +41,7 @@
 └───┴───────────────────────────────────────────────────────────────────────────────┘
 ```
 
-Left nav rail (collapsible, labels on hover/expanded), in order: **Dashboard · Learning Universe · Curriculum · Algorithm Lab · Data Structure Lab · Python Playground · Problem Solving · Real-World Projects · My Progress · Knowledge Library**. Settings is under the avatar menu.
+Left nav rail (collapsible, labels on hover/expanded), in order: **Dashboard · Learning Universe · Curriculum · Algorithm Lab · Data Structure Lab · System Design Lab · Python Playground · Problem Solving · Real-World Projects · My Progress · Knowledge Library**. Settings is under the avatar menu. (System Design Lab added 2026-11-25: interactive lessons for CURRICULUM D7.2 / B7.3, built ahead of Phase 7.)
 
 Global: command palette (`Ctrl/⌘ K`) to jump to any concept, problem or screen; toasts for XP/badges (batched, never blocking); offline indicator.
 
