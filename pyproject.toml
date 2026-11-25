@@ -5,11 +5,10 @@ requires-python = ">=3.12"
 dependencies = []
 
 [dependency-groups]
-dev = ["pytest", "hypothesis", "ruff", "mypy", "import-linter"]
+dev = ["pytest", "hypothesis", "ruff", "mypy", "import-linter", "jsonschema", "datamodel-code-generator"]
 
 [tool.uv.workspace]
-# packages/trace-schema is added by Task 2 once it exists.
-members = ["packages/content-tools", "apps/api"]
+members = ["packages/content-tools", "packages/trace-schema", "apps/api"]
 
 [tool.ruff]
 line-length = 100

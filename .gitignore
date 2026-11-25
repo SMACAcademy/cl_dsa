@@ -1,8 +1,8 @@
 node_modules/
 .venv/
 dist/
-build/
-data/
+/build/
+/data/
 __pycache__/
 .pytest_cache/
 .mypy_cache/
