@@ -28,15 +28,15 @@ Branch: `system-design` (from `phase-2`).
 ## Modules and lessons (status)
 | # | Module | Lessons | Status |
 |---|---|---|---|
-| 01 | Foundations | request-journey, latency-throughput, napkin-math | ⏳ |
-| 02 | Scaling | scale-up-out, load-balancing (+ lab), stateless, caching, cdn | ⏳ |
-| 03 | Data & storage | sql-nosql, indexes, storage-engines, replication, sharding, consistent-hashing, unique-ids, cap, consensus, transactions, files-media | ⏳ |
-| 04 | Communication | apis, queues, pubsub, realtime | ⏳ |
-| 05 | Reliability | redundancy, rate-limiting, timeouts-retries, observability | ⏳ |
-| 06 | Architecture | microservices, service-discovery, sagas, batch-stream | ⏳ |
-| 07 | Security | authentication, authorization, encryption | ⏳ |
-| 08 | Shipping | testing, cicd | ⏳ |
-| 09 | Whole systems | hld-lld, url-shortener, news-feed, chat | ⏳ |
+| 01 | Foundations | request-journey, latency-throughput, napkin-math | ✅ |
+| 02 | Scaling | scale-up-out, load-balancing (+ lab), stateless, caching, cdn | ✅ |
+| 03 | Data & storage | sql-nosql, indexes, storage-engines, replication, sharding, consistent-hashing, unique-ids, cap, consensus, transactions, files-media | ✅ |
+| 04 | Communication | apis, queues, pubsub, realtime | ✅ |
+| 05 | Reliability | redundancy, rate-limiting, timeouts-retries, observability | ✅ |
+| 06 | Architecture | microservices, service-discovery, sagas, batch-stream | ✅ |
+| 07 | Security | authentication, authorization, encryption | ✅ |
+| 08 | Shipping | testing, cicd | ✅ |
+| 09 | Whole systems | hld-lld, url-shortener, news-feed, chat | ✅ |
 
 ## Public site
 - Vite `base` from `VITE_BASE`; router `basename` from `import.meta.env.BASE_URL`.
@@ -49,5 +49,8 @@ Branch: `system-design` (from `phase-2`).
 - Engine + player (b825d1c). Modules 01–02 (acc88e7). Module 03 (aa8b187).
   Lesson files: `apps/web/src/features/systems/lessons/{foundations,scaling,loadBalancing,data1,data2,data3}.ts`,
   registered in `lessons/index.ts`. Tests: `apps/web/tests/systems.test.tsx` checks every lesson.
-- Next: modules 04–09 (comms, reliability, architecture, security, shipping, whole), then the
-  public-site work (base path, Pages workflow, About/branding).
+- Modules 04–05 (d0c2702), 06–08 (94e4bb4), 09 (0736de7): all 40 lessons done.
+- Public site (8d25ee9): VITE_BASE/basename, base-safe PWA, `.github/workflows/pages.yml`,
+  og: tags, About page, `src/branding.ts`, lazy lesson routes. Build verified with base `/cl_dsa/`.
+- Waiting on the owner: name + LinkedIn URL for `branding.ts`; OK to push and open a PR; making
+  the repository public and choosing "GitHub Actions" as the Pages source.
