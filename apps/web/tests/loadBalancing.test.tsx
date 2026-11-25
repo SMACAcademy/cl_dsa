@@ -1,7 +1,6 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { SYSTEMS } from "../src/features/catalog/catalog";
 import {
   LB_FORMS,
   lbSteps,
@@ -100,27 +99,11 @@ describe("load balancing simulation", () => {
   });
 });
 
-describe("System Design Lab screens", () => {
-  it("/systems lists the load balancing lesson", async () => {
-    renderRoute("/systems");
-    expect(
-      await screen.findByRole("heading", { level: 1, name: "System Design Lab" }),
-    ).toBeVisible();
-    expect(screen.getByRole("link", { name: /^Load balancing/ })).toHaveAttribute(
-      "href",
-      "/systems/load-balancing",
-    );
-    expect(screen.getByText(`Lessons built so far: ${SYSTEMS.length}`)).toBeVisible();
-  });
-
-  it("the lesson shows the servers and asks which one gets each request", async () => {
+describe("the load-balancing lab", () => {
+  it("shows the servers and asks which one gets each request", async () => {
     const user = userEvent.setup();
     renderRoute("/systems/load-balancing");
-    await screen.findByRole("heading", { level: 2, name: "Try it: step through Load balancing" });
-    expect(screen.getByRole("link", { name: "All system design lessons" })).toHaveAttribute(
-      "href",
-      "/systems",
-    );
+    await screen.findByRole("heading", { level: 2, name: "Try it yourself" });
     const servers = screen.getByRole("list", { name: "Servers behind the load balancer" });
     expect(within(servers).getAllByRole("listitem")).toHaveLength(3);
     await user.click(screen.getByRole("checkbox", { name: "Predict before each result" }));

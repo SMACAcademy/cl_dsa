@@ -165,6 +165,118 @@
   }
 }
 
+/* System Design Lab scenes (features/systems/IsoScene.tsx). Each box gets a hue class that
+   sets --h; its three faces mix that hue with the surface so both themes stay readable. */
+.scene-hue-blue {
+  --h: #6d8bff;
+}
+.scene-hue-violet {
+  --h: #a084f2;
+}
+.scene-hue-amber {
+  --h: #f0a24e;
+}
+.scene-hue-green {
+  --h: #4fb985;
+}
+.scene-hue-rose {
+  --h: #ec7486;
+}
+.scene-hue-teal {
+  --h: #3fb2c2;
+}
+.scene-hue-slate {
+  --h: #95a0b4;
+}
+.scene-face-top {
+  fill: color-mix(in oklab, var(--h) 38%, var(--surface-raised));
+}
+.scene-face-left {
+  fill: color-mix(in oklab, var(--h) 72%, var(--surface-raised));
+}
+.scene-face-right {
+  fill: color-mix(in oklab, var(--h) 82%, #000);
+}
+.scene-edge {
+  stroke: color-mix(in oklab, var(--h) 55%, var(--text));
+}
+.scene-icon {
+  color: color-mix(in oklab, var(--h) 45%, var(--text));
+}
+.scene-zone {
+  fill: color-mix(in oklab, var(--h) 9%, transparent);
+  stroke: color-mix(in oklab, var(--h) 70%, var(--text));
+}
+.scene-zone-label {
+  fill: color-mix(in oklab, var(--h) 60%, var(--text));
+}
+.scene-dot-request {
+  fill: var(--accent);
+}
+.scene-dot-response {
+  fill: var(--viz-found);
+}
+.scene-dot-write {
+  fill: color-mix(in oklab, var(--text) 80%, transparent);
+}
+.scene-dot-fail {
+  fill: #e5484d;
+}
+.scene-dot-event {
+  fill: #8b6cf0;
+}
+.scene-dot-copy {
+  fill: #2fa4b5;
+}
+.scene-dot-heavy {
+  fill: var(--viz-compare);
+}
+.scene-hot {
+  fill: color-mix(in oklab, var(--viz-compare) 35%, transparent);
+  animation: scene-pulse 1.4s ease-in-out infinite;
+}
+.scene-lit {
+  fill: color-mix(in oklab, var(--accent) 30%, transparent);
+}
+.scene-down {
+  opacity: 0.45;
+}
+.scene-pop {
+  animation: scene-pop 450ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+.scene-flash {
+  animation: scene-flash 900ms ease-out;
+}
+@keyframes scene-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes scene-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scene-flash {
+  from {
+    background-color: color-mix(in oklab, var(--accent) 25%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

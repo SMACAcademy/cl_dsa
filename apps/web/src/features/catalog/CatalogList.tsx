@@ -9,10 +9,9 @@ import { groupItems, itemPath, itemsOfKind, type CatalogItem, type CatalogKind }
 import { hasVisualizer } from "../viz/registry";
 import { InteractiveChip, LevelChip, StageChip } from "./chips";
 
-const SECTION_OF: Record<CatalogKind, "algorithms" | "structures" | "systems"> = {
+const SECTION_OF: Record<CatalogKind, "algorithms" | "structures"> = {
   algorithm: "algorithms",
   structure: "structures",
-  system: "systems",
 };
 
 /** The full list of algorithms or data structures, grouped, each linking to its plan. */

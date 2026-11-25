@@ -7,6 +7,8 @@ import { DashboardPlaceholder } from "../features/placeholder/DashboardPlacehold
 import { NotFound } from "../features/placeholder/NotFound";
 import { SectionPlaceholder } from "../features/placeholder/SectionPlaceholder";
 import { SettingsPlaceholder } from "../features/placeholder/SettingsPlaceholder";
+import { LessonPage } from "../features/systems/LessonPage";
+import { SystemsHome } from "../features/systems/SystemsHome";
 import { AppShell } from "./AppShell";
 import { ErrorFallback, RouteErrorFallback } from "./ErrorBoundary";
 import { NAV_ITEMS, SETTINGS_PATH, type SectionId } from "./nav";
@@ -15,11 +17,16 @@ import { NAV_ITEMS, SETTINGS_PATH, type SectionId } from "./nav";
 const CATALOG_SECTIONS: Partial<Record<SectionId, CatalogKind>> = {
   algorithms: "algorithm",
   structures: "structure",
-  systems: "system",
 };
 
 const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
   (item): RouteObject[] => {
+    if (item.id === "systems") {
+      return [
+        { path: "systems", element: <SystemsHome /> },
+        { path: "systems/:lessonId", element: <LessonPage /> },
+      ];
+    }
     const kind = CATALOG_SECTIONS[item.id];
     if (!kind) return [{ path: item.path.slice(1), element: <SectionPlaceholder id={item.id} /> }];
     return [
@@ -108,5 +115,7 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/lru-cache",
   "/structures/bloom-filter",
   "/systems/load-balancing",
+  "/systems/load-balancing?step=4",
+  "/systems/no-such-lesson",
   "/algorithms/no-such-item",
 ];

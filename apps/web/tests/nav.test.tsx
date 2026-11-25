@@ -82,7 +82,6 @@ describe("placeholder screens", () => {
     ["/curriculum", "Curriculum", 2],
     ["/algorithms", "Algorithm Lab", 4],
     ["/structures", "Data Structure Lab", 5],
-    ["/systems", "System Design Lab", 7],
     ["/playground", "Python Playground", 4],
     ["/problems", "Problem Solving", 4],
     ["/projects", "Real-World Projects", 9],

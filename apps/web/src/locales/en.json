@@ -204,11 +204,6 @@
       "count": "{{count}} data structures in {{groups}} groups",
       "back": "All data structures"
     },
-    "system": {
-      "intro": "How real systems scale, built on the data structures you already know. Drive each lesson yourself: send requests, change the rules, break a server, and watch what happens.",
-      "count": "Lessons built so far: {{count}}",
-      "back": "All system design lessons"
-    },
     "stageHint": "Each card shows its build stage: stage 1 is built first, then stage 2, and so on. The interactive lab itself arrives in the phase shown above.",
     "level": {
       "beginner": "Beginner",
@@ -1392,6 +1387,73 @@
         "negative": "Radix sort here needs numbers from 0 to 99, with no negatives."
       }
     }
+  },
+  "systems": {
+    "intro": "How real systems scale, told as one story: AlgoVerse itself growing from a hobby site to millions of learners. Every lesson is an animated diagram you step through, with questions to check yourself and labs you can drive.",
+    "progress": "{{done}} of {{total}} lessons finished",
+    "lessonCount": "{{count}} lessons",
+    "minutes": "{{count}} min",
+    "steps": "{{count}} steps",
+    "lab": "Hands-on lab",
+    "done": "Finished",
+    "back": "All system design lessons",
+    "where": "{{number}}. {{module}} · Lesson {{index}} of {{count}}",
+    "diagram": "Diagram for this step",
+    "sceneDescription": "What the diagram shows",
+    "sceneNode": "{{label}}{{sub}}{{state}}",
+    "sceneLink": "{{from}} → {{to}}: {{flows}}",
+    "nodeState": {
+      "hot": " (overloaded)",
+      "down": " (down)",
+      "dim": " (idle)",
+      "lit": " (highlighted)"
+    },
+    "metrics": "Live numbers",
+    "legend": "Legend",
+    "flow": {
+      "request": "request",
+      "response": "response",
+      "write": "write",
+      "fail": "failed request",
+      "event": "event",
+      "copy": "copy / replication",
+      "heavy": "heavy work"
+    },
+    "replay": "Replay animation",
+    "pause": "Pause animation",
+    "play": "Play animation",
+    "stepOf": "Step {{current}} / {{total}}",
+    "kind": {
+      "setup": "Setup",
+      "problem": "Problem",
+      "insight": "Insight",
+      "technique": "Technique",
+      "solution": "Solution",
+      "tradeoff": "Trade-off",
+      "case": "Case",
+      "recap": "Recap"
+    },
+    "callout": {
+      "key": "Key idea",
+      "good": "Good to know",
+      "watch": "Watch out"
+    },
+    "changed": "What changed",
+    "quiz": "Check yourself",
+    "right": "Right.",
+    "wrong": "Not quite. The answer is “{{answer}}”.",
+    "prev": "Back",
+    "next": "Next: {{short}}",
+    "nextLesson": "Next lesson: {{title}}",
+    "finished": "You finished this lesson.",
+    "keys": "← → step · R replay · Space pause",
+    "timeline": "Steps in this lesson",
+    "learn": "You'll learn",
+    "builtOn": "Built on",
+    "tryIt": "Try it yourself",
+    "pager": "Previous and next lessons",
+    "previousLesson": "Previous: {{title}}",
+    "missing": "There is no system design lesson called “{{id}}”."
   },
   "settings": {
     "appearance": "Appearance",
