@@ -3,7 +3,7 @@
  * Fill in `name` and `linkedin` to show the creator card; empty values are hidden.
  */
 export const CREATOR = {
-  /** Your name as you want it shown, e.g. "Muthu K". */
+  /** Your name as you want it shown, e.g. "Ada Lovelace". */
   name: "",
   /** A short line under the name, e.g. "Software engineer · educator". */
   headline: "",
