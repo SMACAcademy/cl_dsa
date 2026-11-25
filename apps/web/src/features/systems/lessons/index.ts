@@ -10,6 +10,7 @@ import { OBSERVABILITY, RATE_LIMITING, REDUNDANCY, TIMEOUTS_RETRIES } from "./re
 import { CACHING, CDN, SCALE_UP_OUT, STATELESS } from "./scaling";
 import { AUTHENTICATION, AUTHORIZATION, ENCRYPTION } from "./security";
 import { CICD, TESTING } from "./shipping";
+import { CHAT, HLD_LLD, NEWS_FEED, URL_SHORTENER } from "./whole";
 
 /** Every module in teaching order. Modules without lessons yet are hidden. */
 const ALL_MODULES: Module[] = [
@@ -86,7 +87,7 @@ const ALL_MODULES: Module[] = [
     number: "09",
     title: "Whole systems",
     blurb: "Everything together: designing real products end to end.",
-    lessons: [],
+    lessons: [HLD_LLD, URL_SHORTENER, NEWS_FEED, CHAT],
   },
 ];
 
