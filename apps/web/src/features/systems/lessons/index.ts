@@ -1,5 +1,7 @@
 import type { Lesson, Module } from "../model";
+import { LATENCY_THROUGHPUT, NAPKIN_MATH, REQUEST_JOURNEY } from "./foundations";
 import { LOAD_BALANCING } from "./loadBalancing";
+import { CACHING, CDN, SCALE_UP_OUT, STATELESS } from "./scaling";
 
 /** Every module in teaching order. Modules without lessons yet are hidden. */
 const ALL_MODULES: Module[] = [
@@ -8,14 +10,14 @@ const ALL_MODULES: Module[] = [
     number: "01",
     title: "Foundations",
     blurb: "What happens when a learner opens AlgoVerse, and how to reason about speed and size.",
-    lessons: [],
+    lessons: [REQUEST_JOURNEY, LATENCY_THROUGHPUT, NAPKIN_MATH],
   },
   {
     id: "scaling",
     number: "02",
     title: "Scaling",
     blurb: "From one server to many: balancing, statelessness, caches and the edge.",
-    lessons: [LOAD_BALANCING],
+    lessons: [SCALE_UP_OUT, LOAD_BALANCING, STATELESS, CACHING, CDN],
   },
   {
     id: "data",
