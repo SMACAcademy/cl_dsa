@@ -12,7 +12,7 @@
 | Truthful, synchronized visuals | Trace-driven engine; shared trace schema across Python and TS |
 | Safe code execution | Learner code never runs on the server in MVP (Pyodide in a Web Worker) |
 | Hundreds of topics, thousands of activities | Content-as-data, compiled bundles, lazy per-tile loading |
-| Local-first, no paid dependencies | Single-process local mode (FastAPI serves the SPA + SQLite); self-hosted Pyodide |
+| Hosted web app, installable PWA, no paid dependencies | FastAPI + static SPA behind a reverse proxy; anonymous guest learners; Service Worker (Workbox) for install/offline; self-hosted Pyodide |
 | Long-term growth by a small team | **Modular monolith**: strict module boundaries, one deployable, cheap to operate |
 | Testability | Engine and domain logic are pure functions/services; UI is a thin shell |
 
@@ -110,7 +110,7 @@ flowchart TB
 | Packaging | **uv** (Python), **pnpm** workspaces (JS) | Fast, reproducible, monorepo-friendly |
 
 ### 4.3 Database
-- **SQLite** for local development and the local learning environment (single file, zero setup, `WAL` mode).
+- **SQLite** for local development and small single-server deployments (single file, zero setup, `WAL` mode).
 - **PostgreSQL** for production (concurrency, `JSONB`, `SKIP LOCKED` job queue, robust backups).
 - Portability rules: SQLAlchemy core types only. JSON columns via a `JSON().with_variant(JSONB, "postgresql")` type. No DB-specific SQL outside the repository layer. CI runs tests against **both** engines.
 
@@ -163,7 +163,9 @@ sequenceDiagram
   end
 ```
 
-### 5.3 Offline / local
+### 5.3 Installable PWA & offline
+- **PWA** ([ADR-020](DECISIONS.md)): web app manifest + icons; `vite-plugin-pwa` (Workbox) with `registerType: "prompt"`, so an "update available" toast appears instead of a silent reload mid-lesson.
+- The Service Worker must serve cached responses **with** their COOP/COEP/CORP headers. Otherwise `crossOriginIsolated`, which Pyodide's interrupts need, is lost once the app is installed. An E2E test pins this.
 - The Service Worker caches the app shell, Pyodide and the compiled content bundle for opened tiles.
 - Progress events are queued in IndexedDB when the API is unreachable and replayed with idempotency keys.
 
@@ -176,7 +178,7 @@ apps/api/app
 ├── main.py                 # app factory, middleware, router mounting
 ├── core/                   # config, db session, security, errors (RFC 9457), events bus, clock
 ├── modules/
-│   ├── auth/               # sessions, local-mode auto user, CSRF
+│   ├── auth/               # guest sessions (cookie), CSRF; accounts later
 │   ├── users/              # profile, preferences, export/delete
 │   ├── content/            # releases, catalog queries, graph queries (ancestors, paths)
 │   ├── universe/           # tile/concept state projection for the map
@@ -218,7 +220,7 @@ flowchart LR
 | Code execution | See [EXECUTION_ENGINE §5–6](EXECUTION_ENGINE.md#5-sandboxing--resource-limits-browser). No learner code on the API host |
 | Transport | HTTPS in prod (TLS at reverse proxy), HSTS |
 | Browser hardening | CSP: `default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'` (tightened with hashes later); COOP/COEP for isolation; `X-Content-Type-Options`, `Referrer-Policy` |
-| AuthN | Argon2id hashes; session cookies (httpOnly, Secure, SameSite=Lax); session rotation on login; rate-limited login; local mode = single implicit user bound to localhost only |
+| AuthN | Argon2id hashes; session cookies (httpOnly, Secure, SameSite=Lax); session rotation on login; rate-limited login; MVP: anonymous guest learner per browser (random 256-bit session token, hashed at rest, httpOnly cookie); accounts adopt guest progress later |
 | AuthZ | Role-based (`learner`, `author`, `admin`); per-row ownership checks in services; default deny |
 | CSRF | Double-submit token header on mutating requests |
 | Input validation | Pydantic models on every endpoint; size limits; content directives whitelisted; Markdown rendered without raw HTML |
@@ -234,11 +236,11 @@ flowchart LR
 | Target | How | Notes |
 |---|---|---|
 | **Local development** | `pnpm dev` (Vite with COOP/COEP headers) + `uv run fastapi dev` + SQLite | Hot reload both sides. `make dev` runs both |
-| **Local learning environment** | `docker compose -f infra/compose.local.yml up` **or** `uvx algoverse` (single process: FastAPI serves the built SPA + SQLite in the user's data dir) | Works offline after first run. No accounts |
+| **Small self-hosted instance** | `docker compose -f infra/compose.local.yml up` (single process: FastAPI serves the built SPA + SQLite) | Same app as production with a smaller footprint; guest learners |
 | **Production** | `infra/compose.prod.yml`: `caddy` (TLS, headers, static) → `api` (gunicorn + uvicorn workers) → `postgres`; optional `judge` | One VM is enough initially; stateless API allows horizontal scaling |
 | **Database migration** | Alembic migrations run on startup (local) / as a release step (prod). Expand-and-contract for zero-downtime changes | CI checks migration up/down on SQLite + Postgres |
 | **Content release** | CI builds the bundle → `content-tools publish` → new `content_release` row; API serves the active release | Rollback = activate previous release |
-| **Backup & recovery** | Postgres: nightly `pg_dump` + WAL archiving (PITR) to object storage; SQLite: online `.backup` daily in local mode + "Export my progress" JSON | Quarterly restore drill (documented runbook) |
+| **Backup & recovery** | Postgres: nightly `pg_dump` + WAL archiving (PITR) to object storage; SQLite: online `.backup` daily + "Export my progress" JSON | Quarterly restore drill (documented runbook) |
 | **Observability** | Structured logs, request IDs, `/healthz`, `/readyz`; OpenTelemetry tracing optional (Phase 10) | No third-party telemetry by default |
 
 CI/CD (GitHub Actions): lint → type-check → unit → content CI → integration (SQLite & Postgres) → E2E (Playwright) → build images → (main) deploy to staging.

@@ -28,7 +28,7 @@ As a result, animations cannot lie, learner-modified code is visualized truthful
 
 **How learning is measured.** Mastery comes only from evidence: predictions on live traces, Parsons problems, find-the-bug, code-with-tests and checkpoints. Watching earns nothing. Spaced repetition (FSRS) keeps knowledge fresh, and misconception tracking drives targeted remediation.
 
-**How it is built.** React + TypeScript SPA with a pure-TS visualization engine. Pyodide in a sandboxed Web Worker for Python. FastAPI modular monolith. SQLite locally, PostgreSQL in production. Content as code (YAML + Markdown + Python) verified by CI, including empirical complexity checks. No paid APIs. Runs fully locally.
+**How it is built.** React + TypeScript SPA with a pure-TS visualization engine. Pyodide in a sandboxed Web Worker for Python. FastAPI modular monolith. SQLite locally, PostgreSQL in production. Content as code (YAML + Markdown + Python) verified by CI, including empirical complexity checks. No paid APIs. Hosted web app, installable as a PWA.
 
 ---
 
@@ -80,7 +80,7 @@ Additional product recommendations from the brief and where each one is designed
 | **Shared/untrusted code** | Future sharing would run others' code | Untrusted-mode iframe isolation before sharing is enabled |
 | **Accessibility of a visual-first product** | Visuals exclude screen-reader users by default | Narration per step, list views, keyboard activities, pattern-encoded states |
 | **Content versioning vs learner progress** | Content will change under learners | Stable concept IDs, releases, aliases, assessment versions |
-| **Data ownership & privacy** | Local-first promise | Export/delete, no third-party analytics, pseudonymous events |
+| **Data ownership & privacy** | Privacy promise | Export/delete, no third-party analytics, pseudonymous events |
 
 ---
 
@@ -96,7 +96,7 @@ In scope:
 - Assessment: 9 item types, trace-generated items, server-graded checkpoints, misconception remediation.
 - Mastery state machine, unlocking, XP ledger, levels, streak, daily goal, 10 badges.
 - Python Playground (Run / Visualize / Debug), Time Machine basic, Library basic, Dashboard, Progress v0.
-- Local single-user mode (one command), SQLite, offline after first load.
+- Hosted web app, installable as a PWA (offline after first load), with anonymous guest learners (no sign-up). SQLite or PostgreSQL.
 
 Out of MVP (designed and scheduled): DS Lab, Battle Arena, Reverse Engineering, Dependency Explorer, FSRS reviews, challenges, Judge service, cloud accounts, projects, Tiers 2–8 content.
 
@@ -133,7 +133,7 @@ Full plan with tasks, outputs, tests and acceptance criteria: [ROADMAP §2](ROAD
 4. **Content as verified code** (ADR-007). New topics need zero application changes, and CI proves correctness, fidelity and complexity claims.
 5. **Pyramid as geometry, prerequisites as a DAG** (ADR-014). The map is motivating and island-free by construction, while unlocking stays flexible.
 6. **Evidence-based mastery + append-only XP ledger** (ADR-009/010). Gamification cannot be farmed, and mastery means something.
-7. **Modular monolith, local-first** (ADR-001/018). Cheap to run, simple to develop, and ready to split where security or scale requires it.
+7. **Modular monolith, hosted with guest learners** (ADR-001/018). Cheap to run, simple to develop, and ready to split where security or scale requires it.
 
 ## 8. Questions that genuinely need your input
 
@@ -141,7 +141,7 @@ These are the only choices I could not make on your behalf. Everything else is a
 
 1. **Licensing and openness.** Should AlgoVerse be open source (e.g. MIT for code + CC BY-SA for content) or proprietary? This affects contribution workflow, content reuse and whether the repo stays public.
 2. **First audience after the MVP.** After Pyramid I, should Tiers 2–4 prioritize **university-style depth** (proofs, recurrences) or **interview readiness** (patterns, problem lab)? Both are planned. This only changes the order.
-3. **Hosting ambition for v1.** I assumed **local single-user first** (no accounts, no server costs) and cloud multi-user from Phase 8–10. If you want a hosted multi-user beta earlier (e.g. for a class), accounts and the Judge move forward.
+3. ~~**Hosting ambition for v1.**~~ **Answered 2026-11-18:** a hosted web app, installable as a PWA, with guest learners for now and accounts later (ADR-018, ADR-020).
 4. **Content review capacity.** Who will review algorithm content for accuracy (a second person with DSA expertise)? The plan requires two-person review for new algorithm concepts. If it is only us, I will add stricter automated checks and a slower content cadence.
 
 ---

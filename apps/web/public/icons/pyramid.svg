@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>AlgoVerse</title>
+  <g stroke-linejoin="round">
+    <polygon points="256,66 366,256.5 146,256.5" fill="#5b6cff" transform="translate(256 193) scale(0.9) translate(-256 -193)"/>
+    <polygon points="146,256.5 256,447 36,447" fill="#5b6cff" transform="translate(146 383.5) scale(0.9) translate(-146 -383.5)"/>
+    <polygon points="366,256.5 476,447 256,447" fill="#5b6cff" transform="translate(366 383.5) scale(0.9) translate(-366 -383.5)"/>
+    <polygon points="146,256.5 366,256.5 256,447" fill="#aab4ff" transform="translate(256 320) scale(0.9) translate(-256 -320)"/>
+  </g>
+</svg>

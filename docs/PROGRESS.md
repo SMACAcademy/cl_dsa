@@ -4,7 +4,33 @@
 > Legend: ✅ done · 🟡 in progress · ⏳ pending · 🔬 spike · ⛔ blocked
 
 ## Current status
-**Phase 1 — Product & Engineering Blueprint: ✅ approved** (2026-11-18). **Phase 2 — plans written, execution not started.**
+**Phase 1 — Product & Engineering Blueprint: ✅ approved** (2026-11-18).
+**Phase 2 — 🟡 in progress** (branch `phase-2`, not yet merged or pushed):
+- **2A spikes:** S1–S6 run and written up (Task 7, consolidating them into decisions, is still open).
+- **2B foundation:** Tasks 1 (monorepo scaffold) and 13 (web shell) done; the trace-schema package (Task 2) is started but uncommitted; the rest are pending.
+- **Ahead of plan:** an interactive catalog of all 54 algorithms and data structures, each with a step-through player (see below).
+
+## Interactive catalog (built ahead of the roadmap)
+The web app has a catalog of 54 entries, each with a worked example and a step-through player:
+code panel with the current line, variables, narration, "predict the next step" questions,
+presets (default 10–12 values, plus a small "card example"), and a 🎲 Random button.
+These players run the algorithm in TypeScript. They are **not** the Python-traced visualizations
+of Phase 3, which still need the execution engine.
+
+| Section | Status |
+|---|---|
+| Searching (linear, binary) | ✅ |
+| Sorting (bubble, selection, insertion, merge, quick, heap, counting, radix) | ✅ |
+| Linear structures (arrays, dynamic array, linked lists, stack, queue, ring buffer) | ✅ |
+| Hashing (hash table, open addressing) | ✅ |
+| Trees (binary tree, BST, AVL, heap, trie, segment tree) | ✅ |
+| Graphs and sets (graph, union-find) and graph algorithms | ✅ |
+| Recursion (incl. Tower of Hanoi) and problem-solving patterns | ✅ |
+| Greedy, dynamic programming, backtracking | ✅ |
+| Strings and numbers (naive match, KMP, GCD, sieve) | ✅ |
+| Designed structures (LRU cache, Bloom filter) | ✅ |
+
+Tests: 601 passing in 36 files (Vitest + Testing Library + axe); type check and lint clean (2026-11-22).
 
 ## Phase 1 — Blueprint deliverables
 
@@ -34,15 +60,17 @@
 | Owner review of blueprint | ✅ approved 2026-11-18 |
 | Answer open questions in [BLUEPRINT §8](BLUEPRINT.md#8-questions-that-genuinely-need-your-input) (licence blocks only the `LICENSE` file) | ⏳ |
 | Phase 2 execution plans: [2A spikes](plans/2026-11-18-phase-2a-spikes.md) (8 tasks) · [2B foundation](plans/2026-11-18-phase-2b-foundation.md) (19 tasks) | ✅ written |
-| M2.0 De-risking spikes (S1–S6) | ⏳ |
-| M2.1 Monorepo scaffold | ⏳ |
+| M2.0 De-risking spikes (S1–S6) | 🟡 all six run (S2 pass; S1, S4, S5, S6 pass with changes; S3 per clause); 2A Task 7 consolidation pending |
+| M2.1 Monorepo scaffold | ✅ pnpm + uv workspaces, lint, LF |
+| 2B remaining tasks (2–12, 14–19) | ⏳ trace-schema started, uncommitted |
+| Push `phase-2` and open a PR to `main` | ⏳ needs owner OK |
 
 ## Phase checklist
 
 | Phase | Status |
 |---|---|
 | 1 Blueprint | ✅ approved |
-| 2 Foundation | 🟡 planned |
+| 2 Foundation | 🟡 in progress |
 | 3 Visualization engine | ⏳ |
 | 4 Pyramid I (MVP) | ⏳ |
 | 5 Data structures | ⏳ |
@@ -55,3 +83,6 @@
 ## Change log
 - **2026-11-18** — Phase 1 blueprint drafted: 16 documents, the universe diagram and 18 proposed ADRs.
 - **2026-11-18** — Blueprint approved. Phase 2A (spikes) and 2B (foundation) execution plans written. The tile "glimpsed" rule now also follows prerequisite links (PYRAMID_MODEL §5.1).
+- **2026-11-18** — Spikes S1–S6 run and written up in [spikes/](spikes/). Monorepo scaffold and web app shell (routing, themes, i18n). Owner decision: hosted web app, installable PWA, guest learners. System-freeze incident recorded in [incidents/](incidents/).
+- **2026-11-18 – 11-20** — Interactive catalog: 54 algorithms and data structures, each with a step-through player, built section by section.
+- **2026-11-22** — Bigger examples: players open on 10–12 values (up to 16), each keeps a small "card example", and a 🎲 Random button fills in 12 fresh values. Bars and array boxes shrink so 16 values fit beside the code panel.

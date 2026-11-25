@@ -108,13 +108,13 @@ The design centre is the **beginner who becomes an engineer**. Content and UI mu
 | # | Assumption | Why | Impact if wrong |
 |---|---|---|---|
 | A1 | Primary audience reads English. UI strings are still externalized for i18n. | Fastest path | i18n is built in from day one, so only translation work is needed |
-| A2 | First deployment is **local / single-user**; multi-user cloud comes later | Spec: "avoid cloud dependencies initially" | Auth module is designed for multi-user but is optional |
+| A2 | AlgoVerse is a **hosted web application**, installable as a **PWA**. MVP learners are **anonymous guests** (one per browser, no sign-up); real accounts come in Phases 8–10 | Owner decision, 2026-11-18 | Guests convert to accounts later without losing progress |
 | A3 | Learner code runs **in the browser** (Pyodide/WebAssembly) in a Web Worker | Isolation, zero server cost, offline | Server sandbox ("Judge") is designed and scheduled for Phase 8/10 |
 | A4 | Python 3.12+ semantics | Pyodide ships modern CPython | Tracer abstracts trace backend |
 | A5 | Desktop-first (≥1280 px). Tablet/mobile supported for reading, watching and light practice | Spec | Layout system is responsive from the start |
 | A6 | Content authored by the project team in-repo (Markdown + YAML), reviewed via PR | Accuracy, versioning | A web authoring UI can come later on the same schema |
 | A7 | Standard library only for learner Python; NumPy loaded lazily for numeric tiers | Download size | Package allow-list per lesson |
-| A8 | No PII beyond email/display name in cloud mode | Privacy | — |
+| A8 | No PII for guests; email/display name only once accounts exist | Privacy | — |
 
 ---
 
@@ -143,7 +143,7 @@ IDs are referenced by tests and acceptance criteria. Modules are specified in §
 | FR-17 | Algorithm Time Machine, Build-Your-Own Data Structure, Battle Arena, Dependency Explorer, Reverse Engineering |
 | FR-18 | Light/dark themes, keyboard navigation, resizable panels, responsive layout |
 | FR-19 | Content validation pipeline verifies schema, graph integrity, reference implementations and complexity claims |
-| FR-20 | Local single-user mode works offline after first load |
+| FR-20 | Installable Progressive Web App: manifest, install prompt, offline app shell and previously opened lessons, "update available" prompt |
 
 ## 7. Non-functional requirements
 
@@ -160,7 +160,7 @@ IDs are referenced by tests and acceptance criteria. Modules are specified in §
 | NFR-09 | Extensibility | New visualization type added by registering one view adapter + one renderer (no engine changes) |
 | NFR-10 | Reliability | Progress writes are idempotent. XP ledger is never double-counted |
 | NFR-11 | Portability | Runs on Windows/macOS/Linux for development. Docker for deployment. SQLite or PostgreSQL |
-| NFR-12 | Privacy | Local mode stores data only on the learner's machine. No third-party trackers |
+| NFR-12 | Privacy | Guest learners are pseudonymous (no PII). No third-party trackers. Learners can export or delete their data |
 | NFR-13 | Maintainability | Module boundaries enforced (lint rules). ≥ 85% coverage on engine packages |
 | NFR-14 | Browser support | Last 2 versions of Chrome, Edge, Firefox, Safari |
 
@@ -280,8 +280,8 @@ Each module lists **Purpose · Features · Dependencies · Technical implementat
 - **Technical:** graph queries on the concept DAG (ancestors, shortest path weighted by learner's mastery); React Flow + `elkjs`-style layered layout (or d3-dag).
 - **Acceptance:** selecting "Dijkstra" shows arrays → heaps → graph representation → BFS → Dijkstra, highlighting what the learner already mastered.
 
-### M16. Accounts, Settings & Local Mode
-- **Features:** local single-user mode (no login); cloud mode with email/password accounts; profile; preferences (theme, motion, speed, daily goal); data export/import (JSON); delete account.
+### M16. Learners, Accounts & Settings
+- **Features:** anonymous guest learner per browser (httpOnly session cookie, no sign-up) in the MVP; email/password accounts that adopt a guest's progress (Phases 8–10); profile; preferences (theme, motion, speed, daily goal); data export/import (JSON); delete my data.
 
 ### M17. Content Operations
 - **Features:** `content-tools` CLI (`validate`, `test`, `verify-complexity`, `build`, `publish`, `graph`); preview server for authors; content release history; reference/citation registry; maturity review dates (for emerging topics).
@@ -307,5 +307,5 @@ Each module lists **Purpose · Features · Dependencies · Technical implementat
 | M13 Projects | — | Phase 9 |
 | M14 Dashboard | ✅ | — |
 | M15 Library/Explorer | ✅ library basic | Explorer (Phase 5) |
-| M16 Accounts | ✅ local mode | Cloud accounts (Phase 10) |
+| M16 Learners | ✅ guest learners, PWA install | Accounts (Phases 8–10) |
 | M17 Content ops | ✅ CLI | Preview server |

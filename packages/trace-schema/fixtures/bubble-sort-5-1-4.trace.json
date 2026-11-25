@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0",
+  "meta": {
+    "runId": "fixture-bubble-sort-5-1-4",
+    "pythonVersion": "3.12.0",
+    "entry": "bubble_sort",
+    "source": [
+      {
+        "name": "main.py",
+        "text": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - 1 - i):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr\n",
+        "sha256": "009b5ec585b670cac3df3e565fef3c90e5ef9106ba89bb74a58064763915552b"
+      }
+    ],
+    "seed": 0,
+    "limits": {
+      "maxSteps": 100000,
+      "timeoutMs": 5000,
+      "maxHeapItems": 1000
+    },
+    "terminatedBy": "completed",
+    "loops": [
+      {
+        "span": {
+          "line": 3,
+          "col": 4,
+          "endLine": 6,
+          "endCol": 56
+        },
+        "kind": "for",
+        "depth": 1
+      },
+      {
+        "span": {
+          "line": 4,
+          "col": 8,
+          "endLine": 6,
+          "endCol": 56
+        },
+        "kind": "for",
+        "depth": 1
+      }
+    ]
+  },
+  "events": [
+    {
+      "seq": 12,
+      "kind": "line",
+      "span": {
+        "line": 5,
+        "col": 12,
+        "endLine": 5,
+        "endCol": 34
+      },
+      "depth": 1
+    },
+    {
+      "seq": 13,
+      "kind": "read",
+      "container": "o1",
+      "key": {
+        "t": "int",
+        "v": "0"
+      },
+      "value": {
+        "t": "int",
+        "v": "5"
+      },
+      "depth": 1
+    },
+    {
+      "seq": 14,
+      "kind": "read",
+      "container": "o1",
+      "key": {
+        "t": "int",
+        "v": "1"
+      },
+      "value": {
+        "t": "int",
+        "v": "1"
+      },
+      "depth": 1
+    },
+    {
+      "seq": 15,
+      "kind": "compare",
+      "op": ">",
+      "left": {
+        "t": "int",
+        "v": "5"
+      },
+      "right": {
+        "t": "int",
+        "v": "1"
+      },
+      "result": true,
+      "leftOrigin": {
+        "container": "o1",
+        "key": {
+          "t": "int",
+          "v": "0"
+        }
+      },
+      "rightOrigin": {
+        "container": "o1",
+        "key": {
+          "t": "int",
+          "v": "1"
+        }
+      },
+      "span": {
+        "line": 5,
+        "col": 15,
+        "endLine": 5,
+        "endCol": 33
+      },
+      "depth": 1
+    },
+    {
+      "seq": 16,
+      "kind": "line",
+      "span": {
+        "line": 6,
+        "col": 16,
+        "endLine": 6,
+        "endCol": 56
+      },
+      "depth": 1
+    },
+    {
+      "seq": 19,
+      "kind": "write",
+      "container": "o1",
+      "key": {
+        "t": "int",
+        "v": "0"
+      },
+      "old": {
+        "t": "int",
+        "v": "5"
+      },
+      "value": {
+        "t": "int",
+        "v": "1"
+      },
+      "valueOrigin": {
+        "container": "o1",
+        "key": {
+          "t": "int",
+          "v": "1"
+        }
+      },
+      "depth": 1
+    },
+    {
+      "seq": 20,
+      "kind": "write",
+      "container": "o1",
+      "key": {
+        "t": "int",
+        "v": "1"
+      },
+      "old": {
+        "t": "int",
+        "v": "1"
+      },
+      "value": {
+        "t": "int",
+        "v": "5"
+      },
+      "valueOrigin": {
+        "container": "o1",
+        "key": {
+          "t": "int",
+          "v": "0"
+        }
+      },
+      "depth": 1
+    }
+  ],
+  "counters": {
+    "lines": 2,
+    "comparisons": 1,
+    "reads": 2,
+    "writes": 2,
+    "swaps": 1,
+    "calls": 0,
+    "maxDepth": 1
+  },
+  "stdout": ""
+}

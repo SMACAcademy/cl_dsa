@@ -1,0 +1,44 @@
+import { Flame, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ThemeToggle } from "../ui/ThemeToggle";
+import { AccountMenu } from "./AccountMenu";
+
+// A new guest starts here; real values arrive with gamification (M4.3).
+const GUEST_STATS = { streak: 0, xp: 0, level: 1 };
+
+const chip =
+  "inline-flex h-8 items-center gap-1.5 rounded-full border border-line bg-raised px-3 text-sm tabular-nums";
+
+export function TopBar() {
+  const { t } = useTranslation();
+  return (
+    <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b border-line bg-surface px-4 sm:px-6">
+      <p className="hidden min-w-0 items-center gap-2 text-sm md:flex">
+        <span className="rounded-full border border-dashed border-control px-2 py-0.5 text-xs font-medium text-muted">
+          {t("topbar.previewBadge")}
+        </span>
+        <span className="truncate text-muted">{t("topbar.previewHint")}</span>
+      </p>
+
+      <div className="ml-auto flex items-center gap-2">
+        <ul aria-label={t("topbar.statsLabel")} className="hidden items-center gap-2 sm:flex">
+          <li className={chip}>
+            <Flame className="size-4 text-tier-7" aria-hidden="true" />
+            <span aria-hidden="true">{GUEST_STATS.streak}</span>
+            <span className="sr-only">{t("topbar.streak", { count: GUEST_STATS.streak })}</span>
+          </li>
+          <li className={chip}>
+            <Zap className="size-4 text-tier-0" aria-hidden="true" />
+            {t("topbar.xp", { count: GUEST_STATS.xp })}
+          </li>
+          <li className={chip}>
+            <span aria-hidden="true">{t("topbar.levelShort", { level: GUEST_STATS.level })}</span>
+            <span className="sr-only">{t("topbar.level", { level: GUEST_STATS.level })}</span>
+          </li>
+        </ul>
+        <ThemeToggle />
+        <AccountMenu />
+      </div>
+    </header>
+  );
+}

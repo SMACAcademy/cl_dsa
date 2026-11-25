@@ -1,0 +1,1363 @@
+{
+  "app": {
+    "name": "AlgoVerse",
+    "tagline": "A visual lab for learning data structures and algorithms",
+    "documentTitle": "{{section}} · AlgoVerse"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "nav": {
+    "label": "Main",
+    "dashboard": "Dashboard",
+    "universe": "Learning Universe",
+    "curriculum": "Curriculum",
+    "algorithms": "Algorithm Lab",
+    "structures": "Data Structure Lab",
+    "playground": "Python Playground",
+    "problems": "Problem Solving",
+    "projects": "Real-World Projects",
+    "progress": "My Progress",
+    "library": "Knowledge Library",
+    "settings": "Settings",
+    "lesson": "Lesson player"
+  },
+  "topbar": {
+    "previewBadge": "Foundation preview",
+    "previewHint": "Screens are placeholders while each section is built",
+    "statsLabel": "Your stats",
+    "streak": "{{count}}-day streak",
+    "xp": "{{count}} XP",
+    "level": "Level {{level}}",
+    "levelShort": "Lv {{level}}"
+  },
+  "theme": {
+    "label": "Theme",
+    "menuLabel": "Theme: {{theme}}",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "systemHint": "Follows your device setting",
+    "shortcutHint": "Ctrl + Alt + T toggles light and dark"
+  },
+  "account": {
+    "menuLabel": "Account menu",
+    "guest": "Guest learner",
+    "guestHint": "Your progress is saved in this browser",
+    "settings": "Settings"
+  },
+  "placeholder": {
+    "comingInPhase": "Coming in phase {{phase}}",
+    "planned": "What's planned",
+    "stageTitle": "Placeholder screen",
+    "stageBody": "This screen's features arrive in phase {{phase}}. The navigation, themes and layout around it are already in place.",
+    "preview": "Preview"
+  },
+  "sections": {
+    "dashboard": {
+      "description": "Your home base: what to learn next, today's goal and your progress at a glance.",
+      "planned": [
+        "Continue where you left off",
+        "Recommendations that explain why",
+        "Daily goal, streak and milestones"
+      ]
+    },
+    "universe": {
+      "description": "Explore every topic as a tile on a triangular map, and see how each one unlocks the next.",
+      "planned": [
+        "Zoom from the whole pyramid down to single concepts",
+        "See which tiles are open, in progress or mastered",
+        "A list view for keyboard and screen-reader users"
+      ]
+    },
+    "curriculum": {
+      "description": "Browse the full course from tier to tile to concept, with time estimates and your status.",
+      "planned": [
+        "Filter by thread, kind, status and maturity",
+        "Estimated time for every concept",
+        "The linear, scannable twin of the Universe"
+      ]
+    },
+    "algorithms": {
+      "description": "Run any algorithm on your own inputs and watch it work, one step at a time.",
+      "planned": [
+        "Explore: the full player with free inputs",
+        "Time Machine: scrub, jump and compare any two steps",
+        "Battle Arena: race algorithms on the same data"
+      ]
+    },
+    "structures": {
+      "description": "Build data structures by hand and watch their invariants hold, or break.",
+      "planned": [
+        "A canvas for nodes, pointers and buckets",
+        "A live Python view that round-trips your edits",
+        "Animated insert, delete, search and traverse"
+      ]
+    },
+    "playground": {
+      "description": "Write Python in your browser, then run it, visualize it or step through it.",
+      "planned": [
+        "Run, Visualize and Debug with step-back",
+        "Examples to start from, saved in this browser",
+        "Console, inspector and output side by side"
+      ]
+    },
+    "problems": {
+      "description": "Practise on problems matched to what you have learned, with hints when you need them.",
+      "planned": [
+        "About 20 problems for Pyramid I",
+        "Hints revealed one at a time",
+        "Pattern Trainer: spot the right approach first"
+      ]
+    },
+    "projects": {
+      "description": "Build real systems, such as a search engine, from the structures you have mastered.",
+      "planned": [
+        "Architecture diagrams and milestone plans",
+        "Starter code and tests for every milestone",
+        "Visualizations of each system's core structure"
+      ]
+    },
+    "progress": {
+      "description": "See your mastery, streaks, badges and review schedule in one place.",
+      "planned": [
+        "A pyramid heat map of mastery by tile",
+        "XP history and a streak calendar",
+        "Every concept with its next review date"
+      ]
+    },
+    "library": {
+      "description": "Look up any concept, complexity or term without starting a lesson.",
+      "planned": [
+        "Condensed concept pages with code",
+        "Complexity cheat sheets and a glossary",
+        "Search across everything"
+      ]
+    },
+    "settings": {
+      "description": "Tune AlgoVerse to the way you like to learn.",
+      "planned": [
+        "Motion, playback speed and step granularity",
+        "Daily goal and keyboard shortcuts",
+        "Export, import or delete your data"
+      ]
+    },
+    "lesson": {
+      "description": "Every concept is taught in 12 short sections, from intuition to code to checkpoint.",
+      "planned": [
+        "A visualization stage beside live code",
+        "Predict-the-next-step moments",
+        "A checkpoint that proves mastery"
+      ]
+    }
+  },
+  "dashboard": {
+    "greeting": "Welcome, guest learner",
+    "intro": "Your learning lab is being assembled. These cards preview what your dashboard will show.",
+    "continue": {
+      "title": "Continue learning",
+      "body": "Your next lesson will appear here. Everyone starts with “What is an Algorithm?” at the top of Pyramid I.",
+      "progressLabel": "Progress in your current lesson",
+      "action": "Explore the Universe"
+    },
+    "goal": {
+      "title": "Daily goal",
+      "value": "{{current}} / {{target}} XP",
+      "progressLabel": "Daily goal progress",
+      "body": "Earn XP by predicting, practising and passing checkpoints. Watching alone earns none."
+    },
+    "pyramid": {
+      "title": "Your pyramid",
+      "body": "Pyramid I has 4 tiles. You have started 0.",
+      "legendLabel": "Tier colours"
+    },
+    "next": {
+      "title": "Recommended next",
+      "body": "Suggestions tailored to you, each with the reason it was picked."
+    }
+  },
+  "tiers": {
+    "foundations": "Pyramid I · foundations",
+    "core": "Core DSA",
+    "graphs": "Graphs · paradigms · strings",
+    "advanced": "Advanced algorithms",
+    "systems": "Systems & industry",
+    "frontier": "Frontier"
+  },
+  "catalog": {
+    "algorithm": {
+      "intro": "Every algorithm AlgoVerse will teach. Open one to see what will be built for it and a tiny example worked by hand.",
+      "count": "{{count}} algorithms in {{groups}} groups",
+      "back": "All algorithms"
+    },
+    "structure": {
+      "intro": "Every data structure AlgoVerse will teach. Open one to see what will be built for it and a tiny example worked by hand.",
+      "count": "{{count}} data structures in {{groups}} groups",
+      "back": "All data structures"
+    },
+    "stageHint": "Each card shows its build stage: stage 1 is built first, then stage 2, and so on. The interactive lab itself arrives in the phase shown above.",
+    "level": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "stage": "Build stage {{stage}}",
+    "tile": "Curriculum tile {{tile}}",
+    "interactive": "Interactive",
+    "detail": {
+      "tryIt": "Try it: step through {{name}}",
+      "example": "Tiny worked example",
+      "input": "Input:",
+      "result": "Result:",
+      "visual": "What you'll see",
+      "cost": "Cost",
+      "buildsOn": "Builds on",
+      "pager": "Previous and next entries",
+      "previous": "Previous: {{name}}",
+      "next": "Next: {{name}}"
+    },
+    "missing": {
+      "title": "Not in the catalog",
+      "body": "There is no catalog entry called “{{id}}”."
+    }
+  },
+  "viz": {
+    "array": {
+      "label": "Array",
+      "cell": "Index {{index}}, value {{value}}, {{state}}",
+      "emptyCell": "Index {{index}}, empty",
+      "state": {
+        "idle": "not checked yet",
+        "checked": "checked, not a match",
+        "discarded": "ruled out",
+        "comparing": "being compared now",
+        "found": "found",
+        "used": "already used",
+        "outside": "not part of this step",
+        "empty": "empty"
+      }
+    },
+    "ranges": {
+      "sortedPart": "sorted part",
+      "left": "left half",
+      "right": "right half",
+      "merged": "merged",
+      "small": "≤ pivot",
+      "big": "> pivot",
+      "heap": "heap"
+    },
+    "code": {
+      "caption": "Python"
+    },
+    "stage": {
+      "lookingFor": "Looking for"
+    },
+    "vars": {
+      "title": "Variables",
+      "comparisons": "comparisons",
+      "swaps": "swaps",
+      "shifts": "shifts",
+      "returned": "returned"
+    },
+    "linear": {
+      "start": "Look for {{target}} among {{count}} values, from left to right.",
+      "move": "Move to index {{i}}.",
+      "compareNo": "Is items[{{i}}] = {{value}} equal to {{target}}? No, keep going.",
+      "compareYes": "Is items[{{i}}] = {{value}} equal to {{target}}? Yes!",
+      "found": "Return {{i}}. Comparisons made: {{comparisons}}.",
+      "notFound": "Reached the end without finding {{target}}. Return -1. Comparisons made: {{comparisons}}."
+    },
+    "bars": {
+      "cell": "Position {{position}}, value {{value}}, {{state}}",
+      "state": {
+        "idle": "not yet in place",
+        "minimum": "smallest so far",
+        "key": "the key being inserted",
+        "pivot": "the pivot",
+        "comparing": "being compared",
+        "swapping": "just swapped",
+        "sorted": "in its final place",
+        "outside": "not part of this step"
+      }
+    },
+    "bubble": {
+      "start": "Sort {{count}} values by swapping neighbours that are out of order.",
+      "pass": "Pass {{pass}}: compare neighbours from index 0 up to index {{end}}.",
+      "compareSwap": "Compare items[{{j}}] = {{a}} and items[{{k}}] = {{b}}: {{a}} > {{b}}, so they are out of order.",
+      "compareKeep": "Compare items[{{j}}] = {{a}} and items[{{k}}] = {{b}}: already in order, leave them.",
+      "swap": "Swap them, so the larger value {{a}} moves right: {{list}}.",
+      "passEnd": "End of pass {{pass}}: {{value}} has bubbled up to index {{end}}, its final place.",
+      "earlyExit": "No swaps in pass {{pass}}: everything is already in order, so stop early.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}.",
+      "counters": "Comparisons: {{comparisons}} · Swaps: {{swaps}}"
+    },
+    "selection": {
+      "start": "Sort {{count}} values: each pass finds the smallest remaining value and puts it next in line.",
+      "pass": "Pass {{pass}}: fill index {{i}}. Start by assuming items[{{i}}] = {{value}} is the smallest.",
+      "compareNew": "Is items[{{j}}] = {{a}} smaller than the smallest so far, {{b}}? Yes!",
+      "compareKeep": "Is items[{{j}}] = {{a}} smaller than the smallest so far, {{b}}? No.",
+      "newMin": "Remember the new smallest: {{value}} at index {{j}}.",
+      "swap": "Swap it into index {{i}}: {{value}} is now in its final place: {{list}}.",
+      "inPlace": "{{value}} is already at index {{i}}, so no swap is needed.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "insertion": {
+      "start": "Sort {{count}} values like cards in your hand: take each one and slide it left into place.",
+      "pick": "Pass {{pass}}: lift out key = items[{{i}}] = {{value}}. Index 0..{{last}} is already sorted.",
+      "compareShift": "Is items[{{j}}] = {{a}} bigger than the key {{value}}? Yes: it must shift right.",
+      "compareStop": "Is items[{{j}}] = {{a}} bigger than the key {{value}}? No: stop here.",
+      "reachedStart": "Reached the start of the list: {{value}} is the smallest so far.",
+      "shift": "Shift {{a}} one place right. The gap is now at index {{gap}}.",
+      "insert": "Drop the key {{value}} into the gap at index {{pos}}: {{list}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, shifts: {{shifts}}.",
+      "counters": "Comparisons: {{comparisons}} · Shifts: {{shifts}}"
+    },
+    "merge": {
+      "start": "Sort {{count}} values by splitting the list in half until each piece has one value, then merging the pieces back in order.",
+      "split": "Split {{list}} into {{left}} and {{right}}.",
+      "mergeStart": "Merge {{left}} and {{right}}: point a finger at the start of each half.",
+      "takeLeft": "{{a}} ≤ {{b}}: take {{a}} from the left half.",
+      "takeRight": "{{a}} > {{b}}: take {{b}} from the right half.",
+      "rest": "One half is used up: copy the leftovers {{rest}}.",
+      "merged": "Merged: {{list}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}.",
+      "counters": "Comparisons: {{comparisons}}",
+      "resultLabel": "result"
+    },
+    "quick": {
+      "start": "Sort {{count}} values: pick a pivot, move smaller values to its left and larger ones to its right, then sort each side.",
+      "partition": "Partition index {{lo}}..{{hi}} around the pivot {{pivot}} (the last value).",
+      "compareSmall": "Is items[{{j}}] = {{a}} ≤ the pivot {{pivot}}? Yes: it joins the small side.",
+      "compareBig": "Is items[{{j}}] = {{a}} ≤ the pivot {{pivot}}? No: it stays on the big side.",
+      "swap": "Swap {{a}} into index {{i}}, the end of the small side.",
+      "placePivot": "Put the pivot {{pivot}} at index {{p}}: smaller values are left of it, larger ones right. It is in its final place.",
+      "single": "Only {{value}} is left in this range: it is in its final place at index {{p}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "heap": {
+      "start": "Sort {{count}} values with a heap: a tree stored in the list, where every parent is at least as big as its children.",
+      "build": "Phase 1: build a max-heap. Sift down every parent, starting from the last one at index {{k}}.",
+      "siftStart": "Sift down from index {{root}} (value {{value}}).",
+      "pickTwo": "Children of index {{root}} are {{a}} and {{b}}: the bigger one is {{c}} at index {{child}}.",
+      "pickOne": "Index {{root}} has one child: {{c}} at index {{child}}.",
+      "heapOk": "Parent {{v}} ≥ child {{c}}: this part of the heap is fine, stop.",
+      "swapDown": "Parent {{v}} < child {{c}}: swap them, so {{c}} moves up.",
+      "leaf": "Index {{root}} has no children left to check: stop.",
+      "sortPhase": "Phase 2: the biggest value is at the top. Move it to the end, shrink the heap, and repair it.",
+      "extract": "Swap the top {{max}} with the last heap value: {{max}} is now in its final place at index {{end}}.",
+      "done": "Sorted! Comparisons: {{comparisons}}, swaps: {{swaps}}."
+    },
+    "counting": {
+      "start": "Sort {{count}} small whole numbers without comparing them: count how many of each there are, then write them out.",
+      "makeCounts": "The largest value is {{k}}, so make {{size}} counters, all starting at 0.",
+      "tally": "items[{{p}}] = {{x}}: add one to count[{{x}}], which is now {{c}}.",
+      "write": "count[{{value}}] = {{c}}: write {{value}} out {{c}} time(s). Result so far: {{list}}.",
+      "done": "Sorted: {{list}}. Each of the {{n}} values was counted once and written once, with no comparisons.",
+      "itemsRow": "items",
+      "countRow": "count",
+      "resultRow": "result"
+    },
+    "radix": {
+      "start": "Sort {{count}} values digit by digit, without comparing them: first by the ones digit, then by the tens digit.",
+      "pass": "Pass for the {{digit}} digit (place = {{place}}): start with 10 empty buckets, 0 to 9.",
+      "drop": "{{x}}: its {{digit}} digit is {{d}}, so it goes into bucket {{d}}.",
+      "collect": "Collect the buckets from 0 to 9, keeping each bucket's order: {{list}}.",
+      "done": "place = {{place}} is bigger than the largest value {{max}}, so stop. Sorted: {{list}}.",
+      "digit": {
+        "ones": "ones",
+        "tens": "tens"
+      },
+      "bucketsLabel": "Buckets 0 to 9",
+      "bucketContents": "Bucket {{d}}: {{values}}",
+      "emptyBucket": "empty"
+    },
+    "ds": {
+      "form": {
+        "start": "Start with (up to {{max}} values, may be empty)",
+        "capacity": "Capacity (2 to 12)",
+        "count": "Number of items (2 to 12)",
+        "vertex": "Start at (one vertex)",
+        "edges": "Edges (up to {{max}}, separated by commas)",
+        "meetings": "Meetings as start-end (up to {{max}}, separated by commas)",
+        "freqs": "Letters and how often they appear (up to {{max}})",
+        "coins": "Coins (whole numbers from 1 to 99)",
+        "bits": "Bits (4 to 32)",
+        "items": "Items as name weight value (up to {{max}})",
+        "ops": "Operations (up to {{max}}, separated by commas)",
+        "commands": "Commands:",
+        "predict": "Predict before each result"
+      },
+      "error": {
+        "empty": "Enter at least one operation. Commands: {{help}}",
+        "tooManyOps": "Use at most {{max}} operations. Small examples are easier to follow.",
+        "unknown": "I don't know the command “{{command}}”. Commands: {{help}}",
+        "badStart": "“{{token}}” isn't a value here. Use whole numbers from -99 to 99, or single letters.",
+        "tooManyStart": "Start with at most {{max}} values.",
+        "badCapacity": "Capacity must be one whole number from 2 to 12.",
+        "badNumber": "“{{token}}” isn't a number. This structure orders its keys, so use whole numbers from -99 to 99.",
+        "emptyStart": "Start with at least one value.",
+        "badCount": "The number of items must be one whole number from 2 to 12.",
+        "badVertex": "Enter one vertex to start from, for example A.",
+        "notSorted": "This pattern needs the values in ascending order, for example 1, 2, 4, 7.",
+        "badCoin": "“{{token}}” isn't a coin. Use whole numbers from 1 to 99, for example 1, 3, 4.",
+        "badPositive": "“{{token}}” isn't allowed here. Use whole numbers from 1 to 99, for example 1, 2, 3.",
+        "badBits": "The number of bits must be one whole number from 4 to 32."
+      },
+      "view": {
+        "newNode": "new node",
+        "chain": "Linked list from head",
+        "node": "Node {{value}}, next is {{next}}, {{state}}. {{pointers}}",
+        "state": {
+          "idle": "in the list",
+          "current": "current",
+          "changed": "just re-linked",
+          "found": "found",
+          "new": "new",
+          "removed": "being removed"
+        },
+        "leaving": "just left the stack",
+        "stack": "Stack, bottom to top",
+        "empty": "empty",
+        "stackItem": "{{value}} at position {{position}}",
+        "top": "top",
+        "ring": "Ring buffer slots",
+        "slot": "Slot {{index}}: {{value}}. {{pointers}}",
+        "emptySlot": "empty",
+        "buckets": "Buckets",
+        "bucket": "Bucket {{b}}: {{values}}",
+        "tree": "Tree nodes",
+        "treeNode": "{{label}}{{sub}}: children {{children}}. {{state}}",
+        "noChildren": "none"
+      },
+      "graph": {
+        "help": "add u v, remove u v, has u v, neighbours u",
+        "preset": {
+          "tour": "Build and check edges",
+          "square": "A square, then remove an edge",
+          "star": "A star around H"
+        },
+        "emptyGraph": "No vertices yet. Add an edge to start.",
+        "listTitle": "Adjacency list",
+        "matrixTitle": "Adjacency matrix",
+        "start": "An empty undirected graph. It is shown three ways: as a picture, as an adjacency list and as an adjacency matrix.",
+        "addNew": "Add edge {{u}}–{{v}} (new vertex: {{fresh}}). Each list gets the other vertex; the matrix gets two 1s.",
+        "add": "Add edge {{u}}–{{v}}. Each list gets the other vertex; the matrix gets two 1s.",
+        "already": "{{u}}–{{v}} is already an edge.",
+        "selfLoop": "{{u}}–{{u}} would link a vertex to itself, which this graph doesn't allow.",
+        "qHas": "Is {{u}}–{{v}} an edge? (✓ yes / ✗ no)",
+        "matrixYes": "Matrix: row {{u}}, column {{v}} holds 1, so yes. One lookup, no matter how big the graph is.",
+        "matrixNo": "Matrix: row {{u}}, column {{v}} holds 0, so no. One lookup.",
+        "listYes": "List: scan {{u}}'s neighbours {{list}}: found {{v}} after {{checks}} check(s).",
+        "listNo": "List: scan {{u}}'s neighbours {{list}}: no {{v}} after {{checks}} check(s).",
+        "removed": "Remove edge {{u}}–{{v}} from both lists and both matrix cells.",
+        "removeMissing": "{{u}}–{{v}} isn't an edge: nothing to remove.",
+        "neighbours": "{{u}}'s neighbours: {{list}} (degree {{deg}}). The list has them ready; the matrix would scan all {{n}} cells of row {{u}}.",
+        "noVertex": "{{u}} isn't in the graph.",
+        "end": "{{n}} vertices, {{e}} edge(s). The list stores {{listSize}} entries (V + 2E); the matrix stores {{matrixSize}} cells (V²)."
+      },
+      "activity": {
+        "help": "1-3 (a meeting from 1 to 3), e.g. 1-3, 2-5, 4-6",
+        "preset": { "tour": "Ten meetings", "long": "One long meeting", "busy": "A busy day" },
+        "timeline": "Meetings on a timeline",
+        "meeting": "Meeting {{span}}: {{state}}",
+        "state": {
+          "idle": "not looked at yet",
+          "current": "being considered",
+          "chosen": "chosen",
+          "skipped": "skipped"
+        },
+        "freeAt": "The room is free from {{t}}",
+        "start": "Sort the meetings by end time: {{order}}. Always take the one that ends first, so the room frees up as early as possible.",
+        "qTake": "Meeting {{span}}: the room is free from {{freeAt}}. Take it? (✓ / ✗)",
+        "take": "{{span}} starts after the room is free (at {{before}}): take it. The room is now busy until {{freeAt}}.",
+        "skip": "{{span}} starts before {{freeAt}}, while the room is still busy: skip it.",
+        "end": "{{count}} of {{total}} meetings fit: {{list}}. Taking the earliest finish first never blocks a better choice."
+      },
+      "huffman": {
+        "help": "a 5 (letter a appears 5 times), e.g. a 5, b 2, c 1",
+        "preset": {
+          "tour": "English-like letter counts",
+          "word": "mississippi",
+          "even": "Eight equal letters"
+        },
+        "start": "Each letter starts as its own little tree, weighted by how often it appears: {{heap}}.",
+        "qRarest": "Which subtree is the rarest, so it is taken first?",
+        "merge": "Join the two rarest, {{a}} and {{b}}, into one tree of weight {{w}}.",
+        "codes": "One tree is left. Read each code from the root (left = 0, right = 1): {{codes}}. That's {{bits}} bits in total, versus {{fixed}} with equal-length codes."
+      },
+      "dp": {
+        "notYet": "not worked out yet"
+      },
+      "fib": {
+        "help": "fib n (n from 0 to 10)",
+        "preset": { "tour": "fib(8)", "small": "fib(5)", "big": "fib(10)" },
+        "treeTitle": "Calls made (= value returned, ringed = answered from memo)",
+        "start": "Memoized Fibonacci: every answer is saved in memo, so each fib(k) is worked out only once.",
+        "call": "fib({{k}}) isn't in memo and isn't a base case, so it calls fib({{a}}) and then fib({{b}}).",
+        "base": "fib({{k}}) is a base case: return {{k}} and save it in memo.",
+        "hit": "fib({{k}}) is already in memo: return {{value}} at once, with no further calls.",
+        "qFib": "What is fib({{k}})?",
+        "store": "fib({{k}}) = {{a}} + {{b}} = {{value}}. Save it in memo for next time.",
+        "result": "fib({{n}}) = {{value}} using {{calls}} calls. Without memo it would take {{naive}} calls."
+      },
+      "coins": {
+        "help": "make n (amount from 1 to 20)",
+        "preset": { "tour": "Coins 1, 5, 6, 9", "us": "Coins 1, 5, 10", "gap": "Coins 3, 5" },
+        "start": "Coins {{coins}}. best[a] will hold the fewest coins that make amount a.",
+        "base": "Make {{amount}}: best[0] = 0 (no coins needed for nothing); every other amount starts at ∞.",
+        "qBest": "What is best[{{a}}]?",
+        "fill": "Amount {{a}}: try each coin: {{list}}. The smallest wins: best[{{a}}] = {{value}} (last coin {{coin}}).",
+        "unreachable": "Amount {{a}}: no coin leads to a reachable amount, so best[{{a}}] stays ∞.",
+        "answer": "Fewest coins for {{amount}}: {{value}} ({{pieces}}). Biggest-coin-first would use {{greedy}}.",
+        "answerStuck": "Fewest coins for {{amount}}: {{value}} ({{pieces}}). Biggest-coin-first takes {{greedy}} and gets stuck with {{rest}} left over.",
+        "impossible": "Amount {{amount}} can't be made from these coins: best[{{amount}}] is ∞."
+      },
+      "knapsack": {
+        "help": "A 1 1 (item A, weight 1, value 1); the first field is the bag's capacity",
+        "preset": {
+          "tour": "Capacity 10, five items",
+          "four": "Capacity 7, four items",
+          "greedyFails": "When best value per weight fails"
+        },
+        "caption": "dp[i][c]: rows = items considered so far, columns = capacity",
+        "start": "A bag that holds weight {{W}}, and {{n}} item(s). dp[i][c] = the best value using the first i items with capacity c. Row 0 (no items) is all 0.",
+        "qRow": "With item {{name}} available too, what is the best value for capacity {{W}}?",
+        "row": "Item {{name}} (weight {{w}}, value {{v}}): at each capacity, skip it (the value above) or take it ({{v}} + the value {{w}} column(s) left in the row above). Taking wins at capacity {{takes}}. Best for the full bag: {{best}}.",
+        "tookItem": "dp[{{i}}][{{c}}] differs from the row above, so item {{name}} was taken: move up and {{w}} column(s) left.",
+        "skippedItem": "dp[{{i}}][{{c}}] equals the row above, so item {{name}} was skipped: move straight up.",
+        "answer": "Best value {{best}} with capacity {{W}}: take {{taken}}."
+      },
+      "lcs": {
+        "help": "lcs WORD WORD (up to 8 letters each)",
+        "preset": {
+          "tour": "ABCBDAB vs BDCABA",
+          "dna": "GATTACA vs GCATGCA",
+          "none": "No common letters"
+        },
+        "caption": "dp[i][j]: longest common subsequence of the first i letters of {{a}} and the first j of {{b}}",
+        "start": "Compare {{a}} and {{b}}. An empty prefix (ε) has nothing in common with anything, so row 0 and column 0 are 0.",
+        "qRow": "With letter {{ch}} added, how long is the common subsequence with all of {{b}}?",
+        "rowMatch": "Row {{ch}}: it matches {{cols}}; there the cell is diagonal + 1. Every other cell takes the bigger of above and left. Last cell: {{best}}.",
+        "rowNoMatch": "Row {{ch}}: no letter matches, so every cell takes the bigger of above and left. Last cell: {{best}}.",
+        "answer": "Walk back from the corner, collecting the letters on diagonal matches: “{{lcs}}”, length {{len}}."
+      },
+      "edit": {
+        "help": "edit WORD WORD (up to 8 letters each)",
+        "preset": {
+          "tour": "SUNDAY → SATURDAY",
+          "kitten": "KITTEN → SITTING",
+          "insert": "FLAW → LAWN"
+        },
+        "caption": "dp[i][j]: edits to turn the first i letters of {{a}} into the first j of {{b}}",
+        "start": "Turn {{a}} into {{b}} with the fewest single-letter inserts, deletes and replacements.",
+        "borders": "Borders first: turning i letters into nothing takes i deletes, and turning nothing into j letters takes j inserts.",
+        "qRow": "With letter {{ch}} added, how many edits turn it into all of {{b}}?",
+        "row": "Row {{ch}}: each cell is the cheapest of delete (above + 1), insert (left + 1), or keep / replace (diagonal + 0 or 1). Last cell: {{best}}.",
+        "answer": "{{a}} → {{b}} takes {{d}} edit(s): {{edits}}."
+      },
+      "subsets": {
+        "help": "all (list every subset) or sum s (only subsets adding up to s)",
+        "preset": {
+          "tour": "Subsets of [1, 2, 3]",
+          "three": "Subsets of [1, 2, 3, 4]",
+          "sum": "Add up to 10"
+        },
+        "treeTitle": "Decision tree (circle = sum so far, −x = skip x, +x = take x)",
+        "start": "Items {{items}}. Each level decides one item: skip it (left branch) or take it (right branch).",
+        "startSum": "Items {{items}}. Find the subsets that add up to {{target}}: skip or take each item, and stop early when the sum is already too big.",
+        "skip": "Skip {{x}}: picked stays {{picked}}.",
+        "take": "Take {{x}}: picked = {{picked}}.",
+        "qLeaf": "Every item is decided. Which subset does this leaf hold?",
+        "leaf": "Every item is decided: record {{subset}} (subset {{count}}).",
+        "miss": "Every item is decided: {{subset}} adds up to {{total}}, not {{target}}, so it isn't recorded.",
+        "prune": "The sum is already {{total}}, more than {{target}}: prune this branch, since nothing below it can work.",
+        "undo": "Back from the take-{{x}} branch: pop {{x}} so picked = {{picked}} again. That undo is the “back” in backtracking.",
+        "end": "{{count}} subsets, one per leaf (2^{{n}}): {{list}}.",
+        "endSum": "{{count}} subset(s) add up to {{target}}: {{list}}. Pruning cut off {{pruned}} branch(es) early."
+      },
+      "queens": {
+        "help": "queens n (board size from 1 to 8)",
+        "preset": { "tour": "6 × 6 board", "five": "8 × 8 board", "none": "3 × 3 (no answer)" },
+        "caption": "{{n}} × {{n}} board (♛ queen, · attacked, ↑ just lifted, ▶ row being filled)",
+        "square": {
+          "queen": "queen",
+          "lifted": "queen just lifted off",
+          "attacked": "attacked",
+          "free": "safe"
+        },
+        "start": "Place {{n}} queen(s) on a {{n}} × {{n}} board, one per row, so that no two share a column or a diagonal.",
+        "qColumn": "Row {{row}}: which is the first safe column, starting at column {{from}}?",
+        "place": "Row {{row}}: column {{col}} is the first safe square. Put a queen there and move on to the next row.",
+        "dead": "Row {{row}}: every square is attacked. Dead end, so go back up a row.",
+        "deadFrom": "Row {{row}}: no safe square from column {{from}} on. Dead end, so go back up a row.",
+        "deadEnd": "Row {{row}}: no columns left to try. Dead end, so go back up a row.",
+        "lift": "Lift the queen off row {{row}}, column {{col}}, and try the next columns in that row.",
+        "solved": "Every row has a queen and none attack each other: columns {{cols}}.",
+        "none": "Every choice in row 1 led to a dead end: a {{n}} × {{n}} board has no answer."
+      },
+      "lru": {
+        "help": "put k v (store a value), get k (read it back)",
+        "preset": {
+          "tour": "Capacity 4",
+          "update": "Updating a key",
+          "three": "Capacity 5"
+        },
+        "listTitle": "Recency list: least recent (LRU) on the left, most recent (MRU) on the right",
+        "map": "dict keys: {{keys}} ({{n}} of {{cap}})",
+        "start": "An empty cache for {{cap}} items: a dict finds any key in O(1), and a doubly linked list keeps the keys in order of use.",
+        "qGet": "What does get({{k}}) return?",
+        "hit": "get({{k}}) = {{v}}: the dict finds it at once, and it moves to the most-recent end.",
+        "miss": "get({{k}}) = -1: {{k}} isn't in the cache (it was never added, or it was evicted).",
+        "add": "put({{k}}, {{v}}): a new key goes on the most-recent end ({{size}} of {{cap}} used).",
+        "update": "put({{k}}, {{v}}): {{k}} is already cached, so its value changes from {{old}} to {{v}} and it moves to the most-recent end.",
+        "qEvict": "put({{k}}) overflows the cache. Which key is evicted?",
+        "evict": "Over capacity ({{cap}}): evict {{k}}:{{v}} from the least-recent end. It's the one used longest ago.",
+        "end": "The cache holds {{list}} ({{n}} of {{cap}}), least to most recent. Every get and put took O(1) time."
+      },
+      "bloom": {
+        "help": "add word, query word (up to 8 letters; a = 1 … z = 26)",
+        "preset": {
+          "tour": "16 bits, six words",
+          "bigger": "32 bits: fewer false alarms",
+          "crowded": "A crowded filter"
+        },
+        "bits": "Bit array",
+        "added": "words added: {{words}}",
+        "start": "{{m}} bits, all 0. Each word is hashed by two pretend hash functions, and each picks one bit.",
+        "add": "add “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Set bits {{a}} and {{b}} to 1.",
+        "qQuery": "query “{{w}}” checks bits {{a}} and {{b}}. Is the answer “maybe” or “no”?",
+        "no": "query “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Bit {{zero}} is 0, so “{{w}}” was definitely never added.",
+        "maybe": "query “{{w}}”: bits {{a}} and {{b}} are both 1, so “maybe”, and “{{w}}” really was added.",
+        "falsePositive": "query “{{w}}”: h1 = {{h1expr}} = {{a}}, h2 = {{h2expr}} = {{b}}. Both bits are 1, so “maybe”, but “{{w}}” was never added. Other words set those bits: a false positive.",
+        "end": "{{set}} of {{m}} bits are set after {{words}} word(s), with {{alarms}} false alarm(s). A “no” is always right; only a “maybe” can be wrong."
+      },
+      "str": {
+        "cell": "{{i}}: {{ch}}, {{state}}",
+        "state": {
+          "idle": "not compared",
+          "current": "being compared",
+          "match": "matches",
+          "miss": "doesn't match",
+          "faded": "already read"
+        }
+      },
+      "naive": {
+        "help": "find PATTERN in TEXT (pattern up to 8 letters, text up to 20)",
+        "preset": {
+          "tour": "abc in aabcbabcabcab",
+          "overlap": "aa in aaaaaaaa",
+          "slow": "aaab in aaaaaaaaaab (slow case)"
+        },
+        "start": "Look for “{{pat}}” in “{{text}}”: there are {{count}} starting positions to try.",
+        "qPos": "Position {{s}}: will the whole pattern match here? (✓ / ✗)",
+        "eq": "Position {{s}}: text[{{i}}] = {{a}} matches pat[{{j}}] = {{b}}.",
+        "ne": "Position {{s}}: text[{{i}}] = {{a}} ≠ pat[{{j}}] = {{b}}. Slide the pattern one step right and start again.",
+        "match": "All {{m}} letters match: found at position {{s}}. Slide on to look for more.",
+        "end": "Found at position(s) {{list}}, using {{compares}} letter comparisons.",
+        "endNone": "The pattern doesn't occur ({{compares}} letter comparisons)."
+      },
+      "kmp": {
+        "help": "find PATTERN in TEXT (pattern up to 8 letters, text up to 20)",
+        "preset": {
+          "tour": "abab in abacabababcabab",
+          "slow": "aaab in aaaaaaaaaab (no re-reading)",
+          "table": "A bigger table"
+        },
+        "start": "First build the fail table for “{{pat}}”: for each prefix, the length of the longest part that is both its start and its end. fail[0] is always 0.",
+        "qFill": "What is fail[{{i}}], the overlap of “{{prefix}}”?",
+        "fill": "fail[{{i}}] = {{k}}: “{{prefix}}” starts and ends with “{{part}}”.",
+        "fillZero": "fail[{{i}}] = 0: no start of “{{prefix}}” is also its end.",
+        "search": "Table done: [{{table}}]. Now read the {{n}} text letters once, left to right; j counts how much of the pattern matches so far.",
+        "qLen": "text[{{i}}] = {{ch}}. How long is the matched part after reading it?",
+        "match": "text[{{i}}] = {{ch}} = pat[{{j}}]: the matched length grows to {{len}}.",
+        "miss": "text[{{i}}] = {{ch}} ≠ pat[0] = {{p0}}: nothing matches, so go on to the next letter.",
+        "jumpMatch": "text[{{i}}] = {{ch}} ≠ pat[{{j}}] = {{pj}}. Don't restart: the fail table drops the matched length {{chain}}, and then {{ch}} matches, so it is {{len}}.",
+        "jumpMiss": "text[{{i}}] = {{ch}} ≠ pat[{{j}}] = {{pj}}. The fail table drops the matched length {{chain}}, and {{ch}} still doesn't match.",
+        "found": "The whole pattern matched: found at position {{pos}}. Keep the overlap and carry on from length {{to}}.",
+        "end": "Found at position(s) {{list}}. Each of the {{n}} text letters was read once ({{compares}} comparisons).",
+        "endNone": "No match. Each of the {{n}} text letters was read once ({{compares}} comparisons)."
+      },
+      "gcd": {
+        "help": "gcd a b (whole numbers from 1 to 999)",
+        "preset": { "tour": "gcd(462, 252)", "coprime": "gcd(89, 55)", "swap": "gcd(192, 270)" },
+        "legend": "A {{w}} × {{h}} rectangle. Each step cuts off the biggest squares that fit; the dashed part is what's left.",
+        "start": "Find gcd({{a}}, {{b}}), the biggest number that divides both. Picture a {{a}} × {{b}} rectangle.",
+        "qMod": "What is {{a}} mod {{b}}?",
+        "mod": "{{b}} fits {{q}} time(s) into {{a}}, leaving {{a}} mod {{b}} = {{r}}: cut off {{q}} square(s) of side {{b}}. Now gcd({{b}}, {{r}}).",
+        "swap": "{{a}} < {{b}}, so {{a}} mod {{b}} = {{a}}: the pair just swaps to gcd({{b}}, {{a}}).",
+        "done": "b is 0, so the answer is {{g}} after {{steps}} step(s): {{g}} × {{g}} squares tile the whole rectangle."
+      },
+      "sieve": {
+        "help": "sieve n (n from 2 to 100)",
+        "preset": { "tour": "Up to 50", "thirty": "Up to 30", "sixty": "Up to 100" },
+        "grid": "Numbers 1 to {{n}}",
+        "state": {
+          "none": "not prime",
+          "unknown": "not decided yet",
+          "current": "the prime being used",
+          "fresh": "crossed out just now",
+          "crossed": "crossed out",
+          "prime": "prime"
+        },
+        "start": "Every number from 2 to {{n}} starts as maybe-prime (1 isn't prime). Take each p in turn while p × p ≤ {{n}}.",
+        "qFirst": "{{p}} is prime. Which multiple is the first one to cross out?",
+        "cross": "{{p}} is prime: cross out its multiples starting at {{p}} × {{p}} = {{sq}}: {{list}}. A smaller multiple has a smaller factor, so it is crossed out already.",
+        "skip": "{{p}} is already crossed out (a multiple of {{by}}), so its multiples are crossed out too. Skip it.",
+        "stop": "{{p}} × {{p}} = {{sq}} > {{n}}: stop. Every number left is prime: {{list}} ({{count}} primes)."
+      },
+      "twoPointers": {
+        "help": "pair s (find two values that add up to s)",
+        "preset": {
+          "tour": "Find a pair for 24",
+          "none": "When no pair exists",
+          "many": "Two targets"
+        },
+        "start": "A sorted list {{list}} ({{n}} values). Checking every pair would take up to n(n−1)/2 tries.",
+        "pointers": "Look for two values adding up to {{target}}: L starts at the smallest value, R at the largest.",
+        "qMove": "{{a}} + {{b}} vs {{target}}: move L → (sum too small), ← R (too big), or stop (=)?",
+        "tooBig": "{{a}} + {{b}} = {{s}} > {{target}}: too big. Only a smaller right value can help, so move R left.",
+        "tooSmall": "{{a}} + {{b}} = {{s}} < {{target}}: too small. Only a bigger left value can help, so move L right.",
+        "found": "{{a}} + {{b}} = {{s}}: found the pair after {{checks}} check(s).",
+        "none": "L and R met: no two values add up to {{target}} ({{checks}} check(s)).",
+        "end": "Each check moves one pointer inward, so at most n − 1 = {{n}} − 1 checks: O(n) instead of O(n²)."
+      },
+      "window": {
+        "help": "window k (best sum of k values in a row)",
+        "preset": {
+          "tour": "Best 3 in a row",
+          "longer": "Two window sizes",
+          "negative": "With negatives"
+        },
+        "start": "Values {{list}}. Find the biggest sum of k neighbouring values.",
+        "badK": "A window of {{k}} doesn't fit: use 1 to {{n}}.",
+        "first": "Add up the first {{k}}: {{list}} = {{window}}. That's the best so far.",
+        "slide": "Slide right: drop {{dropped}}, add {{added}}: {{before}} − {{dropped}} + {{added}} = {{window}}. Best stays {{best}}.",
+        "slideBest": "Slide right: drop {{dropped}}, add {{added}}: {{before}} − {{dropped}} + {{added}} = {{window}}. New best!",
+        "qWindow": "The window sum is {{before}}. Drop {{dropped}}, add {{added}}: what is the new sum?",
+        "best": "Best sum of {{k}} in a row: {{best}} (index {{from}}..{{to}}). Each slide cost one add and one subtract ({{slides}} slide(s)).",
+        "end": "Every window was summed without re-adding its values: O(n) instead of O(n × k)."
+      },
+      "prefix": {
+        "help": "sum l r (sum of index l..r)",
+        "preset": {
+          "tour": "Three ranges",
+          "many": "Several ranges",
+          "negative": "With negatives"
+        },
+        "prefixRow": "Prefix sums",
+        "start": "Values {{list}}. Build running totals once: prefix[i] is the sum of the first i values.",
+        "build": "prefix[{{next}}] = prefix[{{i}}] + {{x}} = {{prev}} + {{x}} = {{s}}.",
+        "built": "Built in one pass: prefix = {{list}}.",
+        "query": "sum({{l}}..{{r}}) = prefix[{{r1}}] − prefix[{{l}}] = {{hi}} − {{lo}} = {{total}}: one subtraction.",
+        "qSum": "What is the sum of index {{l}}..{{r}}?",
+        "badRange": "The range {{l}}..{{r}} isn't valid: use 0 ≤ l ≤ r ≤ {{last}}.",
+        "end": "Building took one pass over {{n}} values; after that, every range sum is O(1)."
+      },
+      "recursion": {
+        "help": "factorial n, total n (n from 0 to 10)",
+        "preset": { "tour": "factorial(6)", "deeper": "factorial(10)", "total": "1 + 2 + … + 8" },
+        "stackTitle": "Call stack (top = running now)",
+        "frameRunning": "running",
+        "frameWaiting": "waiting for the call above",
+        "frameReturns": "returns {{value}}",
+        "start": "Each call gets its own frame on the call stack, with its own n. A call waits until the call it made returns.",
+        "call": "{{name}} isn't a base case, so it needs {{next}}: call it. Stack depth {{depth}}.",
+        "base": "{{name}} is the base case: it returns {{value}} straight away, without calling again (depth {{depth}}).",
+        "return": "{{name}} gets {{r}} back and returns {{n}} {{op}} {{r}} = {{value}}. Its frame is removed.",
+        "qReturn": "What does {{name}} return?",
+        "result": "{{name}} = {{value}}. The stack grew to {{depth}} frame(s), then emptied as each call returned.",
+        "end": "Every frame waited for the one above it, then returned in reverse order: last in, first out, like a stack."
+      },
+      "hanoi": {
+        "help": "hanoi n (n from 1 to 5)",
+        "preset": { "tour": "3 disks", "three": "4 disks", "four": "5 disks" },
+        "pegsLabel": "Pegs",
+        "pegContents": "Peg {{peg}}: {{disks}}",
+        "start": "Move {{n}} disk(s) from peg A to peg C, one at a time, never putting a bigger disk on a smaller one. It takes at least {{min}} moves.",
+        "moveSmall": "Move disk {{disk}} from {{source}} to {{target}}. (Move {{moves}}.)",
+        "move": "The {{below}} smaller disk(s) that were on top of it are parked on {{spare}}, so disk {{disk}} can move from {{source}} to {{target}}. (Move {{moves}}.)",
+        "qPeg": "Disk {{disk}} leaves {{source}}. Which peg does it go to?",
+        "done": "All {{n}} disk(s) are on C after {{moves}} moves: 2ⁿ − 1, so each extra disk doubles the work."
+      },
+      "graphAlgo": {
+        "orderLabel": "order:"
+      },
+      "bfs": {
+        "help": "A B (an edge between A and B), e.g. A B, A C, B D",
+        "preset": {
+          "tour": "Branches that meet again",
+          "rings": "Ring by ring",
+          "island": "Unreachable vertices"
+        },
+        "waitingLabel": "queue:",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Start at {{s}}: mark it seen and put it in the queue.",
+        "visit": "Take {{v}} from the front of the queue and visit it. Order so far: {{order}}.",
+        "qNext": "Which vertex is visited next?",
+        "seen": "{{w}} has already been seen: skip it.",
+        "enqueue": "{{w}} is new: mark it seen and add it to the back of the queue {{queue}}.",
+        "endAll": "Queue empty: every vertex was visited, nearest first. Order {{order}}.",
+        "endSome": "Queue empty. Order {{order}}. Never reached: {{missed}} (no path from the start)."
+      },
+      "dfs": {
+        "help": "A B (an edge between A and B), e.g. A B, A C, B D",
+        "preset": {
+          "tour": "Branches that meet again",
+          "deep": "Two long branches",
+          "island": "Unreachable vertices"
+        },
+        "waitingLabel": "path (call stack):",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Start the search at {{s}}.",
+        "visit": "Visit {{v}}. Order so far: {{order}}.",
+        "qNext": "Which vertex is visited next?",
+        "seen": "{{w}} has already been visited: skip it.",
+        "deeper": "{{w}} is new: go deeper from {{v}} to {{w}}.",
+        "back": "{{v}} has no unvisited neighbours left: back up to {{parent}}.",
+        "doneRoot": "{{v}} has no unvisited neighbours left: the search is complete.",
+        "endAll": "Every vertex was visited, going as deep as possible first. Order {{order}}.",
+        "endSome": "Order {{order}}. Never reached: {{missed}} (no path from the start)."
+      },
+      "topo": {
+        "help": "a > b (a must come before b), e.g. wake > dress",
+        "preset": {
+          "tour": "Morning routine",
+          "courses": "Course prerequisites",
+          "cycle": "A cycle"
+        },
+        "readyLabel": "ready:",
+        "indegree": "in {{d}}",
+        "start": "Count each task's prerequisites (in-degree). Tasks with none are ready: {{ready}}.",
+        "output": "Do {{v}} next. Order so far: {{order}}.",
+        "qNext": "Which task comes next?",
+        "decrement": "{{w}} needed {{v}}; it still waits for {{d}} more.",
+        "nowReady": "{{w}} needed {{v}}, its last prerequisite: {{w}} is now ready.",
+        "endAll": "Every task is placed after its prerequisites: {{order}}.",
+        "cycle": "Nothing is ready, but {{left}} are left: they wait on each other in a cycle, so no order exists. Placed: {{order}}."
+      },
+      "dijkstra": {
+        "help": "A B 4 (an edge A–B of length 4), e.g. A B 4, A C 1",
+        "preset": {
+          "tour": "Shortcuts through C and F",
+          "detour": "Cheap detour",
+          "tie": "Two equal routes"
+        },
+        "heapLabel": "heap:",
+        "missingStart": "{{s}} isn't in the graph. Add an edge that uses it.",
+        "start": "Every distance starts at ∞, except {{s}} = 0. Put (0, {{s}}) on the heap.",
+        "settle": "The closest unsettled vertex is {{v}} at distance {{d}}: its distance is now final.",
+        "qNext": "Which vertex is settled next?",
+        "stale": "({{d}}, {{v}}) is out of date: {{v}} was already settled at {{best}}. Skip it.",
+        "improve": "Via {{v}}: {{d}} + {{weight}} = {{nd}} beats {{old}}, so dist[{{w}}] = {{nd}}.",
+        "keep": "Via {{v}}: {{d}} + {{weight}} = {{nd}} doesn't beat {{old}}: keep it.",
+        "end": "Shortest distances: {{dists}}."
+      },
+      "kruskal": {
+        "help": "A B 1 (an edge A–B of weight 1), e.g. A B 1, B C 2",
+        "preset": {
+          "tour": "Skip the loops",
+          "square": "Two loops sharing a corner",
+          "forest": "Three separate pieces"
+        },
+        "sortedLabel": "edges by weight:",
+        "start": "Sort the edges by weight: {{sorted}}. Take the cheapest edge that doesn't close a loop.",
+        "consider": "Next cheapest: {{u}}–{{w}} ({{weight}}).",
+        "qTake": "Take {{u}}–{{w}}? (✓ take / ✗ skip)",
+        "take": "{{u}} and {{w}} are in different pieces: take it. Total weight {{total}}.",
+        "skip": "{{u}} and {{w}} are already connected: {{u}}–{{w}} would close a loop, so skip it.",
+        "end": "Done: {{count}} edges connect all {{n}} vertices with total weight {{total}}.",
+        "endForest": "The graph isn't connected: {{count}} edge(s) join what can be joined (total {{total}})."
+      },
+      "unionFind": {
+        "help": "union a b, find a, connected a b",
+        "preset": {
+          "tour": "Join groups",
+          "compress": "Path compression",
+          "same": "Already together"
+        },
+        "start": "{{n}} items, 0 to {{last}}, each in its own group: parent[i] = i.",
+        "hop": "{{x}} isn't a root: go up to its parent, {{p}}.",
+        "root": "{{root}} is its own parent, so it is the root (the group's name) for {{x}}.",
+        "compress": "Path compression: point {{nodes}} straight at {{root}}, so the next find is one hop.",
+        "attach": "Different groups: attach root {{small}} under root {{big}} (the bigger group). The group now has {{size}} item(s).",
+        "sameSet": "{{a}} and {{b}} already share root {{root}}: nothing to join.",
+        "qConnected": "Are {{a}} and {{b}} in the same group? (✓ yes / ✗ no)",
+        "connectedYes": "Both have root {{ra}}: {{a}} and {{b}} are connected.",
+        "connectedNo": "Roots {{ra}} and {{rb}} differ: {{a}} and {{b}} are not connected.",
+        "badItem": "Item {{x}} doesn't exist: items are 0 to {{last}}.",
+        "end": "{{n}} items in {{sets}} group(s). With union by size and path compression, each operation is nearly O(1)."
+      },
+      "traversal": {
+        "help": "preorder, inorder, postorder, levelorder",
+        "preset": {
+          "tour": "All four orders",
+          "inorder": "In-order of a search tree",
+          "letters": "Letters"
+        },
+        "outputLabel": "visited:",
+        "start": "A binary tree of {{count}} nodes, filled level by level. Each traversal visits every node once, in a different order.",
+        "preorderStart": "Pre-order: visit the node first, then its left subtree, then its right subtree.",
+        "inorderStart": "In-order: left subtree first, then the node, then the right subtree.",
+        "postorderStart": "Post-order: both subtrees first, the node last.",
+        "levelorderStart": "Level-order: row by row from the top, using a queue.",
+        "visit": "Visit {{value}}. Visited so far: {{output}}.",
+        "qNext": "Which node is visited next?",
+        "preorderResult": "Pre-order: {{output}}.",
+        "inorderResult": "In-order: {{output}}.",
+        "postorderResult": "Post-order: {{output}}.",
+        "levelorderResult": "Level-order: {{output}}.",
+        "end": "Each traversal visited all {{count}} nodes exactly once: O(n)."
+      },
+      "bst": {
+        "help": "insert k, search k, delete k (whole numbers)",
+        "preset": {
+          "tour": "Build and search",
+          "delete": "Three kinds of delete",
+          "chain": "Sorted inserts make a chain"
+        },
+        "start": "In order: {{list}} ({{n}} nodes). Smaller keys go left, larger keys go right.",
+        "qSide": "From {{v}}, does {{k}} go left (←) or right (→)?",
+        "goLeft": "{{k}} < {{v}}: go left.",
+        "goRight": "{{k}} > {{v}}: go right.",
+        "createRoot": "The tree is empty: {{k}} becomes the root.",
+        "createLeft": "Empty spot: {{k}} becomes the left child of {{parent}} (depth {{depth}}).",
+        "createRight": "Empty spot: {{k}} becomes the right child of {{parent}} (depth {{depth}}).",
+        "duplicate": "{{k}} is already in the tree, so nothing changes.",
+        "searchHit": "Found {{k}} after {{comparisons}} comparison(s).",
+        "searchMiss": "Reached an empty spot: {{k}} is not in the tree ({{comparisons}} comparison(s)).",
+        "deleteMiss": "{{k}} is not in the tree: nothing to delete.",
+        "deleteLeaf": "{{k}} has no children: simply remove it.",
+        "deleteOneChild": "{{k}} has one child, {{child}}: the child takes its place.",
+        "deleted": "Done: in order {{list}}.",
+        "deleteTwo": "{{k}} has two children. Replace it with its successor: the smallest key in its right subtree.",
+        "succStart": "Step into the right subtree: start at {{s}}.",
+        "succLeft": "Go as far left as possible: {{s}}.",
+        "copySucc": "{{s}} is the successor: copy it into {{k}}'s place.",
+        "removeSucc": "Remove the old {{s}} node (it has no left child). In order: {{list}}.",
+        "end": "{{n}} node(s), height {{h}}. A search takes at most {{h}} comparison(s)."
+      },
+      "avl": {
+        "help": "insert k (whole numbers)",
+        "preset": {
+          "tour": "Right-right: one rotation",
+          "zigzag": "Left-right: two rotations",
+          "sorted": "Sorted inserts stay balanced"
+        },
+        "start": "An AVL tree with {{n}} node(s), height {{h}}. The number under each node is its balance: left height minus right height.",
+        "qSide": "From {{v}}, does {{k}} go left (←) or right (→)?",
+        "goLeft": "{{k}} < {{v}}: go left.",
+        "goRight": "{{k}} > {{v}}: go right.",
+        "duplicate": "{{k}} is already in the tree, so nothing changes.",
+        "create": "Insert {{k}} as a new leaf. Now walk back up and check each balance.",
+        "balanced": "{{v}} has balance {{b}}: fine (between -1 and +1).",
+        "unbalanced": "{{v}} has balance {{b}}: too lopsided, so rotate.",
+        "caseLL": "Left-left case at {{v}}: one right rotation fixes it.",
+        "caseRR": "Right-right case at {{v}}: one left rotation fixes it.",
+        "caseLR": "Left-right case at {{v}}: first rotate {{c}} left, then rotate {{v}} right.",
+        "caseRL": "Right-left case at {{v}}: first rotate {{c}} right, then rotate {{v}} left.",
+        "rotatedChildLeft": "After the left rotation, {{top}} is on top of that subtree.",
+        "rotatedChildRight": "After the right rotation, {{top}} is on top of that subtree.",
+        "rotatedRight": "Rotated right: {{top}} moves up. Every balance is back between -1 and +1.",
+        "rotatedLeft": "Rotated left: {{top}} moves up. Every balance is back between -1 and +1.",
+        "end": "{{n}} node(s), height {{h}}, in order {{list}}. AVL keeps the height near log₂ n."
+      },
+      "heap": {
+        "help": "insert x, extract, peek (whole numbers)",
+        "preset": {
+          "tour": "Insert, then extract",
+          "pq": "Priority queue",
+          "sink": "Sift a value down"
+        },
+        "start": "Min-heap {{list}}: every parent is ≤ its children, so the smallest value is at index 0.",
+        "append": "Append {{x}} at index {{i}}, the next free spot.",
+        "swapUp": "Parent {{pv}} > {{x}}: swap, so {{x}} moves up to index {{p}}.",
+        "stayUp": "Parent {{pv}} ≤ {{x}}: {{x}} stays at index {{i}}.",
+        "reachedTop": "{{x}} reached the top: it is the new minimum.",
+        "qSettle": "At which index does {{x}} end up?",
+        "peek": "heap[0] = {{top}} is the smallest value. No work needed.",
+        "qTop": "Which value is at the top?",
+        "top": "The top, {{top}}, will be returned. Take the last value off the end.",
+        "moveLast": "Put {{last}} at the top, then sift it down.",
+        "stayDown": "{{v}} ≤ its smaller child {{c}}: stop.",
+        "swapDown": "{{v}} > its smaller child {{c}}: swap them.",
+        "extracted": "Returned {{top}}. Heap: {{list}}.",
+        "empty": "IndexError: the heap is empty.",
+        "end": "Heap: {{list}}. Each insert or extract followed one path: O(log n)."
+      },
+      "trie": {
+        "help": "insert word, search word, prefix p (letters only)",
+        "preset": {
+          "tour": "Shared prefixes",
+          "search": "Word or just a prefix?",
+          "autocomplete": "Autocomplete"
+        },
+        "start": "An empty trie. Each node is one letter; a ringed node ends a word.",
+        "create": "No '{{ch}}' child yet: create one.",
+        "follow": "Follow the existing '{{ch}}' child.",
+        "markWord": "Mark the last node: \"{{word}}\" ends here.",
+        "alreadyWord": "\"{{word}}\" was already in the trie.",
+        "missing": "No '{{ch}}' child: \"{{word}}\" isn't in the trie.",
+        "searchHit": "The last node is marked: \"{{word}}\" is a word in the trie.",
+        "searchPrefixOnly": "The path exists but isn't marked as a word: \"{{word}}\" is only a prefix.",
+        "prefixWords": "Words starting with \"{{prefix}}\": {{words}} ({{count}}).",
+        "end": "{{count}} word(s) in {{nodes}} letter node(s): {{words}}. Shared prefixes are stored once."
+      },
+      "segment": {
+        "help": "sum l r, set i x",
+        "preset": {
+          "tour": "Query, then update",
+          "wide": "Eight values",
+          "update": "Update, then query"
+        },
+        "start": "{{n}} values. Each node stores the sum of its range; the root holds the total, {{total}}.",
+        "skip": "[{{lo}}..{{hi}}] is outside {{l}}..{{r}}: skip it.",
+        "take": "[{{lo}}..{{hi}}] is inside {{l}}..{{r}}: take its whole sum {{sum}} (running total {{total}}).",
+        "split": "[{{lo}}..{{hi}}] partly overlaps {{l}}..{{r}}: look at both halves.",
+        "result": "sum({{l}}..{{r}}) = {{result}}, built from {{used}} stored sum(s).",
+        "badRange": "The range {{l}}..{{r}} isn't valid: use 0 ≤ l ≤ r ≤ {{last}}.",
+        "goLeft": "{{i}} is in the left half of [{{lo}}..{{hi}}]: go left.",
+        "goRight": "{{i}} is in the right half of [{{lo}}..{{hi}}]: go right.",
+        "setLeaf": "Set value {{i}} from {{old}} to {{x}}.",
+        "recompute": "[{{lo}}..{{hi}}] = {{a}} + {{b}} = {{sum}} (was {{before}}).",
+        "badIndex": "Index {{i}} is outside 0..{{last}}.",
+        "end": "Total: {{total}}. Queries and updates each touched about 2 × log₂ n nodes."
+      },
+      "hashTable": {
+        "help": "insert k, lookup k, delete k",
+        "preset": {
+          "tour": "Collision and lookup",
+          "collide": "Many collisions",
+          "delete": "Delete"
+        },
+        "start": "{{m}} empty buckets. A key goes into bucket hash(key) % {{m}}.",
+        "hash": "hash({{k}}) = {{k}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "hashLetter": "hash('{{k}}') = ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "qBucket": "Which bucket does {{k}} go to?",
+        "scanNo": "{{e}} is not {{k}}: check the next key in this chain.",
+        "alreadyThere": "{{k}} is already in bucket {{b}}, so nothing changes.",
+        "storeEmpty": "Bucket {{b}} is empty: store {{k}} there.",
+        "collision": "Collision! Bucket {{b}} already holds a key, so {{k}} joins its chain (now {{size}} long).",
+        "lookupHit": "Found {{k}} in bucket {{b}} after {{checks}} check(s). The other buckets were never looked at.",
+        "lookupMiss": "{{k}} is not in bucket {{b}}, so it is not in the table ({{checks}} check(s)).",
+        "deleteFound": "Found {{k}} in bucket {{b}}: remove it from the chain.",
+        "deleted": "{{k}} removed from bucket {{b}}. No other key moved.",
+        "deleteMiss": "{{k}} is not in bucket {{b}}: nothing to delete.",
+        "end": "{{n}} key(s) in {{m}} buckets: load factor {{load}}, longest chain {{longest}}. Short chains keep every operation fast."
+      },
+      "hashSet": {
+        "help": "add x, contains x, remove x",
+        "preset": {
+          "tour": "Duplicates are ignored",
+          "dedupe": "Remove duplicates",
+          "remove": "Remove"
+        },
+        "start": "{{m}} empty buckets. A value goes into bucket hash(value) % {{m}}.",
+        "hash": "hash({{k}}) = {{k}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "hashLetter": "hash('{{k}}') = ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: go straight to bucket {{b}}.",
+        "qBucket": "Which bucket does {{k}} go to?",
+        "scanNo": "{{e}} is not {{k}}: check the next value in this bucket.",
+        "alreadyThere": "{{k}} is already in the set, so it is not added again.",
+        "storeEmpty": "Bucket {{b}} is empty: add {{k}} there.",
+        "collision": "Bucket {{b}} already holds a value, so {{k}} joins it (now {{size}} in this bucket).",
+        "lookupHit": "contains({{k}}) is True: found in bucket {{b}} after {{checks}} check(s).",
+        "lookupMiss": "contains({{k}}) is False: it is not in bucket {{b}}.",
+        "deleteFound": "Found {{k}} in bucket {{b}}: remove it.",
+        "deleted": "{{k}} removed from the set.",
+        "deleteMiss": "{{k}} is not in the set: nothing to remove.",
+        "end": "The set holds {{n}} distinct value(s) in {{m}} buckets (load factor {{load}})."
+      },
+      "probing": {
+        "help": "insert k, lookup k (whole numbers)",
+        "preset": {
+          "tour": "Probe past taken slots",
+          "cluster": "A growing cluster",
+          "full": "Fill the table"
+        },
+        "start": "{{m}} empty slots. A key starts at slot key % {{m}}; if that slot is taken, try the next one.",
+        "home": "{{k}} % {{m}} = {{b}}: start at slot {{b}}.",
+        "homeLetter": "ord('{{k}}') % {{m}} = {{code}} % {{m}} = {{b}}: start at slot {{b}}.",
+        "qBucket": "Which slot does {{k}} start at?",
+        "occupied": "Slot {{i}} holds {{v}}, not {{k}}: move on to slot {{next}}.",
+        "store": "Slot {{i}} is empty: store {{k}} there ({{probes}} probe(s)).",
+        "alreadyThere": "{{k}} is already in slot {{i}}.",
+        "lookupEmpty": "Slot {{i}} is empty, so {{k}} can't be further along: not found ({{probes}} probe(s)).",
+        "lookupHit": "Found {{k}} in slot {{i}} after {{probes}} probe(s).",
+        "full": "OverflowError: all {{m}} slots are taken, so {{k}} can't be stored.",
+        "lookupFullMiss": "Checked all {{m}} slots: {{k}} is not here.",
+        "end": "{{n}} key(s) in {{m}} slots: load factor {{load}}. As it gets close to 1, probe runs get long."
+      },
+      "array": {
+        "help": "read i, insert x at i, delete i, search x",
+        "preset": {
+          "tour": "Read, insert, delete, search",
+          "front": "Insert at the front",
+          "end": "Insert at the end"
+        },
+        "start": "a = {{list}}: {{count}} values in neighbouring boxes. Each box is 4 bytes, starting at address 100.",
+        "read": "a[{{i}}]: jump straight to address 100 + {{i}} × 4 = {{addr}} and read {{value}}. No scanning needed.",
+        "qRead": "What is a[{{i}}]?",
+        "indexError": "IndexError: index {{i}} is outside 0..{{last}}.",
+        "insertError": "Can't insert at index {{i}}: the list only has {{n}} values (valid: 0..{{n}}).",
+        "grow": "Make room: the list grows to {{n}} slots, with an empty slot at the end.",
+        "shiftRight": "Shift {{value}} right, from index {{from}} to {{to}}.",
+        "write": "Write {{x}} into the gap at index {{i}}. Inserting here moved {{moved}} value(s).",
+        "deleteStart": "Delete index {{i}} (value {{value}}): it leaves a gap.",
+        "shiftLeft": "Shift {{value}} left, from index {{from}} to {{to}}.",
+        "shrink": "Drop the empty last slot: {{list}}. Deleting moved {{moved}} value(s).",
+        "compareNo": "Is a[{{i}}] = {{value}} equal to {{x}}? No.",
+        "compareYes": "Is a[{{i}}] = {{value}} equal to {{x}}? Yes!",
+        "found": "Found {{x}} at index {{i}} after {{checks}} check(s).",
+        "notFound": "{{x}} is not in the list: all {{checks}} values were checked.",
+        "end": "Done: a = {{list}}."
+      },
+      "dynamic": {
+        "help": "append x, pop",
+        "preset": {
+          "grow": "Grow past capacity",
+          "doubling": "Doubling twice",
+          "pop": "Pop, then append"
+        },
+        "start": "Size {{size}}, capacity {{capacity}}: {{spare}} spare slot(s) ready for appends.",
+        "full": "Full: size {{size}} = capacity {{capacity}}. Grow before appending.",
+        "allocate": "Allocate a new block with {{capacity}} slots, twice as big.",
+        "copy": "Copy slots[{{i}}] = {{value}} into the new block.",
+        "switch": "Switch to the new block (capacity {{capacity}}). The old one is freed.",
+        "write": "Write {{x}} into slots[{{i}}]. Size {{size}}, capacity {{capacity}}.",
+        "popEmpty": "IndexError: pop from an empty list.",
+        "pop": "Remove the last value {{x}}. Size {{size}}, capacity stays {{capacity}}.",
+        "qPop": "What will pop() return?",
+        "end": "{{appends}} append(s) needed {{copies}} copy step(s) in total: on average about one per append."
+      },
+      "singly": {
+        "help": "insert x after y, add-first x, delete x, find x",
+        "preset": {
+          "tour": "Insert, then delete",
+          "front": "Add to the front",
+          "find": "Find a value"
+        },
+        "start": "head → {{list}}. Each node holds a value and an arrow to the next node.",
+        "walkMiss": "Node {{value}}: not {{x}}, follow the arrow to the next node.",
+        "walkHit": "Node {{value}}: this is {{x}}.",
+        "createFirst": "Create node {{x}} pointing at the old head, {{next}}.",
+        "linkHead": "Make {{x}} the new head: {{list}}. No other node moved.",
+        "afterMissing": "{{y}} is not in the list, so there is nothing to insert after.",
+        "create": "Create node {{x}} and point it at {{next}}.",
+        "link": "Point {{y}} at {{x}}: {{list}}. Only two arrows changed.",
+        "emptyList": "The list is empty: there is no {{x}}.",
+        "findHit": "Found {{x}} after visiting {{steps}} node(s).",
+        "findMiss": "Reached None: {{x}} is not in the list ({{steps}} node(s) visited).",
+        "headMatch": "The head is {{x}}, so the new head is the node after it.",
+        "headRemoved": "{{x}} removed: {{list}}.",
+        "prevStart": "Start with prev at the head, {{value}}. Look for {{x}} one node ahead.",
+        "prevMove": "The next node isn't {{x}}: move prev to {{value}}.",
+        "deleteMissing": "Reached the end: {{x}} is not in the list.",
+        "found": "The node after {{prev}} is {{x}}: unlink it.",
+        "unlink": "Point {{prev}} past {{x}}, straight to {{next}}: {{list}}.",
+        "qNext": "After deleting {{x}}, where does {{prev}} point?",
+        "end": "Done: head → {{list}}."
+      },
+      "doubly": {
+        "help": "add-first x, add-last x, delete x",
+        "preset": {
+          "tour": "Delete from the middle",
+          "ends": "Work at both ends",
+          "build": "Build from empty"
+        },
+        "start": "head ⇄ {{list}}. Each node points both to the next node and back to the previous one.",
+        "create": "Create node {{x}}.",
+        "linkEmpty": "The list was empty, so {{x}} is both the head and the tail.",
+        "linkLast": "Link {{end}} ⇄ {{x}}: {{list}}. {{x}} is the new tail.",
+        "linkFirst": "Link {{x}} ⇄ {{end}}: {{list}}. {{x}} is the new head.",
+        "missing": "{{x}} is not in the list.",
+        "deleteFind": "Start from node {{x}}: it knows both its neighbours.",
+        "linkPrev": "{{prev}}.next skips over it, straight to {{next}}.",
+        "qPrevNext": "After unlinking, where does {{prev}}.next point?",
+        "noPrev": "{{x}} has no previous node: it was the head. The new head is {{next}}.",
+        "linkNext": "{{next}}.prev skips back to {{prev}}: {{list}}.",
+        "noNext": "{{x}} had no next node: it was the tail. The new tail is {{prev}}: {{list}}.",
+        "end": "Done: head ⇄ {{list}}."
+      },
+      "stack": {
+        "help": "push x, pop, peek",
+        "preset": { "tour": "Push, pop, peek", "undo": "Undo history", "empty": "Pop too far" },
+        "start": "items = {{list}}. Only the top can be touched.",
+        "push": "Push {{x}} on top. The stack holds {{size}} value(s).",
+        "pop": "Pop the top value {{x}}. Now items = {{list}}.",
+        "qPop": "What will pop() return?",
+        "peek": "Peek: the top is {{x}}, and it stays there.",
+        "qPeek": "What will peek() return?",
+        "popEmpty": "IndexError: pop from an empty stack.",
+        "peekEmpty": "IndexError: nothing to peek at, the stack is empty.",
+        "end": "Done: items = {{list}}."
+      },
+      "queue": {
+        "help": "enqueue x, dequeue, front",
+        "preset": {
+          "tour": "Enqueue, dequeue, front",
+          "line": "A moving line",
+          "empty": "Dequeue too far"
+        },
+        "start": "items = {{list}}. Values join at the back and leave from the front.",
+        "enqueue": "Enqueue {{x}} at the back. The queue holds {{size}} value(s).",
+        "dequeue": "Dequeue: {{x}} leaves from the front. Now items = {{list}}.",
+        "qDequeue": "What will dequeue() return?",
+        "front": "Front: {{x}} is next in line, and it stays there.",
+        "qFront": "What will front() return?",
+        "dequeueEmpty": "IndexError: pop from an empty deque.",
+        "frontEmpty": "IndexError: the queue is empty.",
+        "end": "Done: items = {{list}}."
+      },
+      "deque": {
+        "help": "push_back x, push_front x, pop_back, pop_front",
+        "preset": {
+          "tour": "Both ends",
+          "window": "Sliding window",
+          "palindrome": "Palindrome check"
+        },
+        "start": "d = deque({{list}}). Values can join or leave at either end.",
+        "pushBack": "append({{x}}) at the back: {{list}}.",
+        "pushFront": "appendleft({{x}}) at the front: {{list}}.",
+        "popBack": "pop() takes {{x}} from the back: {{list}}.",
+        "popFront": "popleft() takes {{x}} from the front: {{list}}.",
+        "qPopBack": "What will pop() return?",
+        "qPopFront": "What will popleft() return?",
+        "popEmpty": "IndexError: the deque is empty.",
+        "end": "Done: d = deque({{list}})."
+      },
+      "ring": {
+        "help": "enqueue x, dequeue",
+        "preset": { "tour": "Wrap around", "full": "Fill it up", "laps": "Go round in laps" },
+        "start": "A ring of {{capacity}} slots. head marks the front; the tail is head + size, wrapped around.",
+        "tail": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}.",
+        "tailWrap": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}: it wraps around to the start.",
+        "write": "Write {{x}} into slot {{tail}}. Size {{size}}.",
+        "full": "OverflowError: all {{capacity}} slots are full, so {{x}} can't join.",
+        "read": "Read the front value {{x}} from slot {{head}}.",
+        "qDequeue": "What will dequeue() return?",
+        "advance": "Clear the slot and move head to {{head}}. Size {{size}}.",
+        "advanceWrap": "Clear the slot and move head to {{head}}: it wraps around. Size {{size}}.",
+        "empty": "IndexError: the ring buffer is empty.",
+        "end": "Done: {{size}} of {{capacity}} slots in use. No value was ever moved."
+      }
+    },
+    "binary": {
+      "start": "Look for {{target}} in a sorted list of {{count}} values.",
+      "init": "Start with the whole list: lo = {{lo}}, hi = {{hi}}.",
+      "loop": "lo {{lo}} ≤ hi {{hi}}: the target could still be at index {{lo}}..{{hi}}.",
+      "mid": "Look at the middle: mid = ({{lo}} + {{hi}}) // 2 = {{mid}}.",
+      "compareNo": "Is items[{{mid}}] = {{value}} equal to {{target}}? No.",
+      "compareYes": "Is items[{{mid}}] = {{value}} equal to {{target}}? Yes!",
+      "goRight": "{{value}} < {{target}}, so {{target}} can only be to the right. Discard the left half: lo = {{lo}}.",
+      "goLeft": "{{value}} > {{target}}, so {{target}} can only be to the left. Discard the right half: hi = {{hi}}.",
+      "found": "Return {{mid}}. Comparisons made: {{comparisons}}.",
+      "empty": "lo {{lo}} > hi {{hi}}: nothing is left to search.",
+      "notFound": "{{target}} is not in the list. Return -1. Comparisons made: {{comparisons}}."
+    },
+    "controls": {
+      "reset": "Reset",
+      "back": "Back",
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Replay",
+      "next": "Next",
+      "speed": "Speed",
+      "step": "Step {{current}} of {{total}}"
+    },
+    "predict": {
+      "toggle": "Predict before each comparison",
+      "title": "Your prediction",
+      "question": "Will items[{{i}}] = {{value}} equal {{target}}?",
+      "binaryQuestion": "items[{{mid}}] = {{value}}. Where is {{target}}?",
+      "swapQuestion": "items[{{j}}] = {{a}} and items[{{k}}] = {{b}}. Swap them?",
+      "swap": "Swap",
+      "keep": "Leave them",
+      "minQuestion": "items[{{j}}] = {{a}}. Is it smaller than the smallest so far, {{b}}?",
+      "newMin": "Yes, new smallest",
+      "notMin": "No",
+      "shiftQuestion": "items[{{j}}] = {{a}}. Is it bigger than the key {{key}}?",
+      "shift": "Yes, shift it right",
+      "stop": "No, stop here",
+      "mergeQuestion": "Left has {{a}}, right has {{b}}. Which goes into the result next?",
+      "takeLeft": "{{value}} (left)",
+      "takeRight": "{{value}} (right)",
+      "pivotQuestion": "Is {{a}} ≤ the pivot {{pivot}}?",
+      "smallSide": "Yes, small side",
+      "bigSide": "No, big side",
+      "heapQuestion": "Parent {{v}}, bigger child {{c}}. Swap them?",
+      "heapStop": "No, stop",
+      "countQuestion": "items[{{p}}] = {{x}}. Which counter goes up?",
+      "bucketQuestion": "Which bucket does {{x}} go into?",
+      "direction": {
+        "left": "To the left",
+        "here": "Right here",
+        "right": "To the right"
+      },
+      "yes": "Match",
+      "no": "No match",
+      "right": "✓ Correct prediction!",
+      "wrong": "✗ Not quite: the answer was “{{answer}}”.",
+      "score": "Predictions: {{correct}} of {{total}} correct"
+    },
+    "input": {
+      "values": "Values (up to {{max}} whole numbers)",
+      "sortedValues": "Sorted values (up to {{max}} whole numbers)",
+      "digitValues": "Values from 0 to 9 (up to {{max}})",
+      "nonNegativeValues": "Values from 0 to 99 (up to {{max}})",
+      "target": "Target",
+      "apply": "Run with these values",
+      "presets": "Try:",
+      "preset": {
+        "middle": "Found in the middle",
+        "first": "Found at the start",
+        "missing": "Not found",
+        "left": "Found on the left",
+        "right": "Found on the right",
+        "mixed": "Mixed",
+        "reversed": "Reversed",
+        "nearlySorted": "Nearly sorted",
+        "sorted": "Already sorted",
+        "fewKeys": "Many repeats",
+        "twoDigits": "One- and two-digit numbers",
+        "card": "Card example (small)"
+      },
+      "random": "🎲 Random ({{count}} values)",
+      "error": {
+        "empty": "Enter at least one value.",
+        "tooMany": "Use at most {{max}} values. Small examples are easier to follow.",
+        "notInteger": "Use whole numbers only, separated by commas.",
+        "outOfRange": "Keep values between -99 and 99.",
+        "targetMissing": "Enter a target value to search for.",
+        "notSorted": "Binary search needs the values in ascending order, for example 1, 3, 5, 7.",
+        "notDigits": "Counting sort here uses small keys: whole numbers from 0 to 9.",
+        "negative": "Radix sort here needs numbers from 0 to 99, with no negatives."
+      }
+    }
+  },
+  "settings": {
+    "appearance": "Appearance",
+    "themeLegend": "Colour theme"
+  },
+  "lesson": {
+    "concept": "Concept",
+    "sectionsLabel": "Lesson sections",
+    "backToCurriculum": "Browse the curriculum"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "body": "There is nothing at {{path}}. It may have moved, or the link may be mistyped.",
+    "home": "Back to the dashboard"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "body": "This screen hit an unexpected error. Reloading usually fixes it.",
+    "reload": "Reload",
+    "home": "Back to the dashboard"
+  },
+  "pwa": {
+    "updateAvailable": "A new version of AlgoVerse is available.",
+    "offlineReady": "AlgoVerse is ready to work offline.",
+    "reload": "Reload",
+    "dismiss": "Dismiss"
+  }
+}

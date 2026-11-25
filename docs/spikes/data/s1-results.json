@@ -1,0 +1,366 @@
+{
+  "system": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "logicalCores": 32,
+    "ramGB": 63.9,
+    "os": "Windows_NT 10.0.26100",
+    "node": "v22.23.4",
+    "playwright": "1.65.1",
+    "vite": "8.3.8",
+    "pyodide": "314.0.8"
+  },
+  "results": [
+    {
+      "server": "dev",
+      "browser": "chromium",
+      "cpuThrottle": 1,
+      "cold": [
+        1610.5499999998137,
+        1589.9199999999255,
+        1601.8499999996275,
+        1576.2050000000745,
+        1593.0249999994412
+      ],
+      "warm": [
+        1320.6699999999255,
+        1360.5100000007078,
+        1322.1899999994785,
+        1295.4900000002235,
+        1352.1349999997765
+      ],
+      "requestsPerLoad": [
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0.8154.6",
+      "coldStat": {
+        "median": 1593,
+        "min": 1576.2,
+        "max": 1610.5
+      },
+      "warmStat": {
+        "median": 1322.2,
+        "min": 1295.5,
+        "max": 1360.5
+      }
+    },
+    {
+      "server": "dev",
+      "browser": "firefox",
+      "cpuThrottle": 1,
+      "cold": [
+        1725.7599999999998,
+        1692.56,
+        1647.58,
+        1648.1599999999999,
+        1759.7599999999998
+      ],
+      "warm": [
+        1567.36,
+        1472.1399999999999,
+        1512.66,
+        1613.1000000000001,
+        1733.28
+      ],
+      "requestsPerLoad": [
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0",
+      "coldStat": {
+        "median": 1692.6,
+        "min": 1647.6,
+        "max": 1759.8
+      },
+      "warmStat": {
+        "median": 1567.4,
+        "min": 1472.1,
+        "max": 1733.3
+      }
+    },
+    {
+      "server": "dev",
+      "browser": "webkit",
+      "cpuThrottle": 1,
+      "cold": [
+        1498.78,
+        1477.66,
+        1515.58,
+        1473.12,
+        1459.6200000000001
+      ],
+      "warm": [
+        1615.1599999999999,
+        1546.54,
+        1636.08,
+        1507.8200000000002,
+        1669.1
+      ],
+      "requestsPerLoad": [
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "27.2",
+      "coldStat": {
+        "median": 1477.7,
+        "min": 1459.6,
+        "max": 1515.6
+      },
+      "warmStat": {
+        "median": 1615.2,
+        "min": 1507.8,
+        "max": 1669.1
+      }
+    },
+    {
+      "server": "dev",
+      "browser": "chromium-4x-throttle (main thread only)",
+      "cpuThrottle": 4,
+      "cold": [
+        1645.019999999553,
+        1599.7550000008196,
+        1646.9150000000373,
+        1642.6100000003353,
+        1607.4350000005215
+      ],
+      "warm": [
+        1423.6200000001118,
+        1399.5400000000373,
+        1384.050000000745,
+        1463.1000000005588,
+        1439.4949999991804
+      ],
+      "requestsPerLoad": [
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0.8154.6",
+      "coldStat": {
+        "median": 1642.6,
+        "min": 1599.8,
+        "max": 1646.9
+      },
+      "warmStat": {
+        "median": 1423.6,
+        "min": 1384.1,
+        "max": 1463.1
+      }
+    },
+    {
+      "server": "prod",
+      "browser": "chromium",
+      "cpuThrottle": 1,
+      "cold": [
+        1592.4550000000745,
+        1576.2549999998882,
+        1619.8100000005215,
+        1562.0449999999255,
+        1590.8499999996275
+      ],
+      "warm": [
+        1620.3899999996647,
+        1682.1849999995902,
+        1685.9500000001863,
+        1608.6100000003353,
+        1652.8250000001863
+      ],
+      "requestsPerLoad": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0.8154.6",
+      "coldStat": {
+        "median": 1590.8,
+        "min": 1562,
+        "max": 1619.8
+      },
+      "warmStat": {
+        "median": 1652.8,
+        "min": 1608.6,
+        "max": 1686
+      }
+    },
+    {
+      "server": "prod",
+      "browser": "firefox",
+      "cpuThrottle": 1,
+      "cold": [
+        1730.5600000000002,
+        1706.8200000000002,
+        1647.6799999999998,
+        1693.8400000000001,
+        1667.68
+      ],
+      "warm": [
+        1887.88,
+        1918.62,
+        2047.62,
+        1960.26,
+        2001.98
+      ],
+      "requestsPerLoad": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0",
+      "coldStat": {
+        "median": 1693.8,
+        "min": 1647.7,
+        "max": 1730.6
+      },
+      "warmStat": {
+        "median": 1960.3,
+        "min": 1887.9,
+        "max": 2047.6
+      }
+    },
+    {
+      "server": "prod",
+      "browser": "webkit",
+      "cpuThrottle": 1,
+      "cold": [
+        1481.52,
+        1508.1399999999999,
+        1526.24,
+        1508,
+        1496.28
+      ],
+      "warm": [
+        1616.08,
+        1527.78,
+        1630.66,
+        1649.8,
+        1628.1399999999999
+      ],
+      "requestsPerLoad": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "27.2",
+      "coldStat": {
+        "median": 1508,
+        "min": 1481.5,
+        "max": 1526.2
+      },
+      "warmStat": {
+        "median": 1628.1,
+        "min": 1527.8,
+        "max": 1649.8
+      }
+    },
+    {
+      "server": "prod",
+      "browser": "chromium-4x-throttle (main thread only)",
+      "cpuThrottle": 4,
+      "cold": [
+        1660.9050000002608,
+        1694.269999999553,
+        1661.0099999997765,
+        1707.9950000001118,
+        1768.5049999998882
+      ],
+      "warm": [
+        1848.679999999702,
+        1878.6650000000373,
+        1807.9550000000745,
+        1787.664999999106,
+        1817.765000000596
+      ],
+      "requestsPerLoad": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "assertions": 10,
+      "browserVersion": "159.0.8154.6",
+      "coldStat": {
+        "median": 1694.3,
+        "min": 1660.9,
+        "max": 1768.5
+      },
+      "warmStat": {
+        "median": 1817.8,
+        "min": 1787.7,
+        "max": 1878.7
+      }
+    }
+  ]
+}

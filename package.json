@@ -1,0 +1,15 @@
+{
+  "name": "algoverse",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "packageManager": "pnpm@10.24.0",
+  "scripts": {
+    "dev": "pnpm --filter @algoverse/web dev",
+    "test:py": "uv run pytest packages apps/api -q",
+    "test:web": "pnpm -r --if-present test",
+    "test": "pnpm test:py && pnpm test:web",
+    "lint": "uv run ruff check . && uv run lint-imports && pnpm -r --if-present lint",
+    "typecheck": "uv run mypy packages/content-tools/src apps/api/src && pnpm -r --if-present typecheck",
+    "format": "uv run ruff format . && pnpm -r --if-present format"
+  }
+}

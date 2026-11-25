@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>S3 interrupts</title>
+</head>
+<body>
+  <h1>S3: soft interrupt, hard kill, re-boot</h1>
+  <p>
+    <button id="run">Run <code>while True: pass</code></button>
+    <button id="runc">Run <code>sum(range(10**10))</code></button>
+    <button id="soft">Soft stop</button>
+    <button id="hard">Hard kill</button>
+    <button id="spare">Boot spare</button>
+    <button id="swap">Hard kill (swap to spare)</button>
+    <button id="two">Run 1 + 1</button>
+  </p>
+  <pre id="log"></pre>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

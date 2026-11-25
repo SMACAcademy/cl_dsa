@@ -1,0 +1,1057 @@
+{
+  "system": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "logicalCores": 32,
+    "ramGB": 63.9,
+    "os": "Windows_NT 10.0.26100",
+    "node": "v22.23.4",
+    "playwright": "1.65.1",
+    "vite": "8.3.8",
+    "pyodide": "314.0.8"
+  },
+  "dockerSystem": {
+    "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+    "logicalCores": 32,
+    "ramGB": 31.3,
+    "os": "Linux 6.18.33.2-microsoft-standard-WSL2",
+    "node": "v26.13.1",
+    "playwright": "1.65.1",
+    "vite": null,
+    "pyodide": "314.0.8",
+    "cgroupCpuMax": "50000 100000"
+  },
+  "results": [
+    {
+      "label": "chromium (desktop)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "seed": 20261118,
+      "n": 50,
+      "input": [
+        28,
+        238,
+        203,
+        179,
+        407,
+        829,
+        718,
+        346,
+        376,
+        590,
+        54,
+        357,
+        413,
+        370,
+        453,
+        361,
+        245,
+        769,
+        374,
+        250,
+        21,
+        661,
+        451,
+        738,
+        339,
+        366,
+        606,
+        422,
+        782,
+        702,
+        754,
+        833,
+        224,
+        410,
+        941,
+        513,
+        888,
+        541,
+        659,
+        380,
+        317,
+        756,
+        777,
+        362,
+        811,
+        881,
+        893,
+        494,
+        169,
+        55
+      ],
+      "bootMs": 1628.5,
+      "raw": {
+        "shallow": [
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 30.165000000037253,
+            "toJsMs": 31.15500000026077,
+            "stringifyMs": 0.9499999992549419,
+            "totalMs": 62.269999999552965,
+            "eventsPerSecTrace": 170495.60749191607,
+            "eventsPerSecTotal": 82591.9383336586
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 22.65500000026077,
+            "toJsMs": 24.634999999776483,
+            "stringifyMs": 0.8900000005960464,
+            "totalMs": 48.1800000006333,
+            "eventsPerSecTrace": 227013.90421279197,
+            "eventsPerSecTotal": 106745.53756605227
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 23.015000000596046,
+            "toJsMs": 25.149999999441206,
+            "stringifyMs": 1.0950000006705523,
+            "totalMs": 49.260000000707805,
+            "eventsPerSecTrace": 223462.9589340346,
+            "eventsPerSecTotal": 104405.19691283193
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 22.34499999973923,
+            "toJsMs": 25.010000000707805,
+            "stringifyMs": 1.165000000037253,
+            "totalMs": 48.52000000048429,
+            "eventsPerSecTrace": 230163.34750772073,
+            "eventsPerSecTotal": 105997.52679201704
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 22.65500000026077,
+            "toJsMs": 24.8199999993667,
+            "stringifyMs": 0.9100000001490116,
+            "totalMs": 48.38499999977648,
+            "eventsPerSecTrace": 227013.90421279197,
+            "eventsPerSecTotal": 106293.27270897507
+          }
+        ],
+        "copy": [
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 64.67999999970198,
+            "toJsMs": 50.67999999970198,
+            "stringifyMs": 2.4200000008568168,
+            "totalMs": 117.78000000026077,
+            "eventsPerSecTrace": 79514.53308632804,
+            "eventsPerSecTotal": 43666.1572422195
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 65.65500000026077,
+            "toJsMs": 55.75,
+            "stringifyMs": 2.2149999998509884,
+            "totalMs": 123.62000000011176,
+            "eventsPerSecTrace": 78333.71411133307,
+            "eventsPerSecTotal": 41603.300436784906
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 71.4899999992922,
+            "toJsMs": 50.130000000819564,
+            "stringifyMs": 3.0249999994412065,
+            "totalMs": 124.64499999955297,
+            "eventsPerSecTrace": 71940.13148763351,
+            "eventsPerSecTotal": 41261.18175633556
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 65.46499999985099,
+            "toJsMs": 48.61500000022352,
+            "stringifyMs": 2.7149999998509884,
+            "totalMs": 116.7949999999255,
+            "eventsPerSecTrace": 78561.06316370131,
+            "eventsPerSecTotal": 44034.41928167542
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 62.700000000186265,
+            "toJsMs": 50.97499999962747,
+            "stringifyMs": 2.334999999962747,
+            "totalMs": 116.00999999977648,
+            "eventsPerSecTrace": 82025.51834106415,
+            "eventsPerSecTotal": 44332.38513929755
+          }
+        ],
+        "baselineMs": [
+          1.3449999997392297,
+          1.050000000745058,
+          1.099999999627471,
+          1.0099999997764826,
+          1.0499999998137355
+        ]
+      },
+      "payload": {
+        "events": 9,
+        "jsonBytes": 10609,
+        "bigSerialized": {
+          "$bigint": "1000000000000000000000000000000"
+        },
+        "stringLength": 5000,
+        "jsonValid": true,
+        "totalMs": 0.4850000003352761
+      },
+      "assertions": 1,
+      "shallow": {
+        "events": 5143,
+        "jsonBytes": 571138,
+        "traceMs": {
+          "median": 22.7,
+          "min": 22.3,
+          "max": 30.2
+        },
+        "toJsMs": {
+          "median": 25,
+          "min": 24.6,
+          "max": 31.2
+        },
+        "stringifyMs": {
+          "median": 0.9,
+          "min": 0.9,
+          "max": 1.2
+        },
+        "totalMs": {
+          "median": 48.5,
+          "min": 48.2,
+          "max": 62.3
+        },
+        "eventsPerSecTrace": {
+          "median": 227013.9,
+          "min": 170495.6,
+          "max": 230163.3
+        },
+        "eventsPerSecTotal": {
+          "median": 105997.5,
+          "min": 82591.9,
+          "max": 106745.5
+        }
+      },
+      "copy": {
+        "events": 5143,
+        "jsonBytes": 1190992,
+        "traceMs": {
+          "median": 65.5,
+          "min": 62.7,
+          "max": 71.5
+        },
+        "toJsMs": {
+          "median": 50.7,
+          "min": 48.6,
+          "max": 55.8
+        },
+        "stringifyMs": {
+          "median": 2.4,
+          "min": 2.2,
+          "max": 3
+        },
+        "totalMs": {
+          "median": 117.8,
+          "min": 116,
+          "max": 124.6
+        },
+        "eventsPerSecTrace": {
+          "median": 78561.1,
+          "min": 71940.1,
+          "max": 82025.5
+        },
+        "eventsPerSecTotal": {
+          "median": 43666.2,
+          "min": 41261.2,
+          "max": 44332.4
+        }
+      },
+      "baselineStat": {
+        "median": 1.1,
+        "min": 1,
+        "max": 1.3
+      }
+    },
+    {
+      "label": "firefox (desktop)",
+      "browser": "firefox",
+      "browserVersion": "159.0",
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "seed": 20261118,
+      "n": 50,
+      "input": [
+        28,
+        238,
+        203,
+        179,
+        407,
+        829,
+        718,
+        346,
+        376,
+        590,
+        54,
+        357,
+        413,
+        370,
+        453,
+        361,
+        245,
+        769,
+        374,
+        250,
+        21,
+        661,
+        451,
+        738,
+        339,
+        366,
+        606,
+        422,
+        782,
+        702,
+        754,
+        833,
+        224,
+        410,
+        941,
+        513,
+        888,
+        541,
+        659,
+        380,
+        317,
+        756,
+        777,
+        362,
+        811,
+        881,
+        893,
+        494,
+        169,
+        55
+      ],
+      "bootMs": 1884.4,
+      "raw": {
+        "shallow": [
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 41.90000000000009,
+            "toJsMs": 56.180000000000064,
+            "stringifyMs": 2.1399999999998727,
+            "totalMs": 100.22000000000003,
+            "eventsPerSecTrace": 122744.63007159879,
+            "eventsPerSecTotal": 51317.10237477548
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 35.62000000000012,
+            "toJsMs": 52.7199999999998,
+            "stringifyMs": 1.9200000000000728,
+            "totalMs": 90.25999999999999,
+            "eventsPerSecTrace": 144385.17686692823,
+            "eventsPerSecTotal": 56979.83602924884
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 36.01999999999998,
+            "toJsMs": 53.179999999999836,
+            "stringifyMs": 1.8800000000001091,
+            "totalMs": 91.07999999999993,
+            "eventsPerSecTrace": 142781.7878956136,
+            "eventsPerSecTotal": 56466.8423364076
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 35.960000000000036,
+            "toJsMs": 53.33999999999969,
+            "stringifyMs": 2,
+            "totalMs": 91.29999999999973,
+            "eventsPerSecTrace": 143020.0222469409,
+            "eventsPerSecTotal": 56330.77765607903
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 36.720000000000255,
+            "toJsMs": 54.40000000000009,
+            "stringifyMs": 2.2799999999997453,
+            "totalMs": 93.40000000000009,
+            "eventsPerSecTrace": 140059.91285402954,
+            "eventsPerSecTotal": 55064.23982869373
+          }
+        ],
+        "copy": [
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 105.59999999999991,
+            "toJsMs": 121.07999999999993,
+            "stringifyMs": 4.8400000000001455,
+            "totalMs": 231.51999999999998,
+            "eventsPerSecTrace": 48702.65151515156,
+            "eventsPerSecTotal": 22214.06357982032
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 97.98000000000002,
+            "toJsMs": 124.17999999999984,
+            "stringifyMs": 5.540000000000418,
+            "totalMs": 227.70000000000027,
+            "eventsPerSecTrace": 52490.30414370279,
+            "eventsPerSecTotal": 22586.736934562996
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 129.30000000000018,
+            "toJsMs": 138.3199999999997,
+            "stringifyMs": 9.519999999999982,
+            "totalMs": 277.1399999999999,
+            "eventsPerSecTrace": 39775.71539056452,
+            "eventsPerSecTotal": 18557.407808327927
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 168.5999999999999,
+            "toJsMs": 145.2800000000002,
+            "stringifyMs": 6.5,
+            "totalMs": 320.3800000000001,
+            "eventsPerSecTrace": 30504.151838671427,
+            "eventsPerSecTotal": 16052.81228541107
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 160.8800000000001,
+            "toJsMs": 214.63999999999987,
+            "stringifyMs": 5.940000000000055,
+            "totalMs": 381.46000000000004,
+            "eventsPerSecTrace": 31967.926404773723,
+            "eventsPerSecTotal": 13482.409689089287
+          }
+        ],
+        "baselineMs": [
+          1.9800000000000182,
+          1.8200000000001637,
+          1.7600000000002183,
+          1.6399999999998727,
+          1.7600000000002183
+        ]
+      },
+      "payload": {
+        "events": 9,
+        "jsonBytes": 10609,
+        "bigSerialized": {
+          "$bigint": "1000000000000000000000000000000"
+        },
+        "stringLength": 5000,
+        "jsonValid": true,
+        "totalMs": 0.8600000000001273
+      },
+      "assertions": 1,
+      "shallow": {
+        "events": 5143,
+        "jsonBytes": 571138,
+        "traceMs": {
+          "median": 36,
+          "min": 35.6,
+          "max": 41.9
+        },
+        "toJsMs": {
+          "median": 53.3,
+          "min": 52.7,
+          "max": 56.2
+        },
+        "stringifyMs": {
+          "median": 2,
+          "min": 1.9,
+          "max": 2.3
+        },
+        "totalMs": {
+          "median": 91.3,
+          "min": 90.3,
+          "max": 100.2
+        },
+        "eventsPerSecTrace": {
+          "median": 142781.8,
+          "min": 122744.6,
+          "max": 144385.2
+        },
+        "eventsPerSecTotal": {
+          "median": 56330.8,
+          "min": 51317.1,
+          "max": 56979.8
+        }
+      },
+      "copy": {
+        "events": 5143,
+        "jsonBytes": 1190992,
+        "traceMs": {
+          "median": 129.3,
+          "min": 98,
+          "max": 168.6
+        },
+        "toJsMs": {
+          "median": 138.3,
+          "min": 121.1,
+          "max": 214.6
+        },
+        "stringifyMs": {
+          "median": 5.9,
+          "min": 4.8,
+          "max": 9.5
+        },
+        "totalMs": {
+          "median": 277.1,
+          "min": 227.7,
+          "max": 381.5
+        },
+        "eventsPerSecTrace": {
+          "median": 39775.7,
+          "min": 30504.2,
+          "max": 52490.3
+        },
+        "eventsPerSecTotal": {
+          "median": 18557.4,
+          "min": 13482.4,
+          "max": 22586.7
+        }
+      },
+      "baselineStat": {
+        "median": 1.8,
+        "min": 1.6,
+        "max": 2
+      }
+    },
+    {
+      "label": "webkit (desktop)",
+      "browser": "webkit",
+      "browserVersion": "27.2",
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "seed": 20261118,
+      "n": 50,
+      "input": [
+        28,
+        238,
+        203,
+        179,
+        407,
+        829,
+        718,
+        346,
+        376,
+        590,
+        54,
+        357,
+        413,
+        370,
+        453,
+        361,
+        245,
+        769,
+        374,
+        250,
+        21,
+        661,
+        451,
+        738,
+        339,
+        366,
+        606,
+        422,
+        782,
+        702,
+        754,
+        833,
+        224,
+        410,
+        941,
+        513,
+        888,
+        541,
+        659,
+        380,
+        317,
+        756,
+        777,
+        362,
+        811,
+        881,
+        893,
+        494,
+        169,
+        55
+      ],
+      "bootMs": 1540.8,
+      "raw": {
+        "shallow": [
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 27.440000000000055,
+            "toJsMs": 31.75999999999999,
+            "stringifyMs": 2.9400000000000546,
+            "totalMs": 62.1400000000001,
+            "eventsPerSecTrace": 187427.11370262352,
+            "eventsPerSecTotal": 82764.72481493388
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 20.87999999999988,
+            "toJsMs": 28.279999999999973,
+            "stringifyMs": 2.5599999999999454,
+            "totalMs": 51.7199999999998,
+            "eventsPerSecTrace": 246312.26053639987,
+            "eventsPerSecTotal": 99439.28847641184
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 21.09999999999991,
+            "toJsMs": 28.980000000000018,
+            "stringifyMs": 2.3600000000001273,
+            "totalMs": 52.440000000000055,
+            "eventsPerSecTrace": 243744.0758293849,
+            "eventsPerSecTotal": 98073.9893211288
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 21.779999999999973,
+            "toJsMs": 33.12000000000012,
+            "stringifyMs": 2.2200000000000273,
+            "totalMs": 57.12000000000012,
+            "eventsPerSecTrace": 236134.06795225007,
+            "eventsPerSecTotal": 90038.51540616229
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 21.1400000000001,
+            "toJsMs": 27.37999999999988,
+            "stringifyMs": 2.240000000000009,
+            "totalMs": 50.75999999999999,
+            "eventsPerSecTrace": 243282.87606433188,
+            "eventsPerSecTotal": 101319.93695823484
+          }
+        ],
+        "copy": [
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 65.3599999999999,
+            "toJsMs": 59.180000000000064,
+            "stringifyMs": 4.259999999999991,
+            "totalMs": 128.79999999999995,
+            "eventsPerSecTrace": 78687.2705018361,
+            "eventsPerSecTotal": 39930.1242236025
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 63.8599999999999,
+            "toJsMs": 61.24000000000001,
+            "stringifyMs": 4.440000000000055,
+            "totalMs": 129.53999999999996,
+            "eventsPerSecTrace": 80535.54650798634,
+            "eventsPerSecTotal": 39702.02254129999
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 68.46000000000004,
+            "toJsMs": 57.679999999999836,
+            "stringifyMs": 4.200000000000273,
+            "totalMs": 130.34000000000015,
+            "eventsPerSecTrace": 75124.1600934852,
+            "eventsPerSecTotal": 39458.339726868144
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 61.79999999999973,
+            "toJsMs": 59.220000000000255,
+            "stringifyMs": 5.639999999999873,
+            "totalMs": 126.65999999999985,
+            "eventsPerSecTrace": 83220.06472491946,
+            "eventsPerSecTotal": 40604.76867203542
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 61.86000000000013,
+            "toJsMs": 59.09999999999991,
+            "stringifyMs": 4.679999999999836,
+            "totalMs": 125.63999999999987,
+            "eventsPerSecTrace": 83139.34691238262,
+            "eventsPerSecTotal": 40934.41579114936
+          }
+        ],
+        "baselineMs": [
+          1.4600000000000364,
+          1.099999999999909,
+          1.0599999999999454,
+          1.080000000000382,
+          1.0199999999999818
+        ]
+      },
+      "payload": {
+        "events": 9,
+        "jsonBytes": 10609,
+        "bigSerialized": {
+          "$bigint": "1000000000000000000000000000000"
+        },
+        "stringLength": 5000,
+        "jsonValid": true,
+        "totalMs": 0.5399999999999636
+      },
+      "assertions": 1,
+      "shallow": {
+        "events": 5143,
+        "jsonBytes": 571138,
+        "traceMs": {
+          "median": 21.1,
+          "min": 20.9,
+          "max": 27.4
+        },
+        "toJsMs": {
+          "median": 29,
+          "min": 27.4,
+          "max": 33.1
+        },
+        "stringifyMs": {
+          "median": 2.4,
+          "min": 2.2,
+          "max": 2.9
+        },
+        "totalMs": {
+          "median": 52.4,
+          "min": 50.8,
+          "max": 62.1
+        },
+        "eventsPerSecTrace": {
+          "median": 243282.9,
+          "min": 187427.1,
+          "max": 246312.3
+        },
+        "eventsPerSecTotal": {
+          "median": 98074,
+          "min": 82764.7,
+          "max": 101319.9
+        }
+      },
+      "copy": {
+        "events": 5143,
+        "jsonBytes": 1190992,
+        "traceMs": {
+          "median": 63.9,
+          "min": 61.8,
+          "max": 68.5
+        },
+        "toJsMs": {
+          "median": 59.2,
+          "min": 57.7,
+          "max": 61.2
+        },
+        "stringifyMs": {
+          "median": 4.4,
+          "min": 4.2,
+          "max": 5.6
+        },
+        "totalMs": {
+          "median": 128.8,
+          "min": 125.6,
+          "max": 130.3
+        },
+        "eventsPerSecTrace": {
+          "median": 80535.5,
+          "min": 75124.2,
+          "max": 83220.1
+        },
+        "eventsPerSecTotal": {
+          "median": 39930.1,
+          "min": 39458.3,
+          "max": 40934.4
+        }
+      },
+      "baselineStat": {
+        "median": 1.1,
+        "min": 1,
+        "max": 1.5
+      }
+    },
+    {
+      "label": "chromium, mid-range-laptop approximation (Docker --cpus=0.5)",
+      "browser": "chromium",
+      "browserVersion": "159.0.8154.6",
+      "pyVersion": "3.14.2 (main, Nov 13 2026, 20:18:53) [Clang 23.0.0git (https:/github.com/llvm/llvm-project e5927fecf8a6ce89e1a4eac5b8",
+      "seed": 20261118,
+      "n": 50,
+      "input": [
+        28,
+        238,
+        203,
+        179,
+        407,
+        829,
+        718,
+        346,
+        376,
+        590,
+        54,
+        357,
+        413,
+        370,
+        453,
+        361,
+        245,
+        769,
+        374,
+        250,
+        21,
+        661,
+        451,
+        738,
+        339,
+        366,
+        606,
+        422,
+        782,
+        702,
+        754,
+        833,
+        224,
+        410,
+        941,
+        513,
+        888,
+        541,
+        659,
+        380,
+        317,
+        756,
+        777,
+        362,
+        811,
+        881,
+        893,
+        494,
+        169,
+        55
+      ],
+      "bootMs": 6909.4,
+      "raw": {
+        "shallow": [
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 99.54000000003725,
+            "toJsMs": 101.04500000004191,
+            "stringifyMs": 1.5949999999720603,
+            "totalMs": 202.18000000005122,
+            "eventsPerSecTrace": 51667.67128790512,
+            "eventsPerSecTotal": 25437.72875654712
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 84.27000000001863,
+            "toJsMs": 26.979999999981374,
+            "stringifyMs": 1.4500000000698492,
+            "totalMs": 112.70000000006985,
+            "eventsPerSecTrace": 61030.02254656299,
+            "eventsPerSecTotal": 45634.42768408884
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 79.30000000004657,
+            "toJsMs": 94.89999999990687,
+            "stringifyMs": 1.4750000000931323,
+            "totalMs": 175.67500000004657,
+            "eventsPerSecTrace": 64854.981084451196,
+            "eventsPerSecTotal": 29275.651060188626
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 24.364999999990687,
+            "toJsMs": 82.02500000002328,
+            "stringifyMs": 1.599999999976717,
+            "totalMs": 107.98999999999069,
+            "eventsPerSecTrace": 211081.46932082766,
+            "eventsPerSecTotal": 47624.780072233014
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 571138,
+            "traceMs": 84.13000000000466,
+            "toJsMs": 25.710000000079162,
+            "stringifyMs": 1.4699999999720603,
+            "totalMs": 111.31000000005588,
+            "eventsPerSecTrace": 61131.58207535618,
+            "eventsPerSecTotal": 46204.29431315621
+          }
+        ],
+        "copy": [
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 175.2400000001071,
+            "toJsMs": 112.63999999989755,
+            "stringifyMs": 3.8600000001024455,
+            "totalMs": 291.7400000001071,
+            "eventsPerSecTrace": 29348.322300826618,
+            "eventsPerSecTotal": 17628.71049564034
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 176.27499999990687,
+            "toJsMs": 189.02000000001863,
+            "stringifyMs": 4.535000000032596,
+            "totalMs": 369.8299999999581,
+            "eventsPerSecTrace": 29176.00340378793,
+            "eventsPerSecTotal": 13906.389422168519
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 128.73499999998603,
+            "toJsMs": 171.48499999998603,
+            "stringifyMs": 3.5350000000325963,
+            "totalMs": 303.75500000000466,
+            "eventsPerSecTrace": 39950.285470156196,
+            "eventsPerSecTotal": 16931.408536484738
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 115.5899999999674,
+            "toJsMs": 163.39000000001397,
+            "stringifyMs": 4.569999999948777,
+            "totalMs": 283.54999999993015,
+            "eventsPerSecTrace": 44493.46829311749,
+            "eventsPerSecTotal": 18137.89455123
+          },
+          {
+            "events": 5143,
+            "jsonBytes": 1190992,
+            "traceMs": 115.61999999999534,
+            "toJsMs": 111.14499999990221,
+            "stringifyMs": 4.470000000088476,
+            "totalMs": 231.23499999998603,
+            "eventsPerSecTrace": 44481.923542641474,
+            "eventsPerSecTotal": 22241.44268817571
+          }
+        ],
+        "baselineMs": [
+          1.5,
+          1.0500000000465661,
+          1.1700000000419095,
+          1.0800000000745058,
+          1.2300000000977889
+        ]
+      },
+      "payload": {
+        "events": 9,
+        "jsonBytes": 10609,
+        "bigSerialized": {
+          "$bigint": "1000000000000000000000000000000"
+        },
+        "stringLength": 5000,
+        "jsonValid": true,
+        "totalMs": 0.5200000000186265
+      },
+      "assertions": 1,
+      "shallow": {
+        "events": 5143,
+        "jsonBytes": 571138,
+        "traceMs": {
+          "median": 84.1,
+          "min": 24.4,
+          "max": 99.5
+        },
+        "toJsMs": {
+          "median": 82,
+          "min": 25.7,
+          "max": 101
+        },
+        "stringifyMs": {
+          "median": 1.5,
+          "min": 1.5,
+          "max": 1.6
+        },
+        "totalMs": {
+          "median": 112.7,
+          "min": 108,
+          "max": 202.2
+        },
+        "eventsPerSecTrace": {
+          "median": 61131.6,
+          "min": 51667.7,
+          "max": 211081.5
+        },
+        "eventsPerSecTotal": {
+          "median": 45634.4,
+          "min": 25437.7,
+          "max": 47624.8
+        }
+      },
+      "copy": {
+        "events": 5143,
+        "jsonBytes": 1190992,
+        "traceMs": {
+          "median": 128.7,
+          "min": 115.6,
+          "max": 176.3
+        },
+        "toJsMs": {
+          "median": 163.4,
+          "min": 111.1,
+          "max": 189
+        },
+        "stringifyMs": {
+          "median": 4.5,
+          "min": 3.5,
+          "max": 4.6
+        },
+        "totalMs": {
+          "median": 291.7,
+          "min": 231.2,
+          "max": 369.8
+        },
+        "eventsPerSecTrace": {
+          "median": 39950.3,
+          "min": 29176,
+          "max": 44493.5
+        },
+        "eventsPerSecTotal": {
+          "median": 17628.7,
+          "min": 13906.4,
+          "max": 22241.4
+        }
+      },
+      "baselineStat": {
+        "median": 1.2,
+        "min": 1.1,
+        "max": 1.5
+      }
+    }
+  ]
+}
