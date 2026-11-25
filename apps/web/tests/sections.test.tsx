@@ -67,7 +67,7 @@ describe("knowledge library", () => {
     expect(screen.queryByRole("link", { name: "Binary search" })).toBeNull();
     await user.clear(screen.getByRole("searchbox"));
     await user.type(screen.getByRole("searchbox"), "zzzzzz");
-    expect(await screen.findByText("Nothing here matches â€œzzzzzzâ€.")).toBeVisible();
+    expect(await screen.findByText("Nothing here matches “zzzzzz”.")).toBeVisible();
   });
 });
 
