@@ -22,7 +22,7 @@ describe("menus", () => {
   it("the open theme menu has no axe violations and switches the theme", async () => {
     const user = userEvent.setup();
     renderRoute("/");
-    await user.click(screen.getByRole("button", { name: /^Theme:/ }));
+    await user.click(await screen.findByRole("button", { name: /^Theme:/ }));
     const dark = await screen.findByRole("menuitemradio", { name: "Dark" });
     expect(await axe(document.body)).toHaveNoViolations();
     await user.click(dark);
@@ -32,7 +32,7 @@ describe("menus", () => {
   it("the open account menu has no axe violations", async () => {
     const user = userEvent.setup();
     renderRoute("/");
-    await user.click(screen.getByRole("button", { name: "Account menu" }));
+    await user.click(await screen.findByRole("button", { name: "Account menu" }));
     await screen.findByRole("menuitem", { name: "Settings" });
     expect(await axe(document.body)).toHaveNoViolations();
   });

@@ -27,8 +27,10 @@ const navLinks = () =>
   within(screen.getByRole("navigation", { name: "Main" })).getAllByRole("link");
 
 describe("navigation", () => {
-  it("renders 11 nav links in spec order", () => {
+  it("renders 11 nav links in spec order", async () => {
     render(<App />);
+    // The home page loads lazily; the shell appears once it has.
+    await screen.findByRole("navigation", { name: "Main" });
     expect(navLinks().map((l) => l.getAttribute("href"))).toEqual(SPEC_ORDER);
   });
 
@@ -46,7 +48,7 @@ describe("navigation", () => {
   it("clicking a rail link routes to that section and moves aria-current", async () => {
     const user = userEvent.setup();
     renderRoute("/");
-    await user.click(screen.getByRole("link", { name: "Algorithm Lab" }));
+    await user.click(await screen.findByRole("link", { name: "Algorithm Lab" }));
     expect(await screen.findByRole("heading", { level: 1, name: "Algorithm Lab" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Algorithm Lab" })).toHaveAttribute(
       "aria-current",
@@ -68,7 +70,7 @@ describe("navigation", () => {
   it("settings is reachable from the account menu", async () => {
     const user = userEvent.setup();
     const { router } = renderRoute("/");
-    await user.click(screen.getByRole("button", { name: "Account menu" }));
+    await user.click(await screen.findByRole("button", { name: "Account menu" }));
     await user.click(await screen.findByRole("menuitem", { name: "Settings" }));
     expect(router.state.location.pathname).toBe("/settings");
     expect(await screen.findByRole("heading", { level: 1, name: "Settings" })).toBeVisible();
@@ -77,17 +79,12 @@ describe("navigation", () => {
 
 describe("placeholder screens", () => {
   it.each([
-    ["/", "Welcome, guest learner", 2],
     ["/universe", "Learning Universe", 2],
     ["/curriculum", "Curriculum", 2],
     ["/algorithms", "Algorithm Lab", 4],
     ["/structures", "Data Structure Lab", 5],
     ["/playground", "Python Playground", 4],
-    ["/problems", "Problem Solving", 4],
     ["/projects", "Real-World Projects", 9],
-    ["/progress", "My Progress", 4],
-    ["/library", "Knowledge Library", 4],
-    ["/settings", "Settings", 4],
   ])("%s shows its title and when it arrives", async (path, title, phase) => {
     renderRoute(path);
     expect(await screen.findByRole("heading", { level: 1, name: title })).toBeVisible();

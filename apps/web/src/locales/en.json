@@ -1390,6 +1390,83 @@
       }
     }
   },
+  "home": {
+    "title": "Watch algorithms and systems move",
+    "lead": "A free, interactive lab. Step through {{algorithms}} algorithms and {{structures}} data structures beside their Python code, then see how real systems scale in {{lessons}} animated lessons.",
+    "continue": "Pick up where you left off",
+    "continueAction": "Continue",
+    "continueEmpty": "New here? Start with the first system design lesson, or with a classic like binary search.",
+    "startSystems": "Start: How a request travels",
+    "startAlgo": "Try binary search",
+    "labs": "The labs",
+    "lab": {
+      "algorithms": "Step through searching, sorting, graphs, greedy and dynamic programming on your own inputs.",
+      "structures": "Drive arrays, linked lists, trees, heaps, hash tables and more with your own commands.",
+      "systems": "Animated lessons on load balancers, caches, queues, shards, consensus and whole-system designs."
+    },
+    "opened": "{{done}} of {{total}} opened",
+    "finished": "{{done}} of {{total}} finished",
+    "next": "Suggested next",
+    "practiceTitle": "Practice",
+    "practiceBody": "{{count}} questions drawn from every lesson. Five minutes, ten questions, instant explanations.",
+    "practiceBest": "Your best round: {{best}} of {{outOf}}.",
+    "practiceAction": "Start a practice round",
+    "libraryTitle": "Cheat sheets",
+    "libraryBody": "Big-O for every algorithm and structure, numbers to remember, and the key ideas of all 40 lessons on one page.",
+    "libraryAction": "Open the library"
+  },
+  "library": {
+    "intro": "Everything worth keeping on one page: the cost of every algorithm and structure, numbers to remember, the key ideas of every system design lesson, and a glossary.",
+    "search": "Filter the library",
+    "placeholder": "e.g. heap, cache, log n",
+    "contents": "On this page",
+    "complexity": "Complexity cheat sheet",
+    "numbers": "Numbers worth remembering",
+    "systems": "System design in one page",
+    "glossary": "Glossary",
+    "noMatch": "Nothing here matches “{{q}}”.",
+    "item": "Algorithm or structure",
+    "group": "Group",
+    "cost": "Cost",
+    "what": "What",
+    "roughly": "Roughly"
+  },
+  "practice": {
+    "intro": "Questions from every system design lesson, shuffled. Answer, read why, and try to beat your best round.",
+    "topics": "Topics",
+    "all": "All topics",
+    "available": "{{count}} questions available",
+    "start": "Start a round of {{count}}",
+    "question": "Question {{current}} of {{total}}",
+    "score": "Score {{score}}",
+    "from": "From the lesson: {{lesson}}",
+    "review": "Review this step",
+    "next": "Next question",
+    "finish": "See my score",
+    "done": "Round finished: {{score}} of {{total}}",
+    "doneGreat": "Excellent. You clearly know this material.",
+    "doneGood": "Good work. Review the ones you missed and go again.",
+    "doneLow": "Keep going: each explanation links back to its lesson.",
+    "best": "Best round: {{best}} of {{outOf}} · rounds played: {{rounds}}",
+    "again": "Play another round"
+  },
+  "progressPage": {
+    "intro": "What you have done here. It is stored only in this browser: no account, no server.",
+    "lessons": "System design lessons",
+    "algorithms": "Algorithms opened",
+    "structures": "Data structures opened",
+    "practice": "Best practice round",
+    "practiceNone": "not played yet",
+    "ofTotal": "{{done}} of {{total}}",
+    "byModule": "System design, by module",
+    "last": "Last opened",
+    "none": "Nothing yet. Open any lesson or player and it will show up here.",
+    "reset": "Reset my progress",
+    "confirm": "This forgets finished lessons, opened pages and practice scores in this browser. Reset?",
+    "yes": "Yes, reset",
+    "cancel": "Cancel",
+    "cleared": "Your progress was cleared."
+  },
   "about": {
     "title": "About AlgoVerse",
     "lead": "An interactive lab for data structures, algorithms and system design. Every idea is a picture you can step through, poke at and predict, right in your browser.",
@@ -1483,8 +1560,18 @@
     "missing": "There is no system design lesson called “{{id}}”."
   },
   "settings": {
+    "intro": "Make AlgoVerse comfortable for you. Settings are saved in this browser.",
     "appearance": "Appearance",
-    "themeLegend": "Colour theme"
+    "themeLegend": "Colour theme",
+    "motion": "Animations",
+    "motionLegend": "System design diagrams",
+    "motionAnimate": "Moving diagrams",
+    "motionAnimateHint": "Requests flow along the links",
+    "motionStill": "Still diagrams",
+    "motionStillHint": "Start paused; press play when you like",
+    "motionNote": "If your device asks for reduced motion, diagrams always show still arrows.",
+    "data": "Your data",
+    "dataBody": "AlgoVerse has no accounts and no database. Finished lessons, opened pages and practice scores live only in this browser; you can clear them on the My Progress page."
   },
   "lesson": {
     "concept": "Concept",
