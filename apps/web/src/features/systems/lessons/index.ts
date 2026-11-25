@@ -1,4 +1,5 @@
 import type { Lesson, Module } from "../model";
+import { BATCH_STREAM, MICROSERVICES, SAGAS, SERVICE_DISCOVERY } from "./architecture";
 import { APIS, PUBSUB, QUEUES, REALTIME } from "./communication";
 import { INDEXES, REPLICATION, SQL_NOSQL, STORAGE_ENGINES } from "./data1";
 import { CAP, CONSISTENT_HASHING, SHARDING, UNIQUE_IDS } from "./data2";
@@ -7,6 +8,8 @@ import { LATENCY_THROUGHPUT, NAPKIN_MATH, REQUEST_JOURNEY } from "./foundations"
 import { LOAD_BALANCING } from "./loadBalancing";
 import { OBSERVABILITY, RATE_LIMITING, REDUNDANCY, TIMEOUTS_RETRIES } from "./reliability";
 import { CACHING, CDN, SCALE_UP_OUT, STATELESS } from "./scaling";
+import { AUTHENTICATION, AUTHORIZATION, ENCRYPTION } from "./security";
+import { CICD, TESTING } from "./shipping";
 
 /** Every module in teaching order. Modules without lessons yet are hidden. */
 const ALL_MODULES: Module[] = [
@@ -62,21 +65,21 @@ const ALL_MODULES: Module[] = [
     number: "06",
     title: "Architecture",
     blurb: "Splitting a system into services, and keeping work correct across them.",
-    lessons: [],
+    lessons: [MICROSERVICES, SERVICE_DISCOVERY, SAGAS, BATCH_STREAM],
   },
   {
     id: "security",
     number: "07",
     title: "Security",
     blurb: "Who you are, what you may do, and keeping secrets secret.",
-    lessons: [],
+    lessons: [AUTHENTICATION, AUTHORIZATION, ENCRYPTION],
   },
   {
     id: "shipping",
     number: "08",
     title: "Shipping",
     blurb: "Getting changes to learners quickly and safely.",
-    lessons: [],
+    lessons: [TESTING, CICD],
   },
   {
     id: "whole",
