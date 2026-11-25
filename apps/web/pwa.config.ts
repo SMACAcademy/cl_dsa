@@ -18,16 +18,17 @@ export const pwaOptions: Partial<VitePWAOptions> = {
     short_name: "AlgoVerse",
     description: en.app.tagline,
     lang: "en",
-    start_url: "/",
-    scope: "/",
+    // start_url and scope are left out on purpose: the plugin fills both with Vite's `base`,
+    // so the app installs correctly at "/" locally and at "/<repo>/" on GitHub Pages.
     display: "standalone",
     theme_color: DARK_SURFACE,
     background_color: DARK_SURFACE,
+    // Relative to the manifest, so they work under any base path.
     icons: [
-      { src: "/icons/pwa-192x192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icons/pwa-512x512.png", sizes: "512x512", type: "image/png" },
+      { src: "icons/pwa-192x192.png", sizes: "192x192", type: "image/png" },
+      { src: "icons/pwa-512x512.png", sizes: "512x512", type: "image/png" },
       {
-        src: "/icons/maskable-icon-512x512.png",
+        src: "icons/maskable-icon-512x512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
@@ -36,7 +37,7 @@ export const pwaOptions: Partial<VitePWAOptions> = {
   },
   workbox: {
     globPatterns: ["**/*.{js,css,html,svg,png,ico,webmanifest}"],
-    navigateFallback: "/index.html",
+    navigateFallback: "index.html", // relative to the service worker, so it follows `base`
     navigateFallbackDenylist: [/^\/api\//],
     cleanupOutdatedCaches: true,
   },

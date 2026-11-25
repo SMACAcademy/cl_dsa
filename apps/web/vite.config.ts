@@ -34,6 +34,8 @@ const isolationEverywhere = (): Plugin => {
 };
 
 export default defineConfig({
+  // "/" locally; "/<repo>/" when the GitHub Pages workflow builds the public site.
+  base: process.env["VITE_BASE"] ?? "/",
   plugins: [isolationEverywhere(), react(), tailwindcss(), VitePWA(pwaOptions)],
   server: {
     port: 5173,

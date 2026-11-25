@@ -24,8 +24,10 @@
     "lesson": "Lesson player"
   },
   "topbar": {
-    "previewBadge": "Foundation preview",
-    "previewHint": "Screens are placeholders while each section is built",
+    "previewBadge": "Open preview",
+    "previewHint": "Some sections are still being built",
+    "about": "About",
+    "builtBy": "Built by {{name}}",
     "statsLabel": "Your stats",
     "streak": "{{count}}-day streak",
     "xp": "{{count}} XP",
@@ -1387,6 +1389,31 @@
         "negative": "Radix sort here needs numbers from 0 to 99, with no negatives."
       }
     }
+  },
+  "about": {
+    "title": "About AlgoVerse",
+    "lead": "An interactive lab for data structures, algorithms and system design. Every idea is a picture you can step through, poke at and predict, right in your browser.",
+    "startSystems": "Start the System Design Lab",
+    "startAlgorithms": "Explore the algorithms",
+    "stat": {
+      "algorithms": "algorithms",
+      "structures": "data structures",
+      "players": "step-through players",
+      "lessons": "system design lessons"
+    },
+    "howTitle": "How it teaches",
+    "how": {
+      "steps": "Every algorithm runs step by step beside its Python code, with the current line lit up.",
+      "predict": "Switch on predictions and guess the next step before you see it.",
+      "systems": "System design lessons are animated diagrams: requests flow, servers fail, numbers change.",
+      "bridge": "Each system links back to the data structures it is built on: LRU caches, Bloom filters, heaps, hash rings."
+    },
+    "privacyTitle": "No account, no tracking",
+    "privacy": "AlgoVerse is a static site. There is no database and no sign-up: your progress stays in your own browser, and the app keeps working offline once loaded.",
+    "builtBy": "Built by",
+    "connect": "Connect on LinkedIn",
+    "source": "Source code on GitHub",
+    "stack": "Built with React, TypeScript, SVG animation and Tailwind CSS"
   },
   "systems": {
     "intro": "How real systems scale, told as one story: AlgoVerse itself growing from a hobby site to millions of learners. Every lesson is an animated diagram you step through, with questions to check yourself and labs you can drive.",
