@@ -39,8 +39,9 @@ describe("navigation", () => {
     for (const item of NAV_ITEMS) expect(i18n.exists(item.labelKey)).toBe(true);
   });
 
-  it("nav link marks the active route with aria-current=page", () => {
+  it("nav link marks the active route with aria-current=page", async () => {
     renderRoute("/curriculum");
+    await screen.findByRole("heading", { level: 1, name: "Curriculum" });
     const current = navLinks().filter((l) => l.getAttribute("aria-current") === "page");
     expect(current.map((l) => l.getAttribute("href"))).toEqual(["/curriculum"]);
   });
@@ -60,6 +61,7 @@ describe("navigation", () => {
   it("the skip-to-content link is the first focusable element and targets main", async () => {
     const user = userEvent.setup();
     renderRoute("/universe");
+    await screen.findByRole("heading", { level: 1, name: "Learning Universe" });
     await user.tab();
     const skip = screen.getByRole("link", { name: "Skip to main content" });
     expect(skip).toHaveFocus();
@@ -79,8 +81,6 @@ describe("navigation", () => {
 
 describe("placeholder screens", () => {
   it.each([
-    ["/universe", "Learning Universe", 2],
-    ["/curriculum", "Curriculum", 2],
     ["/algorithms", "Algorithm Lab", 4],
     ["/structures", "Data Structure Lab", 5],
     ["/playground", "Python Playground", 4],

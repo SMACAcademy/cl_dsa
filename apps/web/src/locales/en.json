@@ -1431,6 +1431,41 @@
     "what": "What",
     "roughly": "Roughly"
   },
+  "universe": {
+    "intro": "Every topic as a tile on one pyramid. Each row is wider than the one above and builds on it: searching at the top, whole-system design at the base. Tiles fill in as you open players and finish lessons.",
+    "listTitle": "All topics, row by row",
+    "row": "Row {{n}}",
+    "done": "{{done}}/{{total}}"
+  },
+  "curriculum": {
+    "intro": "The whole course in learning order, with time estimates and your status.",
+    "summary": "{{pages}} pages, about {{hours}} hours in all. You have opened or finished {{done}}.",
+    "show": "Show",
+    "filter": {
+      "all": "Everything",
+      "todo": "Still to do",
+      "done": "Done"
+    },
+    "time": "{{count}} pages · ≈ {{minutes}} min",
+    "statusDone": "(done)",
+    "statusTodo": "(to do)",
+    "stage1": {
+      "title": "First steps",
+      "blurb": "Finding things, keeping things in order, and functions that call themselves."
+    },
+    "stage2": {
+      "title": "Core structures and patterns",
+      "blurb": "Hashing, trees, the classic problem-solving patterns, and structures designed for a job."
+    },
+    "stage3": {
+      "title": "Graphs and paradigms",
+      "blurb": "Networks of things, and the big strategies: greedy, dynamic programming, backtracking."
+    },
+    "stage4": {
+      "title": "System design",
+      "blurb": "From one server to planet scale: the 40 animated lessons of the System Design Lab."
+    }
+  },
   "practice": {
     "intro": "Questions from every system design lesson, shuffled. Answer, read why, and try to beat your best round.",
     "topics": "Topics",

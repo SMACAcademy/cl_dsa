@@ -2,6 +2,7 @@ import { Check, ChevronRight, FlaskConical } from "lucide-react";
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { useScrollToHash } from "../../lib/slug";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { SECTION_ICON } from "../placeholder/sections";
 import { LESSONS, MODULES } from "./lessons";
@@ -16,6 +17,7 @@ export function SystemsHome() {
   const [done] = useState(readDone);
   const finished = LESSONS.filter((l) => done.has(l.id)).length;
   useDocumentTitle(title);
+  useScrollToHash();
 
   return (
     <div className="space-y-8">
@@ -49,7 +51,7 @@ function ModuleSection({ module, done }: { module: Module; done: ReadonlySet<str
   const { t } = useTranslation();
   const headingId = useId();
   return (
-    <section aria-labelledby={headingId}>
+    <section id={module.id} aria-labelledby={headingId} className="scroll-mt-20">
       <h2 id={headingId} className="text-lg font-semibold tracking-tight">
         <span className="mr-2 font-mono text-muted">{module.number}</span>
         {module.title}

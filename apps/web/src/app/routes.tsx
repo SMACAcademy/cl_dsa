@@ -20,6 +20,12 @@ type LazyPage = NonNullable<RouteObject["lazy"]>;
 
 /** Built sections, each loaded on first visit to keep the main bundle small. */
 const PAGES: Partial<Record<SectionId, LazyPage>> = {
+  universe: async () => ({
+    Component: (await import("../features/map/UniversePage")).UniversePage,
+  }),
+  curriculum: async () => ({
+    Component: (await import("../features/map/CurriculumPage")).CurriculumPage,
+  }),
   problems: async () => ({
     Component: (await import("../features/practice/PracticePage")).PracticePage,
   }),

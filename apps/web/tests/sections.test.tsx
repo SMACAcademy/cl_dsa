@@ -2,7 +2,9 @@ import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { STORAGE_KEYS, recordPractice, recordVisit, readMotion } from "../src/lib/progress";
+import { CATALOG, groupItems } from "../src/features/catalog/catalog";
 import { GLOSSARY } from "../src/features/library/glossary";
+import { PYRAMID } from "../src/features/map/topics";
 import { QUIZZES, shuffled } from "../src/features/practice/quizzes";
 import { findLesson } from "../src/features/systems/lessons";
 import { renderRoute } from "./render";
@@ -106,6 +108,40 @@ describe("practice", () => {
     recordPractice(4, 10);
     expect(recordPractice(3, 10)).toMatchObject({ best: 4, outOf: 10, rounds: 2 });
     expect(recordPractice(9, 10)).toMatchObject({ best: 9, rounds: 3 });
+  });
+});
+
+describe("learning universe and curriculum", () => {
+  it("the pyramid has rows of 1, 3, 5, 7 and 9 topics, and every catalog group appears once", () => {
+    expect(PYRAMID.map((r) => r.length)).toEqual([1, 3, 5, 7, 9]);
+    const groups = PYRAMID.flat().filter((t) => t.id.startsWith("group-"));
+    expect(groups.length).toBe(new Set(groupItems(CATALOG).map((g) => g.group)).size);
+    for (const g of groups) expect(g.pages.length, g.title).toBeGreaterThan(0);
+  });
+
+  it("/universe lists every topic with progress", async () => {
+    recordVisit({ path: "/algorithms/linear-search", title: "Linear search", kind: "algorithm" });
+    renderRoute("/universe");
+    await screen.findByRole("heading", { level: 1, name: "Learning Universe" });
+    expect(screen.getByRole("link", { name: /^Searching\s*1\/2$/ })).toHaveAttribute(
+      "href",
+      "/algorithms#searching",
+    );
+    expect(screen.getByRole("link", { name: /^System design: Whole systems/ })).toHaveAttribute(
+      "href",
+      "/systems#whole",
+    );
+  });
+
+  it("/curriculum filters to what is still to do", async () => {
+    const user = userEvent.setup();
+    recordVisit({ path: "/algorithms/linear-search", title: "Linear search", kind: "algorithm" });
+    renderRoute("/curriculum");
+    await screen.findByRole("heading", { level: 1, name: "Curriculum" });
+    expect(screen.getByRole("link", { name: "Linear search" })).toBeVisible();
+    await user.click(screen.getByRole("radio", { name: "Still to do" }));
+    expect(screen.queryByRole("link", { name: "Linear search" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Binary search" })).toBeVisible();
   });
 });
 
