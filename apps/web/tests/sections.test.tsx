@@ -5,6 +5,7 @@ import { STORAGE_KEYS, recordPractice, recordVisit, readMotion } from "../src/li
 import { CATALOG, groupItems } from "../src/features/catalog/catalog";
 import { GLOSSARY } from "../src/features/library/glossary";
 import { PYRAMID } from "../src/features/map/topics";
+import { PROJECTS } from "../src/features/projects/projects";
 import { QUIZZES, shuffled } from "../src/features/practice/quizzes";
 import { findLesson } from "../src/features/systems/lessons";
 import { renderRoute } from "./render";
@@ -142,6 +143,43 @@ describe("learning universe and curriculum", () => {
     await user.click(screen.getByRole("radio", { name: "Still to do" }));
     expect(screen.queryByRole("link", { name: "Linear search" })).toBeNull();
     expect(screen.getByRole("link", { name: "Binary search" })).toBeVisible();
+  });
+});
+
+describe("playground and projects", () => {
+  it("opens a project starter from the URL and switches examples", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRoute("/playground?example=maze");
+    await screen.findByRole("heading", { level: 1, name: "Python Playground" });
+    const editor = screen.getByRole("textbox", { name: "Python code" }) as HTMLTextAreaElement;
+    expect(editor.value).toContain("maze = [");
+    await user.selectOptions(screen.getByRole("combobox", { name: "Start from" }), "binary-search");
+    expect(editor.value).toContain("def binary_search");
+    expect(router.state.location.search).toBe("?example=binary-search");
+    // jsdom has no Web Workers: the page says so instead of failing.
+    expect(screen.getByRole("button", { name: "Run" })).toBeDisabled();
+    expect(screen.getByText(/can't run Python here/)).toBeVisible();
+  });
+
+  it("every project links to real lessons and opens in the playground", async () => {
+    for (const p of PROJECTS) {
+      expect(p.code.length, p.id).toBeGreaterThan(100);
+      for (const u of p.uses) {
+        const [path] = u.path.split("?");
+        const [, section, id] = (path ?? "").split("/");
+        if (section === "systems") expect(findLesson(id ?? ""), u.path).toBeDefined();
+        else
+          expect(
+            CATALOG.some((c) => c.id === id),
+            u.path,
+          ).toBe(true);
+      }
+    }
+    renderRoute("/projects");
+    await screen.findByRole("heading", { level: 1, name: "Real-World Projects" });
+    const opens = screen.getAllByRole("link", { name: "Open in the playground" });
+    expect(opens).toHaveLength(PROJECTS.length);
+    expect(opens[0]).toHaveAttribute("href", `/playground?example=${PROJECTS[0]?.id}`);
   });
 });
 

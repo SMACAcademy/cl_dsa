@@ -83,8 +83,6 @@ describe("placeholder screens", () => {
   it.each([
     ["/algorithms", "Algorithm Lab", 4],
     ["/structures", "Data Structure Lab", 5],
-    ["/playground", "Python Playground", 4],
-    ["/projects", "Real-World Projects", 9],
   ])("%s shows its title and when it arrives", async (path, title, phase) => {
     renderRoute(path);
     expect(await screen.findByRole("heading", { level: 1, name: title })).toBeVisible();

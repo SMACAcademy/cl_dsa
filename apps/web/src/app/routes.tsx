@@ -26,6 +26,12 @@ const PAGES: Partial<Record<SectionId, LazyPage>> = {
   curriculum: async () => ({
     Component: (await import("../features/map/CurriculumPage")).CurriculumPage,
   }),
+  playground: async () => ({
+    Component: (await import("../features/playground/PlaygroundPage")).PlaygroundPage,
+  }),
+  projects: async () => ({
+    Component: (await import("../features/projects/ProjectsPage")).ProjectsPage,
+  }),
   problems: async () => ({
     Component: (await import("../features/practice/PracticePage")).PracticePage,
   }),

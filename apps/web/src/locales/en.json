@@ -1431,6 +1431,29 @@
     "what": "What",
     "roughly": "Roughly"
   },
+  "playground": {
+    "intro": "Write Python and run it right here in your browser: no install, no account. Start from an example or a project starter.",
+    "example": "Start from",
+    "run": "Run",
+    "stop": "Stop",
+    "reset": "Reset code",
+    "shortcut": "Ctrl + Enter runs · Tab indents",
+    "editor": "Python code",
+    "output": "Output",
+    "empty": "Press Run to see the output here.",
+    "loading": "Loading Python (about 10 MB, only the first time)…",
+    "finished": "— finished in {{ms}} ms",
+    "stopped": "— stopped",
+    "unsupported": "This browser can't run Python here (Web Workers are not available).",
+    "note": "Python runs inside your browser with Pyodide, downloaded from the jsDelivr CDN the first time you press Run. Your code never leaves your device."
+  },
+  "projects": {
+    "intro": "Small, real systems you can build in an afternoon. Each starts as a working program in the Python Playground, with challenges to extend it and links to the lessons behind it.",
+    "steps": "Build it in steps",
+    "challenges": "Then try",
+    "uses": "Uses:",
+    "open": "Open in the playground"
+  },
   "universe": {
     "intro": "Every topic as a tile on one pyramid. Each row is wider than the one above and builds on it: searching at the top, whole-system design at the base. Tiles fill in as you open players and finish lessons.",
     "listTitle": "All topics, row by row",
