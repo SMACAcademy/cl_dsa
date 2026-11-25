@@ -1,4 +1,7 @@
 import type { Lesson, Module } from "../model";
+import { INDEXES, REPLICATION, SQL_NOSQL, STORAGE_ENGINES } from "./data1";
+import { CAP, CONSISTENT_HASHING, SHARDING, UNIQUE_IDS } from "./data2";
+import { CONSENSUS, FILES_MEDIA, TRANSACTIONS } from "./data3";
 import { LATENCY_THROUGHPUT, NAPKIN_MATH, REQUEST_JOURNEY } from "./foundations";
 import { LOAD_BALANCING } from "./loadBalancing";
 import { CACHING, CDN, SCALE_UP_OUT, STATELESS } from "./scaling";
@@ -24,7 +27,19 @@ const ALL_MODULES: Module[] = [
     number: "03",
     title: "Data & storage",
     blurb: "Where the data lives, how it is found fast, copied, split and kept correct.",
-    lessons: [],
+    lessons: [
+      SQL_NOSQL,
+      INDEXES,
+      STORAGE_ENGINES,
+      REPLICATION,
+      SHARDING,
+      CONSISTENT_HASHING,
+      UNIQUE_IDS,
+      CAP,
+      CONSENSUS,
+      TRANSACTIONS,
+      FILES_MEDIA,
+    ],
   },
   {
     id: "communication",
