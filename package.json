@@ -1,6 +1,7 @@
 {
   "name": "algoverse",
   "private": true,
+  "license": "MIT",
   "engines": { "node": ">=22" },
   "packageManager": "pnpm@10.24.0",
   "scripts": {
