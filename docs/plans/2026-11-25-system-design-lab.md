@@ -2,10 +2,8 @@
 
 Owner direction (2026-11-25): AlgoVerse becomes a **public static site** (no database; progress
 in localStorage) with the owner's personal branding linking to LinkedIn. Build the whole
-system-design track, with animation better than the reference course
-(see [the review](../research/2026-11-24-designed-to-scale-review.md)). The owner waived
-per-step approval for routine checks in this build. Pushing, opening PRs, making the repo public
-and deploying still need the owner's OK.
+system-design track with rich, animated, interactive lessons. The owner waived per-step approval
+for routine checks in this build.
 
 Branch: `system-design` (from `phase-2`).
 
@@ -18,12 +16,12 @@ Branch: `system-design` (from `phase-2`).
   continuous flows of dots (request, response, write, failure, event, replication), drawn with SVG
   `animateMotion` (no JS loop; reduced motion shows static arrows). Nodes keep their identity
   between steps, so they glide to new positions, and new ones pop in.
-- **Better than the reference**: a question on most lessons with instant feedback; "built on"
+- **Learning by doing**: a question on most lessons with instant feedback; "built on"
   links to our data-structure players; shareable step URLs (`?step=4`); keyboard control;
   progress ticks; a hands-on lab where one exists (load balancing first); light and dark themes;
   screen-reader descriptions of every scene.
 - **Original content**: our own words and our own running example (AlgoVerse itself growing from
-  a hobby site to millions of learners). Never copy the reference's text.
+  a hobby site to millions of learners).
 
 ## Modules and lessons (status)
 | # | Module | Lessons | Status |
