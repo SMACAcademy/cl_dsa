@@ -19,7 +19,7 @@ export function NotFound() {
         <h1 className="text-2xl font-semibold tracking-tight">{t("notFound.title")}</h1>
         <p className="max-w-md text-muted">{t("notFound.body", { path: pathname })}</p>
         <Link
-          to="/"
+          to="/home"
           className="mt-2 inline-flex h-9 items-center gap-2 rounded-control bg-accent-solid px-4 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
         >
           <ArrowLeft className="size-4" aria-hidden="true" />

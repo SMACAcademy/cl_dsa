@@ -21,7 +21,15 @@
     "progress": "My Progress",
     "library": "Knowledge Library",
     "settings": "Settings",
-    "lesson": "Lesson player"
+    "lesson": "Lesson player",
+    "designLab": "Design Lab",
+    "groups": {
+      "start": "Start",
+      "labs": "Labs",
+      "practise": "Practise",
+      "you": "You"
+    },
+    "landing": "AlgoVerse welcome page"
   },
   "topbar": {
     "previewBadge": "Free & open source",
@@ -1859,6 +1867,130 @@
       "llm": "AI model",
       "vector": "vector database",
       "agent": "AI agent"
+    }
+  },
+  "landing": {
+    "title": "See algorithms come alive",
+    "nav": {
+      "label": "Landing",
+      "open": "Open AlgoVerse"
+    },
+    "hero": {
+      "eyebrow": "Data structures · Algorithms · System design · AI",
+      "titleStart": "See algorithms",
+      "titleEnd": "come alive",
+      "pitch": "Data structures are the shapes, algorithms the moves, systems the whole machine. Watch each one run step by step beside its Python code, change the input, then design real systems and get them marked. Free and open source.",
+      "start": "Start learning",
+      "continue": "Continue learning",
+      "fly": "Fly through it",
+      "scroll": "Scroll to fly in",
+      "statCatalog": "algorithms and data structures",
+      "statLessons": "system design lessons",
+      "statCases": "case studies"
+    },
+    "stat": {
+      "structures": "data structures",
+      "algorithms": "algorithms",
+      "lessons": "lessons",
+      "cases": "case studies",
+      "labProblems": "lab problems"
+    },
+    "floating": "Floating past you",
+    "zones": {
+      "structures": {
+        "name": "Data structures",
+        "role": "The shapes",
+        "promise": "How data is laid out decides what is fast. Drive each structure with your own commands and watch it change shape.",
+        "points": [
+          "Arrays, linked lists, stacks, queues, hash tables, trees, heaps, tries and graphs",
+          "Every insert, search and delete animated one step at a time",
+          "The Python code beside it, and the cost of each operation"
+        ],
+        "cta": "Open the Data Structure Lab"
+      },
+      "algorithms": {
+        "name": "Algorithms",
+        "role": "The moves",
+        "promise": "Searching, sorting, graphs, greedy, dynamic programming and backtracking, run on your own inputs.",
+        "points": [
+          "Step forwards and backwards through every run",
+          "Bigger inputs when you want to see how it scales",
+          "Quick questions that check you saw why each step happened"
+        ],
+        "cta": "Open the Algorithm Lab"
+      },
+      "systems": {
+        "name": "System design",
+        "role": "The whole machine",
+        "promise": "From one server to millions of users: load balancers, caches, queues, shards and consensus, animated in 3D.",
+        "points": [
+          "Lessons where requests flow, servers fail and numbers change",
+          "Case studies of real products, designed one decision at a time",
+          "The Design Lab: draw a system and get it marked out of 100"
+        ],
+        "cta": "Open the System Design Lab",
+        "cta2": "Try the Design Lab"
+      },
+      "ai": {
+        "name": "AI and integration",
+        "role": "The frontier",
+        "promise": "Add language models safely, and connect them to the systems that already run the business.",
+        "points": [
+          "Calling models, answering from your own documents, agents and tools",
+          "Guardrails, evals, cost and speed",
+          "Mainframes, nightly files, gradual replacement and change capture"
+        ],
+        "cta": "AI systems module",
+        "cta2": "Legacy integration module"
+      }
+    },
+    "how": {
+      "eyebrow": "Learn by watching, then by doing",
+      "title": "How it works",
+      "watch": {
+        "title": "Watch it",
+        "body": "Every structure, algorithm and system is animated, so you see what happens before you read why."
+      },
+      "step": {
+        "title": "Step it",
+        "body": "Go forwards and back at your own pace, change the input, and answer a quick question at each turn."
+      },
+      "code": {
+        "title": "Code it",
+        "body": "Run Python in your browser in the playground: no install, nothing to set up."
+      },
+      "design": {
+        "title": "Design it",
+        "body": "Follow case studies of real products, then draw your own design and get it marked."
+      }
+    },
+    "practise": {
+      "eyebrow": "Then put it to work",
+      "title": "Practise and prove it",
+      "problems": {
+        "title": "Problem Solving",
+        "body": "Questions drawn from every lesson, to check what stuck."
+      },
+      "playground": {
+        "title": "Python Playground",
+        "body": "Write and run Python right here in the browser."
+      },
+      "projects": {
+        "title": "Real-World Projects",
+        "body": "Bigger builds that combine many ideas at once."
+      },
+      "progress": {
+        "title": "My Progress",
+        "body": "See what you have finished and what comes next."
+      }
+    },
+    "final": {
+      "title": "Your next step is one click away",
+      "body": "No sign-up and no ads. Your progress stays in this browser.",
+      "source": "View the source"
+    },
+    "footer": {
+      "privacy": "No accounts, no tracking"
     }
   }
 }
