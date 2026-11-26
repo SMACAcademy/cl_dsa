@@ -3,7 +3,14 @@ import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams, useSearchParams } from "react-router";
 import { YourTurn } from "../community/YourTurn";
-import { readAutoplay, readMotion, recordVisit } from "../../lib/progress";
+import {
+  AUTOPLAY_SPEEDS,
+  readAutoplay,
+  readMotion,
+  recordVisit,
+  writeAutoplay,
+  type AutoplaySpeed,
+} from "../../lib/progress";
 import { dwellMs } from "./autoplay";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { button, primaryButton } from "../viz/styles";
@@ -85,7 +92,12 @@ export function LessonView({ lesson, where, prev, next, base, concepts = [] }: L
   const [paused, setPaused] = useState(() => readMotion() === "still");
   const [autoplay] = useState(readAutoplay);
   const [auto, setAuto] = useState(autoplay.on);
-  const dwell = dwellMs(step, autoplay.speed);
+  const [speed, setSpeed] = useState<AutoplaySpeed>(autoplay.speed);
+  const dwell = dwellMs(step, speed);
+  const changeSpeed = (s: AutoplaySpeed) => {
+    setSpeed(s);
+    writeAutoplay({ ...readAutoplay(), speed: s });
+  };
   const advancing = auto && at < total - 1;
   const [replay, setReplay] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -274,6 +286,8 @@ export function LessonView({ lesson, where, prev, next, base, concepts = [] }: L
           nextLesson={next}
           auto={auto}
           onToggleAuto={() => setAuto((a) => !a)}
+          speed={speed}
+          onSpeed={changeSpeed}
           dwell={dwell}
           nextPath={(l) => `${base}/${l.id}`}
         />
@@ -399,6 +413,8 @@ function StepPanel({
   nextLesson,
   auto,
   onToggleAuto,
+  speed,
+  onSpeed,
   dwell,
   nextPath = (l: Lesson) => `/systems/${l.id}`,
 }: {
@@ -413,6 +429,8 @@ function StepPanel({
   nextLesson: Lesson | undefined;
   auto: boolean;
   onToggleAuto: () => void;
+  speed: AutoplaySpeed;
+  onSpeed: (speed: AutoplaySpeed) => void;
   dwell: number;
   nextPath?: (lesson: Lesson) => string;
 }) {
@@ -618,6 +636,26 @@ function StepPanel({
           )}
           {t("systems.autoplay")}
         </button>
+        <div
+          role="radiogroup"
+          aria-label={t("systems.speed")}
+          className="inline-flex overflow-hidden rounded-control border border-line"
+        >
+          {AUTOPLAY_SPEEDS.map((s) => (
+            <button
+              key={s}
+              type="button"
+              role="radio"
+              aria-checked={speed === s}
+              onClick={() => onSpeed(s)}
+              className={`h-9 px-2.5 text-sm font-medium tabular-nums ${
+                speed === s ? "bg-accent-solid text-on-accent" : "bg-raised hover:bg-sunken"
+              }`}
+            >
+              {t("systems.speedValue", { speed: s })}
+            </button>
+          ))}
+        </div>
       </div>
       {counting && (
         <div aria-hidden="true" className="h-1 overflow-hidden rounded-full bg-sunken">

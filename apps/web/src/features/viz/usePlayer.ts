@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const SPEEDS = [0.5, 1, 2] as const;
+export const SPEEDS = [0.5, 1, 2, 3] as const;
 export type Speed = (typeof SPEEDS)[number];
 const BASE_DELAY_MS = 1000;
+/** Players start at 2×: one step every half second. */
+export const DEFAULT_SPEED: Speed = 2;
 
 /**
  * Step-player state for a fixed list of steps: current index, play/pause and speed.
@@ -13,7 +15,7 @@ const BASE_DELAY_MS = 1000;
 export function usePlayer(stepCount: number, canAdvance: (index: number) => boolean = () => true) {
   const [index, setIndex] = useState(0);
   const [wantsPlay, setWantsPlay] = useState(false);
-  const [speed, setSpeed] = useState<Speed>(1);
+  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
   const last = Math.max(0, stepCount - 1);
   const playing = wantsPlay && index < last && canAdvance(index);
 

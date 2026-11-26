@@ -137,7 +137,26 @@ describe("autoplay", () => {
     if (!plain || !quiz) throw new Error("lesson missing");
     expect(dwellMs(plain)).toBeGreaterThanOrEqual(7000);
     expect(dwellMs(quiz)).toBeGreaterThan(dwellMs({ ...quiz, quiz: undefined }));
-    expect(dwellMs(plain, "fast")).toBeLessThan(dwellMs(plain, "slow"));
+    // 2× is the default; 1× is twice as long, 3× a third of 1×.
+    expect(dwellMs(plain)).toBe(dwellMs(plain, 2));
+    expect(dwellMs(plain, 1)).toBeCloseTo(dwellMs(plain, 2) * 2, -1);
+    expect(dwellMs(plain, 3)).toBeCloseTo(dwellMs(plain, 1) / 3, -1);
+  });
+
+  it("the speed switch beside Autoplay changes and remembers the pace", async () => {
+    renderRoute("/systems/load-balancing");
+    await screen.findByRole("heading", { level: 1, name: "Load balancing" });
+    const group = screen.getByRole("radiogroup", { name: "Autoplay speed" });
+    expect(within(group).getByRole("radio", { name: "2×" })).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
+    fireEvent.click(within(group).getByRole("radio", { name: "3×" }));
+    expect(within(group).getByRole("radio", { name: "3×" })).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
+    expect(readAutoplay().speed).toBe(3);
   });
 
   it("is on by default, moves on after the reading time, and can be switched off", async () => {
@@ -164,10 +183,23 @@ describe("autoplay", () => {
   });
 
   it("the Settings choice is remembered", () => {
-    writeAutoplay({ on: false, speed: "slow" });
-    expect(readAutoplay()).toEqual({ on: false, speed: "slow" });
+    writeAutoplay({ on: false, speed: 1 });
+    expect(readAutoplay()).toEqual({ on: false, speed: 1 });
     window.localStorage.clear();
-    expect(readAutoplay()).toEqual({ on: true, speed: "normal" });
+    expect(readAutoplay()).toEqual({ on: true, speed: 2 });
+  });
+
+  it("older saved speeds map to the new ones", () => {
+    for (const [old, now] of [
+      ["slow", 1],
+      ["normal", 2],
+      ["fast", 3],
+      ["warp", 2],
+    ] as const) {
+      window.localStorage.setItem("algoverse.autoplay", JSON.stringify({ on: true, speed: old }));
+      expect(readAutoplay().speed).toBe(now);
+    }
+    window.localStorage.clear();
   });
 });
 

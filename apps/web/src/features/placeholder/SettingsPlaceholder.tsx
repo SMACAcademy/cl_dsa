@@ -4,6 +4,7 @@ import { useId, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
+  AUTOPLAY_SPEEDS,
   readAutoplay,
   readMotion,
   writeAutoplay,
@@ -107,18 +108,17 @@ export function SettingsPlaceholder() {
       <Card title={t("settings.autoplay")}>
         <RadioGroup.Root
           aria-label={t("settings.autoplayLegend")}
-          value={autoplay.on ? autoplay.speed : "off"}
+          value={autoplay.on ? String(autoplay.speed) : "off"}
           onValueChange={(value) => {
+            const speed = AUTOPLAY_SPEEDS.find((s) => String(s) === value);
             const next: AutoplayPref =
-              value === "off"
-                ? { ...autoplay, on: false }
-                : { on: true, speed: value === "slow" || value === "fast" ? value : "normal" };
+              speed === undefined ? { ...autoplay, on: false } : { on: true, speed };
             writeAutoplay(next);
             setAutoplay(next);
           }}
           className="grid gap-3 sm:grid-cols-4"
         >
-          {(["off", "slow", "normal", "fast"] as const).map((value) => (
+          {(["off", "1", "2", "3"] as const).map((value) => (
             <label key={value} className={option}>
               <RadioGroup.Item value={value} className={dot}>
                 <RadioGroup.Indicator className="size-2.5 rounded-full bg-accent-solid" />
