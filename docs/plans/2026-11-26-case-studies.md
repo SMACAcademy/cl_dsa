@@ -32,7 +32,7 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
 
-## Built (37 studies)
+## Built (50 studies)
 
 - Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
   food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
@@ -44,6 +44,10 @@ decision at a time on the same animated diagram. Over time this grows to several
   photo backup · multi-tenant SaaS database · multiplayer quiz · push notifications · SMS one-time
   codes · travel booking saga · real-time fraud checks · file sharing with links · zero-downtime
   database migration (the first Shipping checkpoint study).
+- Batch 4: election-night results · coding contest start · chat history store · factory sensor
+  readings · order webhooks · support ticket desk · sign-in under attack · splitting a monolith ·
+  recommendations · password manager sync · API keys · daily deploys · capstone: a video-sharing
+  platform (the first Whole-systems study).
 
 ## Planned catalogue (next batches)
 
