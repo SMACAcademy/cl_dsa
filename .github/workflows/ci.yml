@@ -1,0 +1,32 @@
+# Runs the same checks as the deploy on every pull request, so contributors and reviewers
+# see a green tick (or what to fix) before a change is approved.
+name: Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm --filter @algoverse/web typecheck
+      - name: Lint and formatting
+        run: pnpm --filter @algoverse/web lint
+      - name: Tests
+        run: pnpm --filter @algoverse/web test

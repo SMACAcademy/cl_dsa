@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { findItem } from "../src/features/catalog/catalog";
 import { readAutoplay, writeAutoplay } from "../src/lib/progress";
 import { dwellMs } from "../src/features/systems/autoplay";
+import { weeklyChallenge } from "../src/features/community/community";
 import { CASES, checkpointOf } from "../src/features/systems/cases";
 import { findLesson, LESSONS, MODULES } from "../src/features/systems/lessons";
 import { renderRoute } from "./render";
@@ -181,7 +182,10 @@ describe("System Design Lab screens", () => {
       within(main)
         .getAllByRole("heading", { level: 2 })
         .map((h) => h.textContent),
-    ).toEqual(MODULES.map((m) => `${m.number}${m.title}`));
+    ).toEqual([
+      `Design challenge #${weeklyChallenge().number} · this week`,
+      ...MODULES.map((m) => `${m.number}${m.title}`),
+    ]);
     for (const lesson of LESSONS) {
       expect(
         within(main)

@@ -1,0 +1,84 @@
+# Every Monday, posts the week's open design question as a discussion in Q&A.
+# The question list and start date match apps/web/src/features/community/community.ts,
+# so the site's "Design challenge #N" card and the discussion always agree.
+name: Weekly design challenge
+
+on:
+  schedule:
+    - cron: "30 3 * * 1" # Mondays 03:30 UTC (09:00 in India)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  discussions: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: apps/web/src/features/community/challenges.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const challenges = JSON.parse(
+              fs.readFileSync("apps/web/src/features/community/challenges.json", "utf8"),
+            );
+            const ids = Object.keys(challenges);
+            const EPOCH = Date.UTC(2026, 10, 30); // Monday 30 November 2026
+            const WEEK = 7 * 24 * 60 * 60 * 1000;
+            const week = Math.max(0, Math.floor((Date.now() - EPOCH) / WEEK));
+            const id = ids[week % ids.length];
+            const question = challenges[id];
+            const number = week + 1;
+            const title = `Design challenge #${number}: ${question}`;
+
+            const { owner, repo } = context.repo;
+            const site = `https://${owner.toLowerCase()}.github.io/${repo}`;
+            const { repository } = await github.graphql(
+              `query($owner: String!, $repo: String!) {
+                repository(owner: $owner, name: $repo) {
+                  id
+                  discussionCategories(first: 25) { nodes { id slug } }
+                  discussions(first: 20, orderBy: { field: CREATED_AT, direction: DESC }) {
+                    nodes { title }
+                  }
+                }
+              }`,
+              { owner, repo },
+            );
+            if (repository.discussions.nodes.some((d) => d.title.startsWith(`Design challenge #${number}:`))) {
+              core.info(`Challenge #${number} is already posted.`);
+              return;
+            }
+            const category = repository.discussionCategories.nodes.find((c) => c.slug === "q-a");
+            if (!category) throw new Error("No Q&A discussion category");
+
+            const body = [
+              `**This week's open question** (from the case study [${id}](${site}/systems/case/${id})):`,
+              "",
+              `> ${question}`,
+              "",
+              "Reply with your design. A good answer says:",
+              "",
+              "- **What you'd change** (which boxes, which data, which flow)",
+              "- **Why** (the numbers or the failure it handles)",
+              "- **What it costs** (latency, money, complexity, consistency)",
+              "",
+              "There is no single right answer. Upvote the replies that teach you something; the most helpful one gets marked as the answer at the end of the week.",
+              "",
+              `New here? Read the case study first, then come back. Every case study on ${site} ends with its own open question.`,
+            ].join("\n");
+
+            const { createDiscussion } = await github.graphql(
+              `mutation($repositoryId: ID!, $categoryId: ID!, $title: String!, $body: String!) {
+                createDiscussion(input: { repositoryId: $repositoryId, categoryId: $categoryId, title: $title, body: $body }) {
+                  discussion { url }
+                }
+              }`,
+              { repositoryId: repository.id, categoryId: category.id, title, body },
+            );
+            core.info(`Posted ${createDiscussion.discussion.url}`);

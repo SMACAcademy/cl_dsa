@@ -1,10 +1,10 @@
 /**
- * Who built AlgoVerse. Shown in the top bar and on the About page.
- * Fill in `name` and `linkedin` to show the creator card; empty values are hidden.
+ * Who built AlgoVerse. Shown quietly in the footer of every page and on the About page.
+ * Empty values are hidden.
  */
 export const CREATOR = {
-  /** Your name as you want it shown, e.g. "Ada Lovelace". */
-  name: "",
+  /** Your name as you want it shown. */
+  name: "Muthukumar Subramanian",
   /** A short line under the name, e.g. "Software engineer · educator". */
   headline: "",
   /** Full LinkedIn profile URL, e.g. "https://www.linkedin.com/in/your-name/". */

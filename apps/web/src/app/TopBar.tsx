@@ -1,8 +1,7 @@
 import { Flame, Info, Star, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { CREATOR, hasCreator } from "../branding";
-import { LinkedInMark } from "../ui/LinkedInMark";
+import { CREATOR } from "../branding";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import { AccountMenu } from "./AccountMenu";
 
@@ -37,17 +36,6 @@ export function TopBar() {
         <Info className="size-4" aria-hidden="true" />
         {t("topbar.about")}
       </Link>
-      {hasCreator() && CREATOR.linkedin && (
-        <a
-          href={CREATOR.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden h-8 items-center gap-1.5 rounded-full bg-[#0a66c2] px-3 text-sm font-medium text-white lg:inline-flex"
-        >
-          <LinkedInMark />
-          {t("topbar.builtBy", { name: CREATOR.name })}
-        </a>
-      )}
 
       <div className="ml-auto flex items-center gap-2">
         <ul aria-label={t("topbar.statsLabel")} className="hidden items-center gap-2 sm:flex">

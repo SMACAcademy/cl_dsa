@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Answer this week's design challenge
+    url: https://github.com/SMACAcademy/cl_dsa/discussions/categories/q-a
+    about: Open design questions, one per week. Post your design and compare.
+  - name: Ask a question or share an idea
+    url: https://github.com/SMACAcademy/cl_dsa/discussions
+    about: Questions about a lesson, ideas for new labs, or things you built.

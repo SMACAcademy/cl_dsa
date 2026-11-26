@@ -1,0 +1,35 @@
+name: Improve a lesson or case study
+description: A mistake, an unclear step, or a better example.
+title: "[lesson-or-case-id] "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make AlgoVerse clearer. Put the lesson or case study id in the title
+        (it is the last part of the page address, e.g. `/systems/case/payments` → `payments`).
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the page, and the step number if it is about one step.
+      placeholder: https://smacacademy.github.io/cl_dsa/systems/case/payments?step=3
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What should it say instead?
+      description: Optional. A better sentence, number, example or diagram idea.
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Pull request
+      options:
+        - label: I'd like to open a pull request for this myself.
