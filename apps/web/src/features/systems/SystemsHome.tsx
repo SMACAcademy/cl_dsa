@@ -1,10 +1,11 @@
-import { Check, ChevronRight, FlaskConical } from "lucide-react";
+import { Check, ChevronRight, FlaskConical, Layers } from "lucide-react";
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { useScrollToHash } from "../../lib/slug";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { SECTION_ICON } from "../placeholder/sections";
+import { casesAfter } from "./cases";
 import { LESSONS, MODULES } from "./lessons";
 import type { Module } from "./model";
 import { readDone } from "./progress";
@@ -101,6 +102,57 @@ function ModuleSection({ module, done }: { module: Module; done: ReadonlySet<str
           </li>
         ))}
       </ul>
+      <Checkpoint moduleId={module.id} done={done} />
     </section>
+  );
+}
+
+/** After a module: case studies that combine everything learned up to here. */
+function Checkpoint({ moduleId, done }: { moduleId: string; done: ReadonlySet<string> }) {
+  const { t } = useTranslation();
+  const headingId = useId();
+  const cases = casesAfter(moduleId);
+  if (cases.length === 0) return null;
+  return (
+    <div
+      role="group"
+      aria-labelledby={headingId}
+      className="mt-4 rounded-panel border border-accent/40 bg-accent-soft/40 p-4"
+    >
+      <h3 id={headingId} className="flex items-center gap-2 font-semibold">
+        <Layers className="size-4 text-accent-ink" aria-hidden="true" />
+        {t("cases.checkpoint")}
+      </h3>
+      <p className="mt-1 text-sm text-muted">{t("cases.checkpointBlurb")}</p>
+      <ul className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {cases.map((c) => (
+          <li key={c.id}>
+            <Link
+              to={`/systems/case/${c.id}`}
+              className="flex h-full flex-col gap-2 rounded-panel border border-line bg-raised p-4 transition-colors hover:border-accent"
+            >
+              <span className="flex items-start justify-between gap-2">
+                <span className="font-medium">{c.title}</span>
+                {done.has(c.id) && (
+                  <Check
+                    className="size-4 shrink-0 text-found-ink"
+                    aria-label={t("systems.done")}
+                  />
+                )}
+              </span>
+              <span className="text-sm text-muted">{c.tagline}</span>
+              <span className="mt-auto flex flex-wrap gap-2 pt-1 text-xs text-muted">
+                <span className="rounded-full border border-accent/50 px-2 text-accent-ink">
+                  {t(`cases.tier.${c.tier}`)}
+                </span>
+                <span>{t("cases.concepts", { count: c.concepts.length })}</span>
+                <span aria-hidden="true">·</span>
+                <span>{t("systems.minutes", { count: c.minutes })}</span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

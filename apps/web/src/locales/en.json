@@ -1550,6 +1550,22 @@
     "source": "Source code on GitHub",
     "stack": "Built with React, TypeScript, SVG animation and Tailwind CSS"
   },
+  "cases": {
+    "combines": "Combines these lessons",
+    "concept": "Concept:",
+    "where": "Case study {{index}} of {{count}} · {{tier}} · after {{module}}",
+    "tier": {
+      "combine": "Combine",
+      "integrate": "Integrate",
+      "capstone": "Capstone"
+    },
+    "missing": "There is no case study called “{{id}}”.",
+    "checkpoint": "Checkpoint: put it together",
+    "checkpointBlurb": "Real products designed step by step from the lessons so far. Each step names the concept it uses.",
+    "label": "Case study",
+    "concepts": "Combines {{count}} lessons",
+    "count": "{{count}} case studies"
+  },
   "systems": {
     "intro": "How real systems scale, told as one story: AlgoVerse itself growing from a hobby site to millions of learners. Every lesson is an animated diagram you step through, with questions to check yourself and labs you can drive.",
     "progress": "{{done}} of {{total}} lessons finished",

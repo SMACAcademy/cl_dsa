@@ -55,6 +55,12 @@ const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/
           }),
         },
         {
+          path: "systems/case/:caseId",
+          lazy: async () => ({
+            Component: (await import("../features/systems/cases/CasePage")).CasePage,
+          }),
+        },
+        {
           path: "systems/:lessonId",
           lazy: async () => ({
             Component: (await import("../features/systems/LessonPage")).LessonPage,

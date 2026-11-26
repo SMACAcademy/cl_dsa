@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { findItem } from "../src/features/catalog/catalog";
 import { readAutoplay, writeAutoplay } from "../src/lib/progress";
 import { dwellMs } from "../src/features/systems/autoplay";
+import { CASES, checkpointOf } from "../src/features/systems/cases";
 import { findLesson, LESSONS, MODULES } from "../src/features/systems/lessons";
 import { renderRoute } from "./render";
 
@@ -45,6 +46,83 @@ describe("system design lessons (data)", () => {
       expect(item, b.path).toBeDefined();
       expect(item?.kind, b.path).toBe(section === "algorithms" ? "algorithm" : "structure");
     }
+  });
+});
+
+describe("case studies", () => {
+  it("have ids that never clash with lessons", () => {
+    const ids = [...LESSONS, ...CASES].map((l) => l.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it.each(CASES.map((c) => [c.id, c] as const))("%s is well formed", (_, c) => {
+    expect(c.concepts.length, "concepts").toBeGreaterThanOrEqual(3);
+    for (const id of c.concepts) expect(findLesson(id), `concept ${id}`).toBeDefined();
+    expect(c.steps.length).toBeGreaterThanOrEqual(7);
+    expect(c.steps.at(-1)?.kind).toBe("recap");
+    const used = new Set(c.steps.flatMap((s) => (s.uses ? [s.uses] : [])));
+    for (const id of used) expect(c.concepts, `step uses ${id}`).toContain(id);
+    // Most concepts should be visibly applied in some step.
+    expect(used.size / c.concepts.length).toBeGreaterThanOrEqual(0.6);
+    c.steps.forEach((step, i) => {
+      const ids = step.scene.nodes.map((n) => n.id);
+      expect(new Set(ids).size, `step ${i + 1} node ids`).toBe(ids.length);
+      for (const l of step.scene.links ?? []) {
+        expect(ids, `step ${i + 1} link ${l.from}→${l.to}`).toContain(l.from);
+        expect(ids, `step ${i + 1} link ${l.from}→${l.to}`).toContain(l.to);
+      }
+      if (step.quiz) expect(step.quiz.answer).toBeLessThan(step.quiz.options.length);
+    });
+  });
+
+  it("only combine ideas already learned: each unlocks after its last concept's module", () => {
+    for (const c of CASES) {
+      const checkpoint = MODULES.indexOf(checkpointOf(c));
+      for (const id of c.concepts) {
+        const m = MODULES.findIndex((mod) => mod.lessons.some((l) => l.id === id));
+        expect(m, `${c.id}: ${id}`).toBeLessThanOrEqual(checkpoint);
+      }
+    }
+    expect(CASES.map((c) => MODULES.indexOf(checkpointOf(c)))).toEqual(
+      [...CASES.map((c) => MODULES.indexOf(checkpointOf(c)))].sort((a, b) => a - b),
+    );
+  });
+
+  it("the System Design Lab shows checkpoints with their case studies", async () => {
+    renderRoute("/systems");
+    await screen.findByRole("heading", { level: 1, name: "System Design Lab" });
+    const groups = screen.getAllByRole("group", { name: "Checkpoint: put it together" });
+    expect(groups.length).toBe(new Set(CASES.map((c) => checkpointOf(c).id)).size);
+    for (const c of CASES) {
+      expect(
+        screen.getAllByRole("link").some((a) => a.getAttribute("href") === `/systems/case/${c.id}`),
+        c.id,
+      ).toBe(true);
+    }
+  });
+
+  it("a case study names the concept each step uses and links to the lessons it combines", async () => {
+    renderRoute("/systems/case/recipe-blog?step=3");
+    await screen.findByRole("heading", { level: 1, name: "A recipe blog hits the front page" });
+    expect(screen.getByText("Concept:")).toBeVisible();
+    for (const a of screen.getAllByRole("link", { name: "Content delivery networks" })) {
+      expect(a).toHaveAttribute("href", "/systems/cdn");
+    }
+    const combines = screen.getByRole("region", { name: "Combines these lessons" });
+    expect(within(combines).getAllByRole("link")).toHaveLength(5);
+  });
+
+  it.each(CASES.map((c) => [c.id]))("%s renders every step", async (id) => {
+    renderRoute(`/systems/case/${id}`);
+    await screen.findByRole("heading", { level: 1 });
+    const main = screen.getByRole("main");
+    for (let guard = 0; guard < 30; guard++) {
+      expect(main.textContent, `step ${guard + 1}`).not.toMatch(/\{\{\w+\}\}/);
+      const next = screen.queryByRole("button", { name: /^Next: / });
+      if (!next) break;
+      fireEvent.click(next);
+    }
+    expect(screen.getByText(/^Step (\d+) \/ \1$/)).toBeVisible();
   });
 });
 

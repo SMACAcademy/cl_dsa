@@ -1,5 +1,6 @@
+import { CASES } from "../systems/cases";
 import { MODULES } from "../systems/lessons";
-import type { Quiz } from "../systems/model";
+import type { Lesson, Quiz } from "../systems/model";
 
 /** One self-check question, with where it comes from so a learner can review the step. */
 export type PracticeQuestion = Quiz & {
@@ -10,28 +11,39 @@ export type PracticeQuestion = Quiz & {
   lessonTitle: string;
   /** 1-based step number inside the lesson. */
   step: number;
+  /** The page to review the step on. */
+  path: string;
 };
 
-/** Every quiz in every system design lesson, in teaching order. */
-export const QUIZZES: readonly PracticeQuestion[] = MODULES.flatMap((m) =>
-  m.lessons.flatMap((lesson) =>
-    lesson.steps.flatMap((s, i) =>
-      s.quiz
-        ? [
-            {
-              ...s.quiz,
-              id: `${lesson.id}#${i + 1}`,
-              moduleId: m.id,
-              moduleTitle: m.title,
-              lessonId: lesson.id,
-              lessonTitle: lesson.title,
-              step: i + 1,
-            },
-          ]
-        : [],
-    ),
-  ),
-);
+const fromLesson = (lesson: Lesson, moduleId: string, moduleTitle: string, base: string) =>
+  lesson.steps.flatMap((s, i) =>
+    s.quiz
+      ? [
+          {
+            ...s.quiz,
+            id: `${lesson.id}#${i + 1}`,
+            moduleId,
+            moduleTitle,
+            lessonId: lesson.id,
+            lessonTitle: lesson.title,
+            step: i + 1,
+            path: `${base}/${lesson.id}?step=${i + 1}`,
+          },
+        ]
+      : [],
+  );
+
+/** Practice topics: every module, plus the case studies that combine them. */
+export const TOPICS: readonly { id: string; title: string }[] = [
+  ...MODULES.map((m) => ({ id: m.id, title: m.title })),
+  { id: "cases", title: "Case studies" },
+];
+
+/** Every quiz in every lesson and case study, in teaching order. */
+export const QUIZZES: readonly PracticeQuestion[] = [
+  ...MODULES.flatMap((m) => m.lessons.flatMap((l) => fromLesson(l, m.id, m.title, "/systems"))),
+  ...CASES.flatMap((c) => fromLesson(c, "cases", "Case studies", "/systems/case")),
+];
 
 /** A random order (Fisher–Yates), so every round is different. */
 export function shuffled<T>(items: readonly T[], random: () => number = Math.random): T[] {

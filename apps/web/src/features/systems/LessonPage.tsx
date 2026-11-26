@@ -33,10 +33,35 @@ export function LessonPage() {
       </div>
     );
   }
-  return <LessonView key={found.lesson.id} {...found} />;
+  const { lesson, module, index, count, prev, next } = found;
+  return (
+    <LessonView
+      key={lesson.id}
+      lesson={lesson}
+      where={t("systems.where", {
+        number: module.number,
+        module: module.title,
+        index: index + 1,
+        count,
+      })}
+      prev={prev}
+      next={next}
+      base="/systems"
+    />
+  );
 }
 
-type Found = NonNullable<ReturnType<typeof findLesson>>;
+export type LessonViewProps = {
+  lesson: Lesson;
+  /** The line above the title, e.g. "02. Scaling · Lesson 4 of 5". */
+  where: string;
+  prev: Lesson | undefined;
+  next: Lesson | undefined;
+  /** Where this kind of page lives: "/systems" for lessons, "/systems/case" for case studies. */
+  base: string;
+  /** Lessons whose ideas this page combines (case studies). */
+  concepts?: readonly Lesson[];
+};
 
 const KIND_STYLE: Record<StepKind, string> = {
   setup: "border-line bg-sunken text-muted",
@@ -49,7 +74,7 @@ const KIND_STYLE: Record<StepKind, string> = {
   recap: "border-found bg-found-soft text-found-ink",
 };
 
-function LessonView({ lesson, module, index, count, prev, next }: Found) {
+export function LessonView({ lesson, where, prev, next, base, concepts = [] }: LessonViewProps) {
   const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
   const total = lesson.steps.length;
@@ -80,7 +105,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
   useEffect(() => {
     if (at === total - 1) markDone(lesson.id);
     recordVisit({
-      path: `/systems/${lesson.id}${at > 0 ? `?step=${at + 1}` : ""}`,
+      path: `${base}/${lesson.id}${at > 0 ? `?step=${at + 1}` : ""}`,
       title: lesson.title,
       kind: "lesson",
     });
@@ -131,14 +156,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
       </Link>
 
       <header className="space-y-2">
-        <p className="text-sm text-muted">
-          {t("systems.where", {
-            number: module.number,
-            module: module.title,
-            index: index + 1,
-            count,
-          })}
-        </p>
+        <p className="text-sm text-muted">{where}</p>
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lesson.title}</h1>
         <p className="max-w-prose text-muted">{lesson.tagline}</p>
         <p className="flex flex-wrap gap-2 text-xs font-medium">
@@ -256,6 +274,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
           auto={auto}
           onToggleAuto={() => setAuto((a) => !a)}
           dwell={dwell}
+          nextPath={(l) => `${base}/${l.id}`}
         />
       </div>
 
@@ -306,6 +325,22 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
             ))}
           </ul>
         </Panel>
+        {concepts.length > 0 && (
+          <Panel title={t("cases.combines")}>
+            <ul className="flex flex-wrap gap-2">
+              {concepts.map((c) => (
+                <li key={c.id}>
+                  <Link
+                    to={`/systems/${c.id}`}
+                    className="inline-flex rounded-full border border-accent/50 bg-accent-soft px-3 py-1 text-sm text-accent-ink hover:border-accent"
+                  >
+                    {c.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        )}
         {lesson.builtOn && lesson.builtOn.length > 0 && (
           <Panel title={t("systems.builtOn")}>
             <ul className="flex flex-wrap gap-2">
@@ -331,7 +366,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
         className="flex flex-wrap justify-between gap-3 border-t border-line pt-4"
       >
         {prev ? (
-          <Link to={`/systems/${prev.id}`} className={backLink}>
+          <Link to={`${base}/${prev.id}`} className={backLink}>
             <ArrowLeft className="size-4" aria-hidden="true" />
             {t("systems.previousLesson", { title: prev.title })}
           </Link>
@@ -339,7 +374,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
           <span />
         )}
         {next && (
-          <Link to={`/systems/${next.id}`} className={backLink}>
+          <Link to={`${base}/${next.id}`} className={backLink}>
             {t("systems.nextLesson", { title: next.title })}
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
@@ -400,6 +435,17 @@ function StepPanel({
       <h2 id={titleId} className="text-lg leading-snug font-semibold tracking-tight">
         {step.title}
       </h2>
+      {step.uses && (
+        <p className="-mt-1 text-xs">
+          <span className="text-muted">{t("cases.concept")} </span>
+          <Link
+            to={`/systems/${step.uses}`}
+            className="font-medium text-accent-ink underline-offset-4 hover:underline"
+          >
+            {findLesson(step.uses)?.lesson.title ?? step.uses}
+          </Link>
+        </p>
+      )}
       <div aria-live="polite" className="space-y-2.5 text-sm leading-relaxed">
         {step.body.map((p) => (
           <p key={p}>
