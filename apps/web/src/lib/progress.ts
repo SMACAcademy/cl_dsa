@@ -72,14 +72,27 @@ export function recordPractice(score: number, outOf: number): PracticeRecord {
   return next;
 }
 
-export type AutoplaySpeed = "slow" | "normal" | "fast";
+/** Playback speeds for lesson autoplay: 1× reads at a relaxed pace, 3× moves quickly. */
+export const AUTOPLAY_SPEEDS = [1, 2, 3] as const;
+export type AutoplaySpeed = (typeof AUTOPLAY_SPEEDS)[number];
+export const DEFAULT_AUTOPLAY_SPEED: AutoplaySpeed = 2;
 export type AutoplayPref = { on: boolean; speed: AutoplaySpeed };
 
-/** Lessons advance on their own unless the learner turns it off (on by default). */
+/** Earlier versions stored "slow" / "normal" / "fast"; they map to 1× / 2× / 3×. */
+const LEGACY_SPEED: Record<string, AutoplaySpeed> = { slow: 1, normal: 2, fast: 3 };
+
+function toSpeed(value: unknown): AutoplaySpeed {
+  if (typeof value === "string" && value in LEGACY_SPEED)
+    return LEGACY_SPEED[value] as AutoplaySpeed;
+  return (AUTOPLAY_SPEEDS as readonly unknown[]).includes(value)
+    ? (value as AutoplaySpeed)
+    : DEFAULT_AUTOPLAY_SPEED;
+}
+
+/** Lessons advance on their own unless the learner turns it off (on, at 2×, by default). */
 export function readAutoplay(): AutoplayPref {
-  const p = read<Partial<AutoplayPref>>(STORAGE_KEYS.autoplay, {});
-  const speed = p.speed === "slow" || p.speed === "fast" ? p.speed : "normal";
-  return { on: p.on !== false, speed };
+  const p = read<{ on?: unknown; speed?: unknown }>(STORAGE_KEYS.autoplay, {});
+  return { on: p.on !== false, speed: toSpeed(p.speed) };
 }
 
 export function writeAutoplay(pref: AutoplayPref): void {

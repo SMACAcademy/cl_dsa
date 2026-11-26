@@ -1683,7 +1683,9 @@
     "tryIt": "Try it yourself",
     "pager": "Previous and next lessons",
     "previousLesson": "Previous: {{title}}",
-    "missing": "There is no system design lesson called “{{id}}”."
+    "missing": "There is no system design lesson called “{{id}}”.",
+    "speed": "Autoplay speed",
+    "speedValue": "{{speed}}×"
   },
   "settings": {
     "intro": "Make AlgoVerse comfortable for you. Settings are saved in this browser.",
@@ -1701,12 +1703,12 @@
     "autoplayOn": "Autoplay lessons",
     "autoplayOnHint": "Steps move on by themselves; Next and Back still work",
     "speed": {
-      "off": "Off",
-      "slow": "Slow",
-      "normal": "Normal",
-      "fast": "Fast"
+      "1": "1× (relaxed)",
+      "2": "2× (default)",
+      "3": "3× (quick)",
+      "off": "Off"
     },
-    "autoplayNote": "Time on each step depends on how much there is to read. Press A in a lesson to switch autoplay on or off.",
+    "autoplayNote": "Time on each step depends on how much there is to read; 2× and 3× move through it faster. Press A in a lesson to switch autoplay on or off, or change the speed beside the Autoplay button.",
     "data": "Your data",
     "dataBody": "AlgoVerse has no accounts and no database. Finished lessons, opened pages and practice scores live only in this browser; you can clear them on the My Progress page."
   },
