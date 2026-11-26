@@ -33,4 +33,14 @@ describe("About page and branding", () => {
     if (hasCreator()) expect(card).toBeVisible();
     else expect(card).toBeNull();
   });
+
+  it("presents the creator's work, not a job search", async () => {
+    renderRoute("/about");
+    await screen.findByRole("heading", { level: 1, name: "About AlgoVerse" });
+    if (!hasCreator()) return;
+    expect(screen.getByText(CREATOR.headline)).toBeVisible();
+    const focus = screen.getByRole("list", { name: "Areas of work" });
+    expect(within(focus).getAllByRole("listitem")).toHaveLength(CREATOR.focus.length);
+    expect(screen.queryByText(/new roles|hiring|job/i)).toBeNull();
+  });
 });
