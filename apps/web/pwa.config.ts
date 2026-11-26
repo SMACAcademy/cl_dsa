@@ -10,7 +10,9 @@ const DARK_SURFACE = "#0f1420";
  * COOP/COEP (cross-origin isolation for Pyodide) survive when the service worker answers.
  */
 export const pwaOptions: Partial<VitePWAOptions> = {
-  registerType: "prompt",
+  // New content ships often: a new version installs itself and the page reloads to it, so
+  // returning visitors never see an old copy (no "Reload" notice to click).
+  registerType: "autoUpdate",
   injectRegister: false, // registered by ui/UpdatePrompt.tsx through useRegisterSW
   includeAssets: ["icons/favicon.ico", "icons/pyramid.svg", "icons/apple-touch-icon-180x180.png"],
   manifest: {
@@ -40,5 +42,7 @@ export const pwaOptions: Partial<VitePWAOptions> = {
     navigateFallback: "index.html", // relative to the service worker, so it follows `base`
     navigateFallbackDenylist: [/^\/api\//],
     cleanupOutdatedCaches: true,
+    clientsClaim: true,
+    skipWaiting: true,
   },
 };
