@@ -24,8 +24,8 @@
     "lesson": "Lesson player"
   },
   "topbar": {
-    "previewBadge": "Open preview",
-    "previewHint": "Some sections are still being built",
+    "previewBadge": "Free & open source",
+    "previewHint": "Star it on GitHub",
     "about": "About",
     "builtBy": "Built by {{name}}",
     "statsLabel": "Your stats",
