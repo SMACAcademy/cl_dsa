@@ -32,7 +32,7 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
 
-## Built (89 studies)
+## Built (102 studies)
 
 - Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
   food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
@@ -60,6 +60,10 @@ decision at a time on the same animated diagram. Over time this grows to several
   ride-sharing trip · mobile home-screen gateway · streaming during an outage · third-party tax
   service · search indexing · notification preferences · safe file uploads · disaster-recovery
   drill · capstone: a photo-sharing social network.
+- Batch 8: marathon runner tracking · unique usernames · coffee-chain loyalty points · search
+  suggestions as you type · parcel tracking · live concert comments · a rate-limited partner API ·
+  cache stampede · loan application saga · ad-click counting · secrets out of the code · load
+  testing before a sale · capstone: a concert ticketing platform.
 
 ## Planned catalogue (next batches)
 

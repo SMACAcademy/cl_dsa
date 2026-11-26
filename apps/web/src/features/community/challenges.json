@@ -87,5 +87,18 @@
   "notification-prefs": "A customer says they got a marketing SMS an hour after opting out. How do you find out which sender ignored the change, and why?",
   "upload-scanning": "A customer must share a 5 GB database dump to reproduce a bug. Your scanners time out on files that big. What do you do?",
   "dr-drill": "The drill showed scaling servers took 14 minutes. Give three ways to get the recovery time under 10 minutes, and what each costs.",
-  "social-network": "The network adds short videos to the feed. Which parts of the design change most, and which stay the same?"
+  "social-network": "The network adds short videos to the feed. Which parts of the design change most, and which stay the same?",
+  "marathon-tracking": "Families now want a live dot moving along the course map between mats. Where does the position come from, and what does it cost?",
+  "username-signup": "Users may change their username once a year, and old names are held for 30 days. How do you store and release held names?",
+  "loyalty-points": "Points now expire 12 months after they were earned, oldest first. How do you compute and show expiring points without scanning every ledger row?",
+  "autocomplete": "Suggestions should become personal, favouring things each shopper bought before. What changes about caching, and where do you merge?",
+  "parcel-tracking": "Customers want a live van position on a map for the last 30 minutes of delivery. What do you add, and how often do vans report?",
+  "live-comments": "The organisers want to remove abusive comments within two seconds, before most viewers see them. Where in the flow would you check?",
+  "partner-api-limits": "A second airline allows 200 calls a second but charges per call. How would your caching and limits differ between the two airlines?",
+  "cache-stampede": "The homepage becomes personal: each reader sees their own topics. Which of the stampede protections still apply, and what new risk appears?",
+  "loan-application": "Regulators require that a declined customer can see exactly which check declined them and why. What do you store, and for how long?",
+  "ad-clicks": "An advertiser disputes their invoice, saying a competitor clicked their ads all month. What data do you keep to settle it?",
+  "secrets-vault": "The secrets store itself goes down for 20 minutes. Which services keep working, and how would you design for that?",
+  "load-test": "You can't afford a full-size copy of production for testing. How would you load-test safely against production itself?",
+  "ticketing-platform": "The artist wants resale capped at face value, with resold tickets re-issued to the new fan. How does that change the design?"
 }
