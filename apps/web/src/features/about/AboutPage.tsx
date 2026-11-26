@@ -107,18 +107,35 @@ export function AboutPage() {
       </section>
 
       {hasCreator() && (
-        <section className="flex flex-col gap-4 rounded-panel border border-line bg-surface p-5 sm:flex-row sm:items-center">
+        <section className="flex flex-col gap-4 rounded-panel border border-line bg-surface p-5 sm:flex-row sm:items-start">
           <span
             aria-hidden="true"
             className="grid size-14 shrink-0 place-items-center rounded-full bg-accent-soft text-xl font-semibold text-accent-ink"
           >
             {CREATOR.name.trim().charAt(0).toUpperCase()}
           </span>
-          <div className="min-w-0 flex-1 space-y-0.5">
-            <p className="text-sm text-muted">{t("about.builtBy")}</p>
-            <h2 className="text-lg font-semibold">{CREATOR.name}</h2>
-            {CREATOR.headline && <p className="text-sm text-muted">{CREATOR.headline}</p>}
-            <p className="max-w-prose pt-1 text-sm text-muted">{t("about.creatorNote")}</p>
+          <div className="min-w-0 flex-1 space-y-2">
+            <div className="space-y-0.5">
+              <p className="text-sm text-muted">{t("about.builtBy")}</p>
+              <h2 className="text-lg font-semibold">{CREATOR.name}</h2>
+              {CREATOR.headline && (
+                <p className="text-sm font-medium text-accent-ink">{CREATOR.headline}</p>
+              )}
+            </div>
+            {CREATOR.summary && <p className="max-w-prose text-sm">{CREATOR.summary}</p>}
+            {CREATOR.focus.length > 0 && (
+              <ul aria-label={t("about.focus")} className="flex flex-wrap gap-2">
+                {CREATOR.focus.map((f) => (
+                  <li
+                    key={f}
+                    className="rounded-full border border-line bg-raised px-3 py-0.5 text-xs"
+                  >
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {CREATOR.credentials && <p className="text-xs text-muted">{CREATOR.credentials}</p>}
           </div>
           {CREATOR.linkedin && (
             <a
