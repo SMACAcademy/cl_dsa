@@ -134,6 +134,14 @@ import {
   SECRETS_VAULT,
   TICKETING_PLATFORM,
 } from "./batch16";
+import { CLAIMS_FILES, MOBILE_BANKING_CORE, ORDERS_STRANGLER } from "./batch17";
+import {
+  AI_CLAIMS_DESK,
+  HELP_CENTRE_ASSISTANT,
+  INVOICE_INTAKE,
+  REBOOKING_AGENT,
+  WIKI_ASSISTANT,
+} from "./batch18";
 
 /** Within a checkpoint, studies appear in this order: smaller combinations first. */
 const ALL: readonly CaseStudy[] = [
@@ -239,6 +247,14 @@ const ALL: readonly CaseStudy[] = [
   MAPS_NAVIGATION,
   SOCIAL_NETWORK,
   TICKETING_PLATFORM,
+  MOBILE_BANKING_CORE,
+  CLAIMS_FILES,
+  ORDERS_STRANGLER,
+  WIKI_ASSISTANT,
+  HELP_CENTRE_ASSISTANT,
+  INVOICE_INTAKE,
+  REBOOKING_AGENT,
+  AI_CLAIMS_DESK,
 ];
 
 const moduleIndexOf = (lessonId: string) =>
