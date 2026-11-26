@@ -32,11 +32,14 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
 
-## Built (batch 1, 12 studies)
+## Built (24 studies)
 
-results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations · food
-delivery · video lectures · payments · marketplace checkout · school single sign-on · AlgoVerse at
-ten million learners.
+- Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
+  food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
+  AlgoVerse at ten million learners.
+- Batch 2: cricket scores · breaking news · festival grocery · hospital appointments · bank ledger ·
+  key–value store · live auction · whiteboard · public API · status page · clickstream analytics ·
+  health records.
 
 ## Planned catalogue (next batches)
 
