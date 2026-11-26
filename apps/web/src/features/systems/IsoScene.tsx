@@ -43,7 +43,7 @@ export function iso(x: number, y: number) {
   return { sx: (x - y) * GX, sy: (x + y) * GY };
 }
 
-const ICON: Record<NodeKind, LucideIcon> = {
+export const ICON: Record<NodeKind, LucideIcon> = {
   user: User,
   phone: Smartphone,
   browser: Monitor,

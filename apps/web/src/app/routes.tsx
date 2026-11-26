@@ -55,6 +55,18 @@ const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/
           }),
         },
         {
+          path: "systems/lab",
+          lazy: async () => ({
+            Component: (await import("../features/systems/lab/LabHome")).LabHome,
+          }),
+        },
+        {
+          path: "systems/lab/:problemId",
+          lazy: async () => ({
+            Component: (await import("../features/systems/lab/DesignLabPage")).DesignLabPage,
+          }),
+        },
+        {
           path: "systems/case/:caseId",
           lazy: async () => ({
             Component: (await import("../features/systems/cases/CasePage")).CasePage,
@@ -173,6 +185,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/structures/bloom-filter",
   "/systems/load-balancing",
   "/systems/load-balancing?step=4",
+  "/systems/lab",
+  "/systems/lab/link-shortener",
   "/systems/no-such-lesson",
   "/algorithms/no-such-item",
 ];
