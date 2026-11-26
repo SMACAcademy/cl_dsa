@@ -15,6 +15,7 @@ import {
   linkedFrom,
   neverWaitsOn,
   noSharedStore,
+  onlyVia,
   reaches,
   role,
 } from "../src/features/systems/lab/rules";
@@ -87,10 +88,22 @@ describe("lab rules", () => {
     expect(neverWaitsOn(EMPTY, COMPUTE, role("counter"))).toBe(false);
   });
 
+  it("onlyVia needs every neighbour of the target to be allowed", () => {
+    expect(onlyVia(SMALL, kinds("db"), COMPUTE)).toBe(true);
+    expect(onlyVia(SMALL, kinds("lb"), COMPUTE)).toBe(false);
+    expect(onlyVia(EMPTY, kinds("db"), COMPUTE)).toBe(false);
+    const lonely: Design = {
+      nodes: [{ id: "m", kind: "llm", label: "M", col: 0, row: 0 }],
+      links: [],
+    };
+    expect(onlyVia(lonely, kinds("llm"), COMPUTE)).toBe(false);
+  });
+
   it("queues and streams default to send-and-move-on", () => {
     expect(defaultMode("server", "queue")).toBe("async");
     expect(defaultMode("stream", "gateway")).toBe("async");
     expect(defaultMode("server", "db")).toBe("sync");
+    expect(defaultMode("internet", "files")).toBe("async");
   });
 
   it("toScene draws sync links with replies and async links as events", () => {
@@ -148,7 +161,7 @@ describe("lab problems", () => {
   it("have unique ids", () => {
     const ids = LAB_PROBLEMS.map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);
-    expect(ids.length).toBeGreaterThanOrEqual(10);
+    expect(ids.length).toBeGreaterThanOrEqual(15);
   });
 
   it.each(LAB_PROBLEMS.map((p) => [p.id, p] as const))("%s is well formed", (_, p) => {

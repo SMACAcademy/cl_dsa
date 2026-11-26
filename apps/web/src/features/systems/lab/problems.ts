@@ -1,3 +1,4 @@
+import { INTEGRATION_PROBLEMS } from "./integration";
 import { a, check, DB, either, n, named, pal, s, SERVERS } from "./kit";
 import type { LabProblem } from "./model";
 import {
@@ -1037,6 +1038,7 @@ export const LAB_PROBLEMS: readonly LabProblem[] = [
   SECURE_SIGN_IN,
   ORDER_SAGA,
   CHAT,
+  ...INTEGRATION_PROBLEMS,
 ];
 
 export function findProblem(id: string): LabProblem | undefined {

@@ -187,6 +187,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/systems/load-balancing?step=4",
   "/systems/lab",
   "/systems/lab/link-shortener",
+  "/systems/rag",
+  "/systems/lab/booking-agent",
   "/systems/no-such-lesson",
   "/algorithms/no-such-item",
 ];

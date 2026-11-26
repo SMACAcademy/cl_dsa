@@ -31,8 +31,10 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 07 Security        | + authentication, authorization, encryption                                                             | 30           |
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
+| 10 Legacy          | + mainframes, files, API façade, strangler fig, change data capture                                     | 20           |
+| 11 AI systems      | + model calls, RAG, agents, guardrails, evals                                                           | 30           |
 
-## Built (102 studies)
+## Built (110 studies)
 
 - Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
   food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
@@ -64,6 +66,9 @@ decision at a time on the same animated diagram. Over time this grows to several
   suggestions as you type · parcel tracking · live concert comments · a rate-limited partner API ·
   cache stampede · loan application saga · ad-click counting · secrets out of the code · load
   testing before a sale · capstone: a concert ticketing platform.
+- Batch 9 (legacy and AI modules): mobile banking on an old core · claim files to same-day
+  payouts · replacing an order system · company wiki assistant · help-centre assistant · invoice
+  intake · flight rebooking agent · capstone: an AI claims desk for a mainframe insurer.
 
 ## Planned catalogue (next batches)
 
