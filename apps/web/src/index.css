@@ -249,6 +249,17 @@
 .scene-flash {
   animation: scene-flash 900ms ease-out;
 }
+.autoplay-bar {
+  width: 0;
+  animation-name: autoplay-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes autoplay-fill {
+  to {
+    width: 100%;
+  }
+}
 @keyframes scene-pulse {
   0%,
   100% {

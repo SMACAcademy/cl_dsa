@@ -1,8 +1,10 @@
-import { fireEvent, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { findItem } from "../src/features/catalog/catalog";
-import { LESSONS, MODULES } from "../src/features/systems/lessons";
+import { readAutoplay, writeAutoplay } from "../src/lib/progress";
+import { dwellMs } from "../src/features/systems/autoplay";
+import { findLesson, LESSONS, MODULES } from "../src/features/systems/lessons";
 import { renderRoute } from "./render";
 
 beforeEach(() => window.localStorage.clear());
@@ -43,6 +45,50 @@ describe("system design lessons (data)", () => {
       expect(item, b.path).toBeDefined();
       expect(item?.kind, b.path).toBe(section === "algorithms" ? "algorithm" : "structure");
     }
+  });
+});
+
+describe("autoplay", () => {
+  afterEach(() => vi.useRealTimers());
+
+  it("reading time grows with the text, adds time for a quiz, and follows the speed", () => {
+    const lb = findLesson("load-balancing")?.lesson;
+    const plain = lb?.steps[1];
+    const quiz = lb?.steps[2];
+    if (!plain || !quiz) throw new Error("lesson missing");
+    expect(dwellMs(plain)).toBeGreaterThanOrEqual(7000);
+    expect(dwellMs(quiz)).toBeGreaterThan(dwellMs({ ...quiz, quiz: undefined }));
+    expect(dwellMs(plain, "fast")).toBeLessThan(dwellMs(plain, "slow"));
+  });
+
+  it("is on by default, moves on after the reading time, and can be switched off", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const lesson = findLesson("load-balancing")?.lesson;
+    if (!lesson) throw new Error("lesson missing");
+    renderRoute("/systems/load-balancing");
+    await screen.findByRole("heading", { level: 1, name: "Load balancing" });
+    const toggle = screen.getByRole("button", { name: "Autoplay" });
+    expect(toggle).toHaveAttribute("aria-pressed", "true");
+    await act(async () => {
+      vi.advanceTimersByTime(dwellMs(lesson.steps[0]!) + 100);
+    });
+    expect(screen.getByText("Step 2 / 11")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Autoplay" }));
+    expect(screen.getByRole("button", { name: "Autoplay" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    await act(async () => {
+      vi.advanceTimersByTime(dwellMs(lesson.steps[1]!) * 2);
+    });
+    expect(screen.getByText("Step 2 / 11")).toBeVisible();
+  });
+
+  it("the Settings choice is remembered", () => {
+    writeAutoplay({ on: false, speed: "slow" });
+    expect(readAutoplay()).toEqual({ on: false, speed: "slow" });
+    window.localStorage.clear();
+    expect(readAutoplay()).toEqual({ on: true, speed: "normal" });
   });
 });
 

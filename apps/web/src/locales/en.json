@@ -1608,7 +1608,9 @@
     "next": "Next: {{short}}",
     "nextLesson": "Next lesson: {{title}}",
     "finished": "You finished this lesson.",
-    "keys": "← → step · R replay · Space pause",
+    "keys": "← → step · A autoplay · R replay · Space pause",
+    "autoplay": "Autoplay",
+    "autoplayHint": "Move to the next step on its own, after time to read it (A)",
     "timeline": "Steps in this lesson",
     "learn": "You'll learn",
     "builtOn": "Built on",
@@ -1628,6 +1630,17 @@
     "motionStill": "Still diagrams",
     "motionStillHint": "Start paused; press play when you like",
     "motionNote": "If your device asks for reduced motion, diagrams always show still arrows.",
+    "autoplay": "Lesson autoplay",
+    "autoplayLegend": "Autoplay speed",
+    "autoplayOn": "Autoplay lessons",
+    "autoplayOnHint": "Steps move on by themselves; Next and Back still work",
+    "speed": {
+      "off": "Off",
+      "slow": "Slow",
+      "normal": "Normal",
+      "fast": "Fast"
+    },
+    "autoplayNote": "Time on each step depends on how much there is to read. Press A in a lesson to switch autoplay on or off.",
     "data": "Your data",
     "dataBody": "AlgoVerse has no accounts and no database. Finished lessons, opened pages and practice scores live only in this browser; you can clear them on the My Progress page."
   },

@@ -3,7 +3,14 @@ import { RadioGroup } from "radix-ui";
 import { useId, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { readMotion, writeMotion, type MotionPref } from "../../lib/progress";
+import {
+  readAutoplay,
+  readMotion,
+  writeAutoplay,
+  writeMotion,
+  type AutoplayPref,
+  type MotionPref,
+} from "../../lib/progress";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { isThemePref, setThemePref, THEME_PREFS, type ThemePref } from "../../ui/theme";
 import { useThemePref } from "../../ui/useThemePref";
@@ -21,6 +28,7 @@ export function SettingsPlaceholder() {
   useDocumentTitle(t("nav.settings"));
   const pref = useThemePref();
   const [motion, setMotion] = useState<MotionPref>(readMotion);
+  const [autoplay, setAutoplay] = useState<AutoplayPref>(readAutoplay);
 
   return (
     <div className="space-y-6">
@@ -94,6 +102,32 @@ export function SettingsPlaceholder() {
           ))}
         </RadioGroup.Root>
         <p className="mt-4 text-sm text-muted">{t("settings.motionNote")}</p>
+      </Card>
+
+      <Card title={t("settings.autoplay")}>
+        <RadioGroup.Root
+          aria-label={t("settings.autoplayLegend")}
+          value={autoplay.on ? autoplay.speed : "off"}
+          onValueChange={(value) => {
+            const next: AutoplayPref =
+              value === "off"
+                ? { ...autoplay, on: false }
+                : { on: true, speed: value === "slow" || value === "fast" ? value : "normal" };
+            writeAutoplay(next);
+            setAutoplay(next);
+          }}
+          className="grid gap-3 sm:grid-cols-4"
+        >
+          {(["off", "slow", "normal", "fast"] as const).map((value) => (
+            <label key={value} className={option}>
+              <RadioGroup.Item value={value} className={dot}>
+                <RadioGroup.Indicator className="size-2.5 rounded-full bg-accent-solid" />
+              </RadioGroup.Item>
+              <span className="font-medium">{t(`settings.speed.${value}`)}</span>
+            </label>
+          ))}
+        </RadioGroup.Root>
+        <p className="mt-4 text-sm text-muted">{t("settings.autoplayNote")}</p>
       </Card>
 
       <Card title={t("settings.data")}>
