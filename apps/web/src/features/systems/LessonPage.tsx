@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Check, Pause, Play, RotateCcw } from "lucide-rea
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams, useSearchParams } from "react-router";
+import { YourTurn } from "../community/YourTurn";
 import { readAutoplay, readMotion, recordVisit } from "../../lib/progress";
 import { dwellMs } from "./autoplay";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
@@ -360,6 +361,8 @@ export function LessonView({ lesson, where, prev, next, base, concepts = [] }: L
       </div>
 
       {lesson.lab && <Lab lab={lesson.lab} title={t("systems.tryIt")} />}
+
+      <YourTurn id={lesson.id} title={lesson.title} isCase={base === "/systems/case"} />
 
       <nav
         aria-label={t("systems.pager")}

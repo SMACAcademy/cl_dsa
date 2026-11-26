@@ -1,0 +1,14 @@
+title: "Idea: "
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: A new lab, lesson, case study or feature. What would a learner get from it?
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: An example
+      description: Optional. A sketch, a link to a real system, or a few sentences of how it would look.

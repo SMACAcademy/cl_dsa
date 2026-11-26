@@ -5,6 +5,7 @@ import {
   FolderGit2,
   Network,
   Server,
+  Users,
   WifiOff,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -14,6 +15,7 @@ import { CREATOR, hasCreator } from "../../branding";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { LinkedInMark } from "../../ui/LinkedInMark";
 import { ALGORITHMS, STRUCTURES } from "../catalog/catalog";
+import { COMMUNITY } from "../community/community";
 import { LESSONS } from "../systems/lessons";
 import { VISUALIZERS } from "../viz/registry";
 
@@ -85,24 +87,44 @@ export function AboutPage() {
         </div>
       </section>
 
+      <section className="space-y-3 rounded-panel border border-line bg-raised p-5">
+        <h2 className="flex items-center gap-2 text-lg font-semibold">
+          <Users className="size-5 text-muted" aria-hidden="true" />
+          {t("about.joinTitle")}
+        </h2>
+        <p className="max-w-prose text-sm text-muted">{t("about.joinLead")}</p>
+        <ul className="grid gap-3 text-sm sm:grid-cols-3">
+          <JoinItem href={COMMUNITY.challenges} title={t("about.join.discuss")}>
+            {t("about.join.discussText")}
+          </JoinItem>
+          <JoinItem href={COMMUNITY.contributing} title={t("about.join.contribute")}>
+            {t("about.join.contributeText")}
+          </JoinItem>
+          <JoinItem href={CREATOR.github} title={t("about.join.star")}>
+            {t("about.join.starText")}
+          </JoinItem>
+        </ul>
+      </section>
+
       {hasCreator() && (
-        <section className="flex flex-col gap-4 rounded-panel border border-accent/40 bg-surface p-5 sm:flex-row sm:items-center">
+        <section className="flex flex-col gap-4 rounded-panel border border-line bg-surface p-5 sm:flex-row sm:items-center">
           <span
             aria-hidden="true"
-            className="grid size-16 shrink-0 place-items-center rounded-full bg-accent-solid text-2xl font-semibold text-on-accent"
+            className="grid size-14 shrink-0 place-items-center rounded-full bg-accent-soft text-xl font-semibold text-accent-ink"
           >
             {CREATOR.name.trim().charAt(0).toUpperCase()}
           </span>
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 space-y-0.5">
             <p className="text-sm text-muted">{t("about.builtBy")}</p>
-            <h2 className="text-xl font-semibold">{CREATOR.name}</h2>
+            <h2 className="text-lg font-semibold">{CREATOR.name}</h2>
             {CREATOR.headline && <p className="text-sm text-muted">{CREATOR.headline}</p>}
+            <p className="max-w-prose pt-1 text-sm text-muted">{t("about.creatorNote")}</p>
           </div>
           {CREATOR.linkedin && (
             <a
               href={CREATOR.linkedin}
               {...external}
-              className="inline-flex items-center gap-2 rounded-control bg-[#0a66c2] px-4 py-2 text-sm font-medium text-white"
+              className="inline-flex items-center gap-2 rounded-control border border-line bg-raised px-4 py-2 text-sm font-medium hover:border-accent"
             >
               <LinkedInMark />
               {t("about.connect")}
@@ -124,6 +146,21 @@ export function AboutPage() {
         {t("about.stack")}
       </p>
     </article>
+  );
+}
+
+function JoinItem({ href, title, children }: { href: string; title: string; children: ReactNode }) {
+  return (
+    <li>
+      <a
+        href={href}
+        {...external}
+        className="block h-full space-y-1 rounded-control border border-line bg-surface p-3 hover:border-accent"
+      >
+        <span className="block font-medium text-accent-ink">{title}</span>
+        <span className="block text-muted">{children}</span>
+      </a>
+    </li>
   );
 }
 

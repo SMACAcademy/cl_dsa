@@ -2,6 +2,7 @@ import { Check, ChevronRight, FlaskConical, Layers } from "lucide-react";
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { WeeklyChallenge } from "../community/WeeklyChallenge";
 import { useScrollToHash } from "../../lib/slug";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { SECTION_ICON } from "../placeholder/sections";
@@ -40,6 +41,8 @@ export function SystemsHome() {
           </div>
         </div>
       </header>
+
+      <WeeklyChallenge />
 
       {MODULES.map((m) => (
         <ModuleSection key={m.id} module={m} done={done} />

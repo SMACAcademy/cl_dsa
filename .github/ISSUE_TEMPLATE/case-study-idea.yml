@@ -1,0 +1,36 @@
+name: Propose a case study
+description: A real product to design step by step from the lessons.
+title: "Case study idea: "
+labels: ["case study"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Good case studies are real products with real numbers, built one decision at a time.
+        See [CONTRIBUTING.md](https://github.com/SMACAcademy/cl_dsa/blob/main/CONTRIBUTING.md#add-a-case-study)
+        for the format.
+  - type: textarea
+    id: brief
+    attributes:
+      label: The brief
+      description: What is the product, who uses it, and the key numbers (users, requests, data)?
+    validations:
+      required: true
+  - type: textarea
+    id: concepts
+    attributes:
+      label: Lessons it combines
+      description: Three or more lesson ids, e.g. caching, queues, sharding.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Rough steps
+      description: The decisions in order, one line each. A problem, then the idea that fixes it.
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Pull request
+      options:
+        - label: I'd like to write this case study myself.

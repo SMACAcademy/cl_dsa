@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router";
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from "../ui/theme";
 import { UpdatePrompt } from "../ui/UpdatePrompt";
 import { NavRail } from "./NavRail";
+import { SiteFooter } from "./SiteFooter";
 import { TopBar } from "./TopBar";
 
 /** Ctrl+Alt+T flips between light and dark (UI_UX §5). */
@@ -59,6 +60,7 @@ export function AppShell() {
             <Outlet />
           </div>
         </main>
+        <SiteFooter />
       </div>
       <UpdatePrompt />
     </div>

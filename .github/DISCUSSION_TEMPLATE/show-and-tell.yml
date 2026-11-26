@@ -1,0 +1,14 @@
+title: "Show and tell: "
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What did you build or design?
+      description: A design you drew after a case study, a project you finished, a blog post you wrote.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Optional. Where others can see it.

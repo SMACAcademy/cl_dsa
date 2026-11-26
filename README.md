@@ -1,5 +1,10 @@
 # AlgoVerse: Explore. Visualize. Experiment. Master.
 
+[![Live site](https://img.shields.io/badge/live-smacacademy.github.io%2Fcl__dsa-2563eb)](https://smacacademy.github.io/cl_dsa/)
+[![GitHub stars](https://img.shields.io/github/stars/SMACAcademy/cl_dsa?style=social)](https://github.com/SMACAcademy/cl_dsa/stargazers)
+[![Discussions](https://img.shields.io/github/discussions/SMACAcademy/cl_dsa)](https://github.com/SMACAcademy/cl_dsa/discussions)
+[![Checks](https://github.com/SMACAcademy/cl_dsa/actions/workflows/ci.yml/badge.svg)](https://github.com/SMACAcademy/cl_dsa/actions/workflows/ci.yml)
+
 An interactive lab for data structures, algorithms and system design. Every idea is a picture you can step through, poke at and predict, right in your browser. No sign-up, no tracking: progress stays in your own browser.
 
 **Live site:** https://smacacademy.github.io/cl_dsa/ (published from `main` by GitHub Actions)
@@ -13,8 +18,16 @@ An interactive lab for data structures, algorithms and system design. Every idea
 | **Algorithm Lab** | 33 algorithms (searching, sorting, graphs, greedy, dynamic programming, backtracking, strings). Each runs step by step beside its Python code, with the current line lit up, live variables and "predict the next step" questions. |
 | **Data Structure Lab** | 21 structures (arrays to AVL trees, tries, heaps, union-find, LRU caches, Bloom filters) that you drive with your own commands. |
 | **System Design Lab** | 40 animated lessons in 9 modules, from "how a request travels" to designing a chat system: isometric diagrams where requests flow, servers fail and numbers change, with self-check questions and hands-on labs. Lessons autoplay (or step through at your own pace) and link back to the data structures they are built on. |
-| **Case studies** | Real products designed step by step by combining the lessons learned so far: results-day traffic, train booking, ride-hailing locations, payments, a marketplace checkout and more, up to a capstone that grows AlgoVerse itself to ten million learners. Each step names the concept it applies. |
+| **Case studies** | 50 real products designed step by step by combining the lessons learned so far: results-day traffic, train booking, payments, chat history, fraud checks, zero-downtime migrations and more, up to capstones for a video platform and AlgoVerse itself. Each step names the concept it applies, and each ends with an open design question. |
 | **Practice, Playground, Projects** | Shuffled self-check rounds, real Python running in your browser, and seven guided projects (autocomplete, LRU cache, rate limiter, maze solver, search engine, hash ring, link shortener). |
+
+## Join in
+
+- **Weekly design challenge.** Every Monday a new open question is posted in [Discussions](https://github.com/SMACAcademy/cl_dsa/discussions/categories/q-a). Post your design, compare trade-offs, upvote the best answers.
+- **Every case study ends with "Your turn"**: an open question you can answer on GitHub in one click.
+- **Improve a lesson.** Found a mistake or a clearer example? Use *Suggest an improvement* on any page, or open a pull request.
+- **Add a case study.** See [CONTRIBUTING.md](CONTRIBUTING.md#add-a-case-study); every pull request is checked automatically and reviewed.
+- If AlgoVerse helped you, a ⭐ helps other learners find it.
 
 ## Run it locally
 
@@ -23,7 +36,7 @@ Requires Node 22+ and pnpm 10.
 ```bash
 pnpm install
 pnpm --filter @algoverse/web dev     # http://localhost:5173
-pnpm --filter @algoverse/web test    # 700+ tests (Vitest, Testing Library, axe)
+pnpm --filter @algoverse/web test    # 800+ tests (Vitest, Testing Library, axe)
 ```
 
 ## Publishing

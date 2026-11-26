@@ -27,7 +27,6 @@
     "previewBadge": "Free & open source",
     "previewHint": "Star it on GitHub",
     "about": "About",
-    "builtBy": "Built by {{name}}",
     "statsLabel": "Your stats",
     "streak": "{{count}}-day streak",
     "xp": "{{count}} XP",
@@ -470,7 +469,11 @@
       },
       "activity": {
         "help": "1-3 (a meeting from 1 to 3), e.g. 1-3, 2-5, 4-6",
-        "preset": { "tour": "Ten meetings", "long": "One long meeting", "busy": "A busy day" },
+        "preset": {
+          "tour": "Ten meetings",
+          "long": "One long meeting",
+          "busy": "A busy day"
+        },
         "timeline": "Meetings on a timeline",
         "meeting": "Meeting {{span}}: {{state}}",
         "state": {
@@ -503,7 +506,11 @@
       },
       "fib": {
         "help": "fib n (n from 0 to 10)",
-        "preset": { "tour": "fib(8)", "small": "fib(5)", "big": "fib(10)" },
+        "preset": {
+          "tour": "fib(8)",
+          "small": "fib(5)",
+          "big": "fib(10)"
+        },
         "treeTitle": "Calls made (= value returned, ringed = answered from memo)",
         "start": "Memoized Fibonacci: every answer is saved in memo, so each fib(k) is worked out only once.",
         "call": "fib({{k}}) isn't in memo and isn't a base case, so it calls fib({{a}}) and then fib({{b}}).",
@@ -515,7 +522,11 @@
       },
       "coins": {
         "help": "make n (amount from 1 to 20)",
-        "preset": { "tour": "Coins 1, 5, 6, 9", "us": "Coins 1, 5, 10", "gap": "Coins 3, 5" },
+        "preset": {
+          "tour": "Coins 1, 5, 6, 9",
+          "us": "Coins 1, 5, 10",
+          "gap": "Coins 3, 5"
+        },
         "start": "Coins {{coins}}. best[a] will hold the fewest coins that make amount a.",
         "base": "Make {{amount}}: best[0] = 0 (no coins needed for nothing); every other amount starts at ∞.",
         "qBest": "What is best[{{a}}]?",
@@ -590,7 +601,11 @@
       },
       "queens": {
         "help": "queens n (board size from 1 to 8)",
-        "preset": { "tour": "6 × 6 board", "five": "8 × 8 board", "none": "3 × 3 (no answer)" },
+        "preset": {
+          "tour": "6 × 6 board",
+          "five": "8 × 8 board",
+          "none": "3 × 3 (no answer)"
+        },
         "caption": "{{n}} × {{n}} board (♛ queen, · attacked, ↑ just lifted, ▶ row being filled)",
         "square": {
           "queen": "queen",
@@ -736,7 +751,11 @@
       },
       "gcd": {
         "help": "gcd a b (whole numbers from 1 to 999)",
-        "preset": { "tour": "gcd(462, 252)", "coprime": "gcd(89, 55)", "swap": "gcd(192, 270)" },
+        "preset": {
+          "tour": "gcd(462, 252)",
+          "coprime": "gcd(89, 55)",
+          "swap": "gcd(192, 270)"
+        },
         "legend": "A {{w}} × {{h}} rectangle. Each step cuts off the biggest squares that fit; the dashed part is what's left.",
         "start": "Find gcd({{a}}, {{b}}), the biggest number that divides both. Picture a {{a}} × {{b}} rectangle.",
         "qMod": "What is {{a}} mod {{b}}?",
@@ -746,7 +765,11 @@
       },
       "sieve": {
         "help": "sieve n (n from 2 to 100)",
-        "preset": { "tour": "Up to 50", "thirty": "Up to 30", "sixty": "Up to 100" },
+        "preset": {
+          "tour": "Up to 50",
+          "thirty": "Up to 30",
+          "sixty": "Up to 100"
+        },
         "grid": "Numbers 1 to {{n}}",
         "state": {
           "none": "not prime",
@@ -812,7 +835,11 @@
       },
       "recursion": {
         "help": "factorial n, total n (n from 0 to 10)",
-        "preset": { "tour": "factorial(6)", "deeper": "factorial(10)", "total": "1 + 2 + … + 8" },
+        "preset": {
+          "tour": "factorial(6)",
+          "deeper": "factorial(10)",
+          "total": "1 + 2 + … + 8"
+        },
         "stackTitle": "Call stack (top = running now)",
         "frameRunning": "running",
         "frameWaiting": "waiting for the call above",
@@ -827,7 +854,11 @@
       },
       "hanoi": {
         "help": "hanoi n (n from 1 to 5)",
-        "preset": { "tour": "3 disks", "three": "4 disks", "four": "5 disks" },
+        "preset": {
+          "tour": "3 disks",
+          "three": "4 disks",
+          "four": "5 disks"
+        },
         "pegsLabel": "Pegs",
         "pegContents": "Peg {{peg}}: {{disks}}",
         "start": "Move {{n}} disk(s) from peg A to peg C, one at a time, never putting a bigger disk on a smaller one. It takes at least {{min}} moves.",
@@ -1236,7 +1267,11 @@
       },
       "stack": {
         "help": "push x, pop, peek",
-        "preset": { "tour": "Push, pop, peek", "undo": "Undo history", "empty": "Pop too far" },
+        "preset": {
+          "tour": "Push, pop, peek",
+          "undo": "Undo history",
+          "empty": "Pop too far"
+        },
         "start": "items = {{list}}. Only the top can be touched.",
         "push": "Push {{x}} on top. The stack holds {{size}} value(s).",
         "pop": "Pop the top value {{x}}. Now items = {{list}}.",
@@ -1283,7 +1318,11 @@
       },
       "ring": {
         "help": "enqueue x, dequeue",
-        "preset": { "tour": "Wrap around", "full": "Fill it up", "laps": "Go round in laps" },
+        "preset": {
+          "tour": "Wrap around",
+          "full": "Fill it up",
+          "laps": "Go round in laps"
+        },
         "start": "A ring of {{capacity}} slots. head marks the front; the tail is head + size, wrapped around.",
         "tail": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}.",
         "tailWrap": "tail = (head {{head}} + size {{size}}) % {{capacity}} = {{tail}}: it wraps around to the start.",
@@ -1548,7 +1587,18 @@
     "builtBy": "Built by",
     "connect": "Connect on LinkedIn",
     "source": "Source code on GitHub",
-    "stack": "Built with React, TypeScript, SVG animation and Tailwind CSS"
+    "stack": "Built with React, TypeScript, SVG animation and Tailwind CSS",
+    "joinTitle": "Join in",
+    "joinLead": "AlgoVerse grows in the open. Argue about a design, fix a lesson, or add the next case study: every contribution is reviewed and credited.",
+    "join": {
+      "discuss": "Answer the weekly challenge",
+      "discussText": "A new open design question every Monday. Post your design and see how others would build it.",
+      "contribute": "Improve a lesson",
+      "contributeText": "Spotted a mistake or have a better example? Suggest a change or open a pull request.",
+      "star": "Star the project",
+      "starText": "Stars help other learners find AlgoVerse on GitHub."
+    },
+    "creatorNote": "I design and build systems like the ones in these lessons. Happy to talk about engineering, learning products or new roles."
   },
   "cases": {
     "combines": "Combines these lessons",
@@ -1682,5 +1732,29 @@
     "offlineReady": "AlgoVerse is ready to work offline.",
     "reload": "Reload",
     "dismiss": "Dismiss"
+  },
+  "footer": {
+    "madeBy": "Made by",
+    "source": "Open source",
+    "discussions": "Discussions",
+    "contribute": "Contribute"
+  },
+  "community": {
+    "yourTurn": "Your turn: an open design question",
+    "questions": "Questions about this lesson?",
+    "lessonPrompt": "Ask anything, share a real system that works this way, or suggest a better example. Answers stay public so the next learner benefits too.",
+    "lessonDiscussTitle": "Question about \"{{title}}\"",
+    "lessonBody": "Lesson: {{page}}\n\nMy question:\n",
+    "challengeBody": "Case study: {{page}}\n\n> {{question}}\n\nMy design:\n\n- What I would change:\n- Why:\n- What it costs:\n",
+    "shareAnswer": "Share your answer",
+    "ask": "Ask on GitHub",
+    "improve": "Suggest an improvement",
+    "proposeCase": "Propose a case study",
+    "ideaTitle": "Case study idea: ",
+    "githubNote": "These open GitHub in a new tab. A free GitHub account is needed to post.",
+    "weekly": "Design challenge #{{number}} · this week",
+    "weeklyRead": "Read the case study: {{title}}",
+    "weeklyTitle": "Design challenge #{{number}}: {{question}}",
+    "seeAnswers": "See everyone's answers"
   }
 }
