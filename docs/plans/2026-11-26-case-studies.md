@@ -32,7 +32,7 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
 
-## Built (50 studies)
+## Built (63 studies)
 
 - Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
   food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
@@ -48,6 +48,10 @@ decision at a time on the same animated diagram. Over time this grows to several
   readings · order webhooks · support ticket desk · sign-in under attack · splitting a monolith ·
   recommendations · password manager sync · API keys · daily deploys · capstone: a video-sharing
   platform (the first Whole-systems study).
+- Batch 5: cyclone warning · podcast host · product catalogue · game leaderboards · feature-flag
+  store · live stock prices · report exports · three-region reads · order fulfilment · exam
+  proctoring · banking sessions · old mobile app versions · capstone: an end-to-end encrypted
+  messaging app.
 
 ## Planned catalogue (next batches)
 

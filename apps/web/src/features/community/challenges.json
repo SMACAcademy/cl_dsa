@@ -48,5 +48,18 @@
   "zero-downtime-migration": "Halfway through the backfill, you find a bug that split names wrongly. How do you recover without downtime?",
   "daily-deploys": "A deploy is safe for the app but changes the database. How does your canary catch problems the database causes?",
   "algoverse-capstone": "AlgoVerse adds live classes with a teacher and 500 learners. Which new pieces would you add first, and why?",
-  "video-platform": "Creators want live streaming, not just uploads. What changes in ingest, processing and delivery?"
+  "video-platform": "Creators want live streaming, not just uploads. What changes in ingest, processing and delivery?",
+  "cyclone-warning": "The mobile network fails completely in two districts but SMS still works. How do you get warnings to people there?",
+  "podcast-hit": "The host wants to show creators exact download counts per episode. How do you count downloads that the CDN serves?",
+  "product-catalogue": "Shoppers want to filter by any combination of 30 attributes. When do you stop adding indexes and add a search engine instead?",
+  "game-leaderboard": "The game adds friends-only leaderboards. Where do you compute \"my rank among my 200 friends\" quickly?",
+  "feature-flags": "A flag targets \"users who joined in the last 30 days in India\". Where is that rule evaluated, and with what data?",
+  "stock-ticker": "Users want an alert when a share crosses a price they choose. How do you check a million alerts on every tick?",
+  "report-exports": "A huge export takes 40 minutes and a worker dies at minute 35. How do you avoid starting over?",
+  "multi-region-reads": "A customer in Europe wants to book while Mumbai is unreachable but not yet declared down. What does the site do?",
+  "order-fulfilment": "The same OrderPacked event is delivered twice and the courier gets booked twice. Where do you add the protection?",
+  "exam-proctoring": "Ten thousand flags arrive in an hour but you have 50 reviewers. How do you prioritise what humans look at?",
+  "banking-sessions": "The customer gets a new phone. How do they move their session safely without visiting a branch?",
+  "mobile-old-versions": "A security bug is found in an app version used by 8% of customers. How quickly can you force an update, and what breaks?",
+  "messaging-app": "Users want to search their chat history, but the server can't read messages. Where does search run, and how?"
 }
