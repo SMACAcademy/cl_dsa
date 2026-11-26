@@ -24,8 +24,8 @@
     "lesson": "Lesson player"
   },
   "topbar": {
-    "previewBadge": "Open preview",
-    "previewHint": "Some sections are still being built",
+    "previewBadge": "Free & open source",
+    "previewHint": "Star it on GitHub",
     "about": "About",
     "builtBy": "Built by {{name}}",
     "statsLabel": "Your stats",
@@ -1550,6 +1550,22 @@
     "source": "Source code on GitHub",
     "stack": "Built with React, TypeScript, SVG animation and Tailwind CSS"
   },
+  "cases": {
+    "combines": "Combines these lessons",
+    "concept": "Concept:",
+    "where": "Case study {{index}} of {{count}} · {{tier}} · after {{module}}",
+    "tier": {
+      "combine": "Combine",
+      "integrate": "Integrate",
+      "capstone": "Capstone"
+    },
+    "missing": "There is no case study called “{{id}}”.",
+    "checkpoint": "Checkpoint: put it together",
+    "checkpointBlurb": "Real products designed step by step from the lessons so far. Each step names the concept it uses.",
+    "label": "Case study",
+    "concepts": "Combines {{count}} lessons",
+    "count": "{{count}} case studies"
+  },
   "systems": {
     "intro": "How real systems scale, told as one story: AlgoVerse itself growing from a hobby site to millions of learners. Every lesson is an animated diagram you step through, with questions to check yourself and labs you can drive.",
     "progress": "{{done}} of {{total}} lessons finished",
@@ -1608,7 +1624,9 @@
     "next": "Next: {{short}}",
     "nextLesson": "Next lesson: {{title}}",
     "finished": "You finished this lesson.",
-    "keys": "← → step · R replay · Space pause",
+    "keys": "← → step · A autoplay · R replay · Space pause",
+    "autoplay": "Autoplay",
+    "autoplayHint": "Move to the next step on its own, after time to read it (A)",
     "timeline": "Steps in this lesson",
     "learn": "You'll learn",
     "builtOn": "Built on",
@@ -1628,6 +1646,17 @@
     "motionStill": "Still diagrams",
     "motionStillHint": "Start paused; press play when you like",
     "motionNote": "If your device asks for reduced motion, diagrams always show still arrows.",
+    "autoplay": "Lesson autoplay",
+    "autoplayLegend": "Autoplay speed",
+    "autoplayOn": "Autoplay lessons",
+    "autoplayOnHint": "Steps move on by themselves; Next and Back still work",
+    "speed": {
+      "off": "Off",
+      "slow": "Slow",
+      "normal": "Normal",
+      "fast": "Fast"
+    },
+    "autoplayNote": "Time on each step depends on how much there is to read. Press A in a lesson to switch autoplay on or off.",
     "data": "Your data",
     "dataBody": "AlgoVerse has no accounts and no database. Finished lessons, opened pages and practice scores live only in this browser; you can clear them on the My Progress page."
   },

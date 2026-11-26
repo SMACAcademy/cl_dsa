@@ -12,7 +12,9 @@ An interactive lab for data structures, algorithms and system design. Every idea
 |---|---|
 | **Algorithm Lab** | 33 algorithms (searching, sorting, graphs, greedy, dynamic programming, backtracking, strings). Each runs step by step beside its Python code, with the current line lit up, live variables and "predict the next step" questions. |
 | **Data Structure Lab** | 21 structures (arrays to AVL trees, tries, heaps, union-find, LRU caches, Bloom filters) that you drive with your own commands. |
-| **System Design Lab** | 40 animated lessons in 9 modules, from "how a request travels" to designing a chat system: isometric diagrams where requests flow, servers fail and numbers change, with self-check questions and hands-on labs. Each lesson links back to the data structures it is built on. |
+| **System Design Lab** | 40 animated lessons in 9 modules, from "how a request travels" to designing a chat system: isometric diagrams where requests flow, servers fail and numbers change, with self-check questions and hands-on labs. Lessons autoplay (or step through at your own pace) and link back to the data structures they are built on. |
+| **Case studies** | Real products designed step by step by combining the lessons learned so far: results-day traffic, train booking, ride-hailing locations, payments, a marketplace checkout and more, up to a capstone that grows AlgoVerse itself to ten million learners. Each step names the concept it applies. |
+| **Practice, Playground, Projects** | Shuffled self-check rounds, real Python running in your browser, and seven guided projects (autocomplete, LRU cache, rate limiter, maze solver, search engine, hash ring, link shortener). |
 
 ## Run it locally
 

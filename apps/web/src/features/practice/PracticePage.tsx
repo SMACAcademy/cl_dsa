@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { readPractice, recordPractice, type PracticeRecord } from "../../lib/progress";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
-import { MODULES } from "../systems/lessons";
-import { QUIZZES, shuffled, type PracticeQuestion } from "./quizzes";
+import { QUIZZES, shuffled, TOPICS, type PracticeQuestion } from "./quizzes";
 
 const ROUND = 10;
 const primary =
@@ -54,7 +53,7 @@ export function PracticePage() {
           <fieldset>
             <legend className="text-sm font-semibold">{t("practice.topics")}</legend>
             <div className="mt-2 flex flex-wrap gap-2">
-              {[{ id: "all", title: t("practice.all") }, ...MODULES].map((m) => (
+              {[{ id: "all", title: t("practice.all") }, ...TOPICS].map((m) => (
                 <label
                   key={m.id}
                   className="cursor-pointer rounded-full border border-line bg-surface px-3 py-1 text-sm has-[:checked]:border-accent has-[:checked]:bg-accent-soft has-[:checked]:text-accent-ink"
@@ -147,7 +146,7 @@ export function PracticePage() {
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </button>
                 <Link
-                  to={`/systems/${q.lessonId}?step=${q.step}`}
+                  to={q.path}
                   className="text-sm text-accent-ink underline-offset-4 hover:underline"
                 >
                   {t("practice.review")}

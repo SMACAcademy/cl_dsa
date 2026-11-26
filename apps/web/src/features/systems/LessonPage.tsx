@@ -2,7 +2,8 @@ import { ArrowLeft, ArrowRight, Check, Pause, Play, RotateCcw } from "lucide-rea
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams, useSearchParams } from "react-router";
-import { readMotion, recordVisit } from "../../lib/progress";
+import { readAutoplay, readMotion, recordVisit } from "../../lib/progress";
+import { dwellMs } from "./autoplay";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { button, primaryButton } from "../viz/styles";
 import { IsoScene, sceneBounds } from "./IsoScene";
@@ -32,10 +33,35 @@ export function LessonPage() {
       </div>
     );
   }
-  return <LessonView key={found.lesson.id} {...found} />;
+  const { lesson, module, index, count, prev, next } = found;
+  return (
+    <LessonView
+      key={lesson.id}
+      lesson={lesson}
+      where={t("systems.where", {
+        number: module.number,
+        module: module.title,
+        index: index + 1,
+        count,
+      })}
+      prev={prev}
+      next={next}
+      base="/systems"
+    />
+  );
 }
 
-type Found = NonNullable<ReturnType<typeof findLesson>>;
+export type LessonViewProps = {
+  lesson: Lesson;
+  /** The line above the title, e.g. "02. Scaling · Lesson 4 of 5". */
+  where: string;
+  prev: Lesson | undefined;
+  next: Lesson | undefined;
+  /** Where this kind of page lives: "/systems" for lessons, "/systems/case" for case studies. */
+  base: string;
+  /** Lessons whose ideas this page combines (case studies). */
+  concepts?: readonly Lesson[];
+};
 
 const KIND_STYLE: Record<StepKind, string> = {
   setup: "border-line bg-sunken text-muted",
@@ -48,7 +74,7 @@ const KIND_STYLE: Record<StepKind, string> = {
   recap: "border-found bg-found-soft text-found-ink",
 };
 
-function LessonView({ lesson, module, index, count, prev, next }: Found) {
+export function LessonView({ lesson, where, prev, next, base, concepts = [] }: LessonViewProps) {
   const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
   const total = lesson.steps.length;
@@ -56,6 +82,10 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
   const at = Number.isInteger(requested) ? Math.min(Math.max(requested, 1), total) - 1 : 0;
   const step = lesson.steps[at] as LessonStep;
   const [paused, setPaused] = useState(() => readMotion() === "still");
+  const [autoplay] = useState(readAutoplay);
+  const [auto, setAuto] = useState(autoplay.on);
+  const dwell = dwellMs(step, autoplay.speed);
+  const advancing = auto && at < total - 1;
   const [replay, setReplay] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const bounds = useMemo(() => sceneBounds(lesson.steps.map((s) => s.scene)), [lesson]);
@@ -75,11 +105,27 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
   useEffect(() => {
     if (at === total - 1) markDone(lesson.id);
     recordVisit({
-      path: `/systems/${lesson.id}${at > 0 ? `?step=${at + 1}` : ""}`,
+      path: `${base}/${lesson.id}${at > 0 ? `?step=${at + 1}` : ""}`,
       title: lesson.title,
       kind: "lesson",
     });
   }, [at, total, lesson.id, lesson.title]);
+
+  // Autoplay: move on after the step's reading time; wait while the tab is hidden.
+  useEffect(() => {
+    if (!advancing) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const arm = (ms: number) => {
+      timer = setTimeout(() => {
+        if (typeof document !== "undefined" && document.hidden) arm(1500);
+        else go(at + 1);
+      }, ms);
+    };
+    arm(dwell);
+    return () => clearTimeout(timer);
+    // go() is recreated each render; the step index and timing are what matter here.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advancing, at, dwell]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -89,6 +135,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
       if (e.key === "ArrowRight") go(at + 1);
       else if (e.key === "ArrowLeft") go(at - 1);
       else if (e.key.toLowerCase() === "r") setReplay((n) => n + 1);
+      else if (e.key.toLowerCase() === "a") setAuto((a) => !a);
       else if (e.key === " " && !el?.closest("button, a")) {
         e.preventDefault();
         setPaused((p) => !p);
@@ -109,14 +156,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
       </Link>
 
       <header className="space-y-2">
-        <p className="text-sm text-muted">
-          {t("systems.where", {
-            number: module.number,
-            module: module.title,
-            index: index + 1,
-            count,
-          })}
-        </p>
+        <p className="text-sm text-muted">{where}</p>
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lesson.title}</h1>
         <p className="max-w-prose text-muted">{lesson.tagline}</p>
         <p className="flex flex-wrap gap-2 text-xs font-medium">
@@ -231,6 +271,10 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
           onPrev={() => go(at - 1)}
           onNext={() => go(at + 1)}
           nextLesson={next}
+          auto={auto}
+          onToggleAuto={() => setAuto((a) => !a)}
+          dwell={dwell}
+          nextPath={(l) => `${base}/${l.id}`}
         />
       </div>
 
@@ -281,6 +325,22 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
             ))}
           </ul>
         </Panel>
+        {concepts.length > 0 && (
+          <Panel title={t("cases.combines")}>
+            <ul className="flex flex-wrap gap-2">
+              {concepts.map((c) => (
+                <li key={c.id}>
+                  <Link
+                    to={`/systems/${c.id}`}
+                    className="inline-flex rounded-full border border-accent/50 bg-accent-soft px-3 py-1 text-sm text-accent-ink hover:border-accent"
+                  >
+                    {c.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        )}
         {lesson.builtOn && lesson.builtOn.length > 0 && (
           <Panel title={t("systems.builtOn")}>
             <ul className="flex flex-wrap gap-2">
@@ -306,7 +366,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
         className="flex flex-wrap justify-between gap-3 border-t border-line pt-4"
       >
         {prev ? (
-          <Link to={`/systems/${prev.id}`} className={backLink}>
+          <Link to={`${base}/${prev.id}`} className={backLink}>
             <ArrowLeft className="size-4" aria-hidden="true" />
             {t("systems.previousLesson", { title: prev.title })}
           </Link>
@@ -314,7 +374,7 @@ function LessonView({ lesson, module, index, count, prev, next }: Found) {
           <span />
         )}
         {next && (
-          <Link to={`/systems/${next.id}`} className={backLink}>
+          <Link to={`${base}/${next.id}`} className={backLink}>
             {t("systems.nextLesson", { title: next.title })}
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
@@ -334,6 +394,10 @@ function StepPanel({
   onPrev,
   onNext,
   nextLesson,
+  auto,
+  onToggleAuto,
+  dwell,
+  nextPath = (l: Lesson) => `/systems/${l.id}`,
 }: {
   step: LessonStep;
   at: number;
@@ -344,10 +408,15 @@ function StepPanel({
   onPrev: () => void;
   onNext: () => void;
   nextLesson: Lesson | undefined;
+  auto: boolean;
+  onToggleAuto: () => void;
+  dwell: number;
+  nextPath?: (lesson: Lesson) => string;
 }) {
   const { t } = useTranslation();
   const titleId = useId();
   const quiz = step.quiz;
+  const counting = auto && at < total - 1;
   return (
     <section
       aria-labelledby={titleId}
@@ -366,6 +435,17 @@ function StepPanel({
       <h2 id={titleId} className="text-lg leading-snug font-semibold tracking-tight">
         {step.title}
       </h2>
+      {step.uses && (
+        <p className="-mt-1 text-xs">
+          <span className="text-muted">{t("cases.concept")} </span>
+          <Link
+            to={`/systems/${step.uses}`}
+            className="font-medium text-accent-ink underline-offset-4 hover:underline"
+          >
+            {findLesson(step.uses)?.lesson.title ?? step.uses}
+          </Link>
+        </p>
+      )}
       <div aria-live="polite" className="space-y-2.5 text-sm leading-relaxed">
         {step.body.map((p) => (
           <p key={p}>
@@ -514,14 +594,37 @@ function StepPanel({
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
         ) : nextLesson ? (
-          <Link to={`/systems/${nextLesson.id}`} className={primaryButton}>
+          <Link to={nextPath(nextLesson)} className={primaryButton}>
             {t("systems.nextLesson", { title: nextLesson.title })}
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         ) : (
           <span className="text-sm font-medium text-found-ink">{t("systems.finished")}</span>
         )}
+        <button
+          type="button"
+          className={`${button} ml-auto`}
+          onClick={onToggleAuto}
+          aria-pressed={auto}
+          title={t("systems.autoplayHint")}
+        >
+          {auto ? (
+            <Pause className="size-4" aria-hidden="true" />
+          ) : (
+            <Play className="size-4" aria-hidden="true" />
+          )}
+          {t("systems.autoplay")}
+        </button>
       </div>
+      {counting && (
+        <div aria-hidden="true" className="h-1 overflow-hidden rounded-full bg-sunken">
+          <div
+            key={at}
+            className="autoplay-bar h-full rounded-full bg-accent"
+            style={{ animationDuration: `${dwell}ms` }}
+          />
+        </div>
+      )}
       <p className="hidden text-xs text-muted lg:block">{t("systems.keys")}</p>
     </section>
   );

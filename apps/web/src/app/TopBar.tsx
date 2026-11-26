@@ -1,4 +1,4 @@
-import { Flame, Info, Zap } from "lucide-react";
+import { Flame, Info, Star, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CREATOR, hasCreator } from "../branding";
@@ -20,7 +20,15 @@ export function TopBar() {
         <span className="rounded-full border border-dashed border-control px-2 py-0.5 text-xs font-medium text-muted">
           {t("topbar.previewBadge")}
         </span>
-        <span className="truncate text-muted">{t("topbar.previewHint")}</span>
+        <a
+          href={CREATOR.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 truncate rounded-full px-2 py-0.5 font-medium text-accent-ink hover:bg-accent-soft"
+        >
+          <Star className="size-4" aria-hidden="true" />
+          {t("topbar.previewHint")}
+        </a>
       </p>
       <Link
         to="/about"

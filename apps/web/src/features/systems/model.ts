@@ -129,6 +129,8 @@ export type LessonStep = {
   table?: Table;
   /** A few lines of Python or pseudo-code shown under the text. */
   code?: readonly string[];
+  /** Case studies: the lesson whose idea this step applies (a lesson id). */
+  uses?: string;
 };
 
 export type Level = "beginner" | "intermediate" | "advanced";
@@ -148,6 +150,13 @@ export type Lesson = {
   /** A hands-on lab shown under the lesson. */
   lab?: ComponentType;
 };
+
+/**
+ * A case study: a real product designed end to end by combining lessons already learned.
+ * "combine" uses 2–4 ideas, "integrate" 5–8, "capstone" draws on most of the course.
+ */
+export type CaseTier = "combine" | "integrate" | "capstone";
+export type CaseStudy = Lesson & { concepts: readonly string[]; tier: CaseTier };
 
 export type Module = {
   id: string;

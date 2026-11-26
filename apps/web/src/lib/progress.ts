@@ -16,6 +16,7 @@ export const STORAGE_KEYS = {
   practice: "algoverse.practice",
   lessonsDone: "algoverse.systems.done",
   motion: "algoverse.motion",
+  autoplay: "algoverse.autoplay",
 } as const;
 
 function read<T>(key: string, fallback: T): T {
@@ -69,6 +70,20 @@ export function recordPractice(score: number, outOf: number): PracticeRecord {
   };
   write(STORAGE_KEYS.practice, next);
   return next;
+}
+
+export type AutoplaySpeed = "slow" | "normal" | "fast";
+export type AutoplayPref = { on: boolean; speed: AutoplaySpeed };
+
+/** Lessons advance on their own unless the learner turns it off (on by default). */
+export function readAutoplay(): AutoplayPref {
+  const p = read<Partial<AutoplayPref>>(STORAGE_KEYS.autoplay, {});
+  const speed = p.speed === "slow" || p.speed === "fast" ? p.speed : "normal";
+  return { on: p.on !== false, speed };
+}
+
+export function writeAutoplay(pref: AutoplayPref): void {
+  write(STORAGE_KEYS.autoplay, pref);
 }
 
 export type MotionPref = "animate" | "still";
