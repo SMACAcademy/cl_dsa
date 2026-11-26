@@ -13,7 +13,7 @@ export const CREATOR = {
   /** What you work on, shown as small tags. */
   focus: ["AI agents & RAG / GraphRAG", "Kubernetes & DevSecOps", "Training & mentoring"],
   /** A short credentials line. */
-  credentials: "25 years in technology · Ex-CTO, Pente AI · Founder, SMAC Academy",
+  credentials: "25 years in technology · Founder, SMAC Academy",
   /** Full LinkedIn profile URL, e.g. "https://www.linkedin.com/in/your-name/". */
   linkedin: "",
   /** Where the source code lives. */
