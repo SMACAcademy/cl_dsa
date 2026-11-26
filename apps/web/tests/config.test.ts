@@ -38,8 +38,10 @@ describe("PWA (ADR-020)", () => {
     }
   });
 
-  it("prompts for updates and precaches the app shell, never /api/", () => {
-    expect(pwaOptions.registerType).toBe("prompt");
+  it("installs updates automatically and precaches the app shell, never /api/", () => {
+    expect(pwaOptions.registerType).toBe("autoUpdate");
+    expect(pwaOptions.workbox?.skipWaiting).toBe(true);
+    expect(pwaOptions.workbox?.clientsClaim).toBe(true);
     expect(pwaOptions.workbox?.navigateFallback).toBe("index.html");
     const deny = pwaOptions.workbox?.navigateFallbackDenylist ?? [];
     expect(deny.some((re) => re.test("/api/v1/me"))).toBe(true);

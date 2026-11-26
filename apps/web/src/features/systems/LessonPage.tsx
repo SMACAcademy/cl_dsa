@@ -109,7 +109,7 @@ export function LessonView({ lesson, where, prev, next, base, concepts = [] }: L
       title: lesson.title,
       kind: "lesson",
     });
-  }, [at, total, lesson.id, lesson.title]);
+  }, [at, total, base, lesson.id, lesson.title]);
 
   // Autoplay: move on after the step's reading time; wait while the tab is hidden.
   useEffect(() => {

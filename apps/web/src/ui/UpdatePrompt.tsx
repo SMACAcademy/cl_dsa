@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useRegisterSW } from "virtual:pwa-register/react";
 
 /**
- * PWA update toast (ADR-020, `registerType: "prompt"`): a new service worker waits until the
- * learner chooses to reload, so an update never interrupts a lesson.
+ * PWA toast (ADR-020). Updates now install automatically (`registerType: "autoUpdate"`), so
+ * this mostly shows "ready to work offline"; the reload button remains for a waiting worker.
  */
 export function UpdatePrompt() {
   const { t } = useTranslation();
