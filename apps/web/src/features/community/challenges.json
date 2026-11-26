@@ -61,5 +61,18 @@
   "exam-proctoring": "Ten thousand flags arrive in an hour but you have 50 reviewers. How do you prioritise what humans look at?",
   "banking-sessions": "The customer gets a new phone. How do they move their session safely without visiting a branch?",
   "mobile-old-versions": "A security bug is found in an app version used by 8% of customers. How quickly can you force an update, and what breaks?",
-  "messaging-app": "Users want to search their chat history, but the server can't read messages. Where does search run, and how?"
+  "messaging-app": "Users want to search their chat history, but the server can't read messages. Where does search run, and how?",
+  "tax-deadline": "The government extends the deadline by a week at 11 pm on the last night. What happens to your load, and what would you change?",
+  "webinar-signup": "The organiser wants a waiting list once seats run out, with automatic promotion when someone cancels. How would you build it?",
+  "job-scheduler": "A job must run at 9 am in each customer's own time zone, for 12,000 customers. How do you schedule and spread that work?",
+  "shopping-list": "Two people rename the same item at the same time while offline. Latest wins loses one name. Can you do better?",
+  "legal-documents": "A court orders one document deleted, but your storage is write-once for closed cases. How do you comply?",
+  "newsletter": "Readers in 40 time zones want the newsletter at 7 am their time. How do you change the send plan?",
+  "search-dependency": "Pricing is fine but the search index itself becomes slow. What can search show then, and how do you decide?",
+  "oncall-alerts": "A new team joins with 200 old alert rules they swear are all important. How do you migrate them to the new approach?",
+  "service-mesh": "One team needs a 2-second timeout but the platform default is 300 ms. How do you allow exceptions without losing consistency?",
+  "data-warehouse": "Finance now wants sales numbers updated every 15 minutes instead of nightly. What parts of the design change?",
+  "admin-roles": "A customer wants a custom role: can edit employees in one department only. How do you model that?",
+  "risky-launch": "The new pricing is better on average but worse for 3% of customers. How do you decide whether to launch, and what do you tell them?",
+  "maps-navigation": "A road closes for a festival with one day's notice. How does that change reach routing, tiles and arrival times?"
 }
