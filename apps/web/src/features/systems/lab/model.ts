@@ -61,9 +61,9 @@ export type LabProblem = {
 export const GRID_COLS = 12;
 export const GRID_ROWS = 8;
 
-const MESSAGING: readonly NodeKind[] = ["queue", "stream"];
+const MESSAGING: readonly NodeKind[] = ["queue", "stream", "files"];
 
-/** Links that touch a queue or stream are naturally "send and move on". */
+/** Links that touch a queue, stream or file drop are naturally "send and move on". */
 export function defaultMode(from: NodeKind, to: NodeKind): LinkMode {
   return MESSAGING.includes(from) || MESSAGING.includes(to) ? "async" : "sync";
 }

@@ -1,5 +1,5 @@
-import type { NodeKind } from "../model";
-import type { Check, DesignLink, DesignNode, LabProblem, PaletteItem } from "./model";
+import { a, check, DB, either, n, named, pal, s, SERVERS } from "./kit";
+import type { LabProblem } from "./model";
 import {
   behind,
   CLIENTS,
@@ -18,60 +18,6 @@ import {
   role,
   type Sel,
 } from "./rules";
-
-/* ---------- small builders ---------- */
-
-const n = (id: string, kind: NodeKind, label: string, col: number, row: number, r?: string) =>
-  ({ id, kind, label, col, row, ...(r ? { role: r } : {}) }) satisfies DesignNode;
-const s = (from: string, to: string): DesignLink => ({ from, to, mode: "sync" });
-const a = (from: string, to: string): DesignLink => ({ from, to, mode: "async" });
-const check = (
-  id: string,
-  label: string,
-  hint: string,
-  points: number,
-  pass: Check["pass"],
-): Check => ({ id, label, hint, points, pass });
-
-const P: Record<string, PaletteItem> = {
-  user: { kind: "user", label: "Users", hint: "People using the system" },
-  phone: { kind: "phone", label: "Mobile app", hint: "The app on people's phones" },
-  browser: { kind: "browser", label: "Web browser", hint: "People on the website" },
-  lb: { kind: "lb", label: "Load balancer", hint: "Spreads requests across servers" },
-  gateway: {
-    kind: "gateway",
-    label: "API gateway",
-    hint: "One front door: checks, routing, limits",
-  },
-  server: { kind: "server", label: "App server", hint: "Runs your code; add several for capacity" },
-  service: { kind: "service", label: "Service", hint: "One part of the system with its own job" },
-  worker: { kind: "worker", label: "Worker", hint: "Does background jobs" },
-  db: { kind: "db", label: "Database", hint: "Keeps records safely" },
-  cache: { kind: "cache", label: "Cache", hint: "Fast copies of popular answers, in memory" },
-  cdn: { kind: "cdn", label: "CDN", hint: "Serves files from servers near the user" },
-  queue: { kind: "queue", label: "Queue", hint: "Holds jobs until a worker takes them" },
-  stream: { kind: "stream", label: "Event stream", hint: "Events that many readers can follow" },
-  storage: { kind: "storage", label: "File storage", hint: "Big files: photos, videos, exports" },
-  search: { kind: "search", label: "Search index", hint: "Finds records by words, fast" },
-  monitor: { kind: "monitor", label: "Monitoring", hint: "Metrics, logs and alerts" },
-  internet: { kind: "internet", label: "Outside service", hint: "A system run by someone else" },
-};
-
-const pal = (...keys: (keyof typeof P)[]): PaletteItem[] => keys.map((k) => P[k] as PaletteItem);
-const named = (kind: NodeKind, r: string, label: string, hint: string): PaletteItem => ({
-  kind,
-  role: r,
-  label,
-  hint,
-  max: 1,
-});
-
-const SERVERS: Sel = kinds("server");
-const DB: Sel = kinds("db");
-const either = (...sels: Sel[]): Sel => ({
-  kinds: sels.flatMap((x) => x.kinds ?? []),
-  roles: sels.flatMap((x) => x.roles ?? []),
-});
 
 /* ---------- problems ---------- */
 

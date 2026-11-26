@@ -156,6 +156,21 @@ export function between(d: Design, mid: Sel, a: Sel, b: Sel): boolean {
   });
 }
 
+/** At least one `target` box has links, and every box linked to a `target` matches `allowed`. */
+export function onlyVia(d: Design, target: Sel, allowed: Sel): boolean {
+  const nodes = byId(d);
+  const touching = d.links.flatMap((l) => {
+    const f = nodes.get(l.from);
+    const t = nodes.get(l.to);
+    if (!f || !t) return [];
+    const out: DesignNode[] = [];
+    if (matches(t, target)) out.push(f);
+    if (matches(f, target)) out.push(t);
+    return out;
+  });
+  return touching.length > 0 && touching.every((n) => matches(n, allowed));
+}
+
 /** No sync link from an `a` box to a `b` box (and at least one of each exists). */
 export function neverWaitsOn(d: Design, a: Sel, b: Sel): boolean {
   return has(d, a) && has(d, b) && !linked(d, a, b, "sync");

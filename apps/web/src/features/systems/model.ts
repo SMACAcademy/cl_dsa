@@ -27,7 +27,12 @@ export type NodeKind =
   | "lock"
   | "monitor"
   | "clock"
-  | "internet";
+  | "internet"
+  | "mainframe"
+  | "files"
+  | "llm"
+  | "vector"
+  | "agent";
 
 export type Hue = "blue" | "violet" | "amber" | "green" | "rose" | "teal" | "slate";
 
@@ -246,4 +251,9 @@ export const KIND_HUE: Record<NodeKind, Hue> = {
   lock: "teal",
   monitor: "violet",
   clock: "slate",
+  mainframe: "slate",
+  files: "green",
+  llm: "violet",
+  vector: "teal",
+  agent: "violet",
 };

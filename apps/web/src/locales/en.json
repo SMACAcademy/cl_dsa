@@ -1853,7 +1853,12 @@
       "registry": "registry",
       "lock": "lock",
       "monitor": "monitoring",
-      "clock": "scheduler"
+      "clock": "scheduler",
+      "mainframe": "mainframe",
+      "files": "file drop",
+      "llm": "AI model",
+      "vector": "vector database",
+      "agent": "AI agent"
     }
   }
 }
