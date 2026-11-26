@@ -7,6 +7,7 @@ import { useScrollToHash } from "../../lib/slug";
 import { useDocumentTitle } from "../../lib/useDocumentTitle";
 import { SECTION_ICON } from "../placeholder/sections";
 import { casesAfter } from "./cases";
+import { LabCard } from "./lab/LabHome";
 import { LESSONS, MODULES } from "./lessons";
 import type { Module } from "./model";
 import { readDone } from "./progress";
@@ -43,6 +44,8 @@ export function SystemsHome() {
       </header>
 
       <WeeklyChallenge />
+
+      <LabCard />
 
       {MODULES.map((m) => (
         <ModuleSection key={m.id} module={m} done={done} />
