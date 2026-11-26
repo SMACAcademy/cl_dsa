@@ -34,6 +34,21 @@ describe("About page and branding", () => {
     else expect(card).toBeNull();
   });
 
+  it("links the creator's name and the About card to LinkedIn", async () => {
+    renderRoute("/about");
+    await screen.findByRole("heading", { level: 1, name: "About AlgoVerse" });
+    if (!CREATOR.linkedin) return;
+    expect(CREATOR.linkedin).toMatch(/^https:\/\/www\.linkedin\.com\/in\/[\w-]+\/?$/);
+    const button = screen.getByRole("link", { name: "Connect on LinkedIn" });
+    expect(button).toHaveAttribute("href", CREATOR.linkedin);
+    expect(button).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    const footer = within(screen.getByRole("contentinfo"));
+    expect(footer.getByRole("link", { name: CREATOR.name })).toHaveAttribute(
+      "href",
+      CREATOR.linkedin,
+    );
+  });
+
   it("presents the creator's work, not a job search", async () => {
     renderRoute("/about");
     await screen.findByRole("heading", { level: 1, name: "About AlgoVerse" });

@@ -15,7 +15,7 @@ export const CREATOR = {
   /** A short credentials line. */
   credentials: "25 years in technology · Founder, SMAC Academy",
   /** Full LinkedIn profile URL, e.g. "https://www.linkedin.com/in/your-name/". */
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/muthu4all/",
   /** Where the source code lives. */
   github: "https://github.com/SMACAcademy/cl_dsa",
 } as const;
