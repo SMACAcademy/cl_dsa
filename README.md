@@ -3,6 +3,7 @@
 [![Live site](https://img.shields.io/badge/live-smacacademy.github.io%2Fcl__dsa-2563eb)](https://smacacademy.github.io/cl_dsa/)
 [![GitHub stars](https://img.shields.io/github/stars/SMACAcademy/cl_dsa?style=social)](https://github.com/SMACAcademy/cl_dsa/stargazers)
 [![Discussions](https://img.shields.io/github/discussions/SMACAcademy/cl_dsa)](https://github.com/SMACAcademy/cl_dsa/discussions)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Checks](https://github.com/SMACAcademy/cl_dsa/actions/workflows/ci.yml/badge.svg)](https://github.com/SMACAcademy/cl_dsa/actions/workflows/ci.yml)
 
 An interactive lab for data structures, algorithms and system design. Every idea is a picture you can step through, poke at and predict, right in your browser. No sign-up, no tracking: progress stays in your own browser.
@@ -63,3 +64,7 @@ pnpm --filter @algoverse/web test    # 800+ tests (Vitest, Testing Library, axe)
 | [ROADMAP](docs/ROADMAP.md) | Implementation phases, detailed MVP plan, risks |
 | [PROGRESS](docs/PROGRESS.md) | Completed and pending work |
 | [DECISIONS](docs/DECISIONS.md) | Architecture decision records |
+
+## License
+
+[MIT](LICENSE). Use it, adapt it for your class or team, and share what you build. A link back is appreciated.
