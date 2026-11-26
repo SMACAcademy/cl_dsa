@@ -32,7 +32,7 @@ decision at a time on the same animated diagram. Over time this grows to several
 | 08 Shipping        | + testing, CI/CD                                                                                        | 20           |
 | 09 Whole systems   | capstones drawing on everything                                                                         | 30           |
 
-## Built (76 studies)
+## Built (89 studies)
 
 - Batch 1: results day 1 and 2 · recipe blog · library catalogue · train booking · ride locations ·
   food delivery · video lectures · payments · marketplace checkout · school single sign-on ·
@@ -56,6 +56,10 @@ decision at a time on the same animated diagram. Over time this grows to several
   documents · newsletter · search with a slow dependency · on-call alerting · fifty services
   (service mesh) · nightly data warehouse · admin roles · risky launch with flags · capstone: maps
   and navigation.
+- Batch 7: photo contest · restaurant reviews · hotel rooms across dates · pharmacies near me ·
+  ride-sharing trip · mobile home-screen gateway · streaming during an outage · third-party tax
+  service · search indexing · notification preferences · safe file uploads · disaster-recovery
+  drill · capstone: a photo-sharing social network.
 
 ## Planned catalogue (next batches)
 

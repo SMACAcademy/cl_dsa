@@ -74,5 +74,18 @@
   "data-warehouse": "Finance now wants sales numbers updated every 15 minutes instead of nightly. What parts of the design change?",
   "admin-roles": "A customer wants a custom role: can edit employees in one department only. How do you model that?",
   "risky-launch": "The new pricing is better on average but worse for 3% of customers. How do you decide whether to launch, and what do you tell them?",
-  "maps-navigation": "A road closes for a festival with one day's notice. How does that change reach routing, tiles and arrival times?"
+  "maps-navigation": "A road closes for a festival with one day's notice. How does that change reach routing, tiles and arrival times?",
+  "photo-contest": "Entrants want to see their photo's live vote count during voting day. What does that add to your numbers?",
+  "restaurant-reviews": "The site adds \"sort reviews by most helpful\", with votes on each review. How do you keep cached pages fresh without rebuilding constantly?",
+  "hotel-rooms": "A hotel also sells rooms through two other websites. How do you avoid selling the last room three times?",
+  "nearby-search": "Users want results along their driving route, not around one point. How does the cell approach change?",
+  "ride-trip": "The rider cancels at the same moment the driver taps \"Arrived\". Which wins, and how does the state machine decide?",
+  "mobile-gateway": "The web app and a smartwatch app want their own home screens too. One gateway for all, or one per app? Why?",
+  "streaming-outage": "The stadium's own internet link fails instead of a cloud region. What can still keep viewers watching?",
+  "tax-service": "The provider changes its prices to charge per cart line instead of per call. How would you redesign caching and batching?",
+  "search-indexing": "Recruiters want saved searches that alert them when a matching job appears. Where do you run those matches?",
+  "notification-prefs": "A customer says they got a marketing SMS an hour after opting out. How do you find out which sender ignored the change, and why?",
+  "upload-scanning": "A customer must share a 5 GB database dump to reproduce a bug. Your scanners time out on files that big. What do you do?",
+  "dr-drill": "The drill showed scaling servers took 14 minutes. Give three ways to get the recovery time under 10 minutes, and what each costs.",
+  "social-network": "The network adds short videos to the feed. Which parts of the design change most, and which stay the same?"
 }
