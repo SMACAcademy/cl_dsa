@@ -1,10 +1,14 @@
 import "@testing-library/jest-dom/vitest";
-import { cleanup } from "@testing-library/react";
+import { cleanup, configure } from "@testing-library/react";
 import * as axeMatchers from "vitest-axe/matchers";
 import { afterEach, expect } from "vitest";
 import i18n from "../src/lib/i18n";
 
 expect.extend(axeMatchers);
+
+// Pages load lazily. Under a full parallel run a lazy page can take just over the
+// default 1 s to appear, so findBy* waits up to 5 s (passing tests are no slower).
+configure({ asyncUtilTimeout: 5000 });
 
 const hasDom = typeof window !== "undefined";
 
