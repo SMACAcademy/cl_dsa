@@ -61,7 +61,14 @@ export const P: Record<string, PaletteItem> = {
     hint: "Finds passages by meaning, not exact words",
   },
   agent: { kind: "agent", label: "AI agent", hint: "Uses a model to decide which tools to call" },
+  dns: { kind: "dns", label: "DNS", hint: "Turns a name into an address" },
+  registry: { kind: "registry", label: "Service registry", hint: "Where services find each other" },
+  lock: { kind: "lock", label: "Lock service", hint: "Lets only one worker do a job at a time" },
+  clock: { kind: "clock", label: "Scheduler", hint: "Starts jobs at set times" },
 };
+
+/** Every kind of box, for problems the learner writes themselves. */
+export const ALL_PALETTE: readonly PaletteItem[] = Object.values(P);
 
 export const pal = (...keys: (keyof typeof P)[]): PaletteItem[] =>
   keys.map((k) => P[k] as PaletteItem);

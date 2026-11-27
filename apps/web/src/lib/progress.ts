@@ -18,6 +18,7 @@ export const STORAGE_KEYS = {
   motion: "algoverse.motion",
   autoplay: "algoverse.autoplay",
   lab: "algoverse.lab.v1",
+  labOwn: "algoverse.labown.v1",
 } as const;
 
 function read<T>(key: string, fallback: T): T {
@@ -118,6 +119,7 @@ export function resetProgress(): void {
     STORAGE_KEYS.practice,
     STORAGE_KEYS.lessonsDone,
     STORAGE_KEYS.lab,
+    STORAGE_KEYS.labOwn,
   ]) {
     try {
       window.localStorage.removeItem(key);

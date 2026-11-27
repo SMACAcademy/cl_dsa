@@ -1,10 +1,12 @@
-import { ArrowLeft, Check, PencilRuler } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Check, FilePlus2, PencilRuler } from "lucide-react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDocumentTitle } from "../../../lib/useDocumentTitle";
 import { PASS_SCORE } from "./grade";
 import { LAB_PROBLEMS } from "./problems";
+import { button, primary } from "./DesignEditor";
+import { createOwn, listOwn } from "./ownStorage";
 import { readBest } from "./storage";
 
 /** The Design Lab: every problem, with the best score from this browser. */
@@ -63,7 +65,96 @@ export function LabHome() {
           );
         })}
       </ul>
+
+      <OwnProblems />
     </div>
+  );
+}
+
+/** Start a problem of your own, blank or from a lab problem's brief, and reopen earlier ones. */
+function OwnProblems() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const id = useId();
+  const [mine] = useState(listOwn);
+  const [from, setFrom] = useState(LAB_PROBLEMS[0]?.id ?? "");
+
+  const open = (start?: (typeof LAB_PROBLEMS)[number]) => {
+    const p = createOwn(
+      start
+        ? {
+            title: start.title,
+            brief: start.brief.join("\n\n"),
+            requirements: start.requirements.join("\n"),
+          }
+        : {},
+    );
+    navigate(`/systems/lab/own/${p.id}`);
+  };
+
+  return (
+    <section
+      aria-labelledby={`${id}-own`}
+      className="space-y-4 rounded-panel border border-accent/40 bg-accent-soft/30 p-4"
+    >
+      <div className="space-y-1">
+        <h2 id={`${id}-own`} className="text-lg font-semibold">
+          {t("lab.own.title")}
+        </h2>
+        <p className="max-w-prose text-sm text-muted">{t("lab.own.intro")}</p>
+      </div>
+      <div className="flex flex-wrap items-end gap-3">
+        <button type="button" className={primary} onClick={() => open()}>
+          <FilePlus2 className="size-4" aria-hidden="true" />
+          {t("lab.own.blank")}
+        </button>
+        <div className="space-y-1">
+          <label htmlFor={`${id}-from`} className="block text-sm font-medium">
+            {t("lab.own.startFrom")}
+          </label>
+          <div className="flex flex-wrap gap-2">
+            <select
+              id={`${id}-from`}
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+              className="rounded-control border border-line bg-raised px-2 py-1.5 text-sm"
+            >
+              {LAB_PROBLEMS.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.title}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              className={button}
+              onClick={() => open(LAB_PROBLEMS.find((p) => p.id === from))}
+            >
+              {t("lab.own.startFromButton")}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold">{t("lab.own.yours")}</h3>
+        {mine.length === 0 ? (
+          <p className="text-sm text-muted">{t("lab.own.none")}</p>
+        ) : (
+          <ul className="grid gap-2 md:grid-cols-2">
+            {mine.map((p) => (
+              <li key={p.id}>
+                <Link
+                  to={`/systems/lab/own/${p.id}`}
+                  className="block rounded-control border border-line bg-raised px-3 py-2 text-sm font-medium hover:border-accent"
+                >
+                  {p.title.trim() || t("lab.own.untitled")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
   );
 }
 
