@@ -38,12 +38,12 @@ Requires Node 22+ and pnpm 10.
 ```bash
 pnpm install
 pnpm --filter @algoverse/web dev     # http://localhost:5173
-pnpm --filter @algoverse/web test    # 800+ tests (Vitest, Testing Library, axe)
+pnpm --filter @algoverse/web test    # 1,000+ tests (Vitest, Testing Library, axe)
 ```
 
 ## Publishing
 
-`.github/workflows/pages.yml` tests, builds and deploys `apps/web` to GitHub Pages on every push to `main`. One-time setup: make the repository public, then **Settings → Pages → Source: GitHub Actions**. The creator card on the About page reads from `apps/web/src/branding.ts`.
+The site is fully static: no server, no database, no accounts; progress stays in the browser. `.github/workflows/pages.yml` tests, builds and deploys `apps/web` to GitHub Pages on every push to `main`, writing a real page for every lesson, case study, lab problem and catalog item (so deep links return HTTP 200 and appear in search) plus a `sitemap.xml`. One-time setup: make the repository public, then **Settings → Pages → Source: GitHub Actions**. The creator card on the About page reads from `apps/web/src/branding.ts`.
 
 ## Documentation
 
@@ -58,7 +58,7 @@ pnpm --filter @algoverse/web test    # 800+ tests (Vitest, Testing Library, axe)
 | [VISUALIZATION_ENGINE](docs/VISUALIZATION_ENGINE.md) | Trace-driven animation & execution design |
 | [EXECUTION_ENGINE](docs/EXECUTION_ENGINE.md) | Python sandbox, tracer & debugger |
 | [ARCHITECTURE](docs/ARCHITECTURE.md) | Technical architecture, stack, security, deployment, folder structure |
-| [DATA_MODEL_AND_API](docs/DATA_MODEL_AND_API.md) | Database schema & REST API |
+| [DATA_MODEL_AND_API](docs/DATA_MODEL_AND_API.md) | Database schema & REST API from the original plan (the public site needs neither) |
 | [UI_UX](docs/UI_UX.md) | Design language & screen specifications |
 | [GAMIFICATION](docs/GAMIFICATION.md) | Assessment, mastery, adaptive learning & gamification |
 | [TESTING](docs/TESTING.md) | QA strategy |

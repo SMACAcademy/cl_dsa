@@ -16,11 +16,11 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           sparse-checkout: apps/web/src/features/community/challenges.json
           sparse-checkout-cone-mode: false
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           script: |
             const fs = require("fs");

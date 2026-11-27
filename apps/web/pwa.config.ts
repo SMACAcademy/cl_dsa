@@ -5,8 +5,8 @@ import en from "./src/locales/en.json" with { type: "json" };
 const DARK_SURFACE = "#0f1420";
 
 /**
- * Installable PWA (ADR-020). Workbox precaches the app shell only; `/api/` is never served from
- * the cache. Precached responses are stored with the headers the server sent at install time, so
+ * Installable PWA (ADR-020). Workbox precaches the app shell only: the per-page HTML copies the
+ * build writes for GitHub Pages are left out, since every page runs from the same shell. Precached responses are stored with the headers the server sent at install time, so
  * COOP/COEP (cross-origin isolation for Pyodide) survive when the service worker answers.
  */
 export const pwaOptions: Partial<VitePWAOptions> = {
@@ -38,9 +38,8 @@ export const pwaOptions: Partial<VitePWAOptions> = {
     ],
   },
   workbox: {
-    globPatterns: ["**/*.{js,css,html,svg,png,ico,webmanifest}"],
+    globPatterns: ["**/*.{js,css,svg,png,ico,webmanifest}", "index.html"],
     navigateFallback: "index.html", // relative to the service worker, so it follows `base`
-    navigateFallbackDenylist: [/^\/api\//],
     cleanupOutdatedCaches: true,
     clientsClaim: true,
     skipWaiting: true,
