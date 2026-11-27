@@ -19,6 +19,7 @@ export function staticPages(): StaticPage[] {
     { path: "/", title: titled(en.landing.title) },
     ...NAV_ITEMS.map((item) => ({ path: item.path, title: titled(en.nav[item.id]) })),
     { path: "/about", title: titled(en.about.title) },
+    { path: "/disclaimer", title: titled(en.disclaimer.title) },
     { path: "/settings", title: titled(en.nav.settings) },
     { path: "/systems/lab", title: titled(en.lab.title) },
     ...[...STRUCTURES, ...ALGORITHMS].map((i) => ({ path: itemPath(i), title: titled(i.name) })),

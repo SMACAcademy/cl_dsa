@@ -38,6 +38,10 @@ export function SiteFooter() {
         <a href={COMMUNITY.contributing} {...external} className={quiet}>
           {t("footer.contribute")}
         </a>
+        <span aria-hidden="true">·</span>
+        <Link to="/disclaimer" className={quiet}>
+          {t("footer.disclaimer")}
+        </Link>
       </div>
     </footer>
   );

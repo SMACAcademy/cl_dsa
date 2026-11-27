@@ -127,6 +127,12 @@ export const appRoutes: RouteObject[] = [
               ...sectionRoutes,
               { path: SETTINGS_PATH.slice(1), element: <SettingsPlaceholder /> },
               {
+                path: "disclaimer",
+                lazy: async () => ({
+                  Component: (await import("../features/about/DisclaimerPage")).DisclaimerPage,
+                }),
+              },
+              {
                 path: "about",
                 lazy: async () => ({
                   Component: (await import("../features/about/AboutPage")).AboutPage,
@@ -148,6 +154,7 @@ export const ROUTE_PATHS: readonly string[] = [
   ...NAV_ITEMS.map((item) => item.path),
   SETTINGS_PATH,
   "/about",
+  "/disclaimer",
   "/learn/first-algorithms.binary-search",
   "/algorithms/binary-search",
   "/algorithms/linear-search",

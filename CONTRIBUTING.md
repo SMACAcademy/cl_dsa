@@ -6,13 +6,28 @@ argues about a design.
 
 ## Ways to join in
 
-| You have… | Do this |
-| --- | --- |
-| 10 minutes | Answer this week's [design challenge](https://github.com/SMACAcademy/cl_dsa/discussions/categories/q-a), or upvote the answers that teach you something. |
-| Spotted a mistake | Use **Suggest an improvement** at the end of any lesson, or [open an issue](https://github.com/SMACAcademy/cl_dsa/issues/new/choose). |
-| An hour | Pick a [good first issue](https://github.com/SMACAcademy/cl_dsa/issues?q=is%3Aopen+label%3A%22good+first+issue%22) and open a pull request. |
-| An evening | [Add a case study](#add-a-case-study): a real product, designed one decision at a time. |
-| An idea | Start a thread in [Ideas](https://github.com/SMACAcademy/cl_dsa/discussions/categories/ideas). |
+| You have…         | Do this                                                                                                                                                                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 10 minutes        | Answer this week's [design challenge](https://github.com/SMACAcademy/cl_dsa/discussions/categories/q-a), or upvote the answers that teach you something.                                                                                  |
+| Spotted a mistake | [Report it with evidence](https://github.com/SMACAcademy/cl_dsa/issues/new?template=content-fix.yml), use **Suggest an improvement** at the end of any lesson, or fix it in a pull request (see [Correct a mistake](#correct-a-mistake)). |
+| An hour           | Pick a [good first issue](https://github.com/SMACAcademy/cl_dsa/issues?q=is%3Aopen+label%3A%22good+first+issue%22) and open a pull request.                                                                                               |
+| An evening        | [Add a case study](#add-a-case-study): a real product, designed one decision at a time.                                                                                                                                                   |
+| An idea           | Start a thread in [Ideas](https://github.com/SMACAcademy/cl_dsa/discussions/categories/ideas).                                                                                                                                            |
+
+## Correct a mistake
+
+AlgoVerse is provided as is, and much of it was written with the help of AI tools (see the
+[Disclaimer](https://smacacademy.github.io/cl_dsa/disclaimer)), so corrections are always welcome.
+To get one merged quickly:
+
+1. **Say where.** The page address, and the step number if it is one step.
+2. **Say what is wrong** and what it should say instead.
+3. **Show the evidence.** Official documentation, a standard, a textbook or paper (with the
+   section), or a worked example or calculation. Links are best.
+4. **Report it** with the [content-fix form](https://github.com/SMACAcademy/cl_dsa/issues/new?template=content-fix.yml),
+   or **fix it yourself** in a pull request with the same evidence in its description.
+
+A maintainer checks the evidence, and accepted fixes go live as soon as they are merged.
 
 ## Set up
 

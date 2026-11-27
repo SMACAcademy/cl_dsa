@@ -42,5 +42,6 @@ export const COMMUNITY = {
   discussions: `${repo}/discussions`,
   challenges: `${repo}/discussions/categories/q-a`,
   contributing: `${repo}/blob/main/CONTRIBUTING.md`,
+  contentFix: `${repo}/issues/new?template=content-fix.yml`,
   goodFirstIssues: `${repo}/issues?q=is%3Aopen+label%3A%22good+first+issue%22`,
 } as const;

@@ -1749,7 +1749,8 @@
     "madeBy": "Made by",
     "source": "Open source",
     "discussions": "Discussions",
-    "contribute": "Contribute"
+    "contribute": "Contribute",
+    "disclaimer": "Disclaimer"
   },
   "community": {
     "yourTurn": "Your turn: an open design question",
@@ -2068,5 +2069,45 @@
     "footer": {
       "privacy": "No accounts, no tracking"
     }
+  },
+  "disclaimer": {
+    "title": "Disclaimer",
+    "lead": "AlgoVerse is a free learning resource, shared in good faith. Please read this before relying on anything you find here.",
+    "learning": {
+      "title": "For learning only",
+      "body": "Everything on this site (lessons, case studies, animations, numbers, quizzes, code and Design Lab marks) is for education. It is not professional, legal, financial, security or engineering advice for any particular system. Check important decisions against official documentation and qualified people."
+    },
+    "mistakes": {
+      "title": "Mistakes can happen",
+      "body": "Much of this content was written with the help of AI tools. It is checked with care, but errors, simplifications and out-of-date details can still slip through. Numbers in examples are illustrative unless a source is given."
+    },
+    "asIs": {
+      "title": "Provided as is",
+      "body": "AlgoVerse is provided “as is”, without warranty of any kind. To the fullest extent the law allows, the author and contributors are not responsible for any loss or damage arising from using, or relying on, the site or its content. You use it at your own risk."
+    },
+    "examples": {
+      "title": "Examples are invented",
+      "body": "The organisations, people and scenarios in lessons and case studies are made up to illustrate ideas; any resemblance to real ones is coincidental. Where a product or standard is named, the name belongs to its owner and is used only to describe it; AlgoVerse is not affiliated with or endorsed by any of them."
+    },
+    "data": {
+      "title": "Your data",
+      "body": "There are no accounts and no tracking: your progress stays in this browser. Python in the playground runs on your device. If you copy a Design Lab prompt into an AI assistant, that service's own terms apply to what you share with it."
+    },
+    "fix": {
+      "title": "Found a mistake? Help us fix it",
+      "body": "Corrections are welcome, and every page can be improved. There are two ways:",
+      "issue": "Report it",
+      "issueBody": "with the page address, what is wrong, and your evidence.",
+      "pr": "Or fix it yourself in a pull request,",
+      "prBody": "with the same evidence in its description.",
+      "review": "A maintainer checks the evidence. Accepted fixes are merged and the live site updates on its own.",
+      "evidence": "Good evidence is official documentation, a standard, a textbook or paper (with the section), or a worked example or calculation that shows the correct result."
+    },
+    "code": {
+      "title": "The code",
+      "body": "The source code is open under the MIT License, which has its own no-warranty terms.",
+      "license": "Read the licence"
+    },
+    "updated": "Last updated 27 November 2026."
   }
 }
