@@ -5,7 +5,8 @@ export type Band = "excellent" | "solid" | "close" | "start";
 export type Grade = {
   score: number;
   band: Band;
-  results: readonly { check: Check; passed: boolean }[];
+  /** `applies` is false for checks that don't fit this design; they don't count. */
+  results: readonly { check: Check; passed: boolean; applies: boolean }[];
 };
 
 /** The score a learner needs for the problem to count as done. */
@@ -18,18 +19,24 @@ export function bandOf(score: number): Band {
   return "start";
 }
 
+/** A check that throws counts as false. */
+function safely(test: () => boolean): boolean {
+  try {
+    return test();
+  } catch {
+    return false;
+  }
+}
+
 export function grade(problem: Pick<LabProblem, "checks">, design: Design): Grade {
   const results = problem.checks.map((check) => {
-    let passed: boolean;
-    try {
-      passed = check.pass(design);
-    } catch {
-      passed = false;
-    }
-    return { check, passed };
+    const applies = safely(() => check.applies?.(design) ?? true);
+    const passed = applies && safely(() => check.pass(design));
+    return { check, passed, applies };
   });
-  const total = results.reduce((s, r) => s + r.check.points, 0);
-  const won = results.reduce((s, r) => s + (r.passed ? r.check.points : 0), 0);
+  const counted = results.filter((r) => r.applies);
+  const total = counted.reduce((s, r) => s + r.check.points, 0);
+  const won = counted.reduce((s, r) => s + (r.passed ? r.check.points : 0), 0);
   const score = total === 0 ? 0 : Math.round((100 * won) / total);
   return { score, band: bandOf(score), results };
 }

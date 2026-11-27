@@ -37,6 +37,8 @@ export type Check = {
   hint: string;
   points: number;
   pass: (d: Design) => boolean;
+  /** When the check is relevant to this design (always, when absent). */
+  applies?: (d: Design) => boolean;
 };
 
 export type LabProblem = {

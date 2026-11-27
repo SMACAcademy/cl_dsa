@@ -61,6 +61,12 @@ const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.id !== "das
           }),
         },
         {
+          path: "systems/lab/own/:ownId",
+          lazy: async () => ({
+            Component: (await import("../features/systems/lab/OwnProblemPage")).OwnProblemPage,
+          }),
+        },
+        {
           path: "systems/lab/:problemId",
           lazy: async () => ({
             Component: (await import("../features/systems/lab/DesignLabPage")).DesignLabPage,
