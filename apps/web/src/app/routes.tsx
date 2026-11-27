@@ -43,7 +43,7 @@ const PAGES: Partial<Record<SectionId, LazyPage>> = {
   }),
 };
 
-const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/").flatMap(
+const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.id !== "dashboard").flatMap(
   (item): RouteObject[] => {
     if (item.id === "systems") {
       // The 40 lessons are loaded on first visit, keeping them out of the main bundle.
@@ -94,31 +94,42 @@ const sectionRoutes: RouteObject[] = NAV_ITEMS.filter((item) => item.path !== "/
 export const appRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <AppShell />,
     errorElement: <ErrorFallback />,
     // Shown for a moment when the first page is a lazily loaded one.
     hydrateFallbackElement: <div aria-busy="true" className="min-h-dvh bg-surface" />,
     children: [
       {
-        // Pathless layout route: a screen that throws renders the fallback inside the shell.
-        errorElement: <RouteErrorFallback />,
+        // The landing page: full screen, outside the app shell. three.js loads only here.
+        index: true,
+        lazy: async () => ({
+          Component: (await import("../features/landing/Landing")).Landing,
+        }),
+      },
+      {
+        element: <AppShell />,
         children: [
           {
-            index: true,
-            lazy: async () => ({
-              Component: (await import("../features/home/HomePage")).HomePage,
-            }),
+            // Pathless layout route: a screen that throws renders the fallback inside the shell.
+            errorElement: <RouteErrorFallback />,
+            children: [
+              {
+                path: "home",
+                lazy: async () => ({
+                  Component: (await import("../features/home/HomePage")).HomePage,
+                }),
+              },
+              ...sectionRoutes,
+              { path: SETTINGS_PATH.slice(1), element: <SettingsPlaceholder /> },
+              {
+                path: "about",
+                lazy: async () => ({
+                  Component: (await import("../features/about/AboutPage")).AboutPage,
+                }),
+              },
+              { path: "learn/:conceptId", element: <LessonPlaceholder /> },
+              { path: "*", element: <NotFound /> },
+            ],
           },
-          ...sectionRoutes,
-          { path: SETTINGS_PATH.slice(1), element: <SettingsPlaceholder /> },
-          {
-            path: "about",
-            lazy: async () => ({
-              Component: (await import("../features/about/AboutPage")).AboutPage,
-            }),
-          },
-          { path: "learn/:conceptId", element: <LessonPlaceholder /> },
-          { path: "*", element: <NotFound /> },
         ],
       },
     ],
@@ -127,6 +138,7 @@ export const appRoutes: RouteObject[] = [
 
 /** Every concrete route (with a sample concept id), used by the a11y suite. */
 export const ROUTE_PATHS: readonly string[] = [
+  "/",
   ...NAV_ITEMS.map((item) => item.path),
   SETTINGS_PATH,
   "/about",
@@ -187,6 +199,8 @@ export const ROUTE_PATHS: readonly string[] = [
   "/systems/load-balancing?step=4",
   "/systems/lab",
   "/systems/lab/link-shortener",
+  "/systems/rag",
+  "/systems/lab/booking-agent",
   "/systems/no-such-lesson",
   "/algorithms/no-such-item",
 ];

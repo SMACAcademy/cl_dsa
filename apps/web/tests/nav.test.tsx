@@ -4,39 +4,70 @@ import type { RouteObject } from "react-router";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "../src/app/App";
 import { ErrorBoundary } from "../src/app/ErrorBoundary";
-import { NAV_ITEMS } from "../src/app/nav";
+import { currentMenuPath, MENU_GROUPS, NAV_ITEMS } from "../src/app/nav";
 import { appRoutes } from "../src/app/routes";
 import i18n from "../src/lib/i18n";
 import { renderRoute } from "./render";
 
-const SPEC_ORDER = [
-  "/",
+const SECTION_ORDER = [
+  "/home",
   "/universe",
   "/curriculum",
-  "/algorithms",
   "/structures",
+  "/algorithms",
   "/systems",
-  "/playground",
   "/problems",
+  "/playground",
   "/projects",
   "/progress",
   "/library",
 ];
 
+/** The rail: the sections in order, with the Design Lab after the System Design Lab. */
+const RAIL_ORDER = [...SECTION_ORDER.slice(0, 6), "/systems/lab", ...SECTION_ORDER.slice(6)];
+
 const navLinks = () =>
   within(screen.getByRole("navigation", { name: "Main" })).getAllByRole("link");
 
 describe("navigation", () => {
-  it("renders 11 nav links in spec order", async () => {
+  it("renders 12 rail links in four labelled groups", async () => {
+    window.history.pushState({}, "", "/home");
     render(<App />);
     // The home page loads lazily; the shell appears once it has.
-    await screen.findByRole("navigation", { name: "Main" });
-    expect(navLinks().map((l) => l.getAttribute("href"))).toEqual(SPEC_ORDER);
+    const nav = await screen.findByRole("navigation", { name: "Main" });
+    expect(navLinks().map((l) => l.getAttribute("href"))).toEqual(RAIL_ORDER);
+    expect(
+      within(nav)
+        .getAllByRole("heading", { level: 2 })
+        .map((h) => h.textContent),
+    ).toEqual(["Start", "Labs", "Practise", "You"]);
+    expect(
+      within(within(nav).getByRole("list", { name: "Labs" })).getAllByRole("link"),
+    ).toHaveLength(4);
+    window.history.pushState({}, "", "/");
   });
 
-  it("NAV_ITEMS lists the 11 sections in spec order with translated labels", () => {
-    expect(NAV_ITEMS.map((item) => item.path)).toEqual(SPEC_ORDER);
+  it("NAV_ITEMS lists the 11 sections in menu order with translated labels", () => {
+    expect(NAV_ITEMS.map((item) => item.path)).toEqual(SECTION_ORDER);
     for (const item of NAV_ITEMS) expect(i18n.exists(item.labelKey)).toBe(true);
+    for (const group of MENU_GROUPS) {
+      expect(i18n.exists(group.labelKey)).toBe(true);
+      for (const l of group.links) expect(i18n.exists(l.labelKey), l.key).toBe(true);
+    }
+  });
+
+  it("only the most specific rail link is current", () => {
+    expect(currentMenuPath("/systems/lab/chat")).toBe("/systems/lab");
+    expect(currentMenuPath("/systems/rag")).toBe("/systems");
+    expect(currentMenuPath("/home")).toBe("/home");
+    expect(currentMenuPath("/")).toBeUndefined();
+  });
+
+  it("on a Design Lab page the Design Lab link is current, not the System Design Lab", async () => {
+    renderRoute("/systems/lab");
+    await screen.findByRole("heading", { level: 1, name: "Design Lab" });
+    const current = navLinks().filter((l) => l.getAttribute("aria-current") === "page");
+    expect(current.map((l) => l.getAttribute("href"))).toEqual(["/systems/lab"]);
   });
 
   it("nav link marks the active route with aria-current=page", async () => {
@@ -48,7 +79,7 @@ describe("navigation", () => {
 
   it("clicking a rail link routes to that section and moves aria-current", async () => {
     const user = userEvent.setup();
-    renderRoute("/");
+    renderRoute("/home");
     await user.click(await screen.findByRole("link", { name: "Algorithm Lab" }));
     expect(await screen.findByRole("heading", { level: 1, name: "Algorithm Lab" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Algorithm Lab" })).toHaveAttribute(
@@ -71,7 +102,7 @@ describe("navigation", () => {
 
   it("settings is reachable from the account menu", async () => {
     const user = userEvent.setup();
-    const { router } = renderRoute("/");
+    const { router } = renderRoute("/home");
     await user.click(await screen.findByRole("button", { name: "Account menu" }));
     await user.click(await screen.findByRole("menuitem", { name: "Settings" }));
     expect(router.state.location.pathname).toBe("/settings");
@@ -100,7 +131,7 @@ describe("placeholder screens", () => {
     expect(await screen.findByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Back to the dashboard" })).toHaveAttribute(
       "href",
-      "/",
+      "/home",
     );
   });
 

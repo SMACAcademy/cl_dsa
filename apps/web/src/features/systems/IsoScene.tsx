@@ -1,13 +1,18 @@
 import {
   Activity,
   Archive,
+  Axis3d,
+  Bot,
+  Brain,
   Box,
   Clock,
   Cloud,
   Cog,
   Database,
   DoorOpen,
+  FolderInput,
   Globe,
+  Landmark,
   ListOrdered,
   Lock,
   Monitor,
@@ -65,6 +70,11 @@ export const ICON: Record<NodeKind, LucideIcon> = {
   lock: Lock,
   monitor: Activity,
   clock: Clock,
+  mainframe: Landmark,
+  files: FolderInput,
+  llm: Brain,
+  vector: Axis3d,
+  agent: Bot,
 };
 
 export type Bounds = { x: number; y: number; w: number; h: number };

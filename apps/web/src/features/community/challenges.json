@@ -100,5 +100,13 @@
   "ad-clicks": "An advertiser disputes their invoice, saying a competitor clicked their ads all month. What data do you keep to settle it?",
   "secrets-vault": "The secrets store itself goes down for 20 minutes. Which services keep working, and how would you design for that?",
   "load-test": "You can't afford a full-size copy of production for testing. How would you load-test safely against production itself?",
-  "ticketing-platform": "The artist wants resale capped at face value, with resold tickets re-issued to the new fan. How does that change the design?"
+  "ticketing-platform": "The artist wants resale capped at face value, with resold tickets re-issued to the new fan. How does that change the design?",
+  "mobile-banking-core": "The bank wants to show a live balance that updates the moment a card payment happens, without raising the core budget. What would you change?",
+  "claims-files": "A regulator asks you to prove that no claim was paid twice last year. Which records from this design would you use, and what is missing?",
+  "orders-strangler": "Checkout is the last slice and the riskiest: it touches payments, stock and invoices. How would you move it, and what would you shadow-test?",
+  "wiki-assistant": "Some pages are readable by everyone except one named person (for example, their own performance review). How would your permission filter handle that?",
+  "help-centre-assistant": "The company launches in two new languages, with articles translated a week after the English ones. How should the assistant answer in that week?",
+  "invoice-intake": "Finance wants invoices from new suppliers checked by a person for their first month, whatever the model's confidence. Where does that rule live?",
+  "rebooking-agent": "Passengers ask the agent for compensation as well as a new flight. Which new tools would you add, and which would need a person's approval?",
+  "ai-claims-desk": "Handlers start approving drafts without reading them, because they are usually right. How would you notice, and what would you change?"
 }

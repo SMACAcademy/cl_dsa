@@ -12,7 +12,7 @@ import { renderRoute } from "./render";
 
 describe("home page", () => {
   it("welcomes a new visitor with two ways to start", async () => {
-    renderRoute("/");
+    renderRoute("/home");
     expect(
       await screen.findByRole("heading", { level: 1, name: "Watch algorithms and systems move" }),
     ).toBeVisible();
@@ -28,7 +28,7 @@ describe("home page", () => {
 
   it("offers to continue where the learner left off", async () => {
     recordVisit({ path: "/systems/caching?step=4", title: "Caching", kind: "lesson" });
-    renderRoute("/");
+    renderRoute("/home");
     await screen.findByRole("heading", { level: 1 });
     expect(screen.getByRole("link", { name: /^Continue/ })).toHaveAttribute(
       "href",

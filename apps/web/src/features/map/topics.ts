@@ -114,9 +114,12 @@ export const STAGES: readonly { key: string; topics: readonly Topic[] }[] = [
   { key: "stage3", topics: (PYRAMID[3] ?? []).filter((t) => t.id.startsWith("group-")) },
   {
     key: "stage4",
-    topics: [...(PYRAMID[3] ?? []), ...(PYRAMID[4] ?? [])].filter((t) =>
-      t.id.startsWith("module-"),
-    ),
+    topics: [
+      ...[...(PYRAMID[3] ?? []), ...(PYRAMID[4] ?? [])].filter((t) => t.id.startsWith("module-")),
+      // Newer modules that sit beyond the pyramid's fixed shape.
+      moduleTopic("legacy"),
+      moduleTopic("ai"),
+    ],
   },
 ];
 

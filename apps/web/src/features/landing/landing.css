@@ -1,0 +1,107 @@
+/* The landing page's own palette: dark first, whatever the app theme, because the page sits on
+   a night-sky world. Text pairs meet WCAG AA on the glass panels. */
+.landing {
+  --lw-bg: #070b17;
+  --lw-surface: #0e1528;
+  --lw-text: #e2e8f0;
+  --lw-muted: #a3b0c4;
+  --lw-line: rgba(148, 163, 184, 0.16);
+  --lw-accent: #818cf8;
+  --lw-structures: #a78bfa;
+  --lw-algorithms: #38bdf8;
+  --lw-systems: #34d399;
+  --lw-ai: #fbbf24;
+
+  min-height: 100dvh;
+  background-color: var(--lw-bg);
+  color: var(--lw-text);
+  color-scheme: dark;
+}
+
+.lw-backdrop {
+  background:
+    radial-gradient(
+      60% 50% at 20% 20%,
+      color-mix(in srgb, var(--lw-structures) 20%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      50% 45% at 85% 35%,
+      color-mix(in srgb, var(--lw-algorithms) 16%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      55% 50% at 30% 90%,
+      color-mix(in srgb, var(--lw-systems) 14%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      45% 40% at 90% 95%,
+      color-mix(in srgb, var(--lw-ai) 10%, transparent),
+      transparent
+    ),
+    var(--lw-bg);
+}
+
+.landing .glass,
+.glass {
+  background: rgba(17, 24, 48, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 60px -20px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.landing .glass-strong {
+  background: rgba(14, 21, 40, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 60px -20px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass,
+  .landing .glass-strong {
+    background: rgba(14, 21, 40, 0.92);
+  }
+}
+
+.landing :focus-visible {
+  outline: 2px solid var(--lw-accent);
+  outline-offset: 3px;
+}
+
+.lw-gradient {
+  background-image: linear-gradient(
+    90deg,
+    var(--lw-structures),
+    var(--lw-algorithms),
+    var(--lw-systems),
+    var(--lw-ai)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.lw-lift {
+  transition:
+    transform 150ms ease,
+    filter 150ms ease;
+}
+.lw-lift:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lw-lift,
+  .lw-lift:hover {
+    transform: none;
+    transition: none;
+  }
+}

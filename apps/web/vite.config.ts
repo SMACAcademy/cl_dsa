@@ -56,6 +56,8 @@ export default defineConfig({
         // Framework code changes rarely; a separate chunk keeps it cached across app updates.
         codeSplitting: {
           groups: [
+            // Only the landing page's 3D world uses three.js; keep it out of the shared vendor chunk.
+            { name: "three", test: /node_modules[\\/]three[\\/]/, priority: 3 },
             {
               name: "react",
               test: /node_modules[\\/](react|react-dom|scheduler|react-router)[\\/]/,

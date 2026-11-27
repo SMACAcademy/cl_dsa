@@ -1,9 +1,11 @@
 import type { Lesson, Module } from "../model";
 import { BATCH_STREAM, MICROSERVICES, SAGAS, SERVICE_DISCOVERY } from "./architecture";
+import { AI_AGENTS, EVALS_COST, GUARDRAILS, LLM_CALLS, RAG } from "./ai";
 import { APIS, PUBSUB, QUEUES, REALTIME } from "./communication";
 import { INDEXES, REPLICATION, SQL_NOSQL, STORAGE_ENGINES } from "./data1";
 import { CAP, CONSISTENT_HASHING, SHARDING, UNIQUE_IDS } from "./data2";
 import { CONSENSUS, FILES_MEDIA, TRANSACTIONS } from "./data3";
+import { API_FACADE, CHANGE_DATA_CAPTURE, FILE_BATCH, MAINFRAMES, STRANGLER_FIG } from "./legacy";
 import { LATENCY_THROUGHPUT, NAPKIN_MATH, REQUEST_JOURNEY } from "./foundations";
 import { LOAD_BALANCING } from "./loadBalancing";
 import { OBSERVABILITY, RATE_LIMITING, REDUNDANCY, TIMEOUTS_RETRIES } from "./reliability";
@@ -88,6 +90,22 @@ const ALL_MODULES: Module[] = [
     title: "Whole systems",
     blurb: "Everything together: designing real products end to end.",
     lessons: [HLD_LLD, URL_SHORTENER, NEWS_FEED, CHAT],
+  },
+  {
+    id: "legacy",
+    number: "10",
+    title: "Legacy integration",
+    blurb:
+      "Working with the systems that already run the business: mainframes, files and gradual replacement.",
+    lessons: [MAINFRAMES, FILE_BATCH, API_FACADE, STRANGLER_FIG, CHANGE_DATA_CAPTURE],
+  },
+  {
+    id: "ai",
+    number: "11",
+    title: "AI systems",
+    blurb:
+      "Adding language models safely: gateways, answers from your own documents, agents, guardrails and evals.",
+    lessons: [LLM_CALLS, RAG, AI_AGENTS, GUARDRAILS, EVALS_COST],
   },
 ];
 
