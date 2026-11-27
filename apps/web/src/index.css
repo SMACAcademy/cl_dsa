@@ -231,6 +231,52 @@
 .scene-dot-heavy {
   fill: var(--viz-compare);
 }
+.scene-dot-file {
+  fill: #2f9e6e;
+}
+.scene-dot-token {
+  fill: #c084fc;
+}
+/* Design Lab boxes: a soft tint, a coloured base edge for depth, and a lift while dragged. */
+.lab-box {
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--h) 16%, var(--surface-raised)),
+    var(--surface-raised) 65%
+  );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 35%, transparent),
+    0 4px 0 -1px color-mix(in oklab, var(--h) 55%, transparent),
+    0 8px 16px -8px rgb(0 0 0 / 0.35);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+.lab-box:hover {
+  transform: translateY(-1px);
+}
+.lab-box-lifted {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    0 6px 0 -1px color-mix(in oklab, var(--h) 55%, transparent),
+    0 18px 30px -12px rgb(0 0 0 / 0.5);
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-box,
+  .lab-box:hover {
+    transition: none;
+    transform: none;
+  }
+}
+/* Folds, lines and flaps drawn on top of a flow glyph. */
+.scene-glyph-line {
+  fill: none;
+  stroke: var(--surface-raised);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .scene-hot {
   fill: color-mix(in oklab, var(--viz-compare) 35%, transparent);
   animation: scene-pulse 1.4s ease-in-out infinite;

@@ -29,7 +29,7 @@ const core = cast(
     node("batch", "clock", "Nightly batch", 3.4, -2, { sub: "23:00–05:00" }),
     node("out", "files", "Files to partners", 3.4, 2),
   ],
-  [both("branch", "mf", 2), link("batch", "mf", "heavy"), link("mf", "out", "write")],
+  [both("branch", "mf", 2), link("batch", "mf", "heavy"), link("mf", "out", "file")],
 );
 
 export const MAINFRAMES: Lesson = {
@@ -105,7 +105,7 @@ export const MAINFRAMES: Lesson = {
         both("branch", "mf", 1),
         both("app", "mf", 4),
         link("batch", "mf", "heavy"),
-        link("mf", "out", "write"),
+        link("mf", "out", "file"),
       ]),
     },
     {
@@ -222,7 +222,7 @@ const intake = cast(
     node("mon", "monitor", "File watch", -1.8, 2.8),
   ],
   [
-    link("partner", "drop", "write"),
+    link("partner", "drop", "file"),
     link("drop", "loader", "event"),
     link("loader", "archive", "copy"),
     link("loader", "db", "write"),

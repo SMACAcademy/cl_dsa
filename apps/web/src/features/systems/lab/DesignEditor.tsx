@@ -1,8 +1,10 @@
 import {
   ArrowLeftRight,
   Cable,
+  Box,
   Check,
   ClipboardCheck,
+  Lightbulb,
   Minus,
   RotateCcw,
   Trash2,
@@ -19,13 +21,16 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { ICON, IsoScene, sceneBounds } from "../IsoScene";
-import { KIND_HUE, type NodeKind, type Scene } from "../model";
+import { FlowGlyph } from "../FlowGlyph";
+import { ICON, IsoScene, sceneBounds, usePrefersReducedMotion } from "../IsoScene";
+import { type FlowKind, KIND_HUE, type NodeKind, type Scene } from "../model";
 import { grade, type Grade } from "./grade";
 import {
   type Check as LabCheck,
   defaultMode,
   type Design,
+  type DesignLink,
+  flowsOf,
   type DesignNode,
   GRID_COLS,
   GRID_ROWS,
@@ -44,15 +49,25 @@ export const button =
 export const primary =
   "inline-flex items-center gap-1.5 rounded-control bg-accent-solid px-4 py-2 text-sm font-semibold text-on-accent hover:opacity-90";
 
-/** The free cell nearest to (col, row), or undefined when the grid is full. */
+/** Boxes sit on half-cell steps, so the canvas feels free while lines stay tidy. */
+const STEP = 0.5;
+const snap = (v: number) => Math.round(v / STEP) * STEP;
+const clampCol = (c: number) => Math.min(Math.max(c, 0), GRID_COLS - 1);
+const clampRow = (r: number) => Math.min(Math.max(r, 0), GRID_ROWS - 1);
+
+/** Two boxes would overlap if they are less than a whole cell apart both ways. */
+const overlaps = (n: DesignNode, col: number, row: number) =>
+  Math.abs(n.col - col) < 1 && Math.abs(n.row - row) < 1;
+
+const isFree = (design: Design, col: number, row: number, ignore?: string) =>
+  !design.nodes.some((n) => n.id !== ignore && overlaps(n, col, row));
+
+/** The free spot nearest to (col, row), on half steps, or undefined when there is none. */
 function nearestFree(design: Design, col: number, row: number, ignore?: string) {
-  const taken = new Set(
-    design.nodes.filter((n) => n.id !== ignore).map((n) => `${n.col},${n.row}`),
-  );
   let best: { col: number; row: number; d: number } | undefined;
-  for (let c = 0; c < GRID_COLS; c++) {
-    for (let r = 0; r < GRID_ROWS; r++) {
-      if (taken.has(`${c},${r}`)) continue;
+  for (let c = 0; c <= GRID_COLS - 1; c += STEP) {
+    for (let r = 0; r <= GRID_ROWS - 1; r += STEP) {
+      if (!isFree(design, c, r, ignore)) continue;
       const d = (c - col) ** 2 + (r - row) ** 2;
       if (!best || d < best.d) best = { col: c, row: r, d };
     }
@@ -106,6 +121,15 @@ export function DesignEditor({
   const [result, setResult] = useState<Grade | null>(null);
   const [checked, setChecked] = useState<Design | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
+  /** Where a box being dragged is right now, before it snaps into place. */
+  const [dragging, setDragging] = useState<{ id: string; col: number; row: number } | null>(null);
+  const [show3D, setShow3D] = useState(false);
+  /** How far each check's hint has been revealed: 1 = what to look at, 2 = how to fix it. */
+  const [hints, setHints] = useState<Record<string, number>>({});
+  const [hintFor, setHintFor] = useState<string | null>(null);
+  const [hintNote, setHintNote] = useState("");
+  const [hintsUsed, setHintsUsed] = useState(0);
+  const reduced = usePrefersReducedMotion();
   const canvas = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -161,8 +185,8 @@ export function DesignEditor({
   }
 
   function move(id: string, col: number, row: number) {
-    const c = Math.min(Math.max(col, 0), GRID_COLS - 1);
-    const r = Math.min(Math.max(row, 0), GRID_ROWS - 1);
+    const c = clampCol(snap(col));
+    const r = clampRow(snap(row));
     const cell = nearestFree(design, c, r, id);
     if (!cell) return;
     setDesign((d) => ({
@@ -262,9 +286,10 @@ export function DesignEditor({
     const x = clientX - rect.left;
     const y = clientY - rect.top;
     if (x < 0 || y < 0 || x > rect.width || y > rect.height) return undefined;
+    // The pointer holds the middle of the box.
     return {
-      col: Math.min(GRID_COLS - 1, Math.floor(x / (rect.width / GRID_COLS))),
-      row: Math.min(GRID_ROWS - 1, Math.floor(y / (rect.height / GRID_ROWS))),
+      col: clampCol(x / (rect.width / GRID_COLS) - 0.5),
+      row: clampRow(y / (rect.height / GRID_ROWS) - 0.5),
     };
   }
 
@@ -279,12 +304,17 @@ export function DesignEditor({
     if (!d) return;
     if (!d.moved && Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6) d.moved = true;
     if (d.moved && d.item) setGhost({ x: e.clientX, y: e.clientY, item: d.item });
+    if (d.moved && d.id) {
+      const spot = cellAt(e.clientX, e.clientY);
+      if (spot) setDragging({ id: d.id, ...spot });
+    }
   }
 
   function onPointerUp(e: ReactPointerEvent) {
     const d = drag.current;
     drag.current = null;
     setGhost(null);
+    setDragging(null);
     if (!d?.moved) return;
     suppressClick.current = true;
     const cell = cellAt(e.clientX, e.clientY);
@@ -318,10 +348,12 @@ export function DesignEditor({
     const delta = step[e.key];
     if (delta) {
       e.preventDefault();
-      const c = n.col + delta[0];
-      const r = n.row + delta[1];
-      if (c < 0 || r < 0 || c >= GRID_COLS || r >= GRID_ROWS) return;
-      if (design.nodes.some((m) => m.col === c && m.row === r)) return;
+      // Arrows move a whole cell; with Shift, half a cell.
+      const by = e.shiftKey ? STEP : 1;
+      const c = n.col + delta[0] * by;
+      const r = n.row + delta[1] * by;
+      if (c < 0 || r < 0 || c > GRID_COLS - 1 || r > GRID_ROWS - 1) return;
+      if (!isFree(design, c, r, n.id)) return;
       move(n.id, c, r);
       setSelected(n.id);
     } else if (e.key === "Delete" || e.key === "Backspace") {
@@ -343,6 +375,46 @@ export function DesignEditor({
   const stale = result !== null && checked !== design;
   const mineScene = useMemo(() => toScene(checked ?? design), [checked, design]);
   const helpId = useId();
+
+  /** The design as drawn right now, with a dragged box under the pointer. */
+  const shown = useMemo<Design>(
+    () =>
+      dragging
+        ? {
+            ...design,
+            nodes: design.nodes.map((n) =>
+              n.id === dragging.id ? { ...n, col: dragging.col, row: dragging.row } : n,
+            ),
+          }
+        : design,
+    [design, dragging],
+  );
+  const liveScene = useMemo(() => toScene(design), [design]);
+  const linkedIds = new Set(design.links.flatMap((l) => [l.from, l.to]));
+  const usedFlows = FLOW_ORDER.filter((k) =>
+    design.links.some((l) => flowsOf(design, l).some((f) => f.kind === k)),
+  );
+
+  /** The next step of help: what to look at, then how to fix it, one missed check at a time. */
+  function hint() {
+    const g = grade({ checks }, design);
+    const missed = g.results.filter((r) => r.applies && !r.passed);
+    setHintsUsed((n) => n + 1);
+    if (missed.length === 0) {
+      setHintFor(null);
+      setHintNote(t("lab.hint.none"));
+      return;
+    }
+    const next = missed.find((r) => (hints[r.check.id] ?? 0) < 2) ?? missed[0];
+    if (!next) return;
+    const id = next.check.id;
+    const level = Math.min(2, (hints[id] ?? 0) + 1);
+    setHints((h) => ({ ...h, [id]: level }));
+    setHintFor(id);
+    setHintNote("");
+  }
+  const hintCheck = checks.find((c) => c.id === hintFor);
+  const hintLevel = hintFor ? (hints[hintFor] ?? 0) : 0;
 
   return (
     <>
@@ -418,21 +490,24 @@ export function DesignEditor({
                   width: GRID_COLS * CELL_W,
                   height: GRID_ROWS * CELL_H,
                   backgroundImage:
-                    "linear-gradient(to right, var(--color-line) 1px, transparent 1px), linear-gradient(to bottom, var(--color-line) 1px, transparent 1px)",
-                  backgroundSize: `${CELL_W}px ${CELL_H}px`,
+                    "radial-gradient(circle, var(--color-line) 1.4px, transparent 1.6px)",
+                  backgroundSize: `${CELL_W / 2}px ${CELL_H / 2}px`,
+                  backgroundPosition: `${CELL_W / 4}px ${CELL_H / 4}px`,
                   transform: scale === 1 ? undefined : `scale(${scale})`,
                   transformOrigin: "0 0",
                 }}
               >
-                <Links design={design} />
+                <Links design={shown} animate={!reduced && !dragging} />
                 {design.nodes.length === 0 && (
                   <p className="absolute inset-0 grid place-items-center p-6 text-center text-sm text-muted">
                     {t("lab.empty")}
                   </p>
                 )}
-                {design.nodes.map((n) => {
+                {shown.nodes.map((n) => {
                   const Icon = ICON[n.kind];
                   const isSel = n.id === selected;
+                  const lifted = dragging?.id === n.id;
+                  const lonely = design.nodes.length > 1 && !linkedIds.has(n.id);
                   return (
                     <button
                       key={n.id}
@@ -453,9 +528,12 @@ export function DesignEditor({
                       onPointerUp={onPointerUp}
                       onClick={() => onBoxClick(n.id)}
                       onKeyDown={(e) => onBoxKey(e, n)}
-                      className={`scene-hue-${KIND_HUE[n.kind]} absolute flex touch-none flex-col items-center justify-center gap-0.5 rounded-control border-2 bg-raised px-1 text-center text-[11px] leading-tight font-medium shadow-sm ${
+                      title={lonely ? t("lab.unconnected") : undefined}
+                      className={`lab-box scene-hue-${KIND_HUE[n.kind]} absolute flex touch-none flex-col items-center justify-center gap-0.5 rounded-control border-2 px-1 text-center text-[11px] leading-tight font-medium ${
                         isSel ? "border-accent ring-2 ring-accent/40" : "border-[var(--h)]"
-                      } ${connecting && connecting !== n.id ? "cursor-crosshair" : "cursor-grab"}`}
+                      } ${connecting && connecting !== n.id ? "cursor-crosshair" : "cursor-grab"} ${
+                        lifted ? "lab-box-lifted z-10" : ""
+                      }`}
                       style={{
                         left: n.col * CELL_W + (CELL_W - BOX_W) / 2,
                         top: n.row * CELL_H + (CELL_H - BOX_H) / 2,
@@ -465,12 +543,41 @@ export function DesignEditor({
                     >
                       <Icon className="size-4 text-[var(--h)]" aria-hidden="true" />
                       <span className="line-clamp-2">{n.label}</span>
+                      {lonely && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute -top-2 -right-2 grid size-4 place-items-center rounded-full bg-compare text-[10px] font-bold text-surface"
+                        >
+                          !
+                        </span>
+                      )}
                     </button>
                   );
                 })}
               </div>
             </div>
           </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
+            {usedFlows.length > 0 && <span className="sr-only">{t("systems.legend")}</span>}
+            {usedFlows.map((k) => (
+              <span key={k} className="inline-flex items-center gap-1.5">
+                <svg aria-hidden="true" viewBox="-8 -8 16 16" className="size-4">
+                  <FlowGlyph kind={k} />
+                </svg>
+                {t(`systems.flow.${k}`)}
+              </span>
+            ))}
+            <button
+              type="button"
+              className={`${button} ml-auto`}
+              aria-pressed={show3D}
+              onClick={() => setShow3D((s) => !s)}
+            >
+              <Box className="size-4" aria-hidden="true" />
+              {t("lab.view3d")}
+            </button>
+          </div>
+          {show3D && <Scene3D title={t("lab.live3d")} scene={liveScene} />}
           <p role="status" className="min-h-5 text-sm text-muted">
             {status}
           </p>
@@ -556,6 +663,10 @@ export function DesignEditor({
           <ClipboardCheck className="size-4" aria-hidden="true" />
           {t("lab.check")}
         </button>
+        <button type="button" className={button} onClick={hint}>
+          <Lightbulb className="size-4" aria-hidden="true" />
+          {t("lab.hint.button")}
+        </button>
         <button
           type="button"
           className={button}
@@ -566,6 +677,37 @@ export function DesignEditor({
           {confirmClear ? t("lab.confirmClear") : t("lab.startAgain")}
         </button>
         <span className="text-xs text-muted">{t("lab.saved")}</span>
+      </div>
+
+      <div aria-live="polite">
+        {(hintCheck || hintNote) && (
+          <section
+            aria-labelledby={`${helpId}-hint`}
+            className="space-y-2 rounded-panel border border-compare/50 bg-compare-soft/40 p-4 text-sm"
+          >
+            <h2 id={`${helpId}-hint`} className="flex items-center gap-2 font-semibold">
+              <Lightbulb className="size-4 text-compare-ink" aria-hidden="true" />
+              {t("lab.hint.title")}
+              <span className="text-xs font-normal text-muted">
+                {t("lab.hint.used", { count: hintsUsed })}
+              </span>
+            </h2>
+            {hintNote ? (
+              <p>{hintNote}</p>
+            ) : (
+              hintCheck && (
+                <>
+                  <p>{t("lab.hint.lookAt", { label: hintCheck.label })}</p>
+                  {hintLevel >= 2 ? (
+                    <p>{t("lab.hint.tryThis", { hint: hintCheck.hint })}</p>
+                  ) : (
+                    <p className="text-muted">{t("lab.hint.more")}</p>
+                  )}
+                </>
+              )
+            )}
+          </section>
+        )}
       </div>
 
       {result && (
@@ -702,8 +844,22 @@ function Inspector({
   );
 }
 
-/** Arrows between boxes: solid when the caller waits, dashed when it sends and moves on. */
-function Links({ design }: { design: Design }) {
+/** The order flow kinds are listed in the canvas legend. */
+const FLOW_ORDER: readonly FlowKind[] = ["request", "response", "token", "write", "event", "file"];
+
+/** Centre of a box on the canvas, in canvas pixels. */
+const centre = (n: DesignNode) => ({
+  x: n.col * CELL_W + CELL_W / 2,
+  y: n.row * CELL_H + CELL_H / 2,
+});
+
+/**
+ * Arrows between boxes, solid when the caller waits and dashed when it sends and moves on, with
+ * what travels along them: dots for requests and replies, envelopes for messages, documents for
+ * files, sparks for AI output, blocks for writes. Decorative; the connections list is the
+ * accessible view.
+ */
+function Links({ design, animate }: { design: Design; animate: boolean }) {
   const markerId = useId();
   const byId = new Map(design.nodes.map((n) => [n.id, n]));
   return (
@@ -730,36 +886,76 @@ function Links({ design }: { design: Design }) {
         const a = byId.get(l.from);
         const b = byId.get(l.to);
         if (!a || !b) return null;
-        const ax = a.col * CELL_W + CELL_W / 2;
-        const ay = a.row * CELL_H + CELL_H / 2;
-        const bx = b.col * CELL_W + CELL_W / 2;
-        const by = b.row * CELL_H + CELL_H / 2;
-        // Stop the line at the edge of the target box.
-        const dx = bx - ax;
-        const dy = by - ay;
+        const p = centre(a);
+        const q = centre(b);
+        // Stop the line at the edges of both boxes.
+        const dx = q.x - p.x;
+        const dy = q.y - p.y;
         const k = Math.min(
           Math.abs(dx) > 0 ? BOX_W / 2 / Math.abs(dx) : Infinity,
           Math.abs(dy) > 0 ? BOX_H / 2 / Math.abs(dy) : Infinity,
         );
-        const ex = bx - dx * k;
-        const ey = by - dy * k;
-        const sx = ax + dx * k;
-        const sy = ay + dy * k;
+        const s = { x: p.x + dx * k, y: p.y + dy * k };
+        const e = { x: q.x - dx * k, y: q.y - dy * k };
         return (
-          <line
-            key={`${l.from}-${l.to}`}
-            x1={sx}
-            y1={sy}
-            x2={ex}
-            y2={ey}
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeDasharray={l.mode === "async" ? "6 5" : undefined}
-            markerEnd={`url(#${markerId})`}
-          />
+          <g key={`${l.from}-${l.to}`}>
+            <line
+              x1={s.x}
+              y1={s.y}
+              x2={e.x}
+              y2={e.y}
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeDasharray={l.mode === "async" ? "6 5" : undefined}
+              markerEnd={`url(#${markerId})`}
+            />
+            {animate && <Traffic design={design} link={l} from={s} to={e} />}
+          </g>
         );
       })}
     </svg>
+  );
+}
+
+type Pt = { x: number; y: number };
+
+/** Glyphs travelling along one link, outbound on one side of the line and replies on the other. */
+function Traffic({
+  design,
+  link,
+  from,
+  to,
+}: {
+  design: Design;
+  link: DesignLink;
+  from: Pt;
+  to: Pt;
+}) {
+  const len = Math.hypot(to.x - from.x, to.y - from.y);
+  if (len < 24) return null;
+  const nx = -(to.y - from.y) / len;
+  const ny = (to.x - from.x) / len;
+  const flows = flowsOf(design, link);
+  const dur = Math.min(3.2, Math.max(1.2, len / 90));
+  return (
+    <>
+      {flows.map((f, i) => {
+        const off = flows.length > 1 ? (i === 0 ? -5 : 5) : 0;
+        const a = { x: from.x + nx * off, y: from.y + ny * off };
+        const b = { x: to.x + nx * off, y: to.y + ny * off };
+        const [p, q] = f.back ? [b, a] : [a, b];
+        const path = `M${p.x.toFixed(1)} ${p.y.toFixed(1)} L${q.x.toFixed(1)} ${q.y.toFixed(1)}`;
+        const count = Math.min(3, Math.max(1, f.rate ?? 1));
+        return Array.from({ length: count }, (_, j) => {
+          const begin = `${(-(j * dur) / count - (f.back ? dur / 2 : 0)).toFixed(2)}s`;
+          return (
+            <FlowGlyph key={`${f.kind}-${i}-${j}`} kind={f.kind}>
+              <animateMotion dur={`${dur}s`} repeatCount="indefinite" begin={begin} path={path} />
+            </FlowGlyph>
+          );
+        });
+      })}
+    </>
   );
 }
 

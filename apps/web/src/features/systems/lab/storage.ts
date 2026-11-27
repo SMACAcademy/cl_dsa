@@ -24,21 +24,25 @@ function writeAll(data: Saved): void {
 }
 
 const isKind = (k: unknown): k is NodeKind => typeof k === "string" && k in KIND_HUE;
+/** Positions are on half steps inside the canvas. */
 const inGrid = (c: unknown, max: number) =>
-  Number.isInteger(c) && (c as number) >= 0 && (c as number) < max;
+  typeof c === "number" && Number.isInteger(c * 2) && c >= 0 && c <= max - 1;
 
 /** A saved design, keeping only boxes and links that still make sense. */
 export function cleanDesign(value: unknown): Design {
   const v = (value ?? {}) as { nodes?: unknown; links?: unknown };
   const nodes: DesignNode[] = [];
-  const cells = new Set<string>();
   for (const raw of Array.isArray(v.nodes) ? v.nodes : []) {
     const n = raw as Partial<DesignNode>;
     if (typeof n.id !== "string" || typeof n.label !== "string" || !isKind(n.kind)) continue;
     if (!inGrid(n.col, GRID_COLS) || !inGrid(n.row, GRID_ROWS)) continue;
-    const cell = `${n.col},${n.row}`;
-    if (cells.has(cell) || nodes.some((m) => m.id === n.id)) continue;
-    cells.add(cell);
+    // Boxes closer than a whole cell both ways would sit on top of each other.
+    const col = n.col as number;
+    const row = n.row as number;
+    const clash = nodes.some(
+      (m) => m.id === n.id || (Math.abs(m.col - col) < 1 && Math.abs(m.row - row) < 1),
+    );
+    if (clash) continue;
     nodes.push({
       id: n.id,
       kind: n.kind,

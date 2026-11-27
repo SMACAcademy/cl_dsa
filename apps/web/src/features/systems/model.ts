@@ -58,7 +58,18 @@ export type SceneNode = {
   size?: number;
 };
 
-export type FlowKind = "request" | "response" | "write" | "fail" | "event" | "copy" | "heavy";
+export type FlowKind =
+  | "request"
+  | "response"
+  | "write"
+  | "fail"
+  | "event"
+  | "copy"
+  | "heavy"
+  /** A file left in a drop folder. */
+  | "file"
+  /** Text streaming back from an AI model, token by token. */
+  | "token";
 
 export type Flow = {
   kind: FlowKind;

@@ -186,7 +186,7 @@ export const CLAIMS_FILES: CaseStudy = caseStudy(
         node("cdb", "db", "Claims DB", 3.2, 0),
       ],
       link: [
-        link("garages", "drop", "write"),
+        link("garages", "drop", "file"),
         link("drop", "claims", "event"),
         both("claims", "cdb", 2),
       ],

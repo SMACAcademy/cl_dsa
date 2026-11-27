@@ -1,4 +1,4 @@
-import type { Level, NodeKind, Scene } from "../model";
+import type { Flow, Level, NodeKind, Scene } from "../model";
 
 /** "sync": the caller waits for a reply. "async": it sends and moves on. */
 export type LinkMode = "sync" | "async";
@@ -70,6 +70,39 @@ export function defaultMode(from: NodeKind, to: NodeKind): LinkMode {
   return MESSAGING.includes(from) || MESSAGING.includes(to) ? "async" : "sync";
 }
 
+/**
+ * What travels along a link, by its mode and what it joins: requests and replies, AI output
+ * streaming back, messages through queues and streams, files through a drop folder, and
+ * writes into stores. The canvas animation and the 3D view both use this.
+ */
+export function flowsOf(d: Design, l: DesignLink): Flow[] {
+  const kindOf = (id: string) => d.nodes.find((n) => n.id === id)?.kind;
+  const from = kindOf(l.from);
+  const to = kindOf(l.to);
+  const touches = (...k: NodeKind[]) => k.some((x) => x === from || x === to);
+  if (l.mode === "async") {
+    if (touches("files")) return [{ kind: "file", rate: 1 }];
+    return [{ kind: "event", rate: 2 }];
+  }
+  if (to === "llm") {
+    return [
+      { kind: "request", rate: 1 },
+      { kind: "token", back: true, rate: 3 },
+    ];
+  }
+  if (to === "monitor") return [{ kind: "event", rate: 1 }];
+  if (to && ["db", "storage", "search", "vector"].includes(to)) {
+    return [
+      { kind: "write", rate: 1 },
+      { kind: "response", back: true, rate: 1 },
+    ];
+  }
+  return [
+    { kind: "request", rate: 1 },
+    { kind: "response", back: true, rate: 1 },
+  ];
+}
+
 /** The design as a 3D scene: columns run left to right, rows top to bottom on screen. */
 export function toScene(d: Design): Scene {
   return {
@@ -80,17 +113,6 @@ export function toScene(d: Design): Scene {
       x: (1.25 * n.col + 2.1 * n.row) / 2,
       y: (2.1 * n.row - 1.25 * n.col) / 2,
     })),
-    links: d.links.map((l) =>
-      l.mode === "sync"
-        ? {
-            from: l.from,
-            to: l.to,
-            flows: [
-              { kind: "request", rate: 1 },
-              { kind: "response", back: true, rate: 1 },
-            ],
-          }
-        : { from: l.from, to: l.to, flows: [{ kind: "event", rate: 2 }] },
-    ),
+    links: d.links.map((l) => ({ from: l.from, to: l.to, flows: flowsOf(d, l) })),
   };
 }
