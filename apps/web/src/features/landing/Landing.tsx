@@ -240,6 +240,10 @@ export function Landing() {
               {t("footer.contribute")}
             </a>
             <span aria-hidden="true">·</span>
+            <Link to="/disclaimer" className="hover:underline">
+              {t("footer.disclaimer")}
+            </Link>
+            <span aria-hidden="true">·</span>
             <span>{t("landing.footer.privacy")}</span>
           </p>
         </footer>

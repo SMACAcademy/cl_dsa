@@ -1,5 +1,5 @@
-name: Improve a lesson or case study
-description: A mistake, an unclear step, or a better example.
+name: Correct or improve content
+description: A mistake, an unclear step, or a better example, with evidence.
 title: "[lesson-or-case-id] "
 labels: ["content"]
 body:
@@ -20,6 +20,15 @@ body:
     id: problem
     attributes:
       label: What is wrong or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: >-
+        What shows the correct version? Official documentation, a standard, a textbook or paper
+        (with the section), or a worked example or calculation. Links are best.
     validations:
       required: true
   - type: textarea

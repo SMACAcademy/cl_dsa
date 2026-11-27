@@ -66,6 +66,14 @@ The site is fully static: no server, no database, no accounts; progress stays in
 | [PROGRESS](docs/PROGRESS.md) | Completed and pending work |
 | [DECISIONS](docs/DECISIONS.md) | Architecture decision records |
 
+## Disclaimer
+
+AlgoVerse is for learning only and is provided as is, without warranty. Much of the content was
+written with the help of AI tools, so mistakes can slip through; examples and organisations are
+invented. Found something wrong? [Report it with evidence](https://github.com/SMACAcademy/cl_dsa/issues/new?template=content-fix.yml)
+or fix it in a pull request; see [Correct a mistake](CONTRIBUTING.md#correct-a-mistake). Full text:
+[Disclaimer](https://smacacademy.github.io/cl_dsa/disclaimer).
+
 ## License
 
 [MIT](LICENSE). Use it, adapt it for your class or team, and share what you build. A link back is appreciated.
