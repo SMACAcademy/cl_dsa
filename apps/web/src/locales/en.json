@@ -1651,9 +1651,11 @@
       "response": "response",
       "write": "write",
       "fail": "failed request",
-      "event": "event",
+      "event": "event / message",
       "copy": "copy / replication",
-      "heavy": "heavy work"
+      "heavy": "heavy work",
+      "file": "file",
+      "token": "AI output"
     },
     "replay": "Replay animation",
     "pause": "Pause animation",
@@ -1785,7 +1787,7 @@
     "paletteHelp": "Click a box to add it, or drag it onto the canvas.",
     "add": "Add {{label}}",
     "canvas": "Your design",
-    "canvasHelp": "Drag boxes to move them. With a box selected: arrow keys move it, C starts a connection, Delete removes it.",
+    "canvasHelp": "Drag boxes anywhere; they settle on the nearest dot. With a box selected: arrow keys move it (Shift for half a step), C starts a connection, Delete removes it.",
     "empty": "Add boxes from the list to start your design.",
     "nodeName": "{{label}} ({{kind}}), column {{col}}, row {{row}}",
     "inspector": "Selected box",
@@ -1928,6 +1930,19 @@
         "ask5": "5. A score out of 10, with one line of reasoning each, for: meets the requirements, scalability, reliability, security and simplicity.",
         "assume": "If the problem leaves something important unclear, state the assumption you are making and carry on."
       }
+    },
+    "unconnected": "Not connected yet",
+    "view3d": "See it in 3D",
+    "live3d": "Your design in 3D, as you build it",
+    "hint": {
+      "button": "Give me a hint",
+      "title": "Hint",
+      "used_one": "{{count}} hint used",
+      "used_other": "{{count}} hints used",
+      "lookAt": "Look at this: {{label}}.",
+      "more": "Stuck? Press Give me a hint again to see how to fix it.",
+      "tryThis": "Try this: {{hint}}",
+      "none": "The checks find nothing missing. Press Check my design to see your score."
     }
   },
   "landing": {

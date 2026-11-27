@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import {
   CAMERA_END_Z,
@@ -94,7 +94,7 @@ describe("the landing page", () => {
       "href",
       "https://www.linkedin.com/in/muthu4all/",
     );
-    expect(document.title).toBe("See algorithms come alive · AlgoVerse");
+    await waitFor(() => expect(document.title).toBe("See algorithms come alive · AlgoVerse"));
   });
 
   it("puts one camera stop on each section, deeper as the page goes down", async () => {

@@ -36,6 +36,7 @@ import {
   type SceneLink,
   type SceneNode,
 } from "./model";
+import { FlowGlyph } from "./FlowGlyph";
 
 /* Geometry: one grid unit is GX across and GY down; boxes are 2A wide, 2B deep, H tall. */
 const GX = 76;
@@ -124,7 +125,7 @@ export function sceneBounds(scenes: readonly Scene[]): Bounds {
   return { x: minX - pad, y: minY - pad, w: maxX - minX + 2 * pad, h: maxY - minY + 2 * pad };
 }
 
-function usePrefersReducedMotion() {
+export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() =>
     typeof window !== "undefined" && typeof window.matchMedia === "function"
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -348,19 +349,11 @@ function Dots({ flow, from, to, len }: { flow: Flow; from: Pt; to: Pt; len: numb
             begin={begin}
           />
         ) : null;
-        return flow.kind === "heavy" ? (
-          <rect key={j} x={-6} y={-6} width={12} height={12} rx={2} className="scene-dot-heavy">
-            {motion}
-          </rect>
-        ) : flow.kind === "write" ? (
-          <rect key={j} x={-4} y={-4} width={8} height={8} rx={1.5} className="scene-dot-write">
-            {motion}
-          </rect>
-        ) : (
-          <circle key={j} r={4.5} className={`scene-dot-${flow.kind}`}>
+        return (
+          <FlowGlyph key={j} kind={flow.kind}>
             {motion}
             {fade}
-          </circle>
+          </FlowGlyph>
         );
       })}
     </>

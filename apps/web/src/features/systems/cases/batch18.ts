@@ -4,6 +4,10 @@ import { caseStudy } from "./builder";
 const both = (from: string, to: string, rate = 2) =>
   link(from, to, { kind: "request", rate }, { kind: "response", back: true, rate });
 
+/** A call to an AI model: the request goes out, the answer streams back token by token. */
+const tokens = (from: string, to: string, rate = 2) =>
+  link(from, to, { kind: "request", rate: 1 }, { kind: "token", back: true, rate: rate + 1 });
+
 /* ============ After AI systems ============ */
 
 export const WIKI_ASSISTANT: CaseStudy = caseStudy(
@@ -41,7 +45,7 @@ export const WIKI_ASSISTANT: CaseStudy = caseStudy(
       link: [
         both("staff", "asst", 2),
         both("asst", "vec", 2),
-        both("asst", "model", 2),
+        tokens("asst", "model", 2),
         link("wiki", "vec", "copy"),
       ],
     },
@@ -199,7 +203,7 @@ export const HELP_CENTRE_ASSISTANT: CaseStudy = caseStudy(
         node("gw", "gateway", "LLM gateway", 0.6, -1.8),
         node("model", "llm", "AI model", 3.4, -1.8),
       ],
-      link: [both("asst", "gw", 2), both("gw", "model", 2)],
+      link: [both("asst", "gw", 2), tokens("gw", "model", 2)],
     },
     {
       kind: "problem",
@@ -329,7 +333,7 @@ export const INVOICE_INTAKE: CaseStudy = caseStudy(
         node("drop", "files", "Invoice drop", -2, 0),
         node("arch", "storage", "Archive", -2, -2.8, { sub: "by content hash" }),
       ],
-      link: [link("suppliers", "drop", "write"), link("drop", "arch", "copy")],
+      link: [link("suppliers", "drop", "file"), link("drop", "arch", "copy")],
     },
     {
       kind: "solution",
@@ -351,7 +355,7 @@ export const INVOICE_INTAKE: CaseStudy = caseStudy(
         "A model reads each invoice and returns a fixed structure: supplier, invoice number, date, order number, lines and totals. Then plain code checks it: do the lines add up to the total, is the supplier known, does the order number exist and match the amounts?",
       ],
       add: [node("model", "llm", "AI model", 0.4, -2.8, { sub: "via the LLM gateway" })],
-      link: [both("w", "model", 2), link("w", "acct", "write")],
+      link: [tokens("w", "model", 2), link("w", "acct", "write")],
       code: [
         "fields = llm.extract(pdf, schema=INVOICE)",
         "ok = sum(fields.lines) == fields.total and po_matches(fields)",
@@ -380,7 +384,7 @@ export const INVOICE_INTAKE: CaseStudy = caseStudy(
         "A test set of 1,000 invoices, labelled by clerks, covers the top suppliers and the strangest layouts. Every prompt or model change is scored per field: totals 99.6% correct, order numbers 98.1%, line items 96%. Clerks' corrections become new test cases every week.",
       ],
       add: [node("evals", "worker", "Eval runner", -4.4, 3, { sub: "1,000 invoices" })],
-      link: [both("evals", "model", 1)],
+      link: [tokens("evals", "model", 1)],
     },
     {
       kind: "technique",
@@ -485,7 +489,7 @@ export const REBOOKING_AGENT: CaseStudy = caseStudy(
       link: [
         both("pax", "agent", 1),
         both("agent", "gw", 2),
-        both("gw", "model", 2),
+        tokens("gw", "model", 2),
         both("agent", "tools", 2),
         both("tools", "res", 2),
       ],
@@ -689,7 +693,7 @@ export const AI_CLAIMS_DESK: CaseStudy = caseStudy(
         both("agent", "papi", 1),
         both("agent", "vec", 2),
         both("agent", "cdb", 1),
-        both("agent", "model", 2),
+        tokens("agent", "model", 2),
       ],
     },
     {

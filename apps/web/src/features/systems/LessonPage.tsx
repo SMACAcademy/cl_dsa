@@ -1,3 +1,4 @@
+import { FlowGlyph } from "./FlowGlyph";
 import { ArrowLeft, ArrowRight, Check, Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -230,18 +231,7 @@ export function LessonView({ lesson, where, prev, next, base, concepts = [] }: L
             {flowKinds.map((k) => (
               <span key={k} className="inline-flex items-center gap-1.5">
                 <svg aria-hidden="true" viewBox="-6 -6 12 12" className="size-3">
-                  {k === "heavy" || k === "write" ? (
-                    <rect
-                      x={-5}
-                      y={-5}
-                      width={10}
-                      height={10}
-                      rx={2}
-                      className={`scene-dot-${k}`}
-                    />
-                  ) : (
-                    <circle r={5} className={`scene-dot-${k}`} />
-                  )}
+                  <FlowGlyph kind={k} />
                 </svg>
                 {t(`systems.flow.${k}`)}
               </span>
@@ -726,7 +716,17 @@ function SceneText({ step }: { step: LessonStep }) {
 }
 
 function usedFlows(lesson: Lesson): FlowKind[] {
-  const order: FlowKind[] = ["request", "response", "write", "heavy", "event", "copy", "fail"];
+  const order: FlowKind[] = [
+    "request",
+    "response",
+    "token",
+    "write",
+    "heavy",
+    "event",
+    "file",
+    "copy",
+    "fail",
+  ];
   const seen = new Set<FlowKind>();
   for (const s of lesson.steps)
     for (const l of s.scene.links ?? []) for (const f of l.flows ?? []) seen.add(f.kind);

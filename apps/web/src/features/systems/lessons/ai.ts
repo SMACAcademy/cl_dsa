@@ -3,6 +3,10 @@ import { link, node, type Lesson, type Scene, type SceneLink, type SceneNode } f
 const both = (from: string, to: string, rate = 2) =>
   link(from, to, { kind: "request", rate }, { kind: "response", back: true, rate });
 
+/** A call to an AI model: the request goes out, the answer streams back token by token. */
+const tokens = (from: string, to: string, rate = 2) =>
+  link(from, to, { kind: "request", rate: 1 }, { kind: "token", back: true, rate: rate + 1 });
+
 /** Builds a scene from a fixed cast of boxes, with per-step changes. */
 const cast =
   (nodes: readonly SceneNode[], links: readonly SceneLink[]) =>
@@ -30,7 +34,12 @@ const calls = cast(
     node("m2", "llm", "Model B", 3.4, 1.6, { sub: "backup" }),
     node("mon", "monitor", "Cost & speed", 0.6, 2.8),
   ],
-  [both("agents", "app", 2), both("app", "gw", 2), both("gw", "m1", 2), link("gw", "mon", "event")],
+  [
+    both("agents", "app", 2),
+    both("app", "gw", 2),
+    tokens("gw", "m1", 2),
+    link("gw", "mon", "event"),
+  ],
 );
 
 export const LLM_CALLS: Lesson = {
@@ -55,7 +64,7 @@ export const LLM_CALLS: Lesson = {
       body: [
         "A support team answers 100,000 customer emails a day. The plan: a language model drafts each reply, and a person checks and sends it. The model runs at a provider, reached over an API.",
       ],
-      scene: calls({}, [both("agents", "app", 2), both("app", "m1", 2)], ["gw", "m2", "mon"]),
+      scene: calls({}, [both("agents", "app", 2), tokens("app", "m1", 2)], ["gw", "m2", "mon"]),
     },
     {
       kind: "insight",
@@ -76,7 +85,7 @@ export const LLM_CALLS: Lesson = {
       },
       scene: calls(
         { m1: { badge: "1,800 tokens" } },
-        [both("agents", "app", 2), both("app", "m1", 2)],
+        [both("agents", "app", 2), tokens("app", "m1", 2)],
         ["gw", "m2", "mon"],
       ),
     },
@@ -115,7 +124,7 @@ export const LLM_CALLS: Lesson = {
       },
       scene: calls(
         { m1: { state: "hot", badge: "bad JSON" } },
-        [both("agents", "app", 2), both("app", "m1", 2)],
+        [both("agents", "app", 2), tokens("app", "m1", 2)],
         ["gw", "m2", "mon"],
       ),
     },
@@ -135,7 +144,7 @@ export const LLM_CALLS: Lesson = {
       ],
       scene: calls(
         { app: { badge: "prompt v12" } },
-        [both("agents", "app", 2), both("app", "m1", 2)],
+        [both("agents", "app", 2), tokens("app", "m1", 2)],
         ["gw", "m2", "mon"],
       ),
     },
@@ -148,7 +157,7 @@ export const LLM_CALLS: Lesson = {
       ],
       scene: calls(
         { m1: { state: "hot", badge: "$$$" } },
-        [both("agents", "app", 2), both("app", "m1", 4)],
+        [both("agents", "app", 2), tokens("app", "m1", 4)],
         ["gw", "m2", "mon"],
       ),
     },
@@ -183,7 +192,7 @@ export const LLM_CALLS: Lesson = {
         both("agents", "app", 2),
         both("app", "gw", 2),
         link("gw", "m1", "fail"),
-        both("gw", "m2", 2),
+        tokens("gw", "m2", 2),
         link("gw", "mon", "event"),
       ]),
     },
@@ -232,7 +241,7 @@ const rag = cast(
     both("cust", "asst", 2),
     both("asst", "vec", 2),
     both("asst", "gw", 2),
-    both("gw", "model", 2),
+    tokens("gw", "model", 2),
     link("docs", "indexer", "event"),
     link("indexer", "vec", "write"),
   ],
@@ -262,7 +271,7 @@ export const RAG: Lesson = {
       ],
       scene: rag(
         {},
-        [both("cust", "asst", 2), both("asst", "model", 2)],
+        [both("cust", "asst", 2), tokens("asst", "model", 2)],
         ["vec", "gw", "docs", "indexer"],
       ),
     },
@@ -275,7 +284,7 @@ export const RAG: Lesson = {
       ],
       scene: rag(
         { model: { state: "hot", badge: "invented" } },
-        [both("cust", "asst", 2), both("asst", "model", 2)],
+        [both("cust", "asst", 2), tokens("asst", "model", 2)],
         ["vec", "gw", "docs", "indexer"],
       ),
     },
@@ -402,7 +411,7 @@ const agents = cast(
   [
     both("trav", "agent", 1),
     both("agent", "gw", 2),
-    both("gw", "model", 2),
+    tokens("gw", "model", 2),
     both("agent", "tools", 2),
     both("tools", "flights", 2),
     both("tools", "book", 1),
@@ -491,7 +500,7 @@ export const AI_AGENTS: Lesson = {
         [
           both("trav", "agent", 1),
           both("agent", "gw", 4),
-          both("gw", "model", 4),
+          tokens("gw", "model", 4),
           both("agent", "tools", 4),
           both("tools", "flights", 4),
           both("tools", "book", 2),
@@ -522,7 +531,7 @@ export const AI_AGENTS: Lesson = {
         [
           both("trav", "agent", 1),
           both("agent", "gw", 2),
-          both("gw", "model", 2),
+          tokens("gw", "model", 2),
           both("agent", "tools", 2),
           both("tools", "flights", 2),
           both("tools", "ok", 1),
@@ -559,7 +568,7 @@ export const AI_AGENTS: Lesson = {
         [
           both("trav", "agent", 1),
           both("agent", "gw", 2),
-          both("gw", "model", 2),
+          tokens("gw", "model", 2),
           both("agent", "tools", 2),
           both("tools", "flights", 2),
           both("tools", "book", 1),
@@ -578,7 +587,7 @@ export const AI_AGENTS: Lesson = {
       scene: agents({ log: { state: "lit" } }, [
         both("trav", "agent", 1),
         both("agent", "gw", 2),
-        both("gw", "model", 2),
+        tokens("gw", "model", 2),
         both("agent", "tools", 2),
         both("tools", "flights", 2),
         both("tools", "book", 1),
@@ -600,7 +609,7 @@ export const AI_AGENTS: Lesson = {
       scene: agents({}, [
         both("trav", "agent", 1),
         both("agent", "gw", 2),
-        both("gw", "model", 2),
+        tokens("gw", "model", 2),
         both("agent", "tools", 2),
         both("tools", "flights", 2),
         both("tools", "book", 1),
@@ -627,7 +636,7 @@ const guard = cast(
   [
     both("user", "inp", 2),
     both("inp", "asst", 2),
-    both("asst", "model", 2),
+    tokens("asst", "model", 2),
     both("asst", "mail", 2),
     link("asst", "outp", "request"),
     link("outp", "user", "response"),
@@ -658,7 +667,7 @@ export const GUARDRAILS: Lesson = {
       ],
       scene: guard(
         {},
-        [both("user", "asst", 2), both("asst", "model", 2), both("asst", "mail", 2)],
+        [both("user", "asst", 2), tokens("asst", "model", 2), both("asst", "mail", 2)],
         ["inp", "outp", "log"],
       ),
     },
@@ -671,7 +680,7 @@ export const GUARDRAILS: Lesson = {
       ],
       scene: guard(
         { user: { state: "hot" } },
-        [both("user", "asst", 2), both("asst", "model", 2), both("asst", "mail", 2)],
+        [both("user", "asst", 2), tokens("asst", "model", 2), both("asst", "mail", 2)],
         ["inp", "outp", "log"],
       ),
     },
@@ -684,7 +693,7 @@ export const GUARDRAILS: Lesson = {
       ],
       scene: guard(
         { mail: { state: "hot", badge: "hidden text" } },
-        [both("user", "asst", 2), both("asst", "model", 2), both("asst", "mail", 2)],
+        [both("user", "asst", 2), tokens("asst", "model", 2), both("asst", "mail", 2)],
         ["inp", "outp", "log"],
       ),
     },
@@ -701,7 +710,7 @@ export const GUARDRAILS: Lesson = {
       },
       scene: guard(
         { model: { state: "hot", badge: "untrusted" } },
-        [both("user", "asst", 2), both("asst", "model", 2), both("asst", "mail", 2)],
+        [both("user", "asst", 2), tokens("asst", "model", 2), both("asst", "mail", 2)],
         ["inp", "outp", "log"],
       ),
     },
@@ -714,7 +723,7 @@ export const GUARDRAILS: Lesson = {
       ],
       scene: guard(
         { mail: { state: "lit" } },
-        [both("user", "asst", 2), both("asst", "model", 2), both("asst", "mail", 2)],
+        [both("user", "asst", 2), tokens("asst", "model", 2), both("asst", "mail", 2)],
         ["inp", "outp", "log"],
       ),
     },
@@ -768,7 +777,7 @@ export const GUARDRAILS: Lesson = {
       scene: guard({ log: { state: "lit" } }, [
         both("user", "inp", 2),
         both("inp", "asst", 2),
-        both("asst", "model", 2),
+        tokens("asst", "model", 2),
         both("asst", "mail", 2),
         link("asst", "outp", "request"),
         link("outp", "user", "response"),
@@ -813,7 +822,7 @@ const evals = cast(
     node("tests", "db", "Test set", -1.4, 3.2, { sub: "300 questions" }),
     node("mon", "monitor", "Quality & cost", 4, 0),
   ],
-  [both("asst", "router", 2), both("router", "large", 2), link("router", "mon", "event")],
+  [both("asst", "router", 2), tokens("router", "large", 2), link("router", "mon", "event")],
 );
 
 export const EVALS_COST: Lesson = {
@@ -865,7 +874,7 @@ export const EVALS_COST: Lesson = {
         { runner: { state: "lit" }, tests: { state: "lit" } },
         [
           both("asst", "router", 2),
-          both("router", "large", 2),
+          tokens("router", "large", 2),
           link("tests", "runner", "copy"),
           both("runner", "asst", 2),
           link("router", "mon", "event"),
@@ -892,7 +901,7 @@ export const EVALS_COST: Lesson = {
         { runner: { state: "lit", badge: "91% pass" } },
         [
           both("asst", "router", 2),
-          both("router", "large", 2),
+          tokens("router", "large", 2),
           link("tests", "runner", "copy"),
           both("runner", "asst", 2),
           link("router", "mon", "event"),
@@ -930,7 +939,7 @@ export const EVALS_COST: Lesson = {
         { runner: { state: "hot", badge: "84% refunds" } },
         [
           both("asst", "router", 2),
-          both("router", "large", 2),
+          tokens("router", "large", 2),
           link("tests", "runner", "copy"),
           both("runner", "asst", 2),
           link("router", "mon", "event"),
@@ -972,8 +981,8 @@ export const EVALS_COST: Lesson = {
         { router: { state: "lit" } },
         [
           both("asst", "router", 3),
-          both("router", "small", 3),
-          both("router", "large", 1),
+          tokens("router", "small", 3),
+          tokens("router", "large", 1),
           link("router", "mon", "event"),
         ],
         ["cache", "runner", "tests"],
@@ -991,8 +1000,8 @@ export const EVALS_COST: Lesson = {
         [
           both("asst", "router", 3),
           both("router", "cache", 2),
-          both("router", "small", 2),
-          both("router", "large", 1),
+          tokens("router", "small", 2),
+          tokens("router", "large", 1),
           link("router", "mon", "event"),
         ],
         ["runner", "tests"],
@@ -1008,8 +1017,8 @@ export const EVALS_COST: Lesson = {
       scene: evals({ mon: { state: "lit" } }, [
         both("asst", "router", 3),
         both("router", "cache", 2),
-        both("router", "small", 2),
-        both("router", "large", 1),
+        tokens("router", "small", 2),
+        tokens("router", "large", 1),
         link("router", "mon", "event"),
         link("tests", "runner", "copy"),
         both("runner", "asst", 1),
@@ -1028,8 +1037,8 @@ export const EVALS_COST: Lesson = {
       scene: evals({}, [
         both("asst", "router", 3),
         both("router", "cache", 2),
-        both("router", "small", 2),
-        both("router", "large", 1),
+        tokens("router", "small", 2),
+        tokens("router", "large", 1),
         link("router", "mon", "event"),
         link("tests", "runner", "copy"),
         both("runner", "asst", 1),
