@@ -38,13 +38,15 @@ describe("PWA (ADR-020)", () => {
     }
   });
 
-  it("installs updates automatically and precaches the app shell, never /api/", () => {
+  it("installs updates automatically and precaches only the app shell", () => {
     expect(pwaOptions.registerType).toBe("autoUpdate");
     expect(pwaOptions.workbox?.skipWaiting).toBe(true);
     expect(pwaOptions.workbox?.clientsClaim).toBe(true);
     expect(pwaOptions.workbox?.navigateFallback).toBe("index.html");
-    const deny = pwaOptions.workbox?.navigateFallbackDenylist ?? [];
-    expect(deny.some((re) => re.test("/api/v1/me"))).toBe(true);
+    // The per-page HTML copies written for GitHub Pages are not precached; index.html is.
+    const globs = pwaOptions.workbox?.globPatterns ?? [];
+    expect(globs).toContain("index.html");
+    expect(globs.some((g) => /html/.test(g) && g !== "index.html")).toBe(false);
     expect(pwaOptions.workbox?.runtimeCaching ?? []).toEqual([]);
   });
 });
@@ -65,8 +67,13 @@ describe("dev and preview servers (ruling B8)", () => {
     expect(config.preview?.headers).toEqual(isolationHeaders);
   });
 
-  it("proxy /api to the local API on both servers", () => {
-    expect(config.server?.proxy?.["/api"]).toBe("http://127.0.0.1:8000");
-    expect(config.preview?.proxy?.["/api"]).toBe("http://127.0.0.1:8000");
+  it("need no back-end: nothing is proxied to a server", () => {
+    expect(config.server?.proxy).toBeUndefined();
+    expect(config.preview?.proxy).toBeUndefined();
+  });
+
+  it("write a real page for every public route after the build", () => {
+    const names = (config.plugins ?? []).flat().map((p) => (p && "name" in p ? p.name : ""));
+    expect(names).toContain("algoverse:static-pages");
   });
 });

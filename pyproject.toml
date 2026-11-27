@@ -5,10 +5,10 @@ requires-python = ">=3.12"
 dependencies = []
 
 [dependency-groups]
-dev = ["pytest", "hypothesis", "ruff", "mypy", "import-linter", "jsonschema", "datamodel-code-generator"]
+dev = ["pytest", "hypothesis", "ruff", "mypy", "jsonschema", "datamodel-code-generator"]
 
 [tool.uv.workspace]
-members = ["packages/content-tools", "packages/trace-schema", "apps/api"]
+members = ["packages/content-tools", "packages/trace-schema"]
 
 [tool.ruff]
 line-length = 100
@@ -20,17 +20,8 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.mypy]
 strict = true
-mypy_path = ["packages/content-tools/src", "apps/api/src"]
+mypy_path = ["packages/content-tools/src"]
 explicit_package_bases = true
-
-[tool.importlinter]
-root_packages = ["algoverse_content", "algoverse_api"]
-
-[[tool.importlinter.contracts]]
-name = "Content tools stay independent of the server"
-type = "forbidden"
-source_modules = ["algoverse_content"]
-forbidden_modules = ["algoverse_api"]
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
